@@ -111,6 +111,7 @@ export const DarkTheme = {
     textColor: '#eee',
     textColorLight: '#ddd',
     eyeIcon: '#FFFFFF',
+    white: '#fff',
     black: '#000',
     transparent: 'transparent',
     icon: '#9B7DC7',

@@ -887,7 +887,7 @@ const Navigation = ({
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name={Routes.WORKSPACE} options={HIDE_HEADER}>
+        <Stack.Screen name={Routes.WORKSPACES} options={HIDE_HEADER}>
           {props => (
             <WorkspaceNavigator
               {...props}

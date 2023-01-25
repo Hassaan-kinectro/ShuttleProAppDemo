@@ -1,4 +1,8 @@
 {
   "login": "Login",
-  "workspace": "Workspace"
+  "workspace": "Workspace",
+  "hello": "Hello!",
+  "login.get.started": "Login to Get Started",
+  "email": "Email",
+  "password": "Password"
 }

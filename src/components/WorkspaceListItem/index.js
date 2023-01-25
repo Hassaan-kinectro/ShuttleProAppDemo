@@ -20,6 +20,7 @@ import {
 
 import Feather from 'react-native-vector-icons/Feather';
 import {scaleSize} from '../../styles/mixins';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const WorkspaceListItem = props => {
   const {item, navigation, workspace, setWorkspaces} = props;
@@ -68,7 +69,7 @@ const WorkspaceListItem = props => {
                 Styles.justifyContentSpaceBetween,
                 Styles.alignItemsCenter,
                 {
-                  paddingHorizontal: scaleSize(25),
+                  paddingHorizontal: scaleSize(15),
                   paddingVertical: scaleSize(15),
                 },
               ]}>
@@ -86,10 +87,7 @@ const WorkspaceListItem = props => {
                   <Text
                     lines={2}
                     size={Mixins.scaleFont(16)}
-                    style={[
-                      styles.headerText,
-                      {fontFamily: 'Raleway', fontWeight: 'normal'},
-                    ]}>
+                    style={[styles.headerText]}>
                     {item.workspace.name}
                   </Text>
                 </View>
@@ -109,8 +107,8 @@ const WorkspaceListItem = props => {
             style={[
               Styles.Centered,
               Styles.w100,
-              Styles.pL10,
-              Styles.pR5,
+              // Styles.pL10,
+              // Styles.pR5,
               Styles.pV5,
             ]}>
             {/* products & Orders */}
@@ -121,7 +119,7 @@ const WorkspaceListItem = props => {
                   display: 'flex',
                   width: '100%',
                   justifyContent: 'space-between',
-                  paddingHorizontal: scaleSize(25),
+                  paddingHorizontal: scaleSize(15),
                   marginBottom: 11,
                 },
               ]}>
@@ -145,16 +143,11 @@ const WorkspaceListItem = props => {
                 style={[Styles.h100, Styles.flexDirectionRow, styles.w50]}>
                 <Text
                   lines={1}
-                  style={{
-                    fontFamily: 'Raleway',
-                    color: colors.TextColor,
-                    fontWeight: '600',
-                  }}>
+                  color={colors.TextColor}
+                  fontFamily={FONT_FAMILY.SEMI_BOLD}>
                   Products:{' '}
                 </Text>
-                <Text
-                  lines={1}
-                  style={{fontFamily: 'Raleway', color: colors.TextColor}}>
+                <Text lines={1} color={colors.TextColor}>
                   {item.products}{' '}
                 </Text>
               </TouchableOpacity>
@@ -182,17 +175,12 @@ const WorkspaceListItem = props => {
                   {paddingLeft: 50},
                 ]}>
                 <Text
+                  color={colors.TextColor}
                   lines={1}
-                  style={{
-                    fontFamily: 'Raleway',
-                    fontWeight: '600',
-                    color: colors.TextColor,
-                  }}>
+                  fontFamily={FONT_FAMILY.SEMI_BOLD}>
                   Orders:{' '}
                 </Text>
-                <Text
-                  lines={1}
-                  style={{fontFamily: 'Raleway', color: colors.TextColor}}>
+                <Text color={colors.TextColor} lines={1}>
                   {item.orders}
                 </Text>
               </TouchableOpacity>
@@ -204,7 +192,7 @@ const WorkspaceListItem = props => {
                   display: 'flex',
                   width: '100%',
                   justifyContent: 'space-between',
-                  paddingHorizontal: scaleSize(25),
+                  paddingHorizontal: scaleSize(15),
                 },
               ]}>
               <TouchableOpacity
@@ -233,11 +221,8 @@ const WorkspaceListItem = props => {
                 style={[Styles.h100, Styles.flexDirectionRow, styles.w40]}>
                 <Text
                   lines={1}
-                  style={{
-                    fontFamily: 'Raleway',
-                    fontWeight: '600',
-                    color: colors.TextColor,
-                  }}>
+                  color={colors.TextColor}
+                  fontFamily={FONT_FAMILY.SEMI_BOLD}>
                   Members:
                 </Text>
                 <View
@@ -319,11 +304,8 @@ const WorkspaceListItem = props => {
                 <Text
                   weight="600"
                   lines={1}
-                  style={{
-                    fontFamily: 'Raleway',
-                    fontWeight: '600',
-                    color: colors.TextColor,
-                  }}>
+                  fontFamily={FONT_FAMILY.SEMI_BOLD}
+                  color={colors.TextColor}>
                   Shippers:
                 </Text>
                 <View
@@ -548,7 +530,7 @@ const useStyles = colors => {
   return StyleSheet.create({
     BoxStyle: {
       height: 'auto',
-      width: IS_IOS ? deviceWidth - 20 : deviceWidth - 20,
+      width: IS_IOS ? deviceWidth - 40 : deviceWidth - 40,
       borderWidth: 1,
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
@@ -625,10 +607,10 @@ const useStyles = colors => {
     },
     hairline: {
       borderColor: colors.boxBorderColor,
-      borderWidth: 1,
-      width: '100%',
+      borderWidth: 0.5,
+      width: '90%',
       paddingHorizontal: 15,
-      marginTop: 11,
+      marginTop: 15,
     },
   });
 };

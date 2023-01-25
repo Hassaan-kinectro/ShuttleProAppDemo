@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import * as Colors from './colors';
 import * as Mixins from './mixins';
 import {Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {FONT_FAMILY} from '../utils/constants';
+
 const RawText = ({
   size = Mixins.scaleFont(14),
   weight = '300',
@@ -11,13 +12,15 @@ const RawText = ({
   style = {},
   children,
   ellipsizeMode = 'tail',
+  fontFamily = FONT_FAMILY.REGULAR,
   lines = 100,
 }) => {
   const {colors} = useTheme();
   const textStyle = {
     color: color ? color : colors.textColor,
     fontSize: size,
-    fontWeight: weight,
+    // fontWeight: weight,
+    fontFamily: fontFamily,
   };
   return (
     <Text

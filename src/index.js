@@ -67,8 +67,8 @@ const Src = () => {
   React.useEffect(() => {
     AsyncStorage.getItem('Theme').then(res => {
       console.log('---Theme->>>', res);
-      setTheme(res);
-      dispatch(UpdateTheme(res));
+      setTheme(res ? res : 'DARK');
+      dispatch(UpdateTheme(res ? res : 'DARK'));
     });
   });
 

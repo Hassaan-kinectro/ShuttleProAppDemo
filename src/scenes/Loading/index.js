@@ -15,7 +15,7 @@ const LoadingScreen = ({navigation, route}) => {
       if (res) {
         // navigation.navigate('Drawer');
         setTimeout(() => {
-          navigation.dispatch(StackActions.replace(Routes.WORKSPACE));
+          navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
         }, 1000); // navigation.navigate('Workspace')
       } else {
         // navigation.navigate('Login');

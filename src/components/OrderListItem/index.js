@@ -20,7 +20,7 @@ import Clipboard from '@react-native-community/clipboard';
 import {TransformPrice} from '../../utils/Parser';
 import Feather from 'react-native-vector-icons/Feather';
 import AIcon from 'react-native-vector-icons/AntDesign';
-import {Routes} from '../../utils/constants';
+import {FONT_FAMILY, Routes} from '../../utils/constants';
 import ActivitySelector from '../ActivitySelector';
 import ActivityModal from '../ActivityModal';
 import OrderProductDetails from '../OrderProductDetails';
@@ -208,11 +208,7 @@ const OrderListItem = props => {
               }}>
               <View style={styles.inline}>
                 <View>
-                  <Text
-                    style={{fontSize: 12}}
-                    size={Mixins.scaleFont(16)}
-                    weight="400"
-                    color={colors.TextColor}>
+                  <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
                     CN #{' '}
                     {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
                   </Text>
@@ -224,12 +220,7 @@ const OrderListItem = props => {
               <View style={styles.inline}>
                 <View />
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                      fontWeight: '600',
-                    }}>
+                  <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
                     {props.item.cod_amount
                       ? TransformPrice(props.item.cod_amount)
                       : 'N/A'}
@@ -242,11 +233,8 @@ const OrderListItem = props => {
               <View style={styles.inline}>
                 <View>
                   <Text
-                    style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                    }}
-                    weight="600"
+                    size={12}
+                    fontFamily={FONT_FAMILY.SEMI_BOLD}
                     color={colors.TextColor}>
                     {props.item.customer && props.item.customer.name
                       ? props.item.customer.name
@@ -265,10 +253,9 @@ const OrderListItem = props => {
                       OpenActivity();
                     }}>
                     <Text
+                      size={12}
+                      fontFamily={FONT_FAMILY.SEMI_BOLD}
                       style={{
-                        fontSize: 12,
-                        fontStyle: 'normal',
-                        fontWeight: '600',
                         marginTop: 5,
                       }}>
                       Ph #{' '}
@@ -279,12 +266,7 @@ const OrderListItem = props => {
                   </TouchableOpacity>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                      fontWeight: '600',
-                    }}>
+                  <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
                     {moment(props.item.updated_at).format('DD MMM, YYYY')}
                   </Text>
                 </View>
@@ -294,9 +276,8 @@ const OrderListItem = props => {
               <View style={styles.inline}>
                 <View>
                   <Text
-                    style={{fontSize: 12}}
-                    size={Mixins.scaleFont(16)}
-                    weight="400"
+                    size={Mixins.scaleFont(12)}
+                    fontFamily={FONT_FAMILY.MEDIUM}
                     color={colors.TextColor}>
                     Address
                   </Text>
@@ -306,10 +287,9 @@ const OrderListItem = props => {
               <View style={styles.inline}>
                 <View>
                   <Text
+                    size={12}
+                    fontFamily={FONT_FAMILY.SEMI_BOLD}
                     style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                      fontWeight: '600',
                       marginTop: 5,
                     }}>
                     {props.item.customer && props.item.customer.address
@@ -330,9 +310,7 @@ const OrderListItem = props => {
             alignItems: 'center',
             marginTop: 10,
           }}>
-          <Text
-            style={{fontWeight: '400', fontSize: 10, fontStyle: 'normal'}}
-            color={colors.TextColor}>
+          <Text size={10} color={colors.TextColor}>
             Product Details
           </Text>
         </View>
@@ -378,7 +356,7 @@ const OrderListItem = props => {
                 style={[
                   Styles.flexCenter,
                   {
-                    height: (deviceHeight - getFixedHeaderHeight() - 100) / 12,
+                    height: (deviceHeight - getFixedHeaderHeight() - 100) / 8,
                   },
                 ]}>
                 <AIcon
@@ -435,7 +413,7 @@ const useStyles = colors => {
   return StyleSheet.create({
     listItem: {
       // height: 140,
-      width: deviceWidth - 20,
+      width: deviceWidth - 30,
       backgroundColor: colors.boxColor,
       padding: 8,
       borderWidth: 0.5,
@@ -443,6 +421,7 @@ const useStyles = colors => {
       borderColor: colors.boxBorderColor,
       marginBottom: 5,
       marginTop: 15,
+      marginHorizontal: 5,
     },
     TrackingId: {
       width: deviceWidth - 100,
@@ -474,7 +453,7 @@ const useStyles = colors => {
     },
     hairline: {
       borderColor: colors.boxBorderColor,
-      borderWidth: 1,
+      borderWidth: 0.5,
       width: '100%',
       paddingHorizontal: 15,
       marginTop: 11,
