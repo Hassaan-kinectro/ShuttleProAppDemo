@@ -1,0 +1,40 @@
+import * as Type from './types';
+import {isObject} from 'lodash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const WorkspaceReducer = (
+  state = {
+    workspace: null,
+    workspaceId: '',
+  },
+  action,
+) => {
+  console.log(action);
+  switch (action.type) {
+    case Type.SET_WORKSPACE:
+      state = {
+        ...state,
+        workspace: action.payload,
+        workspaceId: (action.payload && action.payload.id) || '',
+      };
+      break;
+    default:
+      state = {
+        workspace: !isObject(state.workspace)
+          ? ParseValue(state.workspace)
+          : state.workspace,
+        workspaceId: state.workspaceId,
+      };
+      break;
+  }
+  return state;
+};
+const ParseValue = user => {
+  let val = null;
+  try {
+    val = JSON.parse(user);
+  } catch (e) {
+    val = null;
+  }
+  return val;
+};
+export default WorkspaceReducer;
