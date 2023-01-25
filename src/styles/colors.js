@@ -2,7 +2,7 @@ export const PRIMARY = '#2D3038';
 export const PRIMARY_3 = '#4A3A61';
 export const PRIMARY_1 = '#9B7DC7';
 export const PRIMARY_SHADE = '#3A2F47';
-export const PRIMARY_DARK = '#322740';
+export const BACKGROUND = '#23313E';
 export const PRIMARY_LIGHT = '#4B3A60';
 export const BRAND = '#be7a00';
 export const PRIMARY_OPACITY = 'rgba(237,220,140,0.7)';
@@ -80,11 +80,13 @@ export const LightTheme = {
     searchIcon: '#284962',
     searchIconBackground: '#8EB7BF',
     tabBackgroundColor: '#FAFAFE',
+    backgroundModal: '#DFF3F4',
   },
 };
 export const DarkTheme = {
   dark: true,
   colors: {
+    backgroundModal: '#222830',
     feildBorder: '#C5C5C5',
     loginText: '#989898',
     tabBackgroundColor: '#272F40',

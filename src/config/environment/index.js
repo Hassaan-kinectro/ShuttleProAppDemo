@@ -1,5 +1,5 @@
 const enviroment = {
-  url: 'https://app.shuttlepro.io/api',
+  url: 'https://beta.shuttlepro.io/api',
 };
 
 export default enviroment;

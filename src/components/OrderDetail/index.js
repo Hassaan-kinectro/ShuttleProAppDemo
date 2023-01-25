@@ -120,7 +120,16 @@ const OrderDetail = props => {
 
   return (
     <>
-      <View style={[styles.listItem]}>
+      <View
+        style={[
+          styles.listItem,
+          {
+            shadowOffset: {width: 0, height: 5},
+            shadowOpacity: 0.2,
+            shadowRadius: 6,
+            elevation: 5,
+          },
+        ]}>
         <View style={[Styles.flexDirectionRow, Styles.alignItemsCenter]}>
           <View style={[Styles.flex, Styles.justifyContentCenter]}>
             <View style={styles.inline}>
@@ -292,7 +301,12 @@ const OrderDetail = props => {
               : {backgroundColor: colors.LightBackground},
           ]}
           onPress={() => setTabIndex(0)}>
-          <Text>Timeline</Text>
+          <Text
+            style={[
+              tabIndex === 0 ? {color: '#fff'} : {color: colors.TextColor},
+            ]}>
+            Timeline
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -302,9 +316,15 @@ const OrderDetail = props => {
               : {backgroundColor: colors.LightBackground},
           ]}
           onPress={() => setTabIndex(1)}>
-          <Text>Activity</Text>
+          <Text
+            style={[
+              tabIndex === 1 ? {color: '#fff'} : {color: colors.TextColor},
+            ]}>
+            Activity
+          </Text>
         </TouchableOpacity>
       </View>
+
       {tabIndex === 0 && <OrderTimeline props={props} />}
       {tabIndex === 1 && <OrderActivity props={props} />}
 

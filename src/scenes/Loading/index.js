@@ -27,7 +27,7 @@ const LoadingScreen = ({navigation, route}) => {
   return (
     <>
       <View style={[Styles.flexCenter, Styles.primaryBackground]}>
-        <ActivityIndicator color={colors.spinner} size={50} />
+        <ActivityIndicator color={colors.themeIcon} size={50} />
       </View>
     </>
   );

@@ -127,9 +127,7 @@ const OrderListItem = props => {
     }, 1000);
     setLoading(true);
     CreateActivity(obj2).then(res => {
-      console.log('enter in createActivity');
       if (res.status === 200) {
-        console.log(res.status, '11111enter in createActivity');
         setTimeout(() => {
           flashBox?.current?.showMessage({
             message: '',
@@ -148,7 +146,7 @@ const OrderListItem = props => {
       }
     });
     ShowActivityModal();
-    // setActivityType(type);
+
     openDialScreen();
   };
 
@@ -182,7 +180,16 @@ const OrderListItem = props => {
     : null;
   return (
     <>
-      <View style={[styles.listItem]}>
+      <View
+        style={[
+          styles.listItem,
+          {
+            shadowOffset: {width: 0, height: 0.5},
+            shadowOpacity: 0.2,
+            shadowRadius: 6,
+            elevation: 5,
+          },
+        ]}>
         <View style={[Styles.flexDirectionRow, Styles.alignItemsCenter]}>
           <View style={[Styles.flex, Styles.justifyContentCenter]}>
             <TouchableOpacity
@@ -235,8 +242,10 @@ const OrderListItem = props => {
               <View style={styles.inline}>
                 <View>
                   <Text
-                    style={{fontSize: 12}}
-                    size={Mixins.scaleFont(16)}
+                    style={{
+                      fontSize: 12,
+                      fontStyle: 'normal',
+                    }}
                     weight="600"
                     color={colors.TextColor}>
                     {props.item.customer && props.item.customer.name
@@ -369,7 +378,7 @@ const OrderListItem = props => {
                 style={[
                   Styles.flexCenter,
                   {
-                    height: (deviceHeight - getFixedHeaderHeight() - 40) / 2,
+                    height: (deviceHeight - getFixedHeaderHeight() - 100) / 12,
                   },
                 ]}>
                 <AIcon
@@ -382,6 +391,7 @@ const OrderListItem = props => {
                   style={{
                     color: colors.textColorLight,
                     fontSize: Mixins.scaleFont(16),
+                    paddingBottom: 20,
                   }}>
                   Products Not Available
                 </Text>

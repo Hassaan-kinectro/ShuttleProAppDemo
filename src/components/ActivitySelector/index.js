@@ -54,7 +54,7 @@ const ActivitySelector = props => {
             props.openActivity('confirmation');
             onModalClose();
           }}>
-          <Text style={colors.White}>Confirmation</Text>
+          <Text style={{color: '#fff'}}>Confirmation</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -71,7 +71,7 @@ const ActivitySelector = props => {
             props.openActivity('follow_up');
             onModalClose();
           }}>
-          <Text style={Colors.WHITE}>Follow-up</Text>
+          <Text style={{color: '#fff'}}>Follow-up</Text>
         </TouchableOpacity>
       </View>
     </MModal>

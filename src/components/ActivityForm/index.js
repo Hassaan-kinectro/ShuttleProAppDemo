@@ -272,9 +272,9 @@ const ActivityForm = props => {
               keyboardShouldPersistTaps: 'always',
             }}
             dropDownMaxHeight={200}
-            searchable={true}
-            searchablePlaceholder="Select Name"
-            searchableError={() => <Text>No Name Found</Text>}
+            // searchable={true}
+            // searchablePlaceholder="Select Name"
+            // searchableError={() => <Text>No Name Found</Text>}
             isVisible={nameVisible}
             onOpen={() => {
               changeVisibility();
@@ -321,9 +321,9 @@ const ActivityForm = props => {
               keyboardShouldPersistTaps: 'always',
             }}
             dropDownMaxHeight={200}
-            searchable={true}
-            searchablePlaceholder="Search Type"
-            searchableError={() => <Text>No Type Found</Text>}
+            // searchable={true}
+            // searchablePlaceholder="Search Type"
+            // searchableError={() => <Text>No Type Found</Text>}
             isVisible={comTypeVisible}
             onOpen={() => {
               changeVisibility();
@@ -361,9 +361,9 @@ const ActivityForm = props => {
             keyboardShouldPersistTaps: 'always',
           }}
           dropDownMaxHeight={200}
-          searchable={true}
-          searchablePlaceholder="Search Recipient Group"
-          searchableError={() => <Text>No Recipient Group Found</Text>}
+          // searchable={true}
+          // searchablePlaceholder="Search Recipient Group"
+          // searchableError={() => <Text>No Recipient Group Found</Text>}
           isVisible={recipientGroupVisible}
           onOpen={() => {
             changeVisibility();
@@ -399,9 +399,9 @@ const ActivityForm = props => {
             keyboardShouldPersistTaps: 'always',
           }}
           dropDownMaxHeight={200}
-          searchable={true}
-          searchablePlaceholder="Search Template"
-          searchableError={() => <Text>No Template Found</Text>}
+          // searchable={true}
+          // searchablePlaceholder="Search Template"
+          // searchableError={() => <Text>No Template Found</Text>}
           isVisible={templateVisible}
           onOpen={() => {
             changeVisibility();
@@ -473,7 +473,7 @@ const ActivityForm = props => {
           name="remarks"
           inputStyle={Styles.InputStyle}
           tintColor={colors.tintColor}
-          textColor={colors.textColor}
+          textColor={colors.TextColor}
           baseColor={colors.baseColor}
           placeholderTextColor={colors.placeholder}
           onChangeText={rem => props.setFieldValue('remarks', rem)}
@@ -483,6 +483,7 @@ const ActivityForm = props => {
           }}
           error={props.touched.remarks && props.errors.remarks}
           autoCapitalize="none"
+          labelStyle={{fontSize: Mixins.scaleFont(15)}}
           autoCorrect={false}
           defaultValue={props.values.remarks}
           returnKeyType="next"
@@ -495,7 +496,7 @@ const ActivityForm = props => {
           name="description"
           inputStyle={[Styles.InputStyle, {height: 85}]}
           tintColor={colors.tintColor}
-          textColor={colors.textColor}
+          textColor={colors.TextColor}
           baseColor={colors.baseColor}
           placeholderTextColor={colors.placeholder}
           onChangeText={desc => props.setFieldValue('description', desc)}
@@ -503,6 +504,7 @@ const ActivityForm = props => {
           onFocus={() => {
             changeVisibility();
           }}
+          labelStyle={{fontSize: Mixins.scaleFont(15)}}
           error={props.touched.description && props.errors.description}
           autoCapitalize="none"
           autoCorrect={false}

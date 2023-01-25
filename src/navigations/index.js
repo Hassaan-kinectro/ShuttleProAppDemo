@@ -21,7 +21,7 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 
 import {showMessage} from 'react-native-flash-message';
-import {IS_IOS} from '../utils/orientation';
+import {IS_ANDROID, IS_IOS} from '../utils/orientation';
 import {Routes, HIDE_HEADER} from '../utils/constants';
 import {SignOut, setTheme, setAuth} from '../config/authSettings';
 import {Colors, GlobalStyle} from '../styles';
@@ -178,6 +178,26 @@ const AppLogout = async (
   await SignOut();
   navigation.dispatch(StackActions.replace('login'));
 };
+
+export const Logout = async (
+  navigation,
+  setAuth,
+  setUserName,
+  setOrganization_id,
+  setUserRole,
+  setUserId,
+  setWorkspaces,
+) => {
+  await setAuth(false);
+  await setUserName(null),
+    await setOrganization_id(null),
+    await setUserRole(null),
+    // await setWorkspaces(null),
+    await setUserId(null);
+  await SignOut();
+  navigation.dispatch(StackActions.replace('login'));
+};
+
 const ThemeIcon = () => {
   const theme = useSelector(state => state.themeChange.theme);
   const dispatch = useDispatch();
@@ -285,7 +305,9 @@ const CustomDrawerContent = props => {
       ? workspace.workspace.name
       : null;
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView
+      style={{backgroundColor: colors.background}}
+      {...props}>
       <View
         style={[Styles.flexCenter, Styles.flexDirectionColumn, {height: 180}]}>
         <ThemeIcon />
@@ -471,7 +493,7 @@ const DrawerNavigator = ({
   return (
     <Drawer.Navigator
       initialRouteName={Routes.BOTTOMTAB}
-      overlayColor={Colors.DRAWER_OVERLAY}
+      overlayColor={colors.background}
       screenOptions={() => ({
         headerShown: false,
       })}
@@ -485,13 +507,13 @@ const DrawerNavigator = ({
           setUserName={setUserName}
         />
       )}
-      drawerStyle={{backgroundColor: colors.background}}
+      drawerStyle={{backgroundColor: colors.themeIcon}}
       openByDefault={false}
       ScreenOptions={{
         activeTintColor: Colors.WHITE,
         activeBackgroundColor: Colors.GRAYLIGHT,
         inactiveTintColor: Colors.GRAY,
-        inactiveBackgroundColor: Colors.TRANSPARENT,
+        inactiveBackgroundColor: Colors.WHITE,
         itemStyle: {
           borderBottomWidth: 0.5,
           borderBottomColor: colors.icon,
@@ -538,6 +560,7 @@ const BottomTabNavigator = ({
       screenOptions={() => ({
         headerShown: false,
         tabBarStyle: {
+          height: IS_ANDROID ? '10%' : '10%',
           borderColor: 'transparent',
           backgroundColor: colors.background,
           position: 'absolute',
@@ -580,11 +603,7 @@ const BottomTabNavigator = ({
 
                   elevation: 17,
                 }}>
-                <MaterialIcons
-                  name="credit-card"
-                  size={size}
-                  color={colors.labelColor}
-                />
+                <AIcon name="creditcard" size={size} color={color} />
                 <View
                   style={{
                     height: 5,
@@ -596,11 +615,7 @@ const BottomTabNavigator = ({
                 />
               </View>
             ) : (
-              <MaterialIcons
-                name="credit-card"
-                size={size}
-                color={colors.labelColor}
-              />
+              <AIcon name="creditcard" size={size} color={color} />
             ),
         }}>
         {props => <Dashboard {...props} />}

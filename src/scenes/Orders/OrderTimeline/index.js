@@ -10,7 +10,7 @@ import {
 import {Text, Spinner, Colors, GlobalStyle} from '../../../styles';
 import {getOrderDetail, getOrderStatus} from '../../../services/Order';
 import {showMessage} from 'react-native-flash-message';
-import {deviceWidth} from '../../../utils/orientation';
+import {deviceWidth, IS_ANDROID, IS_IOS} from '../../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
@@ -121,8 +121,9 @@ const OrderTimeline = props => {
       setLoading(false);
     }
   };
+
   return (
-    <View style={[Styles.flex, Styles.flexDirectionColumn, {height: 350}]}>
+    <View style={[Styles.flex, Styles.flexDirectionColumn, styles.ActivityBox]}>
       <View
         style={[
           Styles.flex,
@@ -131,6 +132,9 @@ const OrderTimeline = props => {
             borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.boxBorderColor,
+            shadowOffset: {width: 0, height: 0.6},
+            shadowOpacity: 0.2,
+            shadowRadius: 6,
           },
         ]}>
         {loading ? (
@@ -163,7 +167,7 @@ const OrderTimeline = props => {
 
         <TouchableOpacity
           onPress={GetBookedOrderStatus}
-          style={[Styles.flexCenter, Styles.floatButton, {opacity: 0.5}]}>
+          style={[Styles.flexCenter, Styles.floatButton]}>
           <MIcon
             style={{opacity: 1}}
             name="update"
@@ -177,6 +181,7 @@ const OrderTimeline = props => {
 };
 const useStyles = colors => {
   return StyleSheet.create({
+    ActivityBox: {height: IS_IOS ? 350 : 250},
     container: {
       padding: 5,
       paddingTop: 20,
@@ -193,7 +198,7 @@ const useStyles = colors => {
       borderRadius: 12,
     },
     fieldWidth: {
-      width: (deviceWidth - 60) / 2,
+      width: deviceWidth - 230,
       // alignItems: 'center',
       justifyContent: 'center',
     },

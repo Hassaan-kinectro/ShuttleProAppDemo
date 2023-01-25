@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {SetWorkspace} from '../../modules/workspace';
 import {Colors, GlobalStyle, Mixins, Text} from '../../styles';
-import {deviceWidth} from '../../utils/orientation';
+import {deviceWidth, IS_IOS, IS_ANDROID} from '../../utils/orientation';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../CircularImage';
 import {StackActions, useTheme} from '@react-navigation/native';
@@ -19,6 +19,7 @@ import {
 } from '../../utils/imagesPath';
 
 import Feather from 'react-native-vector-icons/Feather';
+import {scaleSize} from '../../styles/mixins';
 
 const WorkspaceListItem = props => {
   const {item, navigation, workspace, setWorkspaces} = props;
@@ -30,7 +31,7 @@ const WorkspaceListItem = props => {
   let result;
   return (
     <>
-      <View>
+      <View style={[Styles.flex]}>
         <TouchableOpacity
           key={item.workspace.id}
           activeOpacity={0.7}
@@ -64,28 +65,34 @@ const WorkspaceListItem = props => {
               style={[
                 Styles.w100,
                 Styles.flexDirectionRow,
-                styles.HeaderView,
-                {marginBottom: 17, paddingLeft: 15, marginTop: 12},
+                Styles.justifyContentSpaceBetween,
+                Styles.alignItemsCenter,
+                {
+                  paddingHorizontal: scaleSize(25),
+                  paddingVertical: scaleSize(15),
+                },
               ]}>
-              <CircularImage
-                img={
-                  props.item.workspace.icon
-                    ? props.item.workspace.icon.thumb.url
-                    : props.item.workspace.icon.url
-                }
-                name={item.workspace.name}
-                style={styles.HeaderImage}
-              />
-              <View style={[styles.headerTextView]}>
-                <Text
-                  lines={2}
-                  size={Mixins.scaleFont(16)}
-                  style={[
-                    styles.headerText,
-                    {fontFamily: 'Raleway', fontWeight: 'normal'},
-                  ]}>
-                  {item.workspace.name}
-                </Text>
+              <View style={[Styles.flexDirectionRow, Styles.alignItemsCenter]}>
+                <CircularImage
+                  img={
+                    props.item.workspace.icon
+                      ? props.item.workspace.icon.thumb.url
+                      : props.item.workspace.icon.url
+                  }
+                  name={item.workspace.name}
+                  style={styles.HeaderImage}
+                />
+                <View style={[styles.headerTextView]}>
+                  <Text
+                    lines={2}
+                    size={Mixins.scaleFont(16)}
+                    style={[
+                      styles.headerText,
+                      {fontFamily: 'Raleway', fontWeight: 'normal'},
+                    ]}>
+                    {item.workspace.name}
+                  </Text>
+                </View>
               </View>
               <TouchableOpacity style={[styles.headerTextView]}>
                 <View style={[styles.dropIcon]}>
@@ -114,7 +121,7 @@ const WorkspaceListItem = props => {
                   display: 'flex',
                   width: '100%',
                   justifyContent: 'space-between',
-                  paddingLeft: 15,
+                  paddingHorizontal: scaleSize(25),
                   marginBottom: 11,
                 },
               ]}>
@@ -197,7 +204,7 @@ const WorkspaceListItem = props => {
                   display: 'flex',
                   width: '100%',
                   justifyContent: 'space-between',
-                  paddingLeft: 15,
+                  paddingHorizontal: scaleSize(25),
                 },
               ]}>
               <TouchableOpacity
@@ -298,7 +305,17 @@ const WorkspaceListItem = props => {
                     initial: false,
                   });
                 }}
-                style={[Styles.h100, Styles.flexDirectionRow, styles.w50]}>
+                style={[
+                  Styles.h100,
+                  Styles.flexDirectionRow,
+
+                  styles.w50,
+                  {
+                    paddingLeft: scaleSize(30),
+                    // backgroundColor: 'green',
+                    // alignItems: 'flex-end',
+                  },
+                ]}>
                 <Text
                   weight="600"
                   lines={1}
@@ -306,7 +323,6 @@ const WorkspaceListItem = props => {
                     fontFamily: 'Raleway',
                     fontWeight: '600',
                     color: colors.TextColor,
-                    paddingLeft: 40,
                   }}>
                   Shippers:
                 </Text>
@@ -532,15 +548,19 @@ const useStyles = colors => {
   return StyleSheet.create({
     BoxStyle: {
       height: 'auto',
-      width: deviceWidth - 20,
-
+      width: IS_IOS ? deviceWidth - 20 : deviceWidth - 20,
       borderWidth: 1,
       borderRadius: 20,
-
       borderColor: colors.boxBorderColor,
       marginBottom: 10,
       backgroundColor: colors.boxColor,
     },
+    Box: {
+      // marginBottom: IS_IOS ? 17 : 15,
+      // paddingLeft: IS_IOS ? 15 : 10,
+      // marginTop: IS_IOS ? 12 : 10,
+    },
+
     CirculedImage: {width: 25, height: 25, borderRadius: 100, marginLeft: 1},
     w40: {
       width: '40%',
@@ -568,21 +588,33 @@ const useStyles = colors => {
       alignItems: 'center',
     },
     headerTextView: {
-      justifyContent: 'center',
-      alignContent: 'center',
-      marginLeft: 10,
-      width: 150,
+      // justifyContent: 'center',
+      // alignContent: 'center',
+      // // backgroundColor: 'red',
+      // // marginLeft: 10,
+      // flex: 1,
+      // width: 150,
     },
     headerText: {
       textAlignVertical: 'center',
       paddingBottom: 5,
+      paddingLeft: scaleSize(10),
+
       color: colors.TextHeader,
     },
-    HeaderImage: {width: 50, height: 50, borderRadius: 25, marginLeft: 2},
-    HeaderView: {
-      height: 55,
+    HeaderImage: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      // backgroundColor: 'red',
+      // marginLeft: 10,,
     },
-    dropIcon: {position: 'absolute', top: 20, right: 15, width: 20},
+    HeaderView: {
+      // height: 55,
+    },
+    dropIcon: {
+      // position: 'absolute', top: 20, right: 15, width: 20
+    },
 
     MemberImage: {
       width: 25,

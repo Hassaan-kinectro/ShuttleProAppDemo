@@ -6,6 +6,7 @@ import {ResolveImages} from '../../utils/urlParser';
 import FastImage from 'react-native-fast-image';
 import {TransformPrice} from '../../utils/Parser';
 import {useTheme} from '@react-navigation/native';
+import {scaleSize} from '../../styles/mixins';
 
 const columnWidth = deviceWidth / 2 - 20;
 const RowItem = item => {
@@ -141,13 +142,12 @@ const useStyles = colors => {
     },
     productImage: {
       // width: deviceWidth / 3,
-      // height: deviceHeight / 3,
+      // height: deviceHeight / 9,
       width: 115,
       height: 115,
-      // backgroundColor: 'pink',
       borderColor: 'transparent',
       borderWidth: 1,
-      borderRadius: 1,
+      borderRadius: 10,
     },
     separator: {
       borderBottomWidth: 0.5,
@@ -170,7 +170,7 @@ const useStyles = colors => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginLeft: 10,
+      marginLeft: scaleSize(15),
       marginRight: 52,
       flexDirection: 'row',
     },

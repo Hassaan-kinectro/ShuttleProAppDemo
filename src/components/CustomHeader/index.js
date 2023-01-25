@@ -15,13 +15,14 @@ import FIcon from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 import CircularImage from '../CircularImage';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
-
+import {IS_ANDROID} from '../../utils/orientation';
 import {
   HeaderBG,
   Hamburger,
   HeaderDark,
   HeaderLight,
 } from '../../utils/imagesPath';
+import {scaleSize} from '../../styles/mixins';
 
 const CustomHeader = ({navigation, name}) => {
   const theme = useSelector(state => state.themeChange.theme);
@@ -67,16 +68,14 @@ const CustomHeader = ({navigation, name}) => {
                 <MIcon name="arrow-back" size={24} color={colors.searchIcon} />
               </TouchableOpacity>
               <TextInput
+                placeholderTextColor={colors.TextColor}
                 style={styles.searchInput}
                 placeholder="Search"
-                left={() => (
-                  <MIcon name="search" size={24} color={colors.searchIcon} />
-                )}
               />
               <TouchableOpacity
                 style={styles.searchIcon}
                 onPress={() => setSearchVisible(true)}>
-                <FIcon name="search" size={22} color={colors.searchIcon} />
+                <FIcon name="search" size={22} color={colors.TextColor} />
               </TouchableOpacity>
             </View>
           )}
@@ -87,11 +86,7 @@ const CustomHeader = ({navigation, name}) => {
                 onPress={() => setSearchVisible(true)}>
                 <FIcon name="search" size={22} color={colors.searchIcon} />
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.profileIcon}
-                onPress={() => {
-                  // navigate to settings
-                }}>
+              <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
                 <CircularImage
                   img={workspaceImage}
                   name={workspaceName}
@@ -99,9 +94,6 @@ const CustomHeader = ({navigation, name}) => {
                 />
                 <View
                   style={{
-                    // height: 1,
-                    // width: '100%',
-                    // borderRadius: 100,
                     width: 5,
                     bottom: 0,
                     right: -2,
@@ -134,6 +126,8 @@ const useStyles = colors => {
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 16,
+      // height: IS_ANDROID ? 100 : 130,
+      // paddingTop: IS_ANDROID ? 30 : 40,
       height: 130,
       paddingTop: 40,
     },
@@ -143,6 +137,7 @@ const useStyles = colors => {
       fontFamily: 'Raleway',
       fontSize: 24,
       color: colors.TextColor,
+      marginRight: scaleSize(120),
     },
     searchContainer: {
       flexDirection: 'row',
@@ -174,7 +169,7 @@ const useStyles = colors => {
     searchIcon: {
       padding: 5,
       backgroundColor: colors.searchIconBackground,
-      opacity: 0.8,
+      opacity: 2,
       borderRadius: 50,
     },
     profileIcon: {

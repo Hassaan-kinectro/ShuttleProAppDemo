@@ -10,12 +10,16 @@ import {
   ImageBackground,
 } from 'react-native';
 import {Colors, GlobalStyle, Mixins, Spinner, Text} from '../../styles';
+import {StackActions} from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import {
   deviceHeight,
   deviceWidth,
   getFixedHeaderHeight,
 } from '../../utils/orientation';
-import {useSelector} from 'react-redux';
+import {Logout} from '../../navigations';
+import {useSelector, useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import useStyles from './styles';
@@ -23,6 +27,8 @@ import {useTheme} from '@react-navigation/native';
 import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
 import Wrapper from '../../components/Wrapper';
+import {UserContext} from '../../context/userContext';
+
 import {
   Dark,
   Light,
@@ -34,20 +40,20 @@ const Workspace = props => {
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const {workspace, setWorkspaces, route} = props;
+  const {workspace, setWorkspaces, route, navigation} = props;
   const theme = useSelector(state => state.themeChange.theme);
   const {colors} = useTheme();
   const styles = useStyles();
   const Styles = GlobalStyle();
   const {t} = useTranslation();
-
+  let context = React.useContext(UserContext);
+  const {setAuth, setUserName, setOrganization_id, setUserRole, setUserId} =
+    context;
   useEffect(() => {
     getRecord();
-    console.log('useEFFECT RANN');
   }, []);
   React.useEffect(() => {
     if (route.params && route.params.refresh) {
-      console.log('route.params.refresh');
       setRefresh(route.params.refresh);
       onRefresh();
     }
@@ -56,7 +62,6 @@ const Workspace = props => {
     setLoading(true);
     GetWorkSpaceUser()
       .then(res => {
-        console.log(res, 'from workspace');
         if (res.status === 200 && res.data.length > 0) {
           setTimeout(() => {
             setWorkspaceList(res.data);
@@ -80,7 +85,6 @@ const Workspace = props => {
     setRefresh(true);
     GetWorkSpaceUser().then(res => {
       if (res.status === 200 && res.data.length > 0) {
-        console.log('from refresh');
         setRefresh(false);
         setWorkspaceList(res.data);
       } else {
@@ -102,12 +106,23 @@ const Workspace = props => {
           borderColor: 'transparent',
           borderWidth: 0.5,
         }}>
-        <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
+        <ImageBackground
+          style={{
+            shadowOffset: {width: 0, height: 0.2},
+            shadowOpacity: 0.1,
+            shadowRadius: 5,
+            elevation: 5,
+          }}
+          source={theme === 'DARK' ? HeaderDark : HeaderLight}>
           <View
             style={{
               marginLeft: 21,
               marginTop: 70,
               marginBottom: 15,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'row',
             }}>
             <Text
               style={{
@@ -118,11 +133,37 @@ const Workspace = props => {
               }}>
               Workspaces
             </Text>
+            <MaterialIcons
+              name="logout"
+              color={colors.TextColor}
+              size={25}
+              style={{paddingRight: 15}}
+              onPress={() =>
+                Logout(
+                  navigation,
+                  setAuth,
+                  setUserName,
+                  setOrganization_id,
+                  setUserRole,
+                  setUserId,
+                )
+              }
+            />
           </View>
         </ImageBackground>
       </View>
-      <View style={(Styles.alignItemsCenter, Styles.flexCenter)}>
-        <View style={{height: 20}} />
+      <View
+        style={[
+          Styles.alignItemsCenter,
+          Styles.flexCenter,
+          {
+            shadowOffset: {width: 0, height: 0.2},
+            shadowOpacity: 0.1,
+            shadowRadius: 5,
+            elevation: 3,
+          },
+        ]}>
+        <View style={{height: 10}} />
         {loading ? (
           <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
             {loading && (

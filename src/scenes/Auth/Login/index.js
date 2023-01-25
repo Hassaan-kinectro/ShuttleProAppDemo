@@ -16,7 +16,11 @@ import TextField from '../../../components/TextField';
 import {AuthLogin} from '../../../services/Login';
 import {StackActions, useTheme} from '@react-navigation/native';
 import useStyles from './styles';
-import {deviceHeight, deviceWidth} from '../../../utils/orientation';
+import {
+  deviceHeight,
+  deviceWidth,
+  IS_ANDROID,
+} from '../../../utils/orientation';
 import {initialValues, LoginvalidationSchema} from './helper';
 import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -70,25 +74,22 @@ const LoginScreen = props => {
       source={theme === 'DARK' ? DarkBG : LightBG}
       resizeMode="cover"
       style={[styles.image, {width: '100%', height: '100%'}]}>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
         <View
           style={[
             Styles.flex,
             Styles.flexDirectionColumn,
-            // Styles.justifyContentSpaceBetween,
+
             Styles.alignItemsCenter,
             Styles.justifyContentCenter,
             {justifyContent: 'space-around'},
           ]}>
-          {/* <Icon /> */}
           <View
             style={[
               Styles.w100,
               Styles.justifyContentCenter,
               Styles.alignItemsCenter,
-              {paddingTop: 100},
-              // {backgroundColor: 'pink', position: 'absolute', top: 100},
-              ,
+              {paddingTop: IS_ANDROID ? 60 : 100},
             ]}>
             <Image
               source={LogoIcon}
@@ -109,11 +110,9 @@ const LoginScreen = props => {
                 <View style={[styles.container]}>
                   <Text
                     color={colors.TextColor}
-                    // size={Mixins.scaleFont(24)}
-                    // weight="bold"
                     style={{
                       fontFamily: 'Raleway',
-                      // color: '#FAFAFE',
+
                       fontWeight: 'bold',
                       fontStyle: 'normal',
                       fontSize: 24,
@@ -122,7 +121,6 @@ const LoginScreen = props => {
                   </Text>
                   <Text
                     style={{
-                      // color: '#FAFAFE',
                       fontFamily: 'Raleway',
                       fontStyle: 'normal',
                       fontSize: 16,
@@ -130,23 +128,25 @@ const LoginScreen = props => {
                       lineHeight: 28,
                       marginTop: 5,
                     }}
-                    color={colors.TextColor}
-                    // size={Mixins.scaleFont(13)}
-                  >
+                    color={colors.TextColor}>
                     Login to Get Started
                   </Text>
                   <View style={{marginTop: 50}}>
                     <View
                       style={
-                        ([Styles.flexCenter], {backgroundColor: 'transaprent'})
+                        ([Styles.flexCenter],
+                        {
+                          backgroundColor: 'transaprent',
+                          marginBottom: 10,
+                        })
                       }>
                       <TextField
                         label="Email"
                         name="email"
                         placeholder="Enter Email"
-                        // tintColor={colors.TextColor}
+                        tintColor={colors.TextColor}
                         textColor={colors.loginText}
-                        // baseColor={colors.baseColor}
+                        baseColor={colors.baseColor}
                         placeholderTextColor={colors.placeholder}
                         // inputStyle={
                         //   props.touched.name && props.errors.name
@@ -175,15 +175,19 @@ const LoginScreen = props => {
                     </View>
                     <View
                       style={
-                        ([Styles.flexCenter], {backgroundColor: 'transparent'})
+                        ([Styles.flexCenter],
+                        {
+                          backgroundColor: 'transparent',
+                          marginBottom: 10,
+                        })
                       }>
                       <TextField
                         label="Password"
                         name="password"
                         placeholder="Enter Password"
-                        // tintColor={colors.TextColor}
+                        tintColor={colors.TextColor}
                         textColor={colors.loginText}
-                        // baseColor={colors.baseColor}
+                        baseColor={colors.baseColor}
                         placeholderTextColor={colors.placeholder}
                         // inputStyle={
                         //   props.touched.name && props.errors.name

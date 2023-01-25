@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Text, Spinner, Colors, GlobalStyle} from '../../../styles';
 
-import {deviceWidth} from '../../../utils/orientation';
+import {deviceWidth, IS_ANDROID, IS_IOS} from '../../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ActivityModal from '../../../components/ActivityModal';
 import moment from 'moment';
@@ -196,7 +196,8 @@ const OrderActivity = props => {
       : null;
   return (
     <>
-      <View style={[Styles.flex, Styles.flexDirectionColumn, {height: 350}]}>
+      <View
+        style={[Styles.flex, Styles.flexDirectionColumn, styles.ActivityBox]}>
         <View
           style={[
             Styles.flex,
@@ -205,6 +206,9 @@ const OrderActivity = props => {
               borderRadius: 20,
               borderWidth: 1,
               borderColor: colors.boxBorderColor,
+              shadowOffset: {width: 0, height: 0.6},
+              shadowOpacity: 0.2,
+              shadowRadius: 6,
             },
           ]}>
           {loading ? (
@@ -237,11 +241,7 @@ const OrderActivity = props => {
 
           <TouchableOpacity
             onPress={ShowActivityModal}
-            style={[
-              Styles.flexCenter,
-              Styles.floatButton,
-              // {opacity: 0.5, marginTop: 500},
-            ]}>
+            style={[Styles.flexCenter, Styles.floatButton]}>
             <MIcon
               style={{opacity: 1}}
               name="plus"
@@ -255,11 +255,7 @@ const OrderActivity = props => {
         visible={visibleActivity}
         order={props && props.props && props.props.item}
         workspaceId={workspace_id}
-        // statuses={statuses}
         customers={customersObj ? [customersObj] : []}
-        // statusId={
-        //   order && order.last_checkpoint && order.last_checkpoint.status
-        // }
         id={props && props.props && props.props.item && props.props.item.id}
         activityType={activityType}
         users={props.props.users}
@@ -275,12 +271,13 @@ const OrderActivity = props => {
 };
 const useStyles = colors => {
   return StyleSheet.create({
+    ActivityBox: {height: IS_IOS ? 350 : 250},
     container: {
       padding: 5,
       paddingTop: 20,
     },
     fieldWidth: {
-      width: deviceWidth - 240,
+      width: deviceWidth - 230,
     },
     leftWidth: {
       width: 140,

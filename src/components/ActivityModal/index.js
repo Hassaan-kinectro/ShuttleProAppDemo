@@ -8,7 +8,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {Colors, Mixins, Styles, Spinner, Text, GlobalStyle} from '../../styles';
-import {deviceHeight, deviceWidth, IS_IPHONEX} from '../../utils/orientation';
+import {
+  deviceHeight,
+  deviceWidth,
+  IS_ANDROID,
+  IS_IOS,
+  IS_IPHONEX,
+} from '../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Wrapper from '../Wrapper';
@@ -20,6 +26,8 @@ import {useTheme} from '@react-navigation/native';
 import {CreateActivity} from '../../services/Activity';
 import {useSelector} from 'react-redux';
 import {Dark, Light, HeaderBG} from '../../utils/imagesPath';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {scaleSize} from '../../styles/mixins';
 
 const ComType = [
   {label: 'Email', value: 'email'},
@@ -34,12 +42,6 @@ const ComTypeOptions = [
       {value: 'confirmationCall', label: 'Confirmation Calls'},
       {value: 'deliveryCalls', label: 'Delivery Calls'},
     ],
-    // type: [
-    //   {value: 'call1', label: 'Call 1'},
-    //   {value: 'call2', label: 'Call 2'},
-    //   {value: 'call3', label: 'Call 3'},
-    //   {value: 'call4', label: 'Call 4'},
-    // ],
   },
 ];
 const initials = {
@@ -49,18 +51,11 @@ const initials = {
   template: null,
   remarks: '',
   description: '',
-  // orderStatus: null,
-  // communicationType: null,
-  // recipientGroup: null,
-  // recipient: null,
-  // template: null,
-  // remarks: '',
-  // description: '',
-  // notificationTime: null,
 };
 
 const ChangeOrderStatusModal = props => {
   const theme = useSelector(state => state.themeChange.theme);
+
   const workspace_id = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
@@ -85,53 +80,9 @@ const ChangeOrderStatusModal = props => {
   };
   const handleChange = (FormData, {resetForm}) => {
     console.log(FormData, 'HELLLLLOOOOO FORRRMM DATAA22');
-    // if (!FormData.orderStatus) {
-    //   return flashBox.current.showMessage({
-    //     message: '',
-    //     description: 'Please select order status!',
-    //     type: 'danger',
-    //   });
-    // }
-    // if (!FormData.communicationType) {
-    //   return flashBox.current.showMessage({
-    //     message: '',
-    //     description: 'Please select communication type!',
-    //     type: 'danger',
-    //   });
-    // }
+
     setLoading(true);
 
-    // const obj = {
-    //   order_id: props.id,
-    //   status_id: FormData.orderStatus ? FormData.orderStatus.id : null,
-    //   communication_type: FormData.communicationType
-    //     ? FormData.communicationType.value
-    //     : null,
-    //   recipient_group_id: FormData.recipientGroup
-    //     ? FormData.recipientGroup.id
-    //     : null,
-    //   recipient_id: FormData.recipient ? FormData.recipient.id : null,
-    //   email_template_id: FormData.template ? FormData.template.id : null,
-    //   remarks: FormData.remarks,
-    //   reason: FormData.description,
-    //   user_id: props.userId,
-    // };
-    // if (FormData.notificationTime) {
-    //   obj.reminder = [
-    //     {
-    //       order_id: props.id,
-    //       status_id: FormData.orderStatus ? FormData.orderStatus.id : null,
-    //       notification_type: FormData.communicationType
-    //         ? FormData.communicationType.value
-    //         : null,
-    //       notification_time: FormData.notificationTime,
-    //       activate: true,
-    //       remarks: FormData.remarks,
-    //       reason: FormData.description,
-    //       user_id: props.userId,
-    //     },
-    //   ];
-    // }
     if (
       FormData &&
       FormData.communicationName &&
@@ -230,30 +181,6 @@ const ChangeOrderStatusModal = props => {
           setLoading(false);
         }
       });
-
-      // CreateCommunication(obj).then((res) => {
-      //   if (res.status === 200) {
-      //     flashBox.current.showMessage({
-      //       message: '',
-      //       description: res.message,
-      //       type: 'success',
-      //     });
-      //     setLoading(false);
-      //     onModalClose();
-      //     if (props.refreshServices) {
-      //       props.refreshServices();
-      //     }
-      //     setReset(true);
-      //     resetForm();
-      //   } else {
-      //     flashBox.current.showMessage({
-      //       message: '',
-      //       description: res.message,
-      //       type: 'danger',
-      //     });
-      //     setLoading(false);
-      //   }
-      // });
     }
   };
   const {
@@ -271,140 +198,151 @@ const ChangeOrderStatusModal = props => {
 
   return (
     <>
-      <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-        <ImageBackground source={theme === 'DARK' ? HeaderBG : HeaderBG}>
-          <MModal
-            isVisible={visible}
-            animationOutTiming={100}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
-            backdropOpacity={0.8}
-            style={styles.modal}
-            onBackdropPress={onModalClose}
-            onSwipeComplete={onModalClose}
-            onBackButtonPress={onModalClose}
-            swipeThreshold={150}
-            deviceHeight={deviceHeight}
-            swipeDirection={['right']}>
+      <MModal
+        isVisible={visible}
+        animationOutTiming={100}
+        animationIn={'slideInUp'}
+        animationOut={'slideOutDown'}
+        backdropOpacity={0.8}
+        style={styles.modal}
+        onBackdropPress={onModalClose}
+        onSwipeComplete={onModalClose}
+        onBackButtonPress={onModalClose}
+        swipeThreshold={150}
+        deviceHeight={deviceHeight}
+        swipeDirection={['right']}>
+        <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
+          <View
+            style={[
+              Styles.flex,
+              {
+                justifyContent: 'center',
+                marginVertical: 30,
+              },
+            ]}>
             <View
               style={[
-                Styles.flex,
                 {
-                  backgroundColor: colors.background,
-                  paddingTop: IS_IPHONEX ? 50 : 0,
+                  marginTop: IS_IOS ? scaleSize(50) : 0,
+                },
+                Styles.flexDirectionRow,
+                Styles.justifyContentSpaceBetween,
+                {
+                  paddingHorizontal: 20,
+                  paddingVertical: 20,
                 },
               ]}>
+              <Text
+                style={{
+                  fontFamily: 'Raleway',
+                  fontWeight: '600',
+                  fontStyle: 'normal',
+                }}
+                size={Mixins.scaleFont(20)}>
+                New Activity
+              </Text>
               <TouchableOpacity
                 onPress={onModalClose}
-                style={{backgroundColor: Colors.TRANSPARENT, marginTop: 50}}
-              />
-              <KeyboardAwareScrollView
-                contentContainerStyle={[
-                  {
-                    backgroundColor: colors.background,
-                    padding: 10,
-                  },
-                ]}
-                keyboardShouldPersistTaps={'always'}>
-                <Formik onSubmit={handleChange} initialValues={initials}>
-                  {props => {
-                    const ifNot =
-                      props.values.communicationName === null &&
-                      props.values.remarks === '' &&
-                      props.values.communicationType === null &&
-                      props.values.template === null &&
-                      props.values.recipientGroup === null &&
-                      props.values.description === ''
-                        ? true
-                        : false;
-                    return (
-                      <>
-                        <TouchableOpacity
-                          activeOpacity={1}
-                          style={[
-                            Styles.flex,
-                            {
-                              backgroundColor: colors.background,
-                              minHeight: deviceHeight - headerHeight - 50,
-                            },
-                          ]}>
-                          <>
-                            <View style={[Styles.pB10, Styles.mV10]}>
-                              <Text size={Mixins.scaleFont(20)}>
-                                New Activity
-                              </Text>
-                            </View>
-                            <ActivityForm
-                              obj={obj}
-                              statuses={statuses}
-                              order={order}
-                              recipientGroups={recipientGroups}
-                              emailTemplates={emailTemplates}
-                              customers={customers}
-                              statusId={statusId}
-                              ComType={ComType}
-                              ComTypeOptions={ComTypeOptions}
-                              activityType={activityType}
-                              mailingLists={mailingLists}
-                              users={users}
-                              visible={visible}
-                              reset={reset}
-                              {...props}
-                            />
-                            <TouchableOpacity
-                              onPress={props.handleSubmit}
-                              disabled={loading || ifNot}
-                              style={[
-                                Styles.alignItemsCenter,
-                                Styles.justifyContentCenter,
-                                styles.addActivity,
-                              ]}>
-                              {!loading && (
-                                <Text
-                                  size={Mixins.scaleFont(16)}
-                                  color={Colors.WHITE}
-                                  style={[
-                                    {
-                                      paddingRight: loading ? 15 : 0,
-                                    },
-                                  ]}>
-                                  ADD ACTIVITY
-                                </Text>
-                              )}
-                              {loading && (
-                                <ActivityIndicator
-                                  type={'ThreeBounce'}
-                                  size={30}
-                                  color={colors.textColorLight}
-                                />
-                              )}
-                            </TouchableOpacity>
-                          </>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          onPress={onModalClose}
-                          style={[styles.btnClose]}>
-                          <MIcon name="close" size={24} color={Colors.DANGER} />
-                        </TouchableOpacity>
-                      </>
-                    );
-                  }}
-                </Formik>
-              </KeyboardAwareScrollView>
+                style={[styles.btnClose]}>
+                <MIcon name="close" size={24} color={Colors.DANGER} />
+              </TouchableOpacity>
             </View>
-            <FlashMessage ref={flashBox} position="top" />
-          </MModal>
-        </ImageBackground>
-      </Wrapper>
+            <KeyboardAwareScrollView
+              contentContainerStyle={[
+                {
+                  // flex: 1,
+                  minHeight: deviceHeight - headerHeight - 50,
+                },
+                ,
+              ]}
+              keyboardShouldPersistTaps={'handled'}>
+              <Formik onSubmit={handleChange} initialValues={initials}>
+                {props => {
+                  const ifNot =
+                    props.values.communicationName === null &&
+                    props.values.remarks === '' &&
+                    props.values.communicationType === null &&
+                    props.values.template === null &&
+                    props.values.recipientGroup === null &&
+                    props.values.description === ''
+                      ? true
+                      : false;
+                  return (
+                    <>
+                      <View
+                        style={[
+                          Styles.flex,
+                          {
+                            paddingHorizontal: scaleSize(25),
+                            paddingVertical: scaleSize(10),
+                          },
+                        ]}>
+                        <>
+                          <ActivityForm
+                            obj={obj}
+                            statuses={statuses}
+                            order={order}
+                            recipientGroups={recipientGroups}
+                            emailTemplates={emailTemplates}
+                            customers={customers}
+                            statusId={statusId}
+                            ComType={ComType}
+                            ComTypeOptions={ComTypeOptions}
+                            activityType={activityType}
+                            mailingLists={mailingLists}
+                            users={users}
+                            visible={visible}
+                            reset={reset}
+                            {...props}
+                          />
+                          <TouchableOpacity
+                            onPress={props.handleSubmit}
+                            disabled={loading || ifNot}
+                            style={[
+                              Styles.alignItemsCenter,
+                              Styles.justifyContentCenter,
+                              styles.addActivity,
+                            ]}>
+                            {!loading && (
+                              <Text
+                                size={Mixins.scaleFont(16)}
+                                color={Colors.WHITE}
+                                style={[
+                                  {
+                                    paddingRight: loading ? 15 : 0,
+                                  },
+                                ]}>
+                                ADD ACTIVITY
+                              </Text>
+                            )}
+                            {loading && (
+                              <ActivityIndicator
+                                type={'ThreeBounce'}
+                                size={30}
+                                color={colors.textColorLight}
+                              />
+                            )}
+                          </TouchableOpacity>
+                        </>
+                      </View>
+                    </>
+                  );
+                }}
+              </Formik>
+            </KeyboardAwareScrollView>
+          </View>
+          <FlashMessage ref={flashBox} position="top" />
+        </Wrapper>
+      </MModal>
     </>
   );
 };
 const useStyles = colors => {
   return StyleSheet.create({
     btnClose: {
-      position: 'absolute',
-      top: 25,
-      right: 15,
+      // position: 'absolute',
+      // top: 25,
+      // right: 15,
     },
     addActivity: {
       backgroundColor: colors.button,

@@ -195,11 +195,10 @@ const GlobalStyle = theme => {
       width: '100%',
     },
     InputStyle: {
-      backgroundColor: colors.feilds,
+      backgroundColor: 'transparent',
       height: 45,
-      borderColor: colors.boxBorderColor,
-      borderWidth: 1,
-      elevation: 2.5,
+      borderColor: colors.feildBorder,
+      borderBottomWidth: 1,
     },
 
     InputErrorStyle: {
@@ -264,7 +263,7 @@ const GlobalStyle = theme => {
       color: colors.placeholder,
     },
     activeLabelStyle: {
-      color: colors.textColor,
+      color: colors.TextColor,
     },
     labelStyle: {
       // color: colors.textColor,
@@ -273,14 +272,18 @@ const GlobalStyle = theme => {
     itemStyle: {
       justifyContent: 'flex-start',
       borderBottomWidth: 1,
-      borderBottomColor: colors.background,
+      backgroundColor: colors.background,
+      borderBottomColor: colors.feildBorder,
+      color: colors.TextColor,
       paddingLeft: 10,
       borderRadius: 0,
     },
     dropDownContainerStyle: {
-      backgroundColor: colors.feilds,
-      borderWidth: 1,
-      borderColor: colors.boxBorderColor,
+      backgroundColor: 'transparent',
+      borderBottomWidth: 1,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 0,
       borderRadius: 20,
       zIndex: 5000,
     },
@@ -289,7 +292,7 @@ const GlobalStyle = theme => {
       marginBottom: 20,
     },
     activeItemStyle: {
-      backgroundColor: colors.activeItemStyle,
+      backgroundColor: colors.background,
     },
     searchableStyle: {
       height: 40,

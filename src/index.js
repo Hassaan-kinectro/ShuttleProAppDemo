@@ -121,9 +121,10 @@ const Src = () => {
       }}>
       <View style={[Styles.flex, Styles.primaryBackground]}>
         <StatusBar
+          translucent={true}
           barStyle={theme === 'DARK' ? 'light-content' : 'dark-content'}
           backgroundColor={
-            theme === 'DARK' ? Colors.PRIMARY_DARK : Colors.WHISPER
+            theme === 'DARK' ? Colors.BACKGROUND : Colors.WHISPER
           }
         />
         {/* <KeepAwake /> */}
