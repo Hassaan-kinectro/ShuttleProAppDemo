@@ -41,12 +41,15 @@ const CustomHeader = ({navigation, name}) => {
       style={{
         overflow: 'hidden',
         shadowRadius: 1,
-        shadowOpacity: 0.2,
+        shadowOpacity: 50,
         borderBottomLeftRadius: 35,
         borderBottomRightRadius: 35,
         marginBottom: 15,
-        borderColor: 'transparent',
+        borderBottomWidth: 1,
+        borderColor: colors.boxBorderColor,
         borderWidth: 0.5,
+        shadowOffset: {width: 0, height: 15},
+        elevation: 5,
       }}>
       <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
         <View style={styles.headerContainer}>
@@ -128,8 +131,9 @@ const useStyles = colors => {
       paddingHorizontal: 16,
       // height: IS_ANDROID ? 100 : 130,
       // paddingTop: IS_ANDROID ? 30 : 40,
-      height: 130,
+      height: 140,
       paddingTop: 40,
+      elevation: 5,
     },
     menuIcon: {},
     headerText: {

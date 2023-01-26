@@ -21,6 +21,7 @@ import Wrapper from '../../components/Wrapper';
 import {
   deviceWidth,
   deviceHeight,
+  IS_IOS,
   getFixedHeaderHeight,
 } from '../../utils/orientation';
 import {isArray, orderBy, differenceBy} from 'lodash';
@@ -403,6 +404,7 @@ const useStyles = colors => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: IS_IOS ? 400 : 200,
     },
     customInputStyle: {
       height: 45,

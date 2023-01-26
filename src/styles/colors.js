@@ -81,11 +81,13 @@ export const LightTheme = {
     searchIconBackground: '#8EB7BF',
     tabBackgroundColor: '#FAFAFE',
     backgroundModal: '#DFF3F4',
+    bottomNav: '#FFFFFF',
   },
 };
 export const DarkTheme = {
   dark: true,
   colors: {
+    bottomNav: '#23313E',
     backgroundModal: '#222830',
     feildBorder: '#C5C5C5',
     loginText: '#989898',

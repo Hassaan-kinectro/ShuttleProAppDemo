@@ -16,6 +16,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   deviceHeight,
   deviceWidth,
+  IS_IOS,
   getFixedHeaderHeight,
 } from '../../utils/orientation';
 import {Logout} from '../../navigations';
@@ -97,14 +98,16 @@ const Workspace = props => {
       <View
         style={{
           overflow: 'hidden',
-          shadowColor: colors.background,
           shadowRadius: 1,
-          shadowOpacity: 0.9,
+          shadowOpacity: 50,
           borderBottomLeftRadius: 35,
           borderBottomRightRadius: 35,
           marginBottom: 15,
-          borderColor: 'transparent',
+          borderBottomWidth: 1,
+          borderColor: colors.boxBorderColor,
           borderWidth: 0.5,
+          shadowOffset: {width: 0, height: 15},
+          elevation: 5,
         }}>
         <ImageBackground
           style={{
@@ -123,6 +126,7 @@ const Workspace = props => {
               justifyContent: 'space-between',
               alignItems: 'center',
               flexDirection: 'row',
+              height: IS_IOS ? 50 : 40,
             }}>
             <Text
               style={{

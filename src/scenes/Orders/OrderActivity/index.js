@@ -13,7 +13,12 @@ import {
 } from 'react-native';
 import {Text, Spinner, Colors, GlobalStyle} from '../../../styles';
 
-import {deviceWidth, IS_ANDROID, IS_IOS} from '../../../utils/orientation';
+import {
+  deviceWidth,
+  deviceHeight,
+  IS_ANDROID,
+  IS_IOS,
+} from '../../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ActivityModal from '../../../components/ActivityModal';
 import moment from 'moment';
@@ -206,9 +211,9 @@ const OrderActivity = props => {
               borderRadius: 20,
               borderWidth: 1,
               borderColor: colors.boxBorderColor,
-              shadowOffset: {width: 0, height: 0.6},
-              shadowOpacity: 0.2,
-              shadowRadius: 6,
+              //   shadowOffset: {width: 0, height: 0.6},
+              //   shadowOpacity: 0.2,
+              //   shadowRadius: 6,
             },
           ]}>
           {loading ? (
@@ -271,7 +276,7 @@ const OrderActivity = props => {
 };
 const useStyles = colors => {
   return StyleSheet.create({
-    ActivityBox: {height: IS_IOS ? 350 : 250},
+    ActivityBox: {height: IS_IOS ? deviceHeight - 550 : deviceHeight - 500},
     container: {
       padding: 5,
       paddingTop: 20,

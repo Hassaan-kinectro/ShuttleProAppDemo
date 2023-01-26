@@ -562,7 +562,11 @@ const BottomTabNavigator = ({
         tabBarStyle: {
           height: IS_ANDROID ? '10%' : '10%',
           borderColor: 'transparent',
-          backgroundColor: colors.background,
+          backgroundColor: colors.bottomNav,
+          shadowOffset: {width: 0, height: 2},
+          shadowOpacity: 0.5,
+          shadowRadius: 6,
+          elevation: 15,
           position: 'absolute',
           overflow: 'hidden',
           borderTopLeftRadius: 35,

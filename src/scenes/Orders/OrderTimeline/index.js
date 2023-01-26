@@ -10,7 +10,12 @@ import {
 import {Text, Spinner, Colors, GlobalStyle} from '../../../styles';
 import {getOrderDetail, getOrderStatus} from '../../../services/Order';
 import {showMessage} from 'react-native-flash-message';
-import {deviceWidth, IS_ANDROID, IS_IOS} from '../../../utils/orientation';
+import {
+  deviceWidth,
+  deviceHeight,
+  IS_ANDROID,
+  IS_IOS,
+} from '../../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
@@ -132,9 +137,6 @@ const OrderTimeline = props => {
             borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.boxBorderColor,
-            shadowOffset: {width: 0, height: 0.6},
-            shadowOpacity: 0.2,
-            shadowRadius: 6,
           },
         ]}>
         {loading ? (
@@ -181,7 +183,9 @@ const OrderTimeline = props => {
 };
 const useStyles = colors => {
   return StyleSheet.create({
-    ActivityBox: {height: IS_IOS ? 350 : 250},
+    ActivityBox: {
+      height: IS_IOS ? deviceHeight - 550 : deviceHeight - 500,
+    },
     container: {
       padding: 5,
       paddingTop: 20,

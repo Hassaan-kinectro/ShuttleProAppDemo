@@ -124,7 +124,7 @@ const OrderDetail = props => {
         style={[
           styles.listItem,
           {
-            shadowOffset: {width: 0, height: 5},
+            shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.2,
             shadowRadius: 6,
             elevation: 5,

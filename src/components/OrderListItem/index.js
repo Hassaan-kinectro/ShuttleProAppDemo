@@ -11,6 +11,7 @@ import {Text, Colors, Mixins, GlobalStyle} from '../../styles';
 import {
   deviceWidth,
   deviceHeight,
+  IS_IOS,
   getFixedHeaderHeight,
 } from '../../utils/orientation';
 import moment from 'moment';
@@ -442,7 +443,7 @@ const useStyles = colors => {
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
       marginBottom: 5,
-      marginTop: 15,
+      marginTop: IS_IOS ? 15 : 25,
     },
     TrackingId: {
       width: deviceWidth - 100,
