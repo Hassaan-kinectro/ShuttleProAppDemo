@@ -46,7 +46,7 @@ const TextField = React.forwardRef((props, ref) => {
       changeText(defaultValue ? defaultValue : '');
     }
   }, [props.reset]);
-  const onChangeText = text => {
+  const onTextChange = text => {
     const {onChangeText} = props;
     if (numberOnly) {
       changeText(text.replace(/[^0-9.]/g, ''));
@@ -56,13 +56,13 @@ const TextField = React.forwardRef((props, ref) => {
       onChangeText(text);
     }
   };
-  const onFocus = event => {
+  const onFieldFocus = event => {
     let {onFocus} = props;
     if (typeof onFocus === 'function') {
       onFocus(event);
     }
   };
-  const onBlur = event => {
+  const onFieldBlur = event => {
     let {onBlur} = props;
     if (typeof onBlur === 'function') {
       onBlur(event);
@@ -129,10 +129,10 @@ const TextField = React.forwardRef((props, ref) => {
           placeholderTextColor={textColor}
           {...props}
           allowFontScaling={false}
-          onChangeText={text => onChangeText(text)}
+          onChangeText={t => onTextChange(t)}
           value={text}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          onFocus={onFieldFocus}
+          onBlur={onFieldBlur}
           ref={ref}
           // onContentSizeChange={event => {
           //   changeHeight(event.nativeEvent.contentSize.height);
@@ -142,7 +142,7 @@ const TextField = React.forwardRef((props, ref) => {
         {text.length > 0 && clearIcon ? (
           <MIcon
             onPress={() => {
-              onChangeText('');
+              onTextChange('');
             }}
             name="clear"
             size={20}

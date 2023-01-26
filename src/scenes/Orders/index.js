@@ -356,11 +356,7 @@ const OrderScreen = ({navigation, route}) => {
                       size={40}
                       style={{paddingBottom: 10}}
                     />
-                    <Text
-                      style={{
-                        color: Colors.GRAY,
-                        fontSize: Mixins.scaleFont(16),
-                      }}>
+                    <Text size={16} color={Colors.GRAY}>
                       Orders Not Found
                     </Text>
                   </View>

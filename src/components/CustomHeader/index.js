@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   View,
   TextInput,
-  Text,
   TouchableOpacity,
   ImageBackground,
   StyleSheet,
@@ -23,6 +22,8 @@ import {
   HeaderLight,
 } from '../../utils/imagesPath';
 import {scaleSize} from '../../styles/mixins';
+import {Text} from '../../styles';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const CustomHeader = ({navigation, name}) => {
   const theme = useSelector(state => state.themeChange.theme);
@@ -60,7 +61,13 @@ const CustomHeader = ({navigation, name}) => {
                 onPress={() => navigation.toggleDrawer()}>
                 <Image source={Hamburger} style={styles.hamburgerStyle} />
               </TouchableOpacity>
-              <Text style={styles.headerText}>{name}</Text>
+              <Text
+                size={24}
+                color={colors.TextColor}
+                fontFamily={FONT_FAMILY.SEMI_BOLD}
+                style={styles.headerText}>
+                {name}
+              </Text>
             </>
           )}
           {searchVisible && (
@@ -137,10 +144,6 @@ const useStyles = colors => {
     },
     menuIcon: {},
     headerText: {
-      fontWeight: '600',
-      fontFamily: 'Raleway',
-      fontSize: 24,
-      color: colors.TextColor,
       marginRight: scaleSize(120),
     },
     searchContainer: {

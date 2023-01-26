@@ -9,13 +9,12 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
-import {Colors, GlobalStyle, Mixins, Spinner, Text} from '../../styles';
+import {Colors, GlobalStyle, Mixins, Text} from '../../styles';
 import {StackActions} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {
   deviceHeight,
-  deviceWidth,
   IS_IOS,
   getFixedHeaderHeight,
 } from '../../utils/orientation';
@@ -37,6 +36,7 @@ import {
   HeaderDark,
   HeaderLight,
 } from '../../utils/imagesPath';
+import {FONT_FAMILY} from '../../utils/constants';
 const Workspace = props => {
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -129,12 +129,9 @@ const Workspace = props => {
               height: IS_IOS ? 50 : 40,
             }}>
             <Text
-              style={{
-                fontSize: 24,
-                fontWeight: '600',
-                fontFamily: 'Raleway',
-                color: colors.TextHeader,
-              }}>
+              size={24}
+              color={colors.TextHeader}
+              fontFamily={FONT_FAMILY.SEMI_BOLD}>
               Workspaces
             </Text>
             <MaterialIcons
@@ -193,7 +190,7 @@ const Workspace = props => {
               <RefreshControl
                 refreshing={refresh}
                 onRefresh={onRefresh}
-                colors={[colors.themeIcon]}
+                colors={[colors.background]}
                 tintColor={colors.themeIcon}
               />
             }
@@ -215,10 +212,8 @@ const Workspace = props => {
                   />
                   <Text
                     numberOfLines={1}
-                    style={{
-                      color: colors.textColorLight,
-                      fontSize: Mixins.scaleFont(16),
-                    }}>
+                    color={colors.textColorLight}
+                    size={16}>
                     Workspaces Not Available
                   </Text>
                 </View>

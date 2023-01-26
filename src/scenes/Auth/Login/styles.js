@@ -1,36 +1,12 @@
 import {StyleSheet} from 'react-native';
-import {IS_PAD, deviceWidth} from '../../../utils/orientation';
+import {deviceWidth, deviceHeight, IS_IOS} from '../../../utils/orientation';
 import {useTheme} from '@react-navigation/native';
 import {scaleSize} from '../../../styles/mixins';
+import {GlobalStyle} from '../../../styles';
 const useStyles = () => {
   const {colors} = useTheme();
+  const Styles = GlobalStyle();
   return StyleSheet.create({
-    mainWrapper: {
-      paddingLeft: IS_PAD ? deviceWidth / 5 : 30,
-      paddingRight: IS_PAD ? deviceWidth / 5 : 30,
-      paddingVertical: 20,
-    },
-    logoWrapper: {
-      flex: 0.8,
-      paddingBottom: 20,
-      paddingTop: 20,
-    },
-    TouchableOpacity: {
-      height: 48,
-      // width: 293,
-      // backgroundColor: colors.button,
-      backgroundColor: '#139a5c',
-      width: deviceWidth - (IS_PAD ? (deviceWidth / 5) * 2 : 60),
-      borderRadius: 7,
-    },
-    FBLogin: {
-      height: 50,
-      marginTop: 10,
-      backgroundColor: '#3b5998',
-      width: deviceWidth - (IS_PAD ? (deviceWidth / 5) * 2 : 60),
-      borderRadius: 5,
-      flexDirection: 'row-reverse',
-    },
     HideIconView: {
       position: 'absolute',
       right: 10,
@@ -44,27 +20,69 @@ const useStyles = () => {
       alignContent: 'center',
       alignItems: 'center',
     },
+    background: {
+      flex: 1,
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+    },
+    containerStyle: {
+      ...Styles.flex,
+      ...Styles.flexDirectionColumn,
+      ...Styles.alignItemsCenter,
+      ...Styles.justifyContentCenter,
+      justifyContent: 'space-around',
+    },
+    imageContainer: {
+      ...Styles.w100,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+      paddingTop: !IS_IOS ? 60 : 100,
+    },
+    logoStyle: {
+      width: deviceWidth / 2.6,
+      height: deviceWidth / 2.1,
+    },
+    formContainer: {
+      ...Styles.w100,
+      ...Styles.alignItemsCenter,
+      height: deviceHeight / 2,
+    },
     container: {
       flex: 1,
       width: '100%',
       paddingHorizontal: scaleSize(20),
     },
-    image: {
-      flex: 1,
-      justifyContent: 'center',
+    getStartedText: {
+      lineHeight: 28,
+      marginTop: 5,
+    },
+    topMargin: {
+      marginTop: deviceWidth / 6,
+    },
+    bottomMargin: {
+      marginBottom: 10,
+    },
+    buttonWrapper: {
+      ...Styles.w100,
+      height: 48,
+    },
+    buttonContainer: {
+      ...Styles.w100,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
     },
     linearGradient: {
       width: '100%',
       borderRadius: 5,
+      ...Styles.justifyContentCenter,
+      height: 48,
     },
     buttonText: {
-      fontSize: 18,
-      fontFamily: 'Gill Sans',
       textAlign: 'center',
-      margin: 10,
-      color: '#ffffff',
-      backgroundColor: 'transparent',
+      lineHeight: 19,
     },
+    errorStyle: {paddingTop: 20},
   });
 };
 
