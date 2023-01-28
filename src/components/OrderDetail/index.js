@@ -1,48 +1,23 @@
 import React from 'react';
-import {View, StyleSheet, Platform, Linking} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Text, Colors, Mixins, GlobalStyle} from '../../styles';
 import {deviceWidth} from '../../utils/orientation';
 import {showMessage} from 'react-native-flash-message';
 import moment from 'moment';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Clipboard from '@react-native-community/clipboard';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TransformPrice} from '../../utils/Parser';
 import OrderActivity from '../../scenes/Orders/OrderActivity';
 import OrderTimeline from '../../scenes/Orders/OrderTimeline';
+
 const OrderDetail = props => {
-  const navigation = useNavigation();
-  const [visibleStatusChange, setStatusChangeVisibility] =
-    React.useState(false);
-  const [activityType, setActivityType] = React.useState('');
-  const [visibleActivity, setActivityVisibility] = React.useState(false);
-  const [visibleActivitySelector, setActivityVisibilitySelector] =
-    React.useState(false);
   const [tabIndex, setTabIndex] = React.useState(0);
-  const [visibleProduct, setProductVisibility] = React.useState(false);
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();
-  const ModelClose = React.useCallback(() => {
-    setStatusChangeVisibility(false);
-  }, [visibleStatusChange]);
-  const ShowModal = React.useCallback(() => {
-    setStatusChangeVisibility(true);
-  }, [visibleStatusChange]);
-  const ActivityModelClose = React.useCallback(() => {
-    setActivityType('');
-    setActivityVisibility(false);
-  }, [visibleActivity]);
-  const ShowActivityModal = React.useCallback(() => {
-    setActivityVisibility(true);
-  }, [visibleActivity]);
-  const ActivitySelectorModelClose = React.useCallback(() => {
-    setActivityVisibilitySelector(false);
-  }, [visibleActivity]);
-  const ShowActivitySelectorModal = React.useCallback(() => {
-    setActivityVisibilitySelector(true);
-  }, [visibleActivity]);
+
   const copyToClipboard = async () => {
     let text = '';
     let amount = 0;
@@ -72,77 +47,24 @@ const OrderDetail = props => {
       type: 'success',
     });
   };
-  const CopyPhoneNumberToClipboard = async () => {
-    let text =
-      props.item.customer && props.item.customer.contact
-        ? props.item.customer.contact
-        : 'N/A';
-    await Clipboard.setString(text);
-    showMessage({
-      message: '',
-      description: 'Phone Number Copied!',
-      type: 'success',
-    });
-  };
-  const CopyTrackingNumberToClipboard = async () => {
-    let text = props.item.tracking_id ? props.item.tracking_id : 'N/A';
-    await Clipboard.setString('Tracking Id : ' + text);
-    showMessage({
-      message: '',
-      description: 'Tracking Id Copied!',
-      type: 'success',
-    });
-  };
-  const OpenActivity = type => {
-    setActivityType(type);
-    openDialScreen();
-    ShowActivityModal();
-  };
-  const openDialScreen = () => {
-    let phone =
-      props.item.customer && props.item.customer.contact
-        ? props.item.customer.contact
-        : null;
-    let number = '';
-    if (Platform.OS === 'ios') {
-      number = `telprompt:${phone}`;
-    } else {
-      number = `tel:${phone}`;
-    }
-    Linking.openURL(number);
-  };
-  let customersObj = props.item.customer
-    ? Object.assign(props.item.customer, {
-        label: props.item.customer.name,
-        value: props.item.customer.id,
-      })
-    : null;
 
   return (
     <>
-      <View
-        style={[
-          styles.listItem,
-          {
-            shadowOffset: {width: 0, height: 2},
-            shadowOpacity: 0.2,
-            shadowRadius: 6,
-            elevation: 5,
-          },
-        ]}>
-        <View style={[Styles.flexDirectionRow, Styles.alignItemsCenter]}>
+      <View style={[styles.listItem]}>
+        <View
+          style={[
+            Styles.flexDirectionRow,
+            Styles.alignItemsCenter,
+            styles.mT10,
+          ]}>
           <View style={[Styles.flex, Styles.justifyContentCenter]}>
             <View style={styles.inline}>
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{fontSize: 12}}
-                  size={Mixins.scaleFont(16)}
-                  weight="400"
-                  color={colors.TextColor}>
+              <View style={Styles.flexDirectionRow}>
+                <Text style={styles.fS12} weight="400" color={colors.TextColor}>
                   CN # {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
                 </Text>
                 <TouchableOpacity
-                  style={{marginLeft: 10}}
+                  style={styles.mL10}
                   activeOpacity={0.5}
                   onPress={copyToClipboard}>
                   <MIcon
@@ -154,18 +76,13 @@ const OrderDetail = props => {
                 </TouchableOpacity>
               </View>
               <View>
-                <Text style={[Styles.mB5, {fontSize: 10}]}>COD Amount</Text>
+                <Text style={[Styles.mB5, styles.fS10]}>COD Amount</Text>
               </View>
             </View>
             <View style={styles.inline}>
               <View />
               <View>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontStyle: 'normal',
-                    fontWeight: '600',
-                  }}>
+                <Text style={styles.font}>
                   {props.item.cod_amount
                     ? TransformPrice(props.item.cod_amount)
                     : 'N/A'}
@@ -192,17 +109,8 @@ const OrderDetail = props => {
               </View>
               <View style={styles.inline}>
                 <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      ShowActivitySelectorModal();
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontStyle: 'normal',
-                        fontWeight: '600',
-                        marginTop: 5,
-                      }}>
+                  <TouchableOpacity onPress={() => {}}>
+                    <Text style={[styles.font, styles.mT5]}>
                       Ph #{' '}
                       {props.item.customer && props.item.customer.contact
                         ? props.item.customer.contact
@@ -211,22 +119,17 @@ const OrderDetail = props => {
                   </TouchableOpacity>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                      fontWeight: '600',
-                    }}>
+                  <Text style={styles.font}>
                     {moment(props.item.updated_at).format('DD MMM, YYYY')}
                   </Text>
                 </View>
               </View>
             </View>
-            <View style={{marginTop: 12}}>
+            <View style={styles.mT12}>
               <View style={styles.inline}>
                 <View>
                   <Text
-                    style={{fontSize: 12}}
+                    style={styles.fS12}
                     size={Mixins.scaleFont(16)}
                     weight="400"
                     color={colors.TextColor}>
@@ -237,13 +140,7 @@ const OrderDetail = props => {
               </View>
               <View style={styles.inline}>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontStyle: 'normal',
-                      fontWeight: '600',
-                      marginTop: 5,
-                    }}>
+                  <Text style={[styles.font, styles.mT5]}>
                     {props.item.customer && props.item.customer.address
                       ? props.item.customer.address
                       : 'N/A'}{' '}
@@ -252,11 +149,11 @@ const OrderDetail = props => {
                 <View />
               </View>
             </View>
-            <View style={{marginTop: 12}}>
+            <View style={styles.mT12}>
               <View style={styles.inline}>
                 <View>
                   <Text
-                    style={{fontSize: 12}}
+                    style={styles.fS12}
                     size={Mixins.scaleFont(16)}
                     weight="400"
                     color={colors.TextColor}>
@@ -294,85 +191,42 @@ const OrderDetail = props => {
       </View>
       <View style={styles.tabBar}>
         <TouchableOpacity
-          style={[
-            styles.w50,
-            tabIndex === 0
-              ? {backgroundColor: '#5285D4'}
-              : {backgroundColor: colors.LightBackground},
-          ]}
+          style={[styles.w50, tabIndex === 0 ? styles.bg : styles.bgLight]}
           onPress={() => setTabIndex(0)}>
           <Text
-            style={[
-              tabIndex === 0 ? {color: '#fff'} : {color: colors.TextColor},
-            ]}>
+            style={[tabIndex === 0 ? styles.white : {color: colors.TextColor}]}>
             Timeline
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[
-            styles.w50,
-            tabIndex === 1
-              ? {backgroundColor: '#5285D4'}
-              : {backgroundColor: colors.LightBackground},
-          ]}
+          style={[styles.w50, tabIndex === 1 ? styles.bg : styles.bgLight]}
           onPress={() => setTabIndex(1)}>
           <Text
-            style={[
-              tabIndex === 1 ? {color: '#fff'} : {color: colors.TextColor},
-            ]}>
+            style={[tabIndex === 1 ? styles.white : {color: colors.TextColor}]}>
             Activity
           </Text>
         </TouchableOpacity>
       </View>
-
       {tabIndex === 0 && <OrderTimeline props={props} />}
       {tabIndex === 1 && <OrderActivity props={props} />}
-
-      {/* <ChangeOrderStatusModal
-        visible={visibleStatusChange}
-        statuses={props.statuses}
-        id={props.item.id}
-        setVisibility={ModelClose}
-      />
-      <ActivitySelector
-        visible={visibleActivitySelector}
-        setVisibility={ActivitySelectorModelClose}
-        openActivity={OpenActivity}
-      />
-      <ActivityModal
-        visible={visibleActivity}
-        statuses={props.statuses}
-        customers={customersObj ? [customersObj] : []}
-        statusId={
-          props &&
-          props.item &&
-          props.item.last_checkpoints &&
-          props.item.last_checkpoint.status
-        }
-        id={props.item.id}
-        activityType={activityType}
-        users={props.users}
-        emailTemplates={props.emailTemplates}
-        mailingLists={props.mailingLists}
-        recipientGroups={props.recipientGroup}
-        userId={props.userId}
-        setVisibility={ActivityModelClose}
-      /> */}
     </>
   );
 };
 const useStyles = colors => {
   return StyleSheet.create({
     listItem: {
-      // height: 140,
-      width: deviceWidth - 20,
+      width: deviceWidth - 30,
       backgroundColor: colors.boxColor,
       padding: 8,
       borderWidth: 0.5,
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
-      // marginBottom: 5,
-      // marginTop: 0,
+      marginBottom: 5,
+      marginHorizontal: 5,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.2,
+      shadowRadius: 6,
+      elevation: 5,
     },
     TrackingId: {
       width: deviceWidth - 100,
@@ -442,9 +296,7 @@ const useStyles = colors => {
       borderRadius: 10,
     },
     w50: {
-      //   marginTop: 15,
       padding: 10,
-      //   backgroundColor: colors.LightBackground,
       alignItems: 'center',
       width: (deviceWidth - 40) / 2,
       borderRadius: 120,
@@ -461,6 +313,28 @@ const useStyles = colors => {
       marginTop: 15,
       borderRadius: 150,
     },
+    mT10: {
+      marginTop: 10,
+    },
+    fS12: {
+      fontSize: 12,
+    },
+    fS10: {
+      fontSize: 12,
+    },
+    mL10: {
+      marginLeft: 10,
+    },
+    font: {
+      fontSize: 12,
+      fontStyle: 'normal',
+      fontWeight: '600',
+    },
+    mT12: {marginTop: 12},
+    mT5: {marginTop: 5},
+    bg: {backgroundColor: '#5285D4'},
+    bgLight: {backgroundColor: colors.LightBackground},
+    white: {color: '#fff'},
   });
 };
 

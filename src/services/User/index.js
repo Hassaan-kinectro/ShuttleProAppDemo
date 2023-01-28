@@ -3,6 +3,7 @@ import instance from '../../config/axios';
 import {isArray} from 'lodash';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
+
 const GetUsers = async () => {
   const responseData = {
     loading: false,

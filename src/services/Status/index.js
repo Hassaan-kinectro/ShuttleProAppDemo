@@ -3,6 +3,7 @@ import instance from '../../config/axios';
 import {isArray} from 'lodash';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
+
 const GetStatuses = async () => {
   const responseData = {
     loading: false,
@@ -14,7 +15,6 @@ const GetStatuses = async () => {
     .get('/v1/statuses', token)
     .then(response => {
       if (response.status === 200) {
-        // console.log(response);
         response = response.data;
         return {
           ...responseData,

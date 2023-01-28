@@ -19,7 +19,7 @@ const GlobalStyle = theme => {
 
     CircleImageView: {
       width: '100%',
-      height: 50, // backgroundColor: 'cyan',
+      height: 50,
       flexDirection: 'row',
     },
     CircleImage: {
@@ -126,6 +126,8 @@ const GlobalStyle = theme => {
     mB10: {marginBottom: 10},
     mB15: {marginBottom: 15},
     mB20: {marginBottom: 20},
+    mB30: {marginBottom: 30},
+    mL10: {marginLeft: 10},
     mV10: {marginVertical: 10},
     mV15: {marginVertical: 15},
     background_LIGHT_BLACK_2: {backgroundColor: Colors.LIGHT_BLACK_2},
@@ -149,7 +151,6 @@ const GlobalStyle = theme => {
       width: 160,
       height: 150,
       borderRadius: 5,
-      // backgroundColor: 'red',
       marginLeft: 'auto',
       marginRight: 'auto',
       marginVertical: 5,
@@ -239,7 +240,6 @@ const GlobalStyle = theme => {
       height: 45,
     },
     WorkspaceLogoText: {
-      //   backgroundColor: 'blue',
       width: 150,
       height: 20,
       marginBottom: 5,
@@ -249,11 +249,6 @@ const GlobalStyle = theme => {
       textAlign: 'center',
     },
     dropDownStyle: {
-      // backgroundColor: colors.textAreaColor,
-      // borderWidth: 0,
-      // borderBottomRightRadius: 0,
-      // borderBottomLeftRadius: 0,
-      // elevation:5,
       backgroundColor: colors.textAreaColor,
       borderWidth: 1,
       borderColor: colors.button,
@@ -266,7 +261,6 @@ const GlobalStyle = theme => {
       color: colors.TextColor,
     },
     labelStyle: {
-      // color: colors.textColor,
       paddingLeft: 5,
     },
     itemStyle: {

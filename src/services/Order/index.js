@@ -5,9 +5,6 @@ import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 
 const GetOrders = async (workspaceId, page, offset) => {
-  console.log(workspaceId);
-  console.log(page);
-  console.log(offset);
   const responseData = {
     loading: false,
     status: 210,
@@ -23,7 +20,6 @@ const GetOrders = async (workspaceId, page, offset) => {
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log('here are the orders', response.data);
           const product = isArray(response.data)
             ? response.data
             : JSON.parse(response.data);
@@ -56,13 +52,8 @@ const GetOrders = async (workspaceId, page, offset) => {
       };
     });
 };
-const GetOrdersByFilter = async (
-  workspaceId,
-  page,
-  offset,
-  totalFetch,
-  filter,
-) => {
+const GetOrdersByFilter = async (workspaceId, page, offset, filter) => {
+  console.log(workspaceId, page, offset, filter);
   const responseData = {
     loading: false,
     status: 210,
@@ -211,59 +202,61 @@ const UpdateOrders = async formdata => {
       };
     });
 };
-const getOrderStatus = async (order_id, workspace_id) => {
-  console.log(order_id, workspace_id);
-  const responseData = {
-    loading: false,
-    status: 210,
-    message: 'Something went wrong, Please try again.',
-  };
-  const token = await getAuthHeader();
-  console.log(workspace_id);
-  return instance
-    .get(
-      '/orders/get_order_status?workspace_id=' +
-        workspace_id +
-        '&order_id=' +
-        order_id,
-      token,
-    )
-    .then(response => {
-      console.log('yayyyyyyyyy');
-      if (response.status === 200 || response.status === 201) {
-        response = response.data;
-        if (response.code === 200) {
-          const order = isArray(response.data)
-            ? response.data
-            : JSON.parse(response.data);
-          return {
-            ...responseData,
-            data: isArray(order) ? order : [],
-            status: 200,
-            message: 'Order status fetched successfully.',
-          };
+const getOrderStatus = async (workspace_id, order_id) => {
+  try {
+    const responseData = {
+      loading: false,
+      status: 210,
+      message: 'Something went wrong, Please try again.',
+    };
+    const token = await getAuthHeader();
+    console.log('enter', token);
+    return instance
+      .get(
+        '/orders/order_status?workspace_id=' +
+          workspace_id +
+          '&order_id=' +
+          order_id,
+        token,
+      )
+      .then(response => {
+        if (response.status === 200 || response.status === 201) {
+          response = response.data;
+          if (response.code === 200) {
+            const order = response.data
+              ? response.data
+              : JSON.parse(response.data);
+            return {
+              ...responseData,
+              data: isObject(order) ? order : {},
+              status: 200,
+              message: 'Order status fetched successfully.',
+            };
+          } else {
+            return {
+              ...responseData,
+              message: 'Order not found!',
+            };
+          }
         } else {
           return {
             ...responseData,
-            message: 'Order not found!',
+            message: ParseError(response.data),
           };
         }
-      } else {
+      })
+      .catch(err => {
+        console.log(err);
         return {
           ...responseData,
-          message: ParseError(response.data),
+          message: ParseError(
+            err.response && err.response.data ? err.response.data : err.message,
+          ),
         };
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      return {
-        ...responseData,
-        message: ParseError(
-          err.response && err.response.data ? err.response.data : err.message,
-        ),
-      };
-    });
+      });
+  } catch (error) {
+    console.log(error);
+  }
 };
 const getOrderDetail = async (order_id, workspace_id) => {
   console.log(order_id, workspace_id, 'asfdads');

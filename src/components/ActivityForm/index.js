@@ -11,28 +11,21 @@ const ActivityForm = props => {
   const {order} = props;
   const {obj} = props;
 
-  const [statusVisible, setStatusVisibility] = useState(false);
   const [status, setStatus] = useState(null);
   const [communicationType, setCommunicationType] = useState(null);
   const [communicationName, setCommunicationName] = useState(null);
   const [comTypeVisible, setComTypeVisibility] = useState(false);
-  const [comNameVisible, setComNameVisibility] = useState(false);
   const [nameVisible, setNameVisibility] = useState(false);
   const [recipientGroup, setRecipientGroup] = useState(null);
   const [recipientGroupData, setRecipientGroupData] = useState([]);
   const [recipientGroupVisible, setRecipientGroupVisibility] = useState(false);
   const [recipient, setRecipient] = useState(null);
   const [recipientData, setRecipientData] = useState([]);
-  const [recipientVisible, setRecipientVisibility] = useState(false);
   const [template, setTemplate] = useState(null);
   const [templateData, setTemplateData] = useState([]);
   const [templateVisible, setTemplateVisibility] = useState(false);
   const [hideField, setHiddenField] = useState(false);
-  const [mailGroups, setMailGroups] = useState(null);
-  const [mailGroupsLoading, setMailGroupsLoading] = useState(false);
-  const [descTemplates, setDescTemplates] = useState(null);
   const [tempTemplates, setTempTemplates] = useState([]);
-  const [descTemplatesLoading, setDescTemplatesLoading] = useState(false);
   const [comTypeData, setCompTypeData] = useState([]);
 
   const {colors} = useTheme();
@@ -103,67 +96,8 @@ const ActivityForm = props => {
     if (props.visible && props.emailTemplates) {
       setTemplateData(props.emailTemplates);
     }
-    // if (props.visible && props.statusId) {
-    //   setStatus(props.statusId ? props.statusId.id : null);
-    //   props.setFieldValue('orderStatus', props.statusId);
-    // }
-    // if (
-    //   props.activityType === 'confirmation' ||
-    //   props.activityType === 'follow_up'
-    // ) {
-    //   setHiddenField(true);
-    //   props.setFieldValue(
-    //     'communicationType',
-    //     props.activityType === 'confirmation'
-    //       ? {label: 'Confirmation', value: 'confirmation'}
-    //       : {label: 'Follow-up', value: 'follow_up'},
-    //   );
-    //   const recip = props.recipientGroups.filter((a) => a.name === 'Customer');
-    //   props.setFieldValue('recipientGroup', recip.length > 0 ? recip[0] : null);
-    //   props.setFieldValue(
-    //     'recipient',
-    //     props.customers.length > 0 ? props.customers[0] : null,
-    //   );
-    // } else {
-    //   setHiddenField(false);
-    // }
   }, [props.visible]);
 
-  const changeComType = item => {
-    if (item.value === 'email') {
-      const recip = props.recipientGroups.filter(
-        a => a.name === 'Product Managers',
-      );
-      setRecipientGroupData(recip);
-      setRecipientGroup(recip.length > 0 ? recip[0].value : null);
-      props.setFieldValue('recipientGroup', recip.length > 0 ? recip[0] : null);
-      changeRecipient('Product Managers');
-    } else if (item.value === 'call') {
-      const recip = props.recipientGroups.filter(
-        a => a.name === 'Shuttle Exec',
-      );
-      setRecipientGroupData(recip);
-      setRecipientGroup(recip.length > 0 ? recip[0].value : null);
-      props.setFieldValue('recipientGroup', recip.length > 0 ? recip[0] : null);
-      changeRecipient('Shuttle Exec');
-    } else {
-      const recip = props.recipientGroups.filter(a => a.name === 'Customer');
-      setRecipientGroupData(recip);
-      setRecipientGroup(recip.length > 0 ? recip[0].value : null);
-      props.setFieldValue('recipientGroup', recip.length > 0 ? recip[0] : null);
-      changeRecipient('Customer');
-    }
-    let temp = props.emailTemplates.filter(a => a.template_type === item.value);
-    if (
-      ['return_activities', 'follow_up', 'confirmation'].includes(item.value)
-    ) {
-      temp = props.emailTemplates;
-    }
-    setTemplateData(temp);
-    setTemplate(temp.length > 0 ? temp[0].value : null);
-    props.setFieldValue('template', temp.length > 0 ? temp[0] : null);
-    changeEmailTemplate(temp.length > 0 ? temp[0] : null);
-  };
   const changeRecipient = item => {
     if (item === 'Mailing List') {
       setRecipientData(props.mailingLists);
@@ -213,53 +147,14 @@ const ActivityForm = props => {
     }
   };
   const changeVisibility = () => {
-    // setStatusVisibility(false);
     setComTypeVisibility(false);
     setRecipientGroupVisibility(false);
-    // setRecipientVisibility(false);
     setNameVisibility(false);
     setTemplateVisibility(false);
   };
 
   return (
     <>
-      {/* <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-        Order Status
-      </Text>
-      <DropDownPicker
-        items={statuses}
-        defaultValue={status}
-        scrollViewProps={{
-          keyboardShouldPersistTaps: 'always',
-        }}
-        dropDownMaxHeight={200}
-        searchable={true}
-        searchablePlaceholder="Search Order Status"
-        searchablePlaceholderTextColor={Colors.WHITE}
-        searchableStyle={styles.searchableStyle}
-        searchableError={() => <Text>No Order Status Found</Text>}
-        isVisible={statusVisible}
-        onOpen={() => {
-          changeVisibility();
-          setStatusVisibility(true);
-        }}
-        onClose={() => setStatusVisibility(false)}
-        placeholder="Select Order Status"
-        containerStyle={styles.containerStyle}
-        activeItemStyle={styles.activeItemStyle}
-        style={styles.dropDownContainerStyle}
-        itemStyle={styles.itemStyle}
-        arrowColor={Colors.WHITE}
-        labelStyle={styles.labelStyle}
-        activeLabelStyle={styles.placeholderStyle}
-        selectedLabelStyle={styles.placeholderStyle}
-        placeholderStyle={styles.placeholderStyle}
-        dropDownStyle={styles.dropDownStyle}
-        onChangeItem={item => {
-          setStatus(item.value);
-          props.setFieldValue('orderStatus', item);
-        }}
-      /> */}
       {!hideField ? (
         <>
           <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
@@ -272,9 +167,6 @@ const ActivityForm = props => {
               keyboardShouldPersistTaps: 'always',
             }}
             dropDownMaxHeight={200}
-            // searchable={true}
-            // searchablePlaceholder="Select Name"
-            // searchableError={() => <Text>No Name Found</Text>}
             isVisible={nameVisible}
             onOpen={() => {
               changeVisibility();
@@ -321,9 +213,6 @@ const ActivityForm = props => {
               keyboardShouldPersistTaps: 'always',
             }}
             dropDownMaxHeight={200}
-            // searchable={true}
-            // searchablePlaceholder="Search Type"
-            // searchableError={() => <Text>No Type Found</Text>}
             isVisible={comTypeVisible}
             onOpen={() => {
               changeVisibility();
@@ -361,9 +250,6 @@ const ActivityForm = props => {
             keyboardShouldPersistTaps: 'always',
           }}
           dropDownMaxHeight={200}
-          // searchable={true}
-          // searchablePlaceholder="Search Recipient Group"
-          // searchableError={() => <Text>No Recipient Group Found</Text>}
           isVisible={recipientGroupVisible}
           onOpen={() => {
             changeVisibility();
@@ -399,9 +285,6 @@ const ActivityForm = props => {
             keyboardShouldPersistTaps: 'always',
           }}
           dropDownMaxHeight={200}
-          // searchable={true}
-          // searchablePlaceholder="Search Template"
-          // searchableError={() => <Text>No Template Found</Text>}
           isVisible={templateVisible}
           onOpen={() => {
             changeVisibility();

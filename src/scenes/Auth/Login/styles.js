@@ -1,10 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {deviceWidth, deviceHeight, IS_IOS} from '../../../utils/orientation';
-import {useTheme} from '@react-navigation/native';
 import {scaleSize} from '../../../styles/mixins';
 import {GlobalStyle} from '../../../styles';
 const useStyles = () => {
-  const {colors} = useTheme();
   const Styles = GlobalStyle();
   return StyleSheet.create({
     HideIconView: {

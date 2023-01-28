@@ -1,90 +1,48 @@
 import {StyleSheet} from 'react-native';
-import {IS_PAD, deviceWidth} from '../../utils/orientation';
-import {Styles, Colors} from '../../styles';
+import {IS_PAD, deviceWidth, IS_IOS} from '../../utils/orientation';
 import {useTheme} from '@react-navigation/native';
 
-const UseStyles = () => {
+const useStyles = () => {
   const {colors} = useTheme();
-
   return StyleSheet.create({
-    BoxStyle: {
+    wrapperStyle: {
+      overflow: 'hidden',
+      shadowRadius: 1,
+      shadowOpacity: 50,
+      borderBottomLeftRadius: 35,
+      borderBottomRightRadius: 35,
+      marginBottom: 15,
+      borderBottomWidth: 1,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 0.5,
+      shadowOffset: {width: 0, height: 15},
       elevation: 5,
-      height: 180,
-      width: deviceWidth - 20,
-      // backgroundColor: colors.boxColor,
-      // backgroundColor: 'transparent',
-      padding: 5,
-      borderWidth: 2,
-      borderRadius: 10,
-      // borderColor: colors.boxBorderColor,
-      borderColor: '#23313E',
-      marginBottom: 10,
-
-      justifyContent: 'center',
+    },
+    container: {
+      marginLeft: 21,
+      marginTop: 70,
+      marginBottom: 15,
+      display: 'flex',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      flexDirection: 'row',
+      height: IS_IOS ? 50 : 40,
     },
-    clear: {
-      position: 'absolute',
-      zIndex: 1000,
-      right: 5,
-      top: 0,
+    innerContainer: {
+      shadowOffset: {width: 0, height: 0.2},
+      shadowOpacity: 0.1,
+      shadowRadius: 5,
+      elevation: 3,
     },
-    CircleView: {
-      // backgroundColor: colors.gradient1,
-      backgroundColor: 'transparent',
-      borderWidth: 2,
-      width: 60,
-      height: 60,
-      borderColor: colors.borderColor,
-      borderRadius: 30,
-      justifyContent: 'center',
-      alignItems: 'center',
+    pR: {
+      paddingRight: 15,
     },
-    WorkspaceImageButton: {
-      width: '100%',
-      height: '100%',
-      borderRadius: 500,
-      backgroundColor: colors.background,
-      alignItems: 'center',
-      justifyContent: 'center',
+    pB: {
+      paddingBottom: 10,
     },
-    WorkspaceImage: {
-      width: '100%',
-      height: 100,
-      marginTop: 5,
-      // backgroundColor: Colors.PRIMARY,
-      borderRadius: 5,
-      borderWidth: 1,
-      borderStyle: 'dashed',
-      borderColor: colors.borderColor,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-    },
-    mainWrapper: {
-      paddingLeft: IS_PAD ? deviceWidth / 5 : 30,
-      paddingRight: IS_PAD ? deviceWidth / 5 : 30,
-      paddingVertical: 20,
-    },
-    logoWrapper: {
-      flex: 0.8,
-      paddingBottom: 20,
-      paddingTop: 20,
-    },
-    TouchableOpacity: {
-      height: 50,
-      backgroundColor: colors.button,
-      width: deviceWidth - (IS_PAD ? (deviceWidth / 5) * 2 : 60),
-      borderRadius: 5,
-    },
-    UploadImageView: {
-      width: '80%',
-      height: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-      borderRadius: 420,
+    h10: {
+      height: 10,
     },
   });
 };
-export default UseStyles;
+export default useStyles;

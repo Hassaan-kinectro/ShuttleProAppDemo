@@ -1,6 +1,4 @@
 import {Dimensions, Platform} from 'react-native';
-// import {isTablet} from 'react-native-device-info';
-// This coul be a reducer or something if needed globally
 export const deviceHeight = Dimensions.get('window').height;
 export const deviceWidth = Dimensions.get('window').width;
 export const IS_IOS = Platform.OS === 'ios';

@@ -7,15 +7,13 @@ import {useTheme} from '@react-navigation/native';
 import {Dark, Light, HeaderBG} from '../../utils/imagesPath';
 
 const Inbox = props => {
-  console.log(props, 'adasdsa');
   const {navigation} = props;
 
   const theme = useSelector(state => state.themeChange.theme);
   const {colors} = useTheme();
 
-  console.log(theme);
   const name = 'Story';
-  console.log(name);
+
   return (
     <>
       <CustomHeader name={name} navigation={navigation} />

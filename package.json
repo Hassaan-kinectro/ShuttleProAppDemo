@@ -33,6 +33,7 @@
     "react-native-fast-image": "^8.6.3",
     "react-native-flash-message": "^0.4.0",
     "react-native-gesture-handler": "^2.8.0",
+    "react-native-htmlview": "^0.16.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-material-menu": "^2.0.0",

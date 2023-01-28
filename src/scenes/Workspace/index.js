@@ -1,57 +1,40 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  FlatList,
-  TouchableOpacity,
-  RefreshControl,
-  ActivityIndicator,
-  ImageBackground,
-} from 'react-native';
-import {Colors, GlobalStyle, Mixins, Text} from '../../styles';
-import {StackActions} from '@react-navigation/native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import {
-  deviceHeight,
-  IS_IOS,
-  getFixedHeaderHeight,
-} from '../../utils/orientation';
+import {View, FlatList, RefreshControl, ImageBackground} from 'react-native';
+import {GlobalStyle, Text} from '../../styles';
+import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
+import useStyles from './styles';
 import {Logout} from '../../navigations';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import AIcon from 'react-native-vector-icons/AntDesign';
-import useStyles from './styles';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTheme} from '@react-navigation/native';
 import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
 import Wrapper from '../../components/Wrapper';
 import {UserContext} from '../../context/userContext';
-
-import {
-  Dark,
-  Light,
-  HeaderBG,
-  HeaderDark,
-  HeaderLight,
-} from '../../utils/imagesPath';
+import {Dark, Light, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import {FONT_FAMILY} from '../../utils/constants';
+import {onRefresh, getRecord} from './helper';
+import Loader from '../../components/Loader';
+
 const Workspace = props => {
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const {workspace, setWorkspaces, route, navigation} = props;
   const theme = useSelector(state => state.themeChange.theme);
+  const user = useSelector(state => state.user);
+  console.log(user, 'logged in user aaaaa1');
   const {colors} = useTheme();
-  const styles = useStyles();
+  const styles = useStyles(colors);
   const Styles = GlobalStyle();
   const {t} = useTranslation();
   let context = React.useContext(UserContext);
   const {setAuth, setUserName, setOrganization_id, setUserRole, setUserId} =
     context;
   useEffect(() => {
-    getRecord();
+    getRecord(setLoading, GetWorkSpaceUser, setWorkspaceList);
   }, []);
   React.useEffect(() => {
     if (route.params && route.params.refresh) {
@@ -59,86 +42,23 @@ const Workspace = props => {
       onRefresh();
     }
   }, [route.params]);
-  const getRecord = () => {
-    setLoading(true);
-    GetWorkSpaceUser()
-      .then(res => {
-        if (res.status === 200 && res.data.length > 0) {
-          setTimeout(() => {
-            setWorkspaceList(res.data);
-            setLoading(false);
-          }, 300);
-        } else {
-          setTimeout(() => {
-            setWorkspaceList([]);
-            setLoading(false);
-          }, 300);
-        }
-      })
-      .catch(err => {
-        setTimeout(() => {
-          setWorkspaceList([]);
-          setLoading(false);
-        }, 300);
-      });
-  };
-  const onRefresh = () => {
-    setRefresh(true);
-    GetWorkSpaceUser().then(res => {
-      if (res.status === 200 && res.data.length > 0) {
-        setRefresh(false);
-        setWorkspaceList(res.data);
-      } else {
-        setRefresh(false);
-      }
-    });
-  };
+
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-      <View
-        style={{
-          overflow: 'hidden',
-          shadowRadius: 1,
-          shadowOpacity: 50,
-          borderBottomLeftRadius: 35,
-          borderBottomRightRadius: 35,
-          marginBottom: 15,
-          borderBottomWidth: 1,
-          borderColor: colors.boxBorderColor,
-          borderWidth: 0.5,
-          shadowOffset: {width: 0, height: 15},
-          elevation: 5,
-        }}>
-        <ImageBackground
-          style={{
-            shadowOffset: {width: 0, height: 0.2},
-            shadowOpacity: 0.1,
-            shadowRadius: 5,
-            elevation: 5,
-          }}
-          source={theme === 'DARK' ? HeaderDark : HeaderLight}>
-          <View
-            style={{
-              marginLeft: 21,
-              marginTop: 70,
-              marginBottom: 15,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexDirection: 'row',
-              height: IS_IOS ? 50 : 40,
-            }}>
+      <View style={styles.wrapperStyle}>
+        <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
+          <View style={styles.container}>
             <Text
               size={24}
               color={colors.TextHeader}
               fontFamily={FONT_FAMILY.SEMI_BOLD}>
-              Workspaces
+              {t('workspaces')}
             </Text>
             <MaterialIcons
               name="logout"
               color={colors.TextColor}
               size={25}
-              style={{paddingRight: 15}}
+              style={styles.pR}
               onPress={() =>
                 Logout(
                   navigation,
@@ -157,39 +77,29 @@ const Workspace = props => {
         style={[
           Styles.alignItemsCenter,
           Styles.flexCenter,
-          {
-            shadowOffset: {width: 0, height: 0.2},
-            shadowOpacity: 0.1,
-            shadowRadius: 5,
-            elevation: 3,
-          },
+          Styles.flatList,
+          styles.innerContainer,
         ]}>
-        <View style={{height: 10}} />
+        <View style={styles.h10} />
         {loading ? (
           <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
-            {loading && (
-              <ActivityIndicator
-                type={'ThreeBounce'}
-                size={30}
-                color={colors.textColorLight}
-              />
-            )}
+            {loading && <Loader />}
           </View>
         ) : (
           <FlatList
             data={workspaceList}
+            extraData={loading}
             nestedScrollEnabled={true}
             removeClippedSubviews={true}
             maxToRenderPerBatch={40}
             initialNumToRender={40}
-            windowSize={1}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            extraData={loading}
+            keyExtractor={(item, index) => `${index}`}
             refreshControl={
               <RefreshControl
                 refreshing={refresh}
-                onRefresh={onRefresh}
+                onRefresh={() =>
+                  onRefresh(setRefresh, GetWorkSpaceUser, setWorkspaceList)
+                }
                 colors={[colors.background]}
                 tintColor={colors.themeIcon}
               />
@@ -208,13 +118,13 @@ const Workspace = props => {
                     name="warning"
                     color={colors.textColorLight}
                     size={40}
-                    style={{paddingBottom: 10}}
+                    style={styles.pB10}
                   />
                   <Text
                     numberOfLines={1}
                     color={colors.textColorLight}
                     size={16}>
-                    Workspaces Not Available
+                    {t('workspaces.not.available')}
                   </Text>
                 </View>
               ) : null
@@ -223,7 +133,7 @@ const Workspace = props => {
               return (
                 <WorkspaceListItem
                   item={item}
-                  key={item.workspace.id}
+                  key={item.id}
                   navigation={props.navigation}
                   workspace={workspace}
                   setWorkspaces={setWorkspaces}
@@ -236,4 +146,5 @@ const Workspace = props => {
     </Wrapper>
   );
 };
+
 export default Workspace;

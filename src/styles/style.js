@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     width: 160,
     height: 150,
     borderRadius: 5,
-    // backgroundColor: 'red',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginVertical: 5,
@@ -126,7 +125,6 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderRadius: 60,
-    // backgroundColor: 'red',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginVertical: 5,
@@ -177,7 +175,6 @@ const styles = StyleSheet.create({
   },
 
   WorkspaceLogoText: {
-    //   backgroundColor: 'blue',
     width: 150,
     height: 20,
     marginBottom: 5,

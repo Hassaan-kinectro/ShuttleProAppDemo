@@ -2,7 +2,7 @@
 import React from 'react';
 import MModal from 'react-native-modal';
 import {TouchableOpacity, View} from 'react-native';
-import {Colors, Styles, Text} from '../../styles';
+import {Styles, Text} from '../../styles';
 import {deviceWidth} from '../../utils/orientation';
 import {useTheme} from '@react-navigation/native';
 

@@ -1,13 +1,4 @@
-import _, {
-  isArray,
-  isString,
-  map,
-  toString,
-  filter,
-  uniqueId,
-  forEach,
-  isEmpty,
-} from 'lodash';
+import _, {isArray, isString, map, toString} from 'lodash';
 import {capitalize} from './helper';
 export const ParseError = error => {
   let err = 'Something went wrong, Please try again.';
@@ -77,13 +68,10 @@ export const TransformForDropDown = (
 };
 
 export const descriptionTemplateParser = (data, order = null) => {
-  console.log(data, order, 'hellloooo descrippptionnn templlaaateee parrserrr');
   let caption = '';
   let description = data && data.split('~');
   if (description && description.length > 0) {
     description.forEach(desc => {
-      // desc.replaceAll('\r', '');
-      // desc.replaceAll('\n', '');
       if (desc !== null) {
         if (desc[0] === '|') {
           desc = desc.replace('|', '');

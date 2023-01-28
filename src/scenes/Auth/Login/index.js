@@ -14,6 +14,8 @@ import {HANDLED, Routes} from '../../../utils/constants';
 
 const LoginScreen = props => {
   const theme = useSelector(state => state.themeChange.theme);
+  const authUser = useSelector(state => state.authorized);
+
   const [loading, setLoading] = React.useState(false);
   const {navigation} = props;
   const styles = useStyles();
@@ -35,7 +37,6 @@ const LoginScreen = props => {
           description: res.message,
           type: 'success',
         });
-        // navigation.dispatch(StackActions.replace('Drawer'));
         setTimeout(() => {
           navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
         }, 1000);

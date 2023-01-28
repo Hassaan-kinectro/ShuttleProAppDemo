@@ -7,7 +7,6 @@ import {FONT_FAMILY} from '../utils/constants';
 
 const RawText = ({
   size = Mixins.scaleFont(14),
-  weight = '300',
   color = null,
   style = {},
   children,
@@ -19,7 +18,6 @@ const RawText = ({
   const textStyle = {
     color: color ? color : colors.textColor,
     fontSize: size,
-    // fontWeight: weight,
     fontFamily: fontFamily,
   };
   return (

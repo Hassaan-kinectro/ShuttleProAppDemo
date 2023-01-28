@@ -108,7 +108,7 @@ const LoginForm = ({
             {!loading ? (
               <Text
                 size={Mixins.scaleFont(16)}
-                fontFamily={FONT_FAMILY.MEDIUM}
+                fontFamily={FONT_FAMILY.REGULAR}
                 color={colors.white}
                 style={[styles.buttonText]}>
                 {t('login')}

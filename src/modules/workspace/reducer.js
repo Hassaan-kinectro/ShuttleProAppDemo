@@ -1,6 +1,6 @@
 import * as Type from './types';
 import {isObject} from 'lodash';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const WorkspaceReducer = (
   state = {
     workspace: null,
@@ -8,7 +8,6 @@ const WorkspaceReducer = (
   },
   action,
 ) => {
-  console.log(action);
   switch (action.type) {
     case Type.SET_WORKSPACE:
       state = {

@@ -14,7 +14,6 @@ const GetStatusTypes = async () => {
     .get('/v1/status_types', token)
     .then(response => {
       if (response.status === 200) {
-        // console.log(response);
         response = response.data;
         return {
           ...responseData,

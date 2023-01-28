@@ -4,17 +4,10 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
-import {Colors, Mixins, Styles, Spinner, Text, GlobalStyle} from '../../styles';
-import {
-  deviceHeight,
-  deviceWidth,
-  IS_ANDROID,
-  IS_IOS,
-  IS_IPHONEX,
-} from '../../utils/orientation';
+import {Colors, Mixins, Text, GlobalStyle} from '../../styles';
+import {deviceHeight, IS_IOS} from '../../utils/orientation';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Wrapper from '../Wrapper';
@@ -25,9 +18,9 @@ import ActivityForm from '../ActivityForm';
 import {useTheme} from '@react-navigation/native';
 import {CreateActivity} from '../../services/Activity';
 import {useSelector} from 'react-redux';
-import {Dark, Light, HeaderBG} from '../../utils/imagesPath';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Dark, Light} from '../../utils/imagesPath';
 import {scaleSize} from '../../styles/mixins';
+import {showMessage} from 'react-native-flash-message';
 
 const ComType = [
   {label: 'Email', value: 'email'},
@@ -60,7 +53,6 @@ const ChangeOrderStatusModal = props => {
     state => state.workspace.workspace.workspace.id,
   );
   const {obj} = props;
-
   const [loading, setLoading] = React.useState(false);
   const [reset, setReset] = React.useState(false);
   const {colors} = useTheme();
@@ -71,35 +63,26 @@ const ChangeOrderStatusModal = props => {
   useEffect(() => {
     setLoading(false);
     setReset(false);
-    getRecords();
   }, [props.visible]);
-  const getRecords = () => {};
+
   const onModalClose = () => {
     props.setVisibility(false);
     setReset(true);
   };
   const handleChange = (FormData, {resetForm}) => {
-    console.log(FormData, 'HELLLLLOOOOO FORRRMM DATAA22');
-
     setLoading(true);
-
     if (
-      FormData &&
-      FormData.communicationName &&
-      FormData.communicationName.value === null &&
-      FormData.remarks === '' &&
-      FormData.communicationType &&
-      FormData.communicationType.value === null &&
-      FormData.template &&
-      FormData.template.id === null &&
-      FormData.recipientGroup &&
-      FormData.recipientGroup.id === null &&
+      (FormData && FormData.communicationName === null) ||
+      FormData.remarks === '' ||
+      FormData.communicationType === null ||
+      FormData.template === null ||
       FormData.description === ''
     ) {
-      return flashBox.current.showMessage({
+      setLoading(false);
+      return showMessage({
         message: '',
-        description: 'Please fill all values!',
-        type: 'danger',
+        description: 'Activity Is Not Created',
+        type: 'DANGER',
       });
     } else {
       const obj2 = {
@@ -128,10 +111,6 @@ const ChangeOrderStatusModal = props => {
         scheduledTime: '',
         workspaceId: workspace_id,
         subject: FormData && FormData.remarks ? FormData.remarks : null,
-        emailId: '',
-        // FormData && FormData.recipientGroup && FormData.recipientGroup.emailIds
-        //   ? FormData.recipientGroup.emailIds
-        //   : null,
         mailGroupId:
           FormData && FormData.recipientGroup && FormData.recipientGroup.id
             ? FormData.recipientGroup.id
@@ -155,13 +134,11 @@ const ChangeOrderStatusModal = props => {
         status: '',
       };
       CreateActivity(obj2).then(res => {
-        console.log(res, 'aaaaaaaaaaaaaaaaaaaaaaaa');
         if (res.status === 200) {
-          console.log(res.status, 'aaaaaaaaaaaaaaaaaaaaaaaa2222222');
           setTimeout(() => {
-            flashBox?.current?.showMessage({
+            showMessage({
               message: '',
-              description: res.message,
+              description: 'Activity Created Successfully',
               type: 'success',
             });
             setLoading(false);
@@ -173,28 +150,18 @@ const ChangeOrderStatusModal = props => {
             props.refreshServices();
           }
         } else {
-          flashBox?.current?.showMessage({
+          showMessage({
             message: '',
-            description: res.message,
-            type: 'danger',
+            description: 'Activity Is Not Created',
+            type: 'DANGER',
           });
           setLoading(false);
         }
       });
     }
   };
-  const {
-    statuses,
-    recipientGroups,
-    emailTemplates,
-    customers,
-    mailingLists,
-    users,
-    statusId,
-    activityType,
-    visible,
-    order,
-  } = props;
+  const {statuses, recipientGroups, emailTemplates, users, visible, order} =
+    props;
 
   return (
     <>
@@ -241,16 +208,13 @@ const ChangeOrderStatusModal = props => {
                 size={Mixins.scaleFont(20)}>
                 New Activity
               </Text>
-              <TouchableOpacity
-                onPress={onModalClose}
-                style={[styles.btnClose]}>
+              <TouchableOpacity onPress={onModalClose}>
                 <MIcon name="close" size={24} color={Colors.DANGER} />
               </TouchableOpacity>
             </View>
             <KeyboardAwareScrollView
               contentContainerStyle={[
                 {
-                  // flex: 1,
                   minHeight: deviceHeight - headerHeight - 50,
                 },
                 ,
@@ -284,12 +248,8 @@ const ChangeOrderStatusModal = props => {
                             order={order}
                             recipientGroups={recipientGroups}
                             emailTemplates={emailTemplates}
-                            customers={customers}
-                            statusId={statusId}
                             ComType={ComType}
                             ComTypeOptions={ComTypeOptions}
-                            activityType={activityType}
-                            mailingLists={mailingLists}
                             users={users}
                             visible={visible}
                             reset={reset}
@@ -339,11 +299,6 @@ const ChangeOrderStatusModal = props => {
 };
 const useStyles = colors => {
   return StyleSheet.create({
-    btnClose: {
-      // position: 'absolute',
-      // top: 25,
-      // right: 15,
-    },
     addActivity: {
       backgroundColor: colors.button,
       width: 200,

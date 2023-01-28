@@ -1,7 +1,7 @@
 import instance from '../../config/axios';
-import {ExtractHeader, ParseError} from '../../utils/Parser';
+import {ParseError} from '../../utils/Parser';
 import {getAuthHeader, getAuthHeaderForFiles} from '../../config/authSettings';
-import {forEach, isArray, isObject} from 'lodash';
+import {isArray, isObject} from 'lodash';
 import FormData from 'form-data';
 
 const imageTypes = [
@@ -19,19 +19,16 @@ const getExtension = type => {
 };
 
 const GetWorkSpaceUser = async () => {
-  console.log('from workspace service');
   const responseData = {
     loading: false,
     status: 210,
     message: 'Something went wrong, Please try again.',
   };
   const token = await getAuthHeader();
-  const id = 1;
 
   return instance
     .get('/workspaces/user', token)
     .then(response => {
-      console.log('from workspace service response');
       if (response.status === 200 || response.status === 201) {
         const workspace = isArray(response.data.data)
           ? response.data.data
@@ -70,7 +67,7 @@ const CreateWorkspaces = async (fdata, create = true) => {
   const data = new FormData();
   data.append('name', fdata.workspaceName);
   data.append('file', {
-    uri: fdata.file.path, // your file path string
+    uri: fdata.file.path,
     name: fdata.file.filename
       ? fdata.file.filename
       : Math.random().toString(36).slice(2) + getExtension(fdata.file.mime),
@@ -87,7 +84,6 @@ const CreateWorkspaces = async (fdata, create = true) => {
             const workspaces = isArray(response.data)
               ? response.data
               : response.data;
-
             return {
               ...responseData,
               data: isObject(workspaces) ? workspaces : [],
@@ -108,8 +104,6 @@ const CreateWorkspaces = async (fdata, create = true) => {
         }
       })
       .catch(err => {
-        console.log('the eror', err);
-        console.log(err.response);
         return {
           ...responseData,
           message: ParseError(
@@ -121,41 +115,24 @@ const CreateWorkspaces = async (fdata, create = true) => {
 };
 
 const EditWorkspaces = async (fdata, id) => {
-  // console.log("value");
-  // for (var value of data.values()){
-  //   console.log(value);
-  // }
-  console.log('edit', fdata, id);
   const responseData = {
     loading: false,
     status: 210,
     message: 'Something went wrong, Please try again.',
   };
   let token = await getAuthHeaderForFiles();
-  // const data = new FormData();
-  // data.append('name', fdata.workspaceName);
-  // data.append('file', {
-  //   uri: fdata.file.path, // your file path string
-  //   name: fdata.file.filename
-  //     ? fdata.file.filename
-  //     : Math.random().toString(36).slice(2) + getExtension(fdata.file.mime),
-  //   type: fdata.file.mime,
-  // });
-  console.log('thess dtaasss formee', fdata);
-  //Update
+
   return instance
     .put(`/workspaces/${id}`, fdata, token)
     .then(response => {
-      console.log('the resss999s', response);
-
       if (response.status === 200 || response.status === 201) {
         response = response.data;
-        console.log('the ressss', response);
+
         if (response.code === 200) {
           const workspaces = isArray(response.data)
             ? response.data
             : response.data;
-          console.log('Updated workspacesss', workspaces);
+
           return {
             ...responseData,
             data: isObject(workspaces) ? workspaces : [],

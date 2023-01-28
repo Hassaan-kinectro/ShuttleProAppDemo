@@ -1,8 +1,8 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Colors, Mixins, Text} from '../../styles';
+import {Mixins, Text} from '../../styles';
 
 const CircularImage = props => {
   const {colors} = useTheme();
@@ -14,7 +14,6 @@ const CircularImage = props => {
     <View style={props.style}>
       {props.img ? (
         <>
-          {/* <Text>image</Text> */}
           <FastImage
             source={{uri: props.img}}
             resizeMode={FastImage.resizeMode.cover}

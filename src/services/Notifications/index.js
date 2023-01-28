@@ -13,17 +13,11 @@ const AddNotification = async data => {
   return instance
     .post('/mongodb/notification', data, token)
     .then(async response => {
-      console.log('My Response--------------->', response);
       if (response.status === 200) {
-        console.log(
-          'hereee we are:Notification::::',
-          response.status,
-          response,
-        );
         response = response.data;
         if (response.code === 200) {
           response = response.data;
-          console.log('Th response iof Notification==>>', response);
+
           return {
             data: response,
             status: 200,
@@ -100,7 +94,6 @@ const UpdateNotification = async (formdata, id) => {
 };
 
 const GetNotificationByDeviceId = async device => {
-  console.log('this is device token', device);
   const responseData = {
     loading: false,
     status: 210,

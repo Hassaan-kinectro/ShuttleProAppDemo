@@ -1,29 +1,21 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  View,
-  Image,
-  Dimensions,
-  Text,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {NavigationContainer, useTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StackActions} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-
+import {tabStyles} from '../styles/tabStyle';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem,
-  DrawerItemList,
 } from '@react-navigation/drawer';
 import Feather from 'react-native-vector-icons/Feather';
-
 import {showMessage} from 'react-native-flash-message';
 import {IS_ANDROID, IS_IOS} from '../utils/orientation';
 import {Routes, HIDE_HEADER} from '../utils/constants';
-import {SignOut, setTheme, setAuth} from '../config/authSettings';
+import {SignOut, setTheme} from '../config/authSettings';
 import {Colors, GlobalStyle} from '../styles';
 import Loading from '../scenes/Loading';
 import Login from '../scenes/Auth/Login';
@@ -42,7 +34,6 @@ import ShowOrder from '../scenes/Orders/ShowOrder';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import AIcon from 'react-native-vector-icons/AntDesign';
 
 const Stack = createStackNavigator();
@@ -105,25 +96,7 @@ const StackCommonHeaderOptions = (
         />
       ),
     };
-  }
-  // if (check) {
-  //   return {
-  //     headerRight: () => (
-  //       <TouchableOpacity style={[styles.Download]} onPress={() => {onDownload(item);}}
-  //         disabled={item.download !== 'Done'}
-  //       >
-
-  //         {loading === false ? (
-  //           <MIcon name="save-alt" size={23} color={item.download === 'Done' ? Colors.WHITE : '#BDBCBC'} />) : (
-  //           <Spinner
-  //             type={'ThreeBounce'}
-  //             size={30}
-  //             color={Colors.PRIMARY}
-  //           />
-  //         )}
-  //     )}
-  // }
-  else if (check) {
+  } else if (check) {
     return {
       headerRight: () => (
         <MaterialIcons
@@ -167,13 +140,11 @@ const AppLogout = async (
   setOrganization_id,
   setUserRole,
   setUserId,
-  setWorkspaces,
 ) => {
   await setAuth(false);
   await setUserName(null),
     await setOrganization_id(null),
     await setUserRole(null),
-    // await setWorkspaces(null),
     await setUserId(null);
   await SignOut();
   navigation.dispatch(StackActions.replace('login'));
@@ -186,13 +157,11 @@ export const Logout = async (
   setOrganization_id,
   setUserRole,
   setUserId,
-  setWorkspaces,
 ) => {
   await setAuth(false);
   await setUserName(null),
     await setOrganization_id(null),
     await setUserRole(null),
-    // await setWorkspaces(null),
     await setUserId(null);
   await SignOut();
   navigation.dispatch(StackActions.replace('login'));
@@ -205,11 +174,9 @@ const ThemeIcon = () => {
 
   const {colors} = useTheme();
   const Styles = GlobalStyle();
-  console.log('Visible---->>>>', visible, theme);
 
   React.useEffect(() => {
     AsyncStorage.getItem('Theme').then(res => {
-      console.log('---Theme->>>', res);
       if (res === 'DARK') {
         setVisible(true);
       } else {
@@ -268,7 +235,7 @@ const Orders = () => {
         headerMode="screen"
         options={({navigation}) => ({
           headerShown: false,
-          title: 'Orders',
+          title: 'Orders Screen',
           ...StackCommonHeaderOptions(navigation),
         })}
         name={Routes.ORDERSLIST}
@@ -278,7 +245,7 @@ const Orders = () => {
         headerMode="screen"
         options={({navigation}) => ({
           headerShown: false,
-          title: 'Orders',
+          title: 'Show Orders',
           ...StackCommonHeaderOptions(navigation),
         })}
         name={Routes.SHOWORDER}
@@ -342,7 +309,7 @@ const CustomDrawerContent = props => {
         onPress={() => {
           navigation.navigate('workspace');
         }}
-        icon={({color, size}) => (
+        icon={({size}) => (
           <MaterialIcons
             name="credit-card"
             size={size}
@@ -481,8 +448,6 @@ const CustomDrawerContent = props => {
   );
 };
 const DrawerNavigator = ({
-  notificationCount,
-  setNotificationCount,
   setAuth,
   setUserName,
   setOrganization_id,
@@ -530,8 +495,6 @@ const DrawerNavigator = ({
         {props => (
           <BottomTabNavigator
             {...props}
-            notificationCount={notificationCount}
-            setNotificationCount={setNotificationCount}
             setAuth={setAuth}
             setUserId={setUserId}
             setOrganization_id={setOrganization_id}
@@ -543,15 +506,7 @@ const DrawerNavigator = ({
     </Drawer.Navigator>
   );
 };
-const BottomTabNavigator = ({
-  notificationCount,
-  setNotificationCount,
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-}) => {
+const BottomTabNavigator = () => {
   const {colors} = useTheme();
   return (
     <Tab.Navigator
@@ -561,16 +516,18 @@ const BottomTabNavigator = ({
         headerShown: false,
         tabBarStyle: {
           height: IS_ANDROID ? '10%' : '10%',
-          borderColor: 'transparent',
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
           backgroundColor: colors.bottomNav,
-          shadowOffset: {width: 0, height: 2},
-          shadowOpacity: 0.5,
-          shadowRadius: 6,
-          elevation: 15,
-          position: 'absolute',
-          overflow: 'hidden',
+          shadowOpacity: 0.12,
+          shadowRadius: 8.0,
+          elevation: 25,
           borderTopLeftRadius: 35,
           borderTopRightRadius: 35,
+          borderColor: 'transparent',
+          position: 'absolute',
           left: 0,
           bottom: 0,
           right: 0,
@@ -591,32 +548,9 @@ const BottomTabNavigator = ({
         options={{
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  shadowColor: '#258082',
-                  shadowOffset: {
-                    width: 0,
-                    height: 8,
-                  },
-                  shadowOpacity: 1,
-                  shadowRadius: 11.14,
-
-                  elevation: 17,
-                }}>
+              <View style={tabStyles.box}>
                 <AIcon name="creditcard" size={size} color={color} />
-                <View
-                  style={{
-                    height: 5,
-                    width: 25,
-                    backgroundColor: '#258082',
-                    borderRadius: 5,
-                    marginTop: 15,
-                  }}
-                />
+                <View style={tabStyles.button} />
               </View>
             ) : (
               <AIcon name="creditcard" size={size} color={color} />
@@ -624,38 +558,14 @@ const BottomTabNavigator = ({
         }}>
         {props => <Dashboard {...props} />}
       </Tab.Screen>
-
       <Tab.Screen
         name={Routes.ORDERS}
         options={{
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  shadowColor: '#258082',
-                  shadowOffset: {
-                    width: 0,
-                    height: 8,
-                  },
-                  shadowOpacity: 1,
-                  shadowRadius: 11.14,
-
-                  elevation: 17,
-                }}>
+              <View style={tabStyles.box}>
                 <AIcon name="laptop" size={size} color={color} />
-                <View
-                  style={{
-                    height: 5,
-                    width: 25,
-                    backgroundColor: '#258082',
-                    borderRadius: 5,
-                    marginTop: 15,
-                  }}
-                />
+                <View style={tabStyles.button} />
               </View>
             ) : (
               <AIcon name="laptop" size={size} color={color} />
@@ -668,36 +578,13 @@ const BottomTabNavigator = ({
         options={{
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  shadowColor: '#258082',
-                  shadowOffset: {
-                    width: 0,
-                    height: 8,
-                  },
-                  shadowOpacity: 1,
-                  shadowRadius: 11.14,
-
-                  elevation: 17,
-                }}>
+              <View style={tabStyles.box}>
                 <MCIcon
                   name="image-multiple-outline"
                   size={size}
                   color={color}
                 />
-                <View
-                  style={{
-                    height: 5,
-                    width: 25,
-                    backgroundColor: '#258082',
-                    borderRadius: 5,
-                    marginTop: 15,
-                  }}
-                />
+                <View style={tabStyles.button} />
               </View>
             ) : (
               <MCIcon name="image-multiple-outline" size={size} color={color} />
@@ -711,31 +598,9 @@ const BottomTabNavigator = ({
           headerShown: false,
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  shadowColor: '#258082',
-                  shadowOffset: {
-                    width: 0,
-                    height: 8,
-                  },
-                  shadowOpacity: 1,
-                  shadowRadius: 11.14,
-                  elevation: 17,
-                }}>
+              <View style={tabStyles.box}>
                 <AIcon name="inbox" size={size} color={color} />
-                <View
-                  style={{
-                    height: 5,
-                    width: 25,
-                    backgroundColor: '#258082',
-                    borderRadius: 5,
-                    marginTop: 15,
-                  }}
-                />
+                <View style={tabStyles.button} />
               </View>
             ) : (
               <AIcon name="inbox" size={size} color={color} />
@@ -748,32 +613,10 @@ const BottomTabNavigator = ({
         options={{
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  shadowColor: '#258082',
-                  shadowOffset: {
-                    width: 0,
-                    height: 8,
-                  },
-                  shadowOpacity: 1,
-                  shadowRadius: 11.14,
-                  elevation: 17,
-                }}>
+              <View style={tabStyles.box}>
                 <AIcon name="setting" size={size} color={color} />
 
-                <View
-                  style={{
-                    height: 5,
-                    width: 25,
-                    backgroundColor: '#258082',
-                    borderRadius: 5,
-                    marginTop: 15,
-                  }}
-                />
+                <View style={tabStyles.button} />
               </View>
             ) : (
               <AIcon name="setting" size={size} color={color} />
@@ -785,8 +628,6 @@ const BottomTabNavigator = ({
   );
 };
 const WorkspaceNavigator = ({
-  notificationCount,
-  setNotificationCount,
   setAuth,
   setUserName,
   setOrganization_id,
@@ -794,10 +635,6 @@ const WorkspaceNavigator = ({
   workspace,
   setWorkspaces,
   setUserId,
-  userRole,
-  userName,
-  organization_id,
-  userId,
 }) => {
   return (
     <Stack.Navigator
@@ -807,7 +644,6 @@ const WorkspaceNavigator = ({
         name={Routes.WORKSPACE}
         headerMode="screen"
         options={({navigation}) => ({
-          // title: 'Workspace123',
           headerShown: false,
           ...StackCommonHeaderOptions(
             navigation,
@@ -832,30 +668,19 @@ const WorkspaceNavigator = ({
         {props => (
           <DrawerNavigator
             {...props}
-            notificationCount={notificationCount}
-            setNotificationCount={setNotificationCount}
             setAuth={setAuth}
             setUserId={setUserId}
             setOrganization_id={setOrganization_id}
             setUserRole={setUserRole}
             setUserName={setUserName}
-            workspace={workspace}
-            setWorkspaces={setWorkspaces}
           />
         )}
       </Stack.Screen>
-      <Stack.Screen
-        name={Routes.ORDERS}
-        options={{headerShown: false}}
-        component={Orders}
-      />
     </Stack.Navigator>
   );
 };
 
 const Navigation = ({
-  notificationCount,
-  setNotificationCount,
   setAuth,
   setUserName,
   setOrganization_id,
@@ -863,10 +688,6 @@ const Navigation = ({
   workspace,
   setWorkspaces,
   setUserId,
-  userRole,
-  userName,
-  organization_id,
-  userId,
   theme,
 }) => {
   return (
@@ -895,8 +716,6 @@ const Navigation = ({
           {props => (
             <WorkspaceNavigator
               {...props}
-              notificationCount={notificationCount}
-              setNotificationCount={setNotificationCount}
               setAuth={setAuth}
               setUserId={setUserId}
               setOrganization_id={setOrganization_id}
@@ -906,9 +725,6 @@ const Navigation = ({
               setWorkspaces={setWorkspaces}
             />
           )}
-        </Stack.Screen>
-        <Stack.Screen name={Routes.HOME} options={HIDE_HEADER}>
-          {props => <DrawerNavigator {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

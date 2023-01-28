@@ -1,7 +1,7 @@
 import instance from '../../config/axios';
 import {isArray} from 'lodash';
 import {ParseError} from '../../utils/Parser';
-import {getAuthHeader, setUser} from '../../config/authSettings';
+import {getAuthHeader} from '../../config/authSettings';
 const GetStores = async () => {
   const responseData = {
     loading: false,
@@ -13,7 +13,6 @@ const GetStores = async () => {
     .get('/v1/stores', token)
     .then(response => {
       if (response.status === 200) {
-        // console.log(response);
         response = response.data;
         return {
           ...responseData,

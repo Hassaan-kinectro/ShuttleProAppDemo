@@ -5,7 +5,6 @@ import {GlobalStyle} from '../../styles';
 import {Routes} from '../../utils/constants';
 import {isAuthExist} from '../../config/authSettings';
 
-//import messaging from '@react-native-firebase/messaging';
 const LoadingScreen = ({navigation, route}) => {
   const {colors} = useTheme();
   const Styles = GlobalStyle();
@@ -13,12 +12,10 @@ const LoadingScreen = ({navigation, route}) => {
     isAuthExist().then(async res => {
       console.log(res);
       if (res) {
-        // navigation.navigate('Drawer');
         setTimeout(() => {
           navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
-        }, 1000); // navigation.navigate('Workspace')
+        }, 1000);
       } else {
-        // navigation.navigate('Login');
         navigation.dispatch(StackActions.replace(Routes.LOGIN));
       }
     });

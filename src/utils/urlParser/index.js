@@ -1,24 +1,4 @@
-import enviroment from '../../config/environment';
 import {ImageNotFound} from '../imagesPath';
-// import RNFetchBlob from 'rn-fetch-blob';
-import {isEmpty} from 'lodash';
-
-const ImageExtensions = [
-  {name: 'jpeg', code: 'image/jpeg'},
-  {name: 'jpg', code: 'image/jpeg'},
-  {name: 'png', code: 'image/png'},
-  {name: 'gif', code: 'image/gif'},
-];
-const ImageExtensionsList = [
-  'image/jpeg',
-  'image/jpg',
-  'image/gif',
-  'image/png',
-  'jpeg',
-  'jpg',
-  'png',
-  'gif',
-];
 
 export const ResolvePostImage = product => {
   let image = ImageNotFound;
@@ -56,7 +36,7 @@ export const ResolveImages = product => {
       console.log('thumImages', product.product_attachments[0].image.thumb.url);
       image = product.product_attachments[0].image.thumb.url;
     } else if (product.product_attachments[0].image) {
-      image = product.product_attachments[0].image.url; //first priority aws images then others!!!!
+      image = product.product_attachments[0].image.url;
     } else if (product.product_attachments[0].avatar_new.url) {
       image = ImageUrl(product.product_attachments[0].avatar_new.url);
     } else if (product.product_attachments[0].vimeo_file.url) {

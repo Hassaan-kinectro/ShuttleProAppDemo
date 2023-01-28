@@ -1,8 +1,22 @@
 {
   "login": "Login",
-  "workspace": "Workspace",
+  "workspaces": "Workspaces",
   "hello": "Hello!",
   "login.get.started": "Login to Get Started",
+  "workspaces.not.available": "Workspaces Not Available",
+  "timeline.not.available": "Timeline Not Available",
+  "orders.not.available": "Orders Not Available",
+  "activities.not.available": "Activities Not Available",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "products": "Products",
+  "orders": "Orders",
+  "members": "Members",
+  "shippers": "Shippers",
+  "cn": "CN",
+  "cod.amount": "COD Amount",
+  "booking.date": "Booking Date",
+  "ph": "Ph",
+  "address": "Address",
+  "product.details": "Product Details"
 }

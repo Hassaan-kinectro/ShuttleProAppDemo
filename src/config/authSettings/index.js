@@ -15,7 +15,6 @@ export const setAccessToken = data => {
 
 export const isAuthExist = () =>
   new Promise((resolve, reject) => {
-    console.log('getting token');
     AsyncStorage.getItem('token')
       .then(res => {
         if (res !== null) {
@@ -60,7 +59,6 @@ export const setUser = data => {
 
 export const getUser = () =>
   new Promise((resolve, reject) => {
-    console.log('getting user');
     AsyncStorage.getItem('user')
       .then(res => {
         if (res !== null) {
