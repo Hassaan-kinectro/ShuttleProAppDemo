@@ -16,7 +16,6 @@ const GetNotificationsUnReadCount = async () => {
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log(response.data);
           const notifications = isNumber(response.data)
             ? response.data
             : JSON.parse(response.data);

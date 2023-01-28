@@ -53,7 +53,6 @@ const GetOrders = async (workspaceId, page, offset) => {
     });
 };
 const GetOrdersByFilter = async (workspaceId, page, offset, filter) => {
-  console.log(workspaceId, page, offset, filter);
   const responseData = {
     loading: false,
     status: 210,
@@ -259,7 +258,6 @@ const getOrderStatus = async (workspace_id, order_id) => {
   }
 };
 const getOrderDetail = async (order_id, workspace_id) => {
-  console.log(order_id, workspace_id, 'asfdads');
   const responseData = {
     loading: false,
     status: 210,
@@ -272,9 +270,7 @@ const getOrderDetail = async (order_id, workspace_id) => {
       token,
     )
     .then(response => {
-      console.log(response);
       if (response.status === 200 || response.status === 201) {
-        console.log(',responseStatus 210, 200');
         response = response.data;
         if (response.code === 200) {
           const order = response.data

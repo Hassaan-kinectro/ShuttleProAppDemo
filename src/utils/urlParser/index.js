@@ -26,7 +26,7 @@ export const ResolvePostImage = product => {
 };
 export const ResolveImages = product => {
   let image = ImageNotFound;
-  console.log('That Products', product);
+
   if (
     product &&
     product.product_attachments &&

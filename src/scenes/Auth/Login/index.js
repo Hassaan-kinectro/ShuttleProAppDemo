@@ -14,8 +14,6 @@ import {HANDLED, Routes} from '../../../utils/constants';
 
 const LoginScreen = props => {
   const theme = useSelector(state => state.themeChange.theme);
-  const authUser = useSelector(state => state.authorized);
-
   const [loading, setLoading] = React.useState(false);
   const {navigation} = props;
   const styles = useStyles();
@@ -25,7 +23,6 @@ const LoginScreen = props => {
     console.log(formData);
     await AuthLogin(formData.email, formData.password).then(res => {
       setLoading(false);
-      console.log('frontend', res);
       if (res.status === 200) {
         props.setAuth(true);
         props.setUserId(res.userId);

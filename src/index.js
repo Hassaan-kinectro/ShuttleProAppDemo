@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {View, StatusBar, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Navigation from './navigations';
-import {UserContext} from './context/userContext';
 import {Colors, GlobalStyle} from './styles';
 import {
   setJSExceptionHandler,
@@ -50,12 +51,6 @@ setNativeExceptionHandler(errorString => {});
 
 const Src = () => {
   const [auth, setAuth] = useState(false);
-  const [userId, setUserId] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [userRole, setUserRole] = useState(null);
-  const [organization_id, setOrganization_id] = useState(null);
-  const [workspace, setWorkspaces] = useState(null);
-
   const theme = useSelector(state => state.themeChange.theme);
   const Styles = GlobalStyle();
   const dispatch = useDispatch();
@@ -70,17 +65,11 @@ const Src = () => {
     // SplashScreen.hide();
     console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
     isAuthExist().then(async res => {
-      console.log(res, 'auth token');
       setAuth(res);
     });
     getUser().then(async res => {
       if (res) {
-        console.log(res, 'sssssss');
         dispatch(SetUser(res ? res : null));
-        setUserName(res.user_name);
-        setUserId(res.id);
-        setOrganization_id(res.organization_id);
-        setUserRole(res.role);
       }
     });
   }, []);
@@ -94,16 +83,6 @@ const Src = () => {
       />
       <Navigation
         setAuth={setAuth}
-        setUserId={setUserId}
-        setUserRole={setUserRole}
-        setOrganization_id={setOrganization_id}
-        setUserName={setUserName}
-        organization_id={organization_id && organization_id}
-        workspace={workspace}
-        setWorkspaces={setWorkspaces}
-        userRole={userRole ? userRole : 'admin'}
-        userName={userName ? userName : 'Unnamed Person'}
-        userId={userId && userId}
         theme={theme === 'DARK' ? Colors.DarkTheme : Colors.LightTheme}
       />
     </View>

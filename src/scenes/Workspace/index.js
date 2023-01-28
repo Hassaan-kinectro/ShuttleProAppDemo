@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, RefreshControl, ImageBackground} from 'react-native';
 import {GlobalStyle, Text} from '../../styles';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
 import useStyles from './styles';
-import {Logout} from '../../navigations';
+import {AppLogout} from '../../navigations';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import AIcon from 'react-native-vector-icons/AntDesign';
@@ -12,27 +13,26 @@ import {useTheme} from '@react-navigation/native';
 import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
 import Wrapper from '../../components/Wrapper';
-import {UserContext} from '../../context/userContext';
 import {Dark, Light, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import {FONT_FAMILY} from '../../utils/constants';
 import {onRefresh, getRecord} from './helper';
 import Loader from '../../components/Loader';
 
 const Workspace = props => {
+  const [auth, setAuth] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [organization_id, setOrganization_id] = useState(null);
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const {workspace, setWorkspaces, route, navigation} = props;
+  const {route, navigation} = props;
   const theme = useSelector(state => state.themeChange.theme);
-  const user = useSelector(state => state.user);
-  console.log(user, 'logged in user aaaaa1');
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();
   const {t} = useTranslation();
-  let context = React.useContext(UserContext);
-  const {setAuth, setUserName, setOrganization_id, setUserRole, setUserId} =
-    context;
   useEffect(() => {
     getRecord(setLoading, GetWorkSpaceUser, setWorkspaceList);
   }, []);
@@ -60,13 +60,13 @@ const Workspace = props => {
               size={25}
               style={styles.pR}
               onPress={() =>
-                Logout(
+                AppLogout(
                   navigation,
                   setAuth,
-                  setUserName,
-                  setOrganization_id,
-                  setUserRole,
                   setUserId,
+                  setUserName,
+                  setUserRole,
+                  setOrganization_id,
                 )
               }
             />
@@ -135,8 +135,6 @@ const Workspace = props => {
                   item={item}
                   key={item.id}
                   navigation={props.navigation}
-                  workspace={workspace}
-                  setWorkspaces={setWorkspaces}
                 />
               );
             }}

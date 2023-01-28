@@ -16,7 +16,7 @@ import {Routes} from '../../utils/constants';
 import SocialProfileShow from './socialProfileShow';
 
 const WorkspaceListItem = props => {
-  const {item, navigation, setWorkspaces} = props;
+  const {item, navigation} = props;
   const dispatch = useDispatch();
   const [socialProfiles, setSocialProfiles] = React.useState(false);
   const {colors} = useTheme();
@@ -30,7 +30,6 @@ const WorkspaceListItem = props => {
         <View style={styles.BoxStyle}>
           <TouchableOpacity
             onPress={() => {
-              setWorkspaces(item);
               dispatch(SetWorkspace(item));
               navigation.navigate(Routes.DRAWER, {
                 screen: Routes.BOTTOMTAB,
@@ -85,7 +84,6 @@ const WorkspaceListItem = props => {
             <View style={[Styles.flexDirectionRow, styles.Dashboard]}>
               <TouchableOpacity
                 onPress={() => {
-                  setWorkspaces(item);
                   dispatch(SetWorkspace(item));
                   navigation.navigate(Routes.DRAWER, {
                     screen: Routes.BOTTOMTAB,
@@ -113,7 +111,6 @@ const WorkspaceListItem = props => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setWorkspaces(item);
                   dispatch(SetWorkspace(item));
                   navigation.navigate(Routes.DRAWER, {
                     screen: Routes.BOTTOMTAB,
@@ -148,7 +145,6 @@ const WorkspaceListItem = props => {
             <View style={[Styles.flexDirectionRow, styles.members]}>
               <TouchableOpacity
                 onPress={() => {
-                  setWorkspaces(item);
                   dispatch(SetWorkspace(item));
                   navigation.navigate(Routes.DRAWER, {
                     screen: Routes.BOTTOMTAB,
@@ -184,7 +180,6 @@ const WorkspaceListItem = props => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setWorkspaces(item);
                   dispatch(SetWorkspace(item));
                   navigation.navigate(Routes.DRAWER, {
                     screen: Routes.BOTTOMTAB,

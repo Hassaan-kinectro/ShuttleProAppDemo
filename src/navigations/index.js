@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
@@ -25,7 +27,6 @@ import Inbox from '../scenes/Inbox';
 import Design from '../scenes/Designs';
 import Dashboard from '../scenes/Dashboard';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {UserContext} from '../context/userContext';
 import FastImage from 'react-native-fast-image';
 import {DrawerLogo} from '../utils/imagesPath';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -133,24 +134,7 @@ const StackCommonHeaderOptions = (
   }
 };
 
-const AppLogout = async (
-  navigation,
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-) => {
-  await setAuth(false);
-  await setUserName(null),
-    await setOrganization_id(null),
-    await setUserRole(null),
-    await setUserId(null);
-  await SignOut();
-  navigation.dispatch(StackActions.replace('login'));
-};
-
-export const Logout = async (
+export const AppLogout = async (
   navigation,
   setAuth,
   setUserName,
@@ -256,21 +240,18 @@ const Orders = () => {
 };
 const CustomDrawerContent = props => {
   const {navigation} = props;
-  let context = React.useContext(UserContext);
+  const workspaceIcon = useSelector(
+    state => state.workspace.workspace.workspace.icon.thumb.url,
+  );
+  const workspaceName = useSelector(
+    state => state.workspace.workspace.workspace.name,
+  );
+  const workspaceId = useSelector(
+    state => state.workspace.workspace.workspace.id,
+  );
   const {colors} = useTheme();
   const Styles = GlobalStyle();
-  const {userRole, workspace} = context;
-  const img =
-    workspace &&
-    workspace.workspace &&
-    workspace.workspace.icon &&
-    workspace.workspace.icon.thumb
-      ? workspace.workspace.icon.thumb.url
-      : null;
-  const name =
-    workspace && workspace.workspace && workspace.workspace.name
-      ? workspace.workspace.name
-      : null;
+
   return (
     <DrawerContentScrollView
       style={{backgroundColor: colors.background}}
@@ -280,12 +261,12 @@ const CustomDrawerContent = props => {
         <ThemeIcon />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('workspace');
+            navigation.navigate(Routes.WORKSPACE);
           }}>
-          {img ? (
+          {workspaceIcon ? (
             <FastImage
               resizeMode={FastImage.resizeMode.contain}
-              source={{uri: img}}
+              source={{uri: workspaceIcon}}
               style={Styles.DrawerLogo}
             />
           ) : (
@@ -296,7 +277,7 @@ const CustomDrawerContent = props => {
             />
           )}
           <Text numberOfLines={1} style={Styles.WorkspaceLogoText}>
-            {name}
+            {workspaceName}
           </Text>
         </TouchableOpacity>
       </View>
@@ -307,7 +288,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate('workspace');
+          navigation.navigate(Routes.WORKSPACE);
         }}
         icon={({size}) => (
           <MaterialIcons
@@ -362,7 +343,7 @@ const CustomDrawerContent = props => {
               params: {
                 screen: 'OrdersList',
                 params: {
-                  workspaceId: workspace.workspace.id,
+                  workspaceId: workspaceId,
                 },
               },
             },
@@ -385,13 +366,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          userRole === 'Store Manager'
-            ? showMessage({
-                message: 'Disabled',
-                description: 'You are not authorized',
-                type: 'danger',
-              })
-            : navigation.navigate(Routes.INBOX);
+          navigation.navigate(Routes.INBOX);
         }}
         icon={({color, size}) => (
           <AIcon name="inbox" size={size} color={colors.labelColor} />
@@ -632,8 +607,6 @@ const WorkspaceNavigator = ({
   setUserName,
   setOrganization_id,
   setUserRole,
-  workspace,
-  setWorkspaces,
   setUserId,
 }) => {
   return (
@@ -653,14 +626,16 @@ const WorkspaceNavigator = ({
             setUserName,
             setOrganization_id,
             setUserRole,
-            setWorkspaces,
           ),
         })}>
         {props => (
           <Workspace
             {...props}
-            workspace={workspace}
-            setWorkspaces={setWorkspaces}
+            setAuth={setAuth}
+            setUserName={setUserName}
+            setOrganization_id={setOrganization_id}
+            setUserRole={setUserRole}
+            setUserId={setUserId}
           />
         )}
       </Stack.Screen>
@@ -680,16 +655,23 @@ const WorkspaceNavigator = ({
   );
 };
 
-const Navigation = ({
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  workspace,
-  setWorkspaces,
-  setUserId,
-  theme,
-}) => {
+const Navigation = ({setAuth, theme}) => {
+  const [workspace, setWorkspaces] = React.useState(null);
+  const [userId, setUserId] = React.useState(null);
+  const [userName, setUserName] = React.useState(null);
+  const [userRole, setUserRole] = React.useState(null);
+  const [organization_id, setOrganization_id] = React.useState(null);
+  const user = useSelector(state => state.user.user);
+
+  React.useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+      setUserName(user.name);
+      setUserRole(user.role);
+      setOrganization_id(user.organization_id);
+    }
+  }, [user]);
+
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
@@ -721,8 +703,6 @@ const Navigation = ({
               setOrganization_id={setOrganization_id}
               setUserRole={setUserRole}
               setUserName={setUserName}
-              workspace={workspace}
-              setWorkspaces={setWorkspaces}
             />
           )}
         </Stack.Screen>
