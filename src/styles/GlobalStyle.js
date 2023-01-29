@@ -10,6 +10,24 @@ const GlobalStyle = theme => {
     flex: {
       flex: 1,
     },
+    flex2: {
+      flex: 2,
+    },
+    flex3: {
+      flex: 3,
+    },
+    justifyContentStart: {
+      justifyContent: 'flex-start',
+    },
+    alignItemsStart: {
+      alignItems: 'flex-start',
+    },
+    pH20: {
+      paddingHorizontal: 20,
+    },
+    pH30: {
+      paddingHorizontal: 30,
+    },
     justifyContentCenter: {
       justifyContent: 'center',
     },
@@ -66,6 +84,16 @@ const GlobalStyle = theme => {
       justifyContent: 'flex-start',
       alignItems: 'center',
     },
+    flex2Start: {
+      flex: 2,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    },
+    flex3End: {
+      flex: 3,
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+    },
     flexContentEnd: {
       flex: 1,
       justifyContent: 'flex-end',
@@ -82,12 +110,17 @@ const GlobalStyle = theme => {
     pL10: {
       paddingLeft: 10,
     },
+    L8: {
+      left: 8,
+    },
     pL5: {
       paddingLeft: 5,
     },
+
     pL15: {
       paddingLeft: 15,
     },
+    mL: {marginLeft: 20},
     pL20: {
       paddingLeft: 20,
     },

@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {View, FlatList, RefreshControl, ImageBackground} from 'react-native';
-import {handleLoadMore, onRefresh, getRecord} from './helper';
+import {View, FlatList, RefreshControl} from 'react-native';
+import {onRefresh, getRecord} from './helper';
 import {Text, GlobalStyle, Colors} from '../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
@@ -15,6 +16,7 @@ import {useSelector} from 'react-redux';
 import OrderListItem from '../../components/OrderListItem';
 import CustomHeader from '../../components/CustomHeader';
 import Loader from '../../components/Loader';
+import Wrapper from '../../components/Wrapper';
 
 const OrderScreen = ({navigation, route}) => {
   console.log();
@@ -94,6 +96,29 @@ const OrderScreen = ({navigation, route}) => {
       });
     }
   };
+  const handleLoadMore = () => {
+    if (page !== 1 && !sending && orders.length > 0) {
+      if (orders && allOrders && orders.length >= allOrders.length) {
+        return false;
+      }
+      setLoading(true);
+      setCallStatus(true);
+      setTimeout(() => {
+        const totalLength = page * offset;
+        changePage(page + 1);
+        setOrders(
+          orderBy(
+            allOrders.slice(
+              0,
+              totalLength <= allOrders.length ? totalLength : allOrders.length,
+            ),
+          ),
+        );
+        setCallStatus(false);
+        setLoading(false);
+      }, 500);
+    }
+  };
 
   const renderFooter = () => {
     if (!loading) {
@@ -115,9 +140,7 @@ const OrderScreen = ({navigation, route}) => {
   const name = 'Orders';
   return (
     <>
-      <ImageBackground
-        source={theme === 'DARK' ? Dark : Light}
-        style={[styles.image]}>
+      <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <CustomHeader name={name} navigation={navigation} />
         <View style={[Styles.flex]}>
           {loading ? (
@@ -178,20 +201,7 @@ const OrderScreen = ({navigation, route}) => {
               }
               ListFooterComponent={renderFooter}
               onEndReachedThreshold={0.5}
-              onEndReached={() =>
-                handleLoadMore(
-                  page,
-                  sending,
-                  orders,
-                  offset,
-                  allOrders,
-                  setLoading,
-                  changePage,
-                  setOrders,
-                  orderBy,
-                  setCallStatus,
-                )
-              }
+              onEndReached={handleLoadMore}
               renderItem={({item, index}) => (
                 <OrderListItem
                   item={item}
@@ -203,7 +213,7 @@ const OrderScreen = ({navigation, route}) => {
             />
           )}
         </View>
-      </ImageBackground>
+      </Wrapper>
     </>
   );
 };

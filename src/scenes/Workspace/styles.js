@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {IS_PAD, deviceWidth, IS_IOS} from '../../utils/orientation';
+import {IS_IOS} from '../../utils/orientation';
 import {useTheme} from '@react-navigation/native';
 
 const useStyles = () => {

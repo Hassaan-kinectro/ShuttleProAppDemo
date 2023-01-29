@@ -1,14 +1,15 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, {useRef} from 'react';
 import {View} from 'react-native';
 import {Text, Mixins, GlobalStyle} from '../../styles';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
-import moment from 'moment';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {TransformPrice} from '../../utils/Parser';
 import Feather from 'react-native-vector-icons/Feather';
 import AIcon from 'react-native-vector-icons/AntDesign';
-import {FONT_FAMILY, Routes} from '../../utils/constants';
+import {Routes} from '../../utils/constants';
 import ActivitySelector from '../ActivitySelector';
 import ActivityModal from '../ActivityModal';
 import OrderProductDetails from '../OrderProductDetails';
@@ -17,6 +18,7 @@ import {useTranslation} from 'react-i18next';
 import {CreateActivity} from '../../services/Activity';
 import useStyles from './styles';
 import {openDialScreen} from '../RowItem/helper';
+import OrderCard from './orderCard';
 
 const OrderListItem = props => {
   let contact =
@@ -36,7 +38,6 @@ const OrderListItem = props => {
   const workspace_id = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
-
   const [visibleProduct, setProductVisibility] = React.useState(false);
   const ActivityModelClose = React.useCallback(() => {
     setActivityVisibility(false);
@@ -84,9 +85,9 @@ const OrderListItem = props => {
 
   return (
     <>
-      <View style={[styles.listItem]}>
-        <View style={[Styles.flexDirectionRow, Styles.alignItemsCenter]}>
-          <View style={[Styles.flex, Styles.justifyContentCenter, styles.mT10]}>
+      <View style={styles.BoxStyle}>
+        <View style={[styles.container, Styles.flexDirectionRow, styles.pT21]}>
+          <View style={[Styles.flex2Start]}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -96,101 +97,20 @@ const OrderListItem = props => {
                   recipientGroup: props.recipientGroup,
                 });
               }}>
-              <View style={styles.inline}>
-                <View>
-                  <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
-                    {t('cn')} #
-                    {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={[Styles.mB5, styles.fS10]}>
-                    {t('cod.amount')}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.inline}>
-                <View />
-                <View>
-                  <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
-                    {props.item.cod_amount
-                      ? TransformPrice(props.item.cod_amount)
-                      : 'N/A'}
-                    .00
-                  </Text>
-                </View>
-              </View>
+              <Text
+                size={Mixins.scaleFont(12)}
+                style={{fontWeight: '400'}}
+                color={colors.TextColor}>
+                {t('cn')} #
+                {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
+              </Text>
             </TouchableOpacity>
-            <View style={styles.mT12}>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    size={12}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    color={colors.TextColor}>
-                    {props.item.customer && props.item.customer.name
-                      ? props.item.customer.name
-                      : 'N/A'}{' '}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={[Styles.mB5, styles.fS10]}>
-                    {t('booking.date')}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.inline}>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      OpenActivity();
-                    }}>
-                    <Text
-                      size={12}
-                      fontFamily={FONT_FAMILY.SEMI_BOLD}
-                      style={styles.mT5}>
-                      {t('ph')} #
-                      {props.item.customer && props.item.customer.contact
-                        ? props.item.customer.contact
-                        : 'N/A'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
-                    {moment(props.item.updated_at).format('DD MMM, YYYY')}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.mT12}>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    size={Mixins.scaleFont(12)}
-                    fontFamily={FONT_FAMILY.REGULAR}
-                    color={colors.TextColor}>
-                    {t('address')}
-                  </Text>
-                </View>
-                <View />
-              </View>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    size={12}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.mT5}>
-                    {props.item.customer && props.item.customer.address
-                      ? props.item.customer.address
-                      : 'N/A'}{' '}
-                  </Text>
-                </View>
-                <View />
-              </View>
-            </View>
+          </View>
+          <View style={[Styles.flexCenter]}>
+            <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
           </View>
         </View>
+        <OrderCard props={props} OpenActivity={OpenActivity} />
         <View style={styles.hairline} />
         <View style={styles.productContainer}>
           <Text size={10} color={colors.TextColor}>

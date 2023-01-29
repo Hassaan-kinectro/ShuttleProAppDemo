@@ -1,40 +1,6 @@
 import {FetchMailGroups} from '../../services/FetchMailGroup';
 import {FetchDescTemplates} from '../../services/DesTemplate';
 import {TransformForDropDown} from '../../utils/Parser';
-export const handleLoadMore = (
-  page,
-  sending,
-  orders,
-  allOrders,
-  setLoading,
-  setCallStatus,
-  offset,
-  changePage,
-  setOrders,
-  orderBy,
-) => {
-  if (page !== 1 && !sending && orders.length > 0) {
-    if (orders.length >= allOrders.length) {
-      return false;
-    }
-    setLoading(true);
-    setCallStatus(true);
-    setTimeout(() => {
-      const totalLength = page * offset;
-      changePage(page + 1);
-      setOrders(
-        orderBy(
-          allOrders.slice(
-            0,
-            totalLength <= allOrders.length ? totalLength : allOrders.length,
-          ),
-        ),
-      );
-      setCallStatus(false);
-      setLoading(false);
-    }, 100);
-  }
-};
 
 export const onRefresh = async (
   setRefreshing,

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {ImageNotFound} from '../imagesPath';
 
 export const ResolvePostImage = product => {

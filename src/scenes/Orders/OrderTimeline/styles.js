@@ -11,6 +11,10 @@ const useStyles = () => {
       paddingTop: 20,
     },
     boxContainer: {
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.2,
+      shadowRadius: 6,
+      elevation: 5,
       backgroundColor: colors.boxColor,
       paddingVertical: 15,
       paddingHorizontal: 10,

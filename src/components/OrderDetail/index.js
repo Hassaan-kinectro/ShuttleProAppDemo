@@ -1,9 +1,8 @@
+/* eslint-disable radix */
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Text, Colors, Mixins, GlobalStyle} from '../../styles';
-import {deviceWidth} from '../../utils/orientation';
+import {View} from 'react-native';
+import {Text, Mixins, GlobalStyle} from '../../styles';
 import {showMessage} from 'react-native-flash-message';
-import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Clipboard from '@react-native-community/clipboard';
@@ -11,12 +10,15 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TransformPrice} from '../../utils/Parser';
 import OrderActivity from '../../scenes/Orders/OrderActivity';
 import OrderTimeline from '../../scenes/Orders/OrderTimeline';
-
+import useStyles from './styles';
+import {useTranslation} from 'react-i18next';
+import OrderCard from '../OrderListItem/orderCard';
 const OrderDetail = props => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const {colors} = useTheme();
-  const styles = useStyles(colors);
+  const styles = useStyles();
   const Styles = GlobalStyle();
+  const {t} = useTranslation();
 
   const copyToClipboard = async () => {
     let text = '';
@@ -50,118 +52,45 @@ const OrderDetail = props => {
 
   return (
     <>
-      <View style={[styles.listItem]}>
+      <View style={styles.BoxStyle}>
+        <View style={[styles.container, Styles.flexDirectionRow, styles.pT21]}>
+          <View style={[Styles.flex2Start, Styles.flexDirectionRow]}>
+            <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
+              {t('cn')} #
+              {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
+            </Text>
+            <TouchableOpacity
+              style={styles.mL10}
+              activeOpacity={0.5}
+              onPress={copyToClipboard}>
+              <MIcon name="content-copy" size={20} color={colors.TextColor} />
+            </TouchableOpacity>
+          </View>
+          <View style={[Styles.flexCenter]}>
+            <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
+          </View>
+        </View>
+        <OrderCard props={props} />
         <View
           style={[
-            Styles.flexDirectionRow,
-            Styles.alignItemsCenter,
-            styles.mT10,
+            Styles.flexDirectionColumn,
+            styles.pT21,
+            Styles.flex,
+            Styles.justifyContentStart,
+            Styles.alignItemsStart,
+            Styles.pH20,
           ]}>
-          <View style={[Styles.flex, Styles.justifyContentCenter]}>
-            <View style={styles.inline}>
-              <View style={Styles.flexDirectionRow}>
-                <Text style={styles.fS12} weight="400" color={colors.TextColor}>
-                  CN # {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
-                </Text>
-                <TouchableOpacity
-                  style={styles.mL10}
-                  activeOpacity={0.5}
-                  onPress={copyToClipboard}>
-                  <MIcon
-                    name="content-copy"
-                    size={20}
-                    color={colors.TextColor}
-                    onPress={copyToClipboard}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <Text style={[Styles.mB5, styles.fS10]}>COD Amount</Text>
-              </View>
-            </View>
-            <View style={styles.inline}>
-              <View />
-              <View>
-                <Text style={styles.font}>
-                  {props.item.cod_amount
-                    ? TransformPrice(props.item.cod_amount)
-                    : 'N/A'}
-                  .00
-                </Text>
-              </View>
-            </View>
-            <View style={{marginTop: 12}}>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    style={{fontSize: 12}}
-                    size={Mixins.scaleFont(16)}
-                    weight="600"
-                    color={colors.TextColor}>
-                    {props.item.customer && props.item.customer.name
-                      ? props.item.customer.name
-                      : 'N/A'}
-                  </Text>
-                </View>
-                <View>
-                  <Text style={[Styles.mB5, {fontSize: 10}]}>Booking Date</Text>
-                </View>
-              </View>
-              <View style={styles.inline}>
-                <View>
-                  <TouchableOpacity onPress={() => {}}>
-                    <Text style={[styles.font, styles.mT5]}>
-                      Ph #{' '}
-                      {props.item.customer && props.item.customer.contact
-                        ? props.item.customer.contact
-                        : 'N/A'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <Text style={styles.font}>
-                    {moment(props.item.updated_at).format('DD MMM, YYYY')}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.mT12}>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    style={styles.fS12}
-                    size={Mixins.scaleFont(16)}
-                    weight="400"
-                    color={colors.TextColor}>
-                    Address
-                  </Text>
-                </View>
-                <View />
-              </View>
-              <View style={styles.inline}>
-                <View>
-                  <Text style={[styles.font, styles.mT5]}>
-                    {props.item.customer && props.item.customer.address
-                      ? props.item.customer.address
-                      : 'N/A'}{' '}
-                  </Text>
-                </View>
-                <View />
-              </View>
-            </View>
-            <View style={styles.mT12}>
-              <View style={styles.inline}>
-                <View>
-                  <Text
-                    style={styles.fS12}
-                    size={Mixins.scaleFont(16)}
-                    weight="400"
-                    color={colors.TextColor}>
-                    Product Details
-                  </Text>
-                </View>
-                <View />
-              </View>
+          <View style={[Styles.flex2Start]}>
+            <Text
+              style={styles.fS12}
+              size={Mixins.scaleFont(16)}
+              weight="400"
+              color={colors.TextColor}>
+              Product Details
+            </Text>
+          </View>
+          <View style={[Styles.flexCenter]}>
+            <Text size={12} style={styles.mT5}>
               {props && props.item && props.item.order_products
                 ? props.item.order_products.map(k => {
                     return (
@@ -185,157 +114,40 @@ const OrderDetail = props => {
                     );
                   })
                 : null}
-            </View>
+            </Text>
           </View>
         </View>
       </View>
-      <View style={styles.tabBar}>
-        <TouchableOpacity
-          style={[styles.w50, tabIndex === 0 ? styles.bg : styles.bgLight]}
-          onPress={() => setTabIndex(0)}>
-          <Text
-            style={[tabIndex === 0 ? styles.white : {color: colors.TextColor}]}>
-            Timeline
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.w50, tabIndex === 1 ? styles.bg : styles.bgLight]}
-          onPress={() => setTabIndex(1)}>
-          <Text
-            style={[tabIndex === 1 ? styles.white : {color: colors.TextColor}]}>
-            Activity
-          </Text>
-        </TouchableOpacity>
+      <View style={[styles.tabBar]}>
+        <View style={Styles.flexCenter}>
+          <TouchableOpacity
+            style={[styles.w50, tabIndex === 0 ? styles.bg : styles.bgLight]}
+            onPress={() => setTabIndex(0)}>
+            <Text
+              style={[
+                tabIndex === 0 ? styles.white : {color: colors.TextColor},
+              ]}>
+              Timeline
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={Styles.flexCenter}>
+          <TouchableOpacity
+            style={[styles.w50, tabIndex === 1 ? styles.bg : styles.bgLight]}
+            onPress={() => setTabIndex(1)}>
+            <Text
+              style={[
+                tabIndex === 1 ? styles.white : {color: colors.TextColor},
+              ]}>
+              Activity
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
       {tabIndex === 0 && <OrderTimeline props={props} />}
       {tabIndex === 1 && <OrderActivity props={props} />}
     </>
   );
-};
-const useStyles = colors => {
-  return StyleSheet.create({
-    listItem: {
-      width: deviceWidth - 30,
-      backgroundColor: colors.boxColor,
-      padding: 8,
-      borderWidth: 0.5,
-      borderRadius: 20,
-      borderColor: colors.boxBorderColor,
-      marginBottom: 5,
-      marginHorizontal: 5,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.2,
-      shadowRadius: 6,
-      elevation: 5,
-    },
-    TrackingId: {
-      width: deviceWidth - 100,
-    },
-    halfWidth: {
-      width: (deviceWidth - 40) / 2,
-    },
-    inlineText: {
-      width: (deviceWidth - 130) / 2,
-    },
-    textAlignment: {
-      textAlign: 'right',
-      alignSelf: 'stretch',
-      textAlignVertical: 'center',
-    },
-    copyIcon: {
-      position: 'absolute',
-      top: 0,
-      right: 5,
-      justifyContent: 'space-between',
-      width: 40,
-    },
-    dot: {
-      backgroundColor: Colors.CURIOUS_BLUE,
-      width: 24,
-      height: 24,
-      borderRadius: 12,
-      marginRight: 10,
-    },
-    hairline: {
-      borderColor: colors.boxBorderColor,
-      borderWidth: 1,
-      width: '100%',
-      paddingHorizontal: 15,
-      marginTop: 11,
-    },
-    inline: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      marginLeft: 10,
-      marginRight: 52,
-      flexDirection: 'row',
-    },
-    Outline: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      marginLeft: 10,
-      flexDirection: 'row',
-      marginVertical: 10,
-    },
-    textBox: {
-      backgroundColor: colors.LightBackground,
-      color: '#5285D4',
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      marginVertical: 5,
-      borderColor: colors.LightBackground,
-      borderRadius: 10,
-      marginRight: 10,
-    },
-    text: {
-      color: '#5285D4',
-      borderColor: colors.LightBackground,
-      borderRadius: 10,
-    },
-    w50: {
-      padding: 10,
-      alignItems: 'center',
-      width: (deviceWidth - 40) / 2,
-      borderRadius: 120,
-      borderWidth: 1,
-      borderColor: colors.LightBackground,
-    },
-    tabBar: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      AlignItems: 'center',
-      flexDirection: 'row',
-      backgroundColor: colors.LightBackground,
-      padding: 3,
-      marginTop: 15,
-      borderRadius: 150,
-    },
-    mT10: {
-      marginTop: 10,
-    },
-    fS12: {
-      fontSize: 12,
-    },
-    fS10: {
-      fontSize: 12,
-    },
-    mL10: {
-      marginLeft: 10,
-    },
-    font: {
-      fontSize: 12,
-      fontStyle: 'normal',
-      fontWeight: '600',
-    },
-    mT12: {marginTop: 12},
-    mT5: {marginTop: 5},
-    bg: {backgroundColor: '#5285D4'},
-    bgLight: {backgroundColor: colors.LightBackground},
-    white: {color: '#fff'},
-  });
 };
 
 export default OrderDetail;

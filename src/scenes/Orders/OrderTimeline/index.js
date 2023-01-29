@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {View, ScrollView, TouchableOpacity} from 'react-native';
 import {Text, Colors, GlobalStyle} from '../../../styles';

@@ -8,43 +8,27 @@ import {Dark, Light, HeaderBG} from '../../utils/imagesPath';
 
 const Inbox = props => {
   const {navigation} = props;
-
   const theme = useSelector(state => state.themeChange.theme);
   const {colors} = useTheme();
-
   const name = 'Story';
 
   return (
     <>
-      <CustomHeader name={name} navigation={navigation} />
       <ImageBackground
         source={theme === 'DARK' ? Dark : Light}
         resizeMode="cover"
         style={[
-          styles.image,
           {
             width: '100%',
             height: '100%',
             borderWidth: 1,
             borderColor: colors.boxBorderColor,
           },
-        ]}
-      />
+        ]}>
+        <CustomHeader name={name} navigation={navigation} />
+      </ImageBackground>
     </>
   );
 };
 
 export default Inbox;
-
-const styles = StyleSheet.create({
-  header: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50,
-  },
-  text: {
-    color: 'white',
-    fontSize: 20,
-  },
-});

@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import {deviceWidth, IS_IOS} from '../../utils/orientation';
 import {scaleSize} from '../../styles/mixins';
 import {useTheme} from '@react-navigation/native';
-
+import {FONT_FAMILY} from '../../utils/constants';
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
@@ -21,9 +21,43 @@ const useStyles = () => {
     w50: {
       width: '50%',
     },
+    container: {
+      flex: 1,
+      padding: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    container2: {
+      flex: 1,
+      paddingHorizontal: 20,
+      marginTop: 18,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    L8: {
+      left: 8,
+    },
+    container3: {
+      flex: 1,
+      paddingHorizontal: 20,
+      marginTop: 13,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    font: {
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '500',
+      fontSize: 14,
+    },
     headerText: {
       textAlignVertical: 'center',
       paddingBottom: 5,
+      fontSize: 16,
+      fontWeight: '400',
+      fontFamily: FONT_FAMILY.REGULAR,
       paddingLeft: scaleSize(10),
       color: colors.TextHeader,
     },
@@ -88,13 +122,13 @@ const useStyles = () => {
       borderColor: colors.boxBorderColor,
     },
     shipperStyle: {
-      marginLeft: 5,
       display: 'flex',
       flexDirection: 'row',
     },
     shipper1: {
       height: 24,
       width: 24,
+      right: -15,
       borderRadius: 70,
       borderWidth: 1,
       borderColor: colors.boxBorderColor,
@@ -102,7 +136,7 @@ const useStyles = () => {
     shipper2: {
       height: 24,
       width: 24,
-      left: -8,
+      right: -8,
       zIndex: 999,
       borderRadius: 70,
       borderWidth: 1,
@@ -112,7 +146,6 @@ const useStyles = () => {
       border: colors.boxBorderColor,
       height: 24,
       width: 24,
-      left: -15,
       zIndex: 999,
       borderRadius: 70,
       borderWidth: 1,
@@ -136,6 +169,7 @@ const useStyles = () => {
     w25: {
       width: 25,
     },
+    pb10: {paddingBottom: 10},
     socialView: {
       marginTop: 20,
       display: 'flex',
@@ -143,6 +177,9 @@ const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       flex: 1,
+    },
+    border: {
+      color: colors.boxBorderColor,
     },
   });
 };

@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
-import {deviceWidth, IS_IOS} from '../../utils/orientation';
-import {Colors, Mixins} from '../../styles';
+import {deviceWidth} from '../../utils/orientation';
+import {Colors} from '../../styles';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -19,21 +19,17 @@ const useStyles = () => {
       shadowRadius: 6,
       elevation: 5,
     },
-    listItem: {
-      shadowOffset: {width: 0, height: 3},
-      shadowOpacity: 0.2,
-      shadowRadius: 3,
-      elevation: 5,
-      width: deviceWidth - 30,
-      backgroundColor: colors.boxColor,
-      padding: 8,
-      borderWidth: 0.5,
-      borderRadius: 20,
-      borderColor: colors.boxBorderColor,
-      marginBottom: 5,
-      marginTop: IS_IOS ? 5 : 5,
-      marginHorizontal: 5,
+    container: {
+      flex: 1,
+      paddingHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
+    pT21: {
+      paddingTop: 21,
+    },
+    fS10: {fontSize: 10},
+
     TrackingId: {
       width: deviceWidth - 100,
     },
@@ -55,8 +51,6 @@ const useStyles = () => {
       justifyContent: 'space-between',
       width: 40,
     },
-    mT10: {marginTop: 10},
-    fS10: {fontSize: 10},
     dot: {
       backgroundColor: Colors.CURIOUS_BLUE,
       width: 24,
@@ -66,7 +60,7 @@ const useStyles = () => {
     },
     hairline: {
       borderColor: colors.boxBorderColor,
-      borderWidth: 0.5,
+      borderWidth: 1,
       width: '100%',
       paddingHorizontal: 15,
       marginTop: 11,
@@ -74,60 +68,73 @@ const useStyles = () => {
     inline: {
       display: 'flex',
       justifyContent: 'space-between',
+      flexWrap: 'wrap',
       alignItems: 'center',
       marginLeft: 10,
       marginRight: 52,
       flexDirection: 'row',
     },
-    mT12: {
-      marginTop: 12,
-    },
-    mT5: {
-      marginTop: 5,
-    },
-    productContainer: {
+    Outline: {
       display: 'flex',
-      justifyContent: 'center',
+      flexWrap: 'wrap',
       alignItems: 'center',
+      marginLeft: 10,
+      flexDirection: 'row',
+      marginVertical: 10,
+    },
+    textBox: {
+      backgroundColor: colors.LightBackground,
+      color: '#5285D4',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      marginVertical: 5,
+      borderColor: colors.LightBackground,
+      borderRadius: 10,
+      marginRight: 10,
+    },
+    text: {
+      color: '#5285D4',
+      borderColor: colors.LightBackground,
+      borderRadius: 10,
+    },
+    w50: {
+      padding: 10,
+      alignItems: 'center',
+      width: (deviceWidth - 40) / 2,
+      borderRadius: 120,
+      borderWidth: 1,
+      borderColor: colors.LightBackground,
+    },
+    tabBar: {
+      flex: 1,
+      padding: 3,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: colors.LightBackground,
+      marginHorizontal: 8,
+      borderRadius: 150,
+      marginVertical: 10,
+    },
+    mT10: {
       marginTop: 10,
     },
-    center: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+    fS12: {
+      fontSize: 12,
     },
-    pR5: {
-      paddingRight: 5,
+    mL10: {
+      marginLeft: 10,
     },
-    w25: {
-      width: 25,
+    font: {
+      fontSize: 12,
+      fontStyle: 'normal',
+      fontWeight: '600',
     },
-    mT20: {
-      marginTop: 20,
-    },
-    pB10: {
-      paddingBottom: 10,
-    },
-    errorText: {
-      color: colors.textColorLight,
-      fontSize: Mixins.scaleFont(16),
-      paddingBottom: 20,
-    },
-    container: {
-      flex: 1,
-      paddingHorizontal: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    pT21: {
-      paddingTop: 21,
-    },
-    pT10: {
-      paddingTop: 10,
-    },
-    pT5: {
-      paddingTop: 5,
-    },
+    mT12: {marginTop: 12},
+    mT5: {marginTop: 5},
+    bg: {backgroundColor: '#5285D4'},
+    bgLight: {backgroundColor: colors.LightBackground},
+    white: {color: '#fff'},
   });
 };
 
