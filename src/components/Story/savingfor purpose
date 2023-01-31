@@ -1,38 +1,40 @@
-/* eslint-disable no-unused-vars */
 import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import useStyles from './styles';
 import {PUBLISH} from '../../utils/imagesPath';
 import {Text} from '../../styles';
 import Share from 'react-native-share';
-import {handleConvert} from './helper';
+import {
+  convertImageTobase64,
+  convertToBase64,
+  ResolveStoryImageList,
+} from '../../utils/urlParser';
 const StoryRow = ({item}) => {
   const styles = useStyles();
-  const [imageUrl, setImageUrl] = React.useState([
+  const [imageUrl, setImageUrl] = React.useState(
     'https://www.imgonline.com.ua/examples/rays-of-light-in-the-sky.jpg',
-    'https://thumbs.dreamstime.com/b/african-safari-asian-animals-theme-illustration-filled-many-animals-white-border-image-african-safari-asian-163740578.jpg',
-  ]);
+  );
 
-  let base64Images;
-
-  const shareImage = async imageUrl => {
-    const resp = await handleConvert(imageUrl);
-    let list = [];
-    resp.forEach(async image => {
-      list.push(image.image);
-    });
-    const shareOptions = {
-      title: 'Share Images to Instagram',
-      failOnCancel: false,
-      urls: list,
-      type: 'image/*',
-      social: Share.Social.INSTAGRAM,
-    };
+  const shareImage = async imageURL => {
     try {
-      const ShareResponse = await Share.open(shareOptions);
-      console.log('The response', JSON.stringify(ShareResponse, null, 2));
+      let resultImage = await convertImageTobase64(imageUrl);
+
+      const result = await Share.open({
+        url: resultImage.image,
+        title: 'Share Image',
+        social: Share.Social.INSTAGRAM_STORIES,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log(`Shared with ${result.activityType}`);
+        } else {
+          console.log('Shared');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Cancelled');
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error, 'this is errror');
     }
   };
   return (

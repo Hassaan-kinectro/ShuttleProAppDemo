@@ -90,7 +90,7 @@ export const convertImageTobase64 = image => {
       .then(async base64Data => {
         fs.unlink(imagePath);
         const d = base64Data;
-
+        console.log(d, 'this is sssssss');
         return resolve({
           status: status,
           image: d && 'data:' + ext + ';base64,' + d,

@@ -1,5 +1,5 @@
 import {DemoUser, Demo2, Demo1} from '../../utils/imagesPath';
-
+import {convertImageTobase64} from '../../utils/urlParser';
 export const statusData = [
   {
     id: 1,
@@ -135,3 +135,12 @@ export const statusData = [
     ],
   },
 ];
+let base64Images;
+export const handleConvert = async imageUrl => {
+  base64Images = [];
+  for (const image of imageUrl) {
+    const base64 = await convertImageTobase64(image);
+    base64Images.push(base64);
+  }
+  return base64Images;
+};

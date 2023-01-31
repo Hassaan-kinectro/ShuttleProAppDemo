@@ -22,7 +22,6 @@ const Inbox = props => {
           <ScrollView style={{marginBottom: 80}}>
             <View style={styles.BoxStyle}>
               {statusData.map((item, index) => {
-                console.log(item);
                 return (
                   <>
                     <StoryRow item={item} />
