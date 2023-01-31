@@ -35,18 +35,38 @@ const CustomHeader = ({navigation, name}) => {
         <View style={styles.headerContainer}>
           {!searchVisible && (
             <>
-              <TouchableOpacity
-                style={styles.menuIcon}
-                onPress={() => navigation.toggleDrawer()}>
-                <Image source={Hamburger} style={styles.hamburgerStyle} />
-              </TouchableOpacity>
-              <Text
-                size={24}
-                color={colors.TextColor}
-                fontFamily={FONT_FAMILY.SEMI_BOLD}
-                style={styles.headerText}>
-                {name}
-              </Text>
+              {name && name === 'Stories' && (
+                <>
+                  <TouchableOpacity
+                    style={styles.menuIcon}
+                    onPress={() => navigation.toggleDrawer()}>
+                    <Image source={Hamburger} style={styles.hamburgerStyle} />
+                  </TouchableOpacity>
+                  <Text
+                    size={24}
+                    color={colors.TextColor}
+                    fontFamily={FONT_FAMILY.SEMI_BOLD}
+                    style={styles.headerText2}>
+                    {name}
+                  </Text>
+                </>
+              )}
+              {name && name === 'Orders' && (
+                <>
+                  <TouchableOpacity
+                    style={styles.menuIcon}
+                    onPress={() => navigation.toggleDrawer()}>
+                    <Image source={Hamburger} style={styles.hamburgerStyle} />
+                  </TouchableOpacity>
+                  <Text
+                    size={24}
+                    color={colors.TextColor}
+                    fontFamily={FONT_FAMILY.SEMI_BOLD}
+                    style={styles.headerText}>
+                    {name}
+                  </Text>
+                </>
+              )}
             </>
           )}
           {searchVisible && (
@@ -70,26 +90,61 @@ const CustomHeader = ({navigation, name}) => {
           )}
           {!searchVisible && (
             <View style={styles.rightIconsContainer}>
-              <TouchableOpacity
-                style={styles.searchIcon}
-                onPress={() => setSearchVisible(true)}>
-                <FIcon name="search" size={22} color={colors.searchIcon} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
-                <CircularImage
-                  img={workspaceImage}
-                  name={workspaceName}
-                  style={styles.HeaderImage}
-                />
-                <View style={styles.active} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.logoutIcon}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <F5Icon name="sort-down" size={24} color={colors.searchIcon} />
-              </TouchableOpacity>
+              {name && name === 'Stories' && (
+                <>
+                  <TouchableOpacity
+                    style={styles.profileIcon}
+                    onPress={() => {}}>
+                    <CircularImage
+                      img={workspaceImage}
+                      name={workspaceName}
+                      style={styles.HeaderImage}
+                    />
+                    <View style={styles.active} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.logoutIcon}
+                    onPress={() => {
+                      navigation.goBack();
+                    }}>
+                    <F5Icon
+                      name="sort-down"
+                      size={24}
+                      color={colors.searchIcon}
+                    />
+                  </TouchableOpacity>
+                </>
+              )}
+              {name && name === 'Orders' && (
+                <>
+                  <TouchableOpacity
+                    style={styles.searchIcon}
+                    onPress={() => setSearchVisible(true)}>
+                    <FIcon name="search" size={22} color={colors.searchIcon} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.profileIcon}
+                    onPress={() => {}}>
+                    <CircularImage
+                      img={workspaceImage}
+                      name={workspaceName}
+                      style={styles.HeaderImage}
+                    />
+                    <View style={styles.active} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.logoutIcon}
+                    onPress={() => {
+                      navigation.goBack();
+                    }}>
+                    <F5Icon
+                      name="sort-down"
+                      size={24}
+                      color={colors.searchIcon}
+                    />
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
           )}
         </View>

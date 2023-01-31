@@ -65,6 +65,8 @@ const useStyles = () => {
       width: 50,
       height: 50,
       borderRadius: 25,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
     },
     hairline: {
       borderColor: colors.boxBorderColor,

@@ -1,3 +1,20 @@
+diff --git a/node_modules/react-native/React/Base/RCTBridgeModule.h b/node_modules/react-native/React/Base/RCTBridgeModule.h
+index ae2066f..0c5aa14 100644
+--- a/node_modules/react-native/React/Base/RCTBridgeModule.h
++++ b/node_modules/react-native/React/Base/RCTBridgeModule.h
+@@ -8,7 +8,11 @@
+ #import <Foundation/Foundation.h>
+ #import <UIKit/UIKit.h>
+ 
+-#import <React/RCTDefines.h>
++#if __has_include("RCTDefines.h")
++  #import "RCTDefines.h"
++#else
++ #import <React/RCTDefines.h>
++#endif
+ #import <React/RCTJSThread.h>
+ 
+ @class RCTBridge;
 diff --git a/node_modules/react-native/index.js b/node_modules/react-native/index.js
 index d59ba34..d629767 100644
 --- a/node_modules/react-native/index.js

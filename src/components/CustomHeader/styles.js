@@ -31,6 +31,9 @@ const useStyles = () => {
     headerText: {
       marginRight: scaleSize(120),
     },
+    headerText2: {
+      marginRight: scaleSize(150),
+    },
     searchContainer: {
       flexDirection: 'row',
       alignItems: 'center',
