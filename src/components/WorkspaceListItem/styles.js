@@ -37,7 +37,7 @@ const useStyles = () => {
       alignItems: 'center',
     },
     L8: {
-      left: 8,
+      left: 5,
     },
     container3: {
       flex: 1,
@@ -182,6 +182,11 @@ const useStyles = () => {
     },
     border: {
       color: colors.boxBorderColor,
+    },
+    flex: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 };

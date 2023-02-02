@@ -4,20 +4,22 @@ import {getAuthHeader} from '../../config/authSettings';
 import {isObject} from 'lodash';
 
 const AddNotification = async data => {
+  console.log(data);
   const responseData = {
     loading: false,
     status: 210,
     message: 'Something went wrong, Please try again.',
   };
   const token = await getAuthHeader();
+  console.log(token);
   return instance
     .post('/mongodb/notification', data, token)
     .then(async response => {
+      console.log(response.data, 'this is response');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
           response = response.data;
-
           return {
             data: response,
             status: 200,
@@ -39,6 +41,7 @@ const AddNotification = async data => {
       }
     })
     .catch(err => {
+      console.log(err);
       return {
         ...responseData,
         message: ParseError(
@@ -59,7 +62,7 @@ const UpdateNotification = async (formdata, id) => {
     ...formdata,
   };
   return instance
-    .put('/mongodb/update/notification/' + id, data, token)
+    .put(`/mongodb/notification?id=${id}`, data, token)
     .then(async response => {
       if (response.status === 200) {
         response = response.data;
@@ -94,6 +97,7 @@ const UpdateNotification = async (formdata, id) => {
 };
 
 const GetNotificationByDeviceId = async device => {
+  console.log(device, 'this is device');
   const responseData = {
     loading: false,
     status: 210,
@@ -103,13 +107,13 @@ const GetNotificationByDeviceId = async device => {
   const token = await getAuthHeader();
 
   return instance
-    .get(`/mongodb/get/notification/device?device=${device}`, token)
+    .get(`/mongodb/notification/device/${device}`, token)
     .then(response => {
-      console.log('The reeeesponsee', response);
+      console.log('The reeeesponsee', response.data);
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log('The reeeesponsee1111', response);
+          console.log('The reeeesponsee1111', response.data);
 
           const result = isObject(response.data)
             ? response.data

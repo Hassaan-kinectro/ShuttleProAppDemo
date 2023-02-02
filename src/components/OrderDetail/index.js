@@ -53,7 +53,7 @@ const OrderDetail = props => {
   return (
     <>
       <View style={styles.BoxStyle}>
-        <View style={[styles.container, Styles.flexDirectionRow, styles.pT21]}>
+        <View style={[styles.container, Styles.flexDirectionRow]}>
           <View style={[Styles.flex2Start, Styles.flexDirectionRow]}>
             <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
               {t('cn')} #
@@ -74,7 +74,7 @@ const OrderDetail = props => {
         <View
           style={[
             Styles.flexDirectionColumn,
-            styles.pT21,
+            styles.pT10,
             Styles.flex,
             Styles.justifyContentStart,
             Styles.alignItemsStart,

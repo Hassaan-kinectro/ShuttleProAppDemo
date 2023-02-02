@@ -59,6 +59,7 @@ const ActivityForm = props => {
           props.ComTypeOptions.find(i => i.name === obj.name);
         setCompTypeData(arr.type);
         const emailTemps =
+          props &&
           props.emailTemplates &&
           props.emailTemplates.length > 0 &&
           props.emailTemplates.filter(i => i.type === obj.name);

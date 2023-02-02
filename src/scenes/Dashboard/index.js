@@ -1,31 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
-import {useTheme} from '@react-navigation/native';
+
+import {useSelector} from 'react-redux';
+import Wrapper from '../../components/Wrapper';
+import {Dark, Light} from '../../utils/imagesPath';
+import useStyles from './styles';
 
 const DashBoard = () => {
-  const {colors} = useTheme();
-  const styles = useStyles(colors);
-
+  const styles = useStyles();
+  const theme = useSelector(state => state.themeChange.theme);
   return (
-    <View style={styles.header}>
-      <Text style={styles.text}>DashBoard</Text>
-    </View>
+    <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
+      <View style={styles.flex}>
+        <Text>Coming Soon..</Text>
+      </View>
+    </Wrapper>
   );
-};
-
-const useStyles = colors => {
-  return StyleSheet.create({
-    header: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 50,
-    },
-    text: {
-      color: colors.TextColor,
-      fontSize: 20,
-    },
-  });
 };
 
 export default DashBoard;

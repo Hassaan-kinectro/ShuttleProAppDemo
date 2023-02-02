@@ -5,7 +5,7 @@ import {FONT_FAMILY} from '../../../utils/constants';
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
-    ActivityBox: {height: IS_IOS ? deviceHeight - 650 : deviceHeight - 550},
+    ActivityBox: {height: IS_IOS ? deviceHeight - 650 : deviceHeight - 580},
     container: {
       padding: 5,
       paddingTop: 20,

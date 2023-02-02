@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {View, ScrollView, RefreshControl} from 'react-native';
 import {GlobalStyle} from '../../../styles';

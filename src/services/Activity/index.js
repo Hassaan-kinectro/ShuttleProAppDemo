@@ -84,7 +84,6 @@ export const FetchActivitiesByOrderId = async (workspace_id, order_id) => {
     });
 };
 export const CreateActivity = async formData => {
-  console.log('this is formdataaaaaaaaaaaaa111111', formData);
   const responseData = {
     loading: false,
     status: 210,

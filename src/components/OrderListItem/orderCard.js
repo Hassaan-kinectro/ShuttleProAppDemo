@@ -16,7 +16,7 @@ const OrderCard = ({props, OpenActivity}) => {
     <>
       <View style={styles.inline}>
         <View />
-        <View>
+        <View style={styles.left10}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
             {props.item.cod_amount
               ? TransformPrice(props.item.cod_amount)

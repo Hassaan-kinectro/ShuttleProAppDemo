@@ -41,6 +41,7 @@ class DropDownPicker extends React.Component {
       );
     } else {
       if (
+        props.items &&
         props.defaultValue &&
         Array.isArray(props.defaultValue) &&
         props.defaultValue.length > 0
@@ -97,7 +98,9 @@ class DropDownPicker extends React.Component {
               value: null,
               icon: () => {},
             }
-          : props.items.find(item => item.value === props.defaultValue);
+          : props &&
+            props.items &&
+            props.items.find(item => item.value === props.defaultValue);
       return {
         choice: {
           label,

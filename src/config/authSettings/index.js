@@ -61,6 +61,7 @@ export const getUser = () =>
   new Promise((resolve, reject) => {
     AsyncStorage.getItem('user')
       .then(res => {
+        console.log(res, 'this is get user response');
         if (res !== null) {
           resolve(JSON.parse(res));
         } else {

@@ -44,6 +44,7 @@ export const LightTheme = {
     loginText: '#989898',
     TextColor: '#333333',
     background: '#E5E5E5',
+    samebackground: '#E5E5E5',
     LightBackground: '#E9EEFA',
     orderText: '',
     borderColor: '#aeaeae',
@@ -127,5 +128,6 @@ export const DarkTheme = {
     themeIcon: '#FFFFFF',
     searchIcon: '#287787',
     searchIconBackground: '#244E59',
+    samebackground: '#E5E5E5',
   },
 };

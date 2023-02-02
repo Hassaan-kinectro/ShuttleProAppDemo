@@ -1,6 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
-import {deviceWidth, IS_IOS} from '../../utils/orientation';
+import {deviceWidth, IS_ANDROID, IS_IOS} from '../../utils/orientation';
 import {Colors, Mixins} from '../../styles';
 
 const useStyles = () => {
@@ -84,6 +84,9 @@ const useStyles = () => {
     },
     mT5: {
       marginTop: 5,
+    },
+    left10: {
+      left: IS_ANDROID ? 10 : 0,
     },
     productContainer: {
       display: 'flex',

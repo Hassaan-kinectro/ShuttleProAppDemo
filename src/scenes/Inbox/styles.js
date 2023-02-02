@@ -18,11 +18,21 @@ const useStyles = () => {
       elevation: 5,
       marginHorizontal: 20,
     },
-
+    pB10: {
+      paddingBottom: 10,
+    },
     Wrapper: {
       flex: 1,
       justifyContent: 'flex-start',
     },
+    flex: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 400,
+    },
+    text: {color: colors.TextColor},
+    fontFamily: FONT_FAMILY.REGULAR,
   });
 };
 

@@ -24,6 +24,7 @@ const OrderScreen = ({navigation, route}) => {
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
+
   const [allOrders, setAllOrders] = React.useState([]);
   const [orders, setOrders] = React.useState([]);
   const [lastIndex, changeLastIndex] = React.useState(0);

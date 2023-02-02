@@ -17,6 +17,7 @@ const useStyles = () => {
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.2,
       shadowRadius: 6,
+      paddingVertical: 8,
       elevation: 5,
     },
     container: {
@@ -27,6 +28,9 @@ const useStyles = () => {
     },
     pT21: {
       paddingTop: 21,
+    },
+    pT10: {
+      paddingTop: 10,
     },
     fS10: {fontSize: 10},
 
