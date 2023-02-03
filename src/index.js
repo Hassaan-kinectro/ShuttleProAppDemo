@@ -3,6 +3,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StatusBar, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 import Navigation from './navigations';
 import {Colors, GlobalStyle} from './styles';
 import {
@@ -62,7 +63,7 @@ const Src = () => {
     });
   }, []);
   useEffect(() => {
-    // SplashScreen.hide();
+    SplashScreen.hide();
     console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
     isAuthExist().then(async res => {
       setAuth(res);

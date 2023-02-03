@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>674487748108-v7urjqenvm97je8djuq0j70b73tpndca.apps.googleusercontent.com</string>
+	<string>257447108422-jhhpfastthrboduoqldt0elfvfciuubk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.674487748108-v7urjqenvm97je8djuq0j70b73tpndca</string>
+	<string>com.googleusercontent.apps.257447108422-jhhpfastthrboduoqldt0elfvfciuubk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBR6aXQFUMqLxdgDlM89MW4gqCHenM61A0</string>
+	<string>AIzaSyCM8OvOUNkykw_tje1nEIwhqBjdFD6PDgU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>674487748108</string>
+	<string>257447108422</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.ShuttlePro.io</string>
+	<string>com.ShuttlePro.io</string>
 	<key>PROJECT_ID</key>
-	<string>shuttleproapp-7af05</string>
+	<string>shuttlepro-a2616</string>
 	<key>STORAGE_BUCKET</key>
-	<string>shuttleproapp-7af05.appspot.com</string>
+	<string>shuttlepro-a2616.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:674487748108:ios:58910fee65e36b496a9029</string>
+	<string>1:257447108422:ios:b7d07fb2f8673be15e4f47</string>
 </dict>
 </plist>

@@ -80,7 +80,7 @@ const LoginForm = ({
             keyboardType={IS_IOS ? 'numbers-and-punctuation' : 'default'}
             ref={passwordField}
             fontSize={13}
-            returnKeyType="next"
+            returnKeyType="done"
             blurOnSubmit={false}
             onSubmitEditing={handleSubmit}
           />

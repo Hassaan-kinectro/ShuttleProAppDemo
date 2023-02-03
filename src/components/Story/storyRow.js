@@ -5,23 +5,30 @@ import React from 'react';
 import useStyles from './styles';
 import {PUBLISH} from '../../utils/imagesPath';
 import {Text} from '../../styles';
-import Share from 'react-native-share';
-import {handleConvert} from './helper';
-import {Modal, View, Image, TouchableOpacity, Animated} from 'react-native';
+import {
+  Modal,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
+import Share from 'react-native-share';
+import {handleConvert} from './helper';
 import CircularImage from '../CircularImage';
-
-const StoryRow = ({item}) => {
+const defaultValue = {id: null, loading: false};
+const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
+  const styles = useStyles();
   const [imageUrl, setImageUrl] = React.useState([]);
+  const [modalVisible, setModalVisible] = React.useState(false);
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
-  const styles = useStyles();
-  const [modalVisible, setModalVisible] = React.useState(false);
-
-  const shareImage = async imageUrl => {
-    const resp = await handleConvert(imageUrl);
+  const shareImage = async urls => {
+    console.log(urls);
+    setLoadingImages({id: item.id, loading: true});
+    const resp = await handleConvert(urls);
     let list = [];
     resp.forEach(async image => {
       list.push(image.image);
@@ -36,16 +43,24 @@ const StoryRow = ({item}) => {
     try {
       const ShareResponse = await Share.open(shareOptions);
       console.log('The response', JSON.stringify(ShareResponse, null, 2));
+      setLoadingImages(defaultValue);
     } catch (error) {
       console.log(error);
+      setLoadingImages(defaultValue);
     }
   };
-
+  console.log(loading, disabled, item.id);
   return (
     <>
       <View style={styles.container}>
         <View style={styles.flex1}>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <TouchableOpacity
+            disabled={disabled}
+            onPress={() => {
+              if (!loading) {
+                setModalVisible(true);
+              }
+            }}>
             <CircularImage
               img={item && item.pagelogo ? item.pagelogo : item.pageicon}
               name={item.pageName}
@@ -64,8 +79,18 @@ const StoryRow = ({item}) => {
           </Text>
         </View>
         <View style={styles.container3}>
-          <TouchableOpacity onPress={() => shareImage(imageUrl)}>
-            <Image style={styles.image} source={PUBLISH} />
+          <TouchableOpacity
+            disabled={disabled}
+            onPress={() => {
+              if (!loading) {
+                shareImage(imageUrl);
+              }
+            }}>
+            {loading && !disabled ? (
+              <ActivityIndicator style={styles.image} />
+            ) : (
+              <Image style={styles.image} source={PUBLISH} />
+            )}
           </TouchableOpacity>
         </View>
       </View>

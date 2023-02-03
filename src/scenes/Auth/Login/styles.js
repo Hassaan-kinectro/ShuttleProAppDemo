@@ -44,7 +44,7 @@ const useStyles = () => {
     formContainer: {
       ...Styles.w100,
       ...Styles.alignItemsCenter,
-      height: deviceHeight / 2,
+      minHeight: deviceHeight / 2,
     },
     container: {
       flex: 1,

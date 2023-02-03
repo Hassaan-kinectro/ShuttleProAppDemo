@@ -26,6 +26,7 @@ const getFcmToken = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
     console.log('This is the FcmToken:', fcmToken, 'This is the FcmToken:');
     if (!fcmToken) {
+      // await messaging().registerDeviceForRemoteMessages();
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
         console.log(
@@ -172,7 +173,9 @@ export const notificationListener = async () => {
   messaging().onMessage(async remoteMessage => {
     console.log('received foreground message:', remoteMessage);
   });
-
+  // messaging().setBackgroundMessageHandler(async remoteMessage => {
+  //   console.log('Message handled in the background!', remoteMessage);
+  // });
   // Check whether an initial notification is available
   messaging()
     .getInitialNotification()

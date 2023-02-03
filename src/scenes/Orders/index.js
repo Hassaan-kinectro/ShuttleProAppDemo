@@ -60,6 +60,15 @@ const OrderScreen = ({navigation, route}) => {
     } else {
       getOrdersList();
     }
+    return () => {
+      setOrders([]);
+      setAllOrders([]);
+      changeLastIndex(0);
+      changePage(1);
+      changeStop(false);
+      setEmailTemplates([]);
+      setRecipientGroup([]);
+    };
   }, [route.params]);
 
   const getOrdersList = (p, f) => {

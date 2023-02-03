@@ -9,7 +9,6 @@ import {useTheme} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {DemoUser, Demo1, Demo2, TCS, MNP, TRAX} from '../../utils/imagesPath';
 import Feather from 'react-native-vector-icons/Feather';
-import {FONT_FAMILY} from '../../utils/constants';
 import {Routes} from '../../utils/constants';
 import SocialProfileShow from './socialProfileShow';
 import CardHeader from './cardHeader';

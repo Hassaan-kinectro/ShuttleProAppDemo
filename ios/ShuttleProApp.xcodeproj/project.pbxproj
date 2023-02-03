@@ -18,11 +18,12 @@
 		3299FCEA2F3C41938AA8A2D3 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A999498D0724CBBB96BC653 /* Raleway-Italic.ttf */; };
 		3547BBBA054F4CD2BF8EB60B /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97BB78E6D0D247EEB36FB0B9 /* Raleway-BlackItalic.ttf */; };
 		614F06971F644CDC9A805DED /* Raleway-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB65FEC173A1420288F96AB9 /* Raleway-ExtraLightItalic.ttf */; };
+		65462613298D3C6200A35DE4 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65462612298D3C6200A35DE4 /* images.xcassets */; };
+		65462615298D3E1100A35DE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65462614298D3E1100A35DE4 /* LaunchScreen.storyboard */; };
 		704FAAB47C37491B95EBF5FC /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACEF1C877A048DCAA490866 /* Raleway-ThinItalic.ttf */; };
 		74B358DDCA1F43DCB27957A4 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED616665426C42209F4DBB7B /* Raleway-Light.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-ShuttleProApp-ShuttleProAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ShuttleProApp-ShuttleProAppTests.a */; };
 		7D7D50F8043B4C4C89C8A8A6 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38AF2A1152D7465B98C62504 /* Raleway-Bold.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		87979E97D8B048EBA7FA1028 /* Raleway-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5251460FF66A4EE29391D1EA /* Raleway-VariableFont_wght.ttf */; };
 		8A58FF839BF84EC381D4412C /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78D49E6A9D5D49C88F8A51E6 /* Raleway-SemiBold.ttf */; };
 		910850057D864BC886EE736D /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72624BBE0E8047129A05C71E /* Raleway-ExtraLight.ttf */; };
@@ -57,7 +58,6 @@
 		13B07F961A680F5B00A75B9A /* ShuttleProApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuttleProApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ShuttleProApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ShuttleProApp/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ShuttleProApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ShuttleProApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ShuttleProApp/main.m; sourceTree = "<group>"; };
 		15841D1159D64CCD90546AA2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = ../src/assets/fonts/FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
@@ -73,6 +73,9 @@
 		5709B34CF0A7D63546082F79 /* Pods-ShuttleProApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuttleProApp.release.xcconfig"; path = "Target Support Files/Pods-ShuttleProApp/Pods-ShuttleProApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ShuttleProApp-ShuttleProAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuttleProApp-ShuttleProAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ShuttleProApp-ShuttleProAppTests/Pods-ShuttleProApp-ShuttleProAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-ShuttleProApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShuttleProApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65462607298CEE8100A35DE4 /* ShuttleProAppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ShuttleProAppRelease.entitlements; path = ShuttleProApp/ShuttleProAppRelease.entitlements; sourceTree = "<group>"; };
+		65462612298D3C6200A35DE4 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = images.xcassets; path = ../src/assets/ios/images.xcassets; sourceTree = "<group>"; };
+		65462614298D3E1100A35DE4 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ShuttleProApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		688EC2468126486F861BE0FC /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-BoldItalic.ttf"; path = "../src/assets/fonts/Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
 		697C12841EAD49319F6F6B58 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = ../src/assets/fonts/AntDesign.ttf; sourceTree = "<group>"; };
 		72624BBE0E8047129A05C71E /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-ExtraLight.ttf"; path = "../src/assets/fonts/Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -80,7 +83,6 @@
 		7A040C1A63034C55BF5CCEEA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = ../src/assets/fonts/MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
 		7A999498D0724CBBB96BC653 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Italic.ttf"; path = "../src/assets/fonts/Raleway-Italic.ttf"; sourceTree = "<group>"; };
 		7F249F5E745B43939AB64442 /* Raleway-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-ExtraBold.ttf"; path = "../src/assets/fonts/Raleway-ExtraBold.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ShuttleProApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		857E75B8172A4C1AB3445422 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = ../src/assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		8846CD0B925A43B0B3685D5F /* Raleway-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-LightItalic.ttf"; path = "../src/assets/fonts/Raleway-LightItalic.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ShuttleProApp-ShuttleProAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuttleProApp-ShuttleProAppTests.release.xcconfig"; path = "Target Support Files/Pods-ShuttleProApp-ShuttleProAppTests/Pods-ShuttleProApp-ShuttleProAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +104,6 @@
 		F46D993BBEEB4B298823DB49 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = ../src/assets/fonts/SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		F50528D053964DEEAF4D3B18 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Thin.ttf"; path = "../src/assets/fonts/Raleway-Thin.ttf"; sourceTree = "<group>"; };
 		F6C86FCC016043A2828A2020 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = ../src/assets/fonts/FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
-		FA2755372980968000CE08D5 /* ShuttleProApp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ShuttleProApp; path = ..; sourceTree = "<group>"; };
 		FA2C6BC7298A7DDB002DAD21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAF7ACAA29809A00004B5777 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,16 +148,16 @@
 		13B07FAE1A68108700A75B9A /* ShuttleProApp */ = {
 			isa = PBXGroup;
 			children = (
+				65462614298D3E1100A35DE4 /* LaunchScreen.storyboard */,
+				65462607298CEE8100A35DE4 /* ShuttleProAppRelease.entitlements */,
 				FA2C6BC7298A7DDB002DAD21 /* GoogleService-Info.plist */,
 				FAF7ACAA29809A00004B5777 /* Fonts */,
-				FA2755372980968000CE08D5 /* ShuttleProApp */,
 				B81427C7296E97E1006F77B9 /* ShuttleProApp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				65462612298D3C6200A35DE4 /* images.xcassets */,
 			);
 			name = ShuttleProApp;
 			sourceTree = "<group>";
@@ -352,15 +353,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				D7EFE290423042428A4B9A16 /* Raleway-Black.ttf in Resources */,
 				3547BBBA054F4CD2BF8EB60B /* Raleway-BlackItalic.ttf in Resources */,
 				7D7D50F8043B4C4C89C8A8A6 /* Raleway-Bold.ttf in Resources */,
+				65462613298D3C6200A35DE4 /* images.xcassets in Resources */,
 				C6CC7B16F7BC4615B80B19F6 /* Raleway-BoldItalic.ttf in Resources */,
 				07BC40A1DDE64B9893F0C8B8 /* Raleway-ExtraBold.ttf in Resources */,
 				B80E2BC063814067829763AB /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				910850057D864BC886EE736D /* Raleway-ExtraLight.ttf in Resources */,
 				614F06971F644CDC9A805DED /* Raleway-ExtraLightItalic.ttf in Resources */,
+				65462615298D3E1100A35DE4 /* LaunchScreen.storyboard in Resources */,
 				D47D6FBD6FB144689037F46A /* Raleway-Italic-VariableFont_wght.ttf in Resources */,
 				3299FCEA2F3C41938AA8A2D3 /* Raleway-Italic.ttf in Resources */,
 				FAF7ACAB29809A02004B5777 /* Fonts in Resources */,
@@ -632,19 +634,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShuttleProApp/ShuttleProApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CJG79WNXDT;
+				DEVELOPMENT_TEAM = QB9KAHCZ48;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ShuttleProApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShuttlePro;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.ShuttlePro.io;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShuttlePro.io;
 				PRODUCT_NAME = ShuttleProApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -659,20 +663,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = ShuttleProApp/ShuttleProApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ShuttleProApp/ShuttleProAppRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CJG79WNXDT;
+				DEVELOPMENT_TEAM = QB9KAHCZ48;
 				INFOPLIST_FILE = ShuttleProApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShuttlePro;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.ShuttlePro.io;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ShuttlePro.io;
 				PRODUCT_NAME = ShuttleProApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

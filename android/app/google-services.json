@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "674487748108",
-    "project_id": "shuttleproapp-7af05",
-    "storage_bucket": "shuttleproapp-7af05.appspot.com"
+    "project_number": "257447108422",
+    "project_id": "shuttlepro-a2616",
+    "storage_bucket": "shuttlepro-a2616.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:674487748108:android:b9234c9eade8b5966a9029",
+        "mobilesdk_app_id": "1:257447108422:android:8fcaa4df52a6cec75e4f47",
         "android_client_info": {
           "package_name": "com.shuttleproapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "674487748108-kedtlj0a7lfegif9pumbgj6ornaccnkn.apps.googleusercontent.com",
+          "client_id": "257447108422-66go0ool1qchoqaaqg99r4bdut2frgpp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDwfE5fPGk3rjZxQK5sg8FT_-Qz6rYxM84"
+          "current_key": "AIzaSyDsVCV7hFKHf-DxoY2-bsJw9XRN-gphluc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "674487748108-kedtlj0a7lfegif9pumbgj6ornaccnkn.apps.googleusercontent.com",
+              "client_id": "257447108422-66go0ool1qchoqaaqg99r4bdut2frgpp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -15,7 +15,7 @@ const OrderCard = ({props, OpenActivity}) => {
   return (
     <>
       <View style={styles.inline}>
-        <View />
+        <View style={[Styles.flex2Start]} />
         <View style={styles.left10}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
             {props.item.cod_amount

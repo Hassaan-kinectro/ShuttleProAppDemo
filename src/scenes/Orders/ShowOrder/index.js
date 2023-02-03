@@ -27,6 +27,9 @@ const ShowOrder = ({navigation, route}) => {
 
   React.useEffect(() => {
     getData(route, setLoading, setOrderDetail, workspace_id);
+    return () => {
+      setOrderDetail({});
+    };
   }, [route.params.order]);
 
   const refreshServices = () => {

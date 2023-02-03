@@ -73,10 +73,10 @@ const useStyles = () => {
     },
     inline: {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       alignItems: 'center',
       marginLeft: 10,
-      marginRight: 52,
+      marginRight: 22,
       flexDirection: 'row',
     },
     mT12: {
@@ -86,7 +86,7 @@ const useStyles = () => {
       marginTop: 5,
     },
     left10: {
-      left: IS_ANDROID ? 10 : 0,
+      // left: IS_ANDROID ? 10 : 0,
     },
     productContainer: {
       display: 'flex',
@@ -118,7 +118,7 @@ const useStyles = () => {
     },
     container: {
       flex: 1,
-      paddingHorizontal: 20,
+      paddingLeft: 20,
       justifyContent: 'center',
       alignItems: 'center',
     },

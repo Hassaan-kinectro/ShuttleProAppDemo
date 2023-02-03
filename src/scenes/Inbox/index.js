@@ -14,23 +14,28 @@ import Loader from '../../components/Loader';
 import {GlobalStyle} from '../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
+const defaultValue = {id: null, loading: false};
 const Inbox = props => {
-  const [loading, setLoading] = React.useState(false);
-  const [stories, setStories] = React.useState([]);
+  const {navigation} = props;
+  const styles = useStyles();
+  const {colors} = useTheme();
+  const name = 'Stories';
+  const Styles = GlobalStyle();
+  const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
+  const [loading, setLoading] = React.useState(false);
+  const [loadingImages, setLoadingImages] = React.useState(defaultValue);
+  const [stories, setStories] = React.useState([]);
   React.useEffect(() => {
     getStories(setLoading, setStories, workspaceId);
+    return () => {
+      setStories([]);
+      setLoading(false);
+      setLoadingImages(defaultValue);
+    };
   }, []);
-  const {navigation} = props;
-  const theme = useSelector(state => state.themeChange.theme);
-  const styles = useStyles();
-  const {colors} = useTheme();
-
-  const name = 'Stories';
-  const Styles = GlobalStyle();
-
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -46,9 +51,18 @@ const Inbox = props => {
                 {stories && stories.length > 0 ? (
                   stories.map((item, index) => {
                     return (
-                      <>
-                        <StoryRow item={item} />
-                      </>
+                      <React.Fragment key={item.id}>
+                        <StoryRow
+                          item={item}
+                          loading={loadingImages.loading}
+                          setLoadingImages={setLoadingImages}
+                          disabled={
+                            loadingImages.id
+                              ? loadingImages.id !== item.id
+                              : false
+                          }
+                        />
+                      </React.Fragment>
                     );
                   })
                 ) : (

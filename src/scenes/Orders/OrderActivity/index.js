@@ -35,6 +35,9 @@ const OrderActivity = props => {
 
   React.useEffect(() => {
     getData(props, setOrderDetail, setLoading, workspace_id);
+    return () => {
+      setOrderDetail({});
+    };
   }, []);
 
   const ActivityModelClose = React.useCallback(() => {

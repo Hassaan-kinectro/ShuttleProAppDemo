@@ -12,8 +12,9 @@ const useStyles = () => {
       borderWidth: 1,
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
-      marginBottom: 10,
+      marginBottom: 40,
       backgroundColor: colors.boxColor,
+      marginHorizontal: 20,
     },
     w40: {
       width: '40%',

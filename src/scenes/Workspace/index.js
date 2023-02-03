@@ -35,6 +35,9 @@ const Workspace = props => {
   const {t} = useTranslation();
   useEffect(() => {
     getRecord(setLoading, GetWorkSpaceUser, setWorkspaceList);
+    return () => {
+      setWorkspaceList([]);
+    };
   }, []);
   React.useEffect(() => {
     if (route.params && route.params.refresh) {
