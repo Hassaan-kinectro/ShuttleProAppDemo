@@ -69,7 +69,7 @@ const ExtractExtension = name => {
 };
 
 export const convertImageTobase64 = image => {
-  console.log('convert image', image);
+  console.log(image);
   return new Promise(async (resolve, reject) => {
     const fileName = image.split('/').pop();
     const ext = ExtractExtension(fileName);
@@ -85,12 +85,13 @@ export const convertImageTobase64 = image => {
         }
         imagePath = resp.path();
         const t = resp.readFile('base64');
+        console.log(t, 'this is t');
         return t;
       })
       .then(async base64Data => {
         fs.unlink(imagePath);
         const d = base64Data;
-        console.log(d, 'this is sssssss');
+        console.log(d, 'this is d');
         return resolve({
           status: status,
           image: d && 'data:' + ext + ';base64,' + d,
@@ -101,7 +102,6 @@ export const convertImageTobase64 = image => {
 
 export const ResolveStoryImageList = async (imageArray, base64) => {
   return new Promise(async (resolve, reject) => {
-    console.log('ImageArray===>>', imageArray, base64);
     let image = ImageNotFound;
     let id = null;
     let skip = true;
@@ -114,7 +114,6 @@ export const ResolveStoryImageList = async (imageArray, base64) => {
             console.log('The response', resp.image, '<<---');
             if (resp.status === 200) {
               image = resp.image;
-              // console.log('ImageArray===2222>>',resp)
 
               if (!isEmpty(image)) {
                 imageList.push({

@@ -70,6 +70,7 @@ const Src = () => {
     });
     getUser().then(async res => {
       if (res) {
+        console.log(res);
         dispatch(SetUser(res ? res : null));
       }
     });

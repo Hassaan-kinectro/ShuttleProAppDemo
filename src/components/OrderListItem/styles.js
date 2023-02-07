@@ -122,8 +122,8 @@ const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    pT21: {
-      paddingTop: 21,
+    pT15: {
+      paddingTop: 15,
     },
     pT10: {
       paddingTop: 10,

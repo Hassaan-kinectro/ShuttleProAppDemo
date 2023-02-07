@@ -49,17 +49,7 @@ const ShowOrder = ({navigation, route}) => {
               <Loader />
             </View>
           ) : (
-            <ScrollView
-              style={[Styles.pL10, Styles.pR10]}
-              refreshControl={
-                <RefreshControl
-                  colors={[colors.spinner]}
-                  tintColor={colors.spinner}
-                  refreshing={refreshing}
-                  onRefresh={refreshServices}
-                />
-              }>
-              <View style={{height: 20}} />
+            <ScrollView style={[Styles.pL10, Styles.pR10]}>
               <OrderDetail
                 item={order}
                 orderDetail={orderDetail}

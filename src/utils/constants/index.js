@@ -23,6 +23,7 @@ export const Routes = {
   SOCIALMEDIA: 'socialmedia',
   DESIGNS: 'designs',
   INBOX: 'inbox',
+  STORYLOADING: 'story loading',
   SETTINGS: 'settings',
   SHIPPERS: 'shippers',
   CREATESHIPPER: 'create shipper',

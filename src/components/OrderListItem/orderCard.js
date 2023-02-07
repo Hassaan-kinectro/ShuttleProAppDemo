@@ -14,17 +14,6 @@ const OrderCard = ({props, OpenActivity}) => {
   const {t} = useTranslation();
   return (
     <>
-      <View style={styles.inline}>
-        <View style={[Styles.flex2Start]} />
-        <View style={styles.left10}>
-          <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
-            {props.item.cod_amount
-              ? TransformPrice(props.item.cod_amount)
-              : 'N/A'}
-            .00
-          </Text>
-        </View>
-      </View>
       <View style={[styles.container, Styles.flexDirectionRow, styles.pT10]}>
         <View style={[Styles.flex2Start]}>
           <Text
@@ -36,7 +25,12 @@ const OrderCard = ({props, OpenActivity}) => {
               : 'N/A'}{' '}
           </Text>
         </View>
-        <View style={[Styles.flexCenter]}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}>
           <Text style={[Styles.mB5, styles.fS10]}>{t('booking.date')}</Text>
         </View>
       </View>
@@ -73,7 +67,12 @@ const OrderCard = ({props, OpenActivity}) => {
           </View>
         )}
 
-        <View style={[Styles.flexCenter]}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
             {moment(props.item.updated_at).format('DD MMM, YYYY')}
           </Text>

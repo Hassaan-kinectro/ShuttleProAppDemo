@@ -22,12 +22,15 @@ const useStyles = () => {
     },
     container: {
       flex: 1,
-      paddingHorizontal: 20,
+      paddingLeft: 20,
       justifyContent: 'center',
       alignItems: 'center',
     },
     pT21: {
       paddingTop: 21,
+    },
+    pT15: {
+      paddingTop: 15,
     },
     pT10: {
       paddingTop: 10,

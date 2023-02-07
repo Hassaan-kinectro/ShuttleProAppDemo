@@ -43,8 +43,8 @@ const Inbox = props => {
           <CustomHeader name={name} navigation={navigation} />
           <ScrollView style={{marginBottom: 80}}>
             {loading ? (
-              <View style={[Styles.flexCenter]}>
-                <Loader />
+              <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+                {loading && <Loader />}
               </View>
             ) : (
               <View style={styles.BoxStyle}>

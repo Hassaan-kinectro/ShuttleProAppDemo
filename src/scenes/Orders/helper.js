@@ -47,6 +47,7 @@ export const getRecord = async (
   await FetchDescTemplates()
     .then(res => {
       if (res.status === 200) {
+        console.log(res.data, 'this is description template');
         const arr = TransformForDropDown(res.data);
         setEmailTemplates(arr);
       }
@@ -58,6 +59,7 @@ export const getRecord = async (
   FetchMailGroups(workspaceId)
     .then(res => {
       if (res.status === 200) {
+        console.log(res.data, 'this is recipientgroup');
         setRecipientGroup(TransformForDropDown(res.data));
       }
     })

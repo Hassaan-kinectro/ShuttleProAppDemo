@@ -14,7 +14,6 @@ export const getData = async (
     getOrderDetail(order_id, workspace_id).then(res => {
       if (res.status === 200) {
         if (res.data) {
-          console.log(res.data);
           setOrderDetail(res.data);
         }
       }

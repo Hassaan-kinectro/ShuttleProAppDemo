@@ -10,7 +10,6 @@ export const getData = async (
   if (route && route.params && route.params.order && route.params.order.id) {
     getOrderDetail(route.params.order.id, workspace_id).then(res => {
       if (res.status === 200) {
-        console.log(res.status);
         setLoading(false);
         if (res.data) {
           setLoading(false);

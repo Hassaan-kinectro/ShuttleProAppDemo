@@ -19,7 +19,6 @@ import Loader from '../../components/Loader';
 import Wrapper from '../../components/Wrapper';
 
 const OrderScreen = ({navigation, route}) => {
-  console.log();
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
@@ -107,6 +106,7 @@ const OrderScreen = ({navigation, route}) => {
     }
   };
   const handleLoadMore = () => {
+    console.log('Enter in handleLoadMore');
     if (page !== 1 && !sending && orders.length > 0) {
       if (orders && allOrders && orders.length >= allOrders.length) {
         return false;
@@ -154,7 +154,9 @@ const OrderScreen = ({navigation, route}) => {
         <CustomHeader name={name} navigation={navigation} />
         <View style={[Styles.flex]}>
           {loading ? (
-            <Loader />
+            <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+              {loading && <Loader />}
+            </View>
           ) : (
             <FlatList
               contentContainerStyle={styles.listContainer}

@@ -35,7 +35,7 @@ const LoginScreen = props => {
           type: 'success',
         });
         setTimeout(() => {
-          navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
+          navigation.dispatch(StackActions.replace(Routes.LOADING));
         }, 1000);
       } else {
         showMessage({

@@ -44,7 +44,6 @@ export const FetchActivities = async (workspaceId, page = 1, limit = 500) => {
 };
 
 export const FetchActivitiesByOrderId = async (workspace_id, order_id) => {
-  console.log(order_id, workspace_id);
   const responseData = {
     loading: false,
     status: 210,

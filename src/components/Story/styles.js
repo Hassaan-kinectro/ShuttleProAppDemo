@@ -71,7 +71,6 @@ const useStyles = () => {
     },
     innerProgressBar: {
       backgroundColor: '#00BFFF',
-
       height: 4,
     },
     progressBarContainer: {

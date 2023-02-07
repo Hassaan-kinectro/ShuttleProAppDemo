@@ -26,7 +26,6 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
   const shareImage = async urls => {
-    console.log(urls);
     setLoadingImages({id: item.id, loading: true});
     const resp = await handleConvert(urls);
     let list = [];
@@ -45,7 +44,6 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
       console.log('The response', JSON.stringify(ShareResponse, null, 2));
       setLoadingImages(defaultValue);
     } catch (error) {
-      console.log(error);
       setLoadingImages(defaultValue);
     }
   };
@@ -68,8 +66,8 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.container2}>
-          <Text numberOfLines={1} style={styles.name}>
+        <View style={{}}>
+          <Text numberOfLines={1} style={styles.text}>
             {item.pageName}
           </Text>
           <Text numberOfLines={1} style={styles.text}>
@@ -102,7 +100,6 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
               item.images &&
               item.images.length > 0 &&
               item.images.map((image, index) => {
-                console.log(image, 'flag80', index);
                 return (
                   <View key={index} style={styles.slide}>
                     <Image

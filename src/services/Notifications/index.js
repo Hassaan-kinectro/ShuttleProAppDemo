@@ -11,7 +11,6 @@ const AddNotification = async data => {
     message: 'Something went wrong, Please try again.',
   };
   const token = await getAuthHeader();
-  console.log(token);
   return instance
     .post('/mongodb/notification', data, token)
     .then(async response => {
@@ -61,8 +60,10 @@ const UpdateNotification = async (formdata, id) => {
   const data = {
     ...formdata,
   };
+
+  console.log(data, id, ' in the user update servie');
   return instance
-    .put(`/mongodb/notification?id=${id}`, data, token)
+    .put(`/mongodb/notification/${id}`, data, token)
     .then(async response => {
       if (response.status === 200) {
         response = response.data;
@@ -109,12 +110,9 @@ const GetNotificationByDeviceId = async device => {
   return instance
     .get(`/mongodb/notification/device/${device}`, token)
     .then(response => {
-      console.log('The reeeesponsee', response.data);
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log('The reeeesponsee1111', response.data);
-
           const result = isObject(response.data)
             ? response.data
             : JSON.parse(response.data);

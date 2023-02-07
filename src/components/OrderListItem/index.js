@@ -19,6 +19,8 @@ import {CreateActivity} from '../../services/Activity';
 import useStyles from './styles';
 import {openDialScreen} from '../RowItem/helper';
 import OrderCard from './orderCard';
+import {TransformPrice} from '../../utils/Parser';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const OrderListItem = props => {
   let contact =
@@ -86,7 +88,7 @@ const OrderListItem = props => {
   return (
     <>
       <View style={styles.BoxStyle}>
-        <View style={[styles.container, Styles.flexDirectionRow, styles.pT21]}>
+        <View style={[styles.container, Styles.flexDirectionRow, styles.pT15]}>
           <View style={[Styles.flex2Start]}>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -106,8 +108,19 @@ const OrderListItem = props => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={[Styles.flexCenter]}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+            }}>
             <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
+            <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
+              {props.item.cod_amount
+                ? TransformPrice(props.item.cod_amount)
+                : 'N/A'}
+              .00
+            </Text>
           </View>
         </View>
         <OrderCard props={props} OpenActivity={OpenActivity} />

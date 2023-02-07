@@ -20,5 +20,6 @@
   "address": "Address",
   "dashboard": "Dashboard",
   "product.details": "Product Details",
-  "coming.soon": "Coming Soon.."
+  "coming.soon": "Coming Soon..",
+  "stories.loading": "Loading Stories..."
 }

@@ -54,13 +54,11 @@ const useStyles = () => {
       fontSize: 14,
     },
     headerText: {
-      textAlignVertical: 'center',
-      paddingBottom: 5,
-      fontSize: 16,
-      fontWeight: '400',
-      fontFamily: FONT_FAMILY.REGULAR,
       paddingLeft: scaleSize(10),
       color: colors.TextHeader,
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '500',
+      fontSize: 14,
     },
     HeaderImage: {
       width: 50,

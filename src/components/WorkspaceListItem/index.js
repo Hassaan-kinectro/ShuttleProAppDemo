@@ -198,12 +198,12 @@ const WorkspaceListItem = props => {
               {item &&
               item.social_profiles &&
               item.social_profiles.length > 0 ? (
-                item.social_profiles.map((i, k) => {
+                item.social_profiles.map((i, key) => {
                   const name2 = i.name;
                   result = name2.slice(0, 5) + '...';
                   return (
                     <>
-                      <SocialProfileShow i={i} result={result} k={i.id} />
+                      <SocialProfileShow i={i} result={result} key={i.id} />
                     </>
                   );
                 })

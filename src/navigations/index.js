@@ -36,6 +36,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
+import StoryLoading from '../scenes/StoryLoading';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -448,7 +449,7 @@ const DrawerNavigator = ({
         />
       )}
       drawerStyle={{backgroundColor: colors.themeIcon}}
-      openByDefault={false}
+      defaultStatus="closed"
       ScreenOptions={{
         activeTintColor: Colors.WHITE,
         activeBackgroundColor: Colors.GRAYLIGHT,
@@ -489,6 +490,13 @@ const BottomTabNavigator = () => {
       backBehavior="initialRoute"
       screenOptions={() => ({
         headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarActiveTintColor: colors.button,
+        tabBarInactiveTintColor: colors.labelColor,
+        tabBarShowLabel: false,
+        showLabel: false,
+        showIcon: true,
+        keyboardHidesTabBar: true,
         tabBarStyle: {
           height: IS_ANDROID ? '10%' : '10%',
           shadowOffset: {
@@ -509,15 +517,7 @@ const BottomTabNavigator = () => {
           padding: 5,
           paddingTop: 15,
         },
-      })}
-      tabBarOptions={{
-        showLabel: false,
-        scrollEnabled: true,
-        activeTintColor: colors.button,
-        inactiveTintColor: colors.labelColor,
-        showIcon: true,
-        keyboardHidesTabBar: true,
-      }}>
+      })}>
       <Tab.Screen
         name={Routes.DASHBOARD}
         options={{
@@ -639,6 +639,7 @@ const WorkspaceNavigator = ({
           />
         )}
       </Stack.Screen>
+
       <Stack.Screen name={Routes.DRAWER} options={{headerShown: false}}>
         {props => (
           <DrawerNavigator
@@ -656,7 +657,6 @@ const WorkspaceNavigator = ({
 };
 
 const Navigation = ({setAuth, theme}) => {
-  const [workspace, setWorkspaces] = React.useState(null);
   const [userId, setUserId] = React.useState(null);
   const [userName, setUserName] = React.useState(null);
   const [userRole, setUserRole] = React.useState(null);
@@ -680,6 +680,11 @@ const Navigation = ({setAuth, theme}) => {
         <Stack.Screen
           name={Routes.LOADING}
           component={Loading}
+          options={HIDE_HEADER}
+        />
+        <Stack.Screen
+          name={Routes.STORYLOADING}
+          component={StoryLoading}
           options={HIDE_HEADER}
         />
         <Stack.Screen name={Routes.LOGIN} options={HIDE_HEADER}>

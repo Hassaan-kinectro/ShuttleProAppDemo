@@ -15,10 +15,8 @@ const AuthLogin = (email = '', password = '') => {
     })
     .then(response => {
       if (response.status === 200) {
-        console.log(response.status);
         response = response.data;
         if (response.code === 200) {
-          console.log(response.code);
           setAuth(response?.data?.token);
           setUser(JSON.stringify(response?.data?.user));
           if (response?.data?.store) {

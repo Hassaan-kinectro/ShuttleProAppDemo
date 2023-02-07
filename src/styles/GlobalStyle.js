@@ -79,6 +79,11 @@ const GlobalStyle = theme => {
       right: 5,
       top: 10,
     },
+    flex1Start: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    },
     flexCenterStart: {
       flex: 1,
       justifyContent: 'flex-start',

@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable radix */
 import React from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {Text, Mixins, GlobalStyle} from '../../styles';
 import {showMessage} from 'react-native-flash-message';
 import {useTheme} from '@react-navigation/native';
@@ -13,6 +14,8 @@ import OrderTimeline from '../../scenes/Orders/OrderTimeline';
 import useStyles from './styles';
 import {useTranslation} from 'react-i18next';
 import OrderCard from '../OrderListItem/orderCard';
+import {FONT_FAMILY} from '../../utils/constants';
+
 const OrderDetail = props => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const {colors} = useTheme();
@@ -49,16 +52,33 @@ const OrderDetail = props => {
       type: 'success',
     });
   };
+  let name =
+    props &&
+    props.item &&
+    props.item.order_products[0] &&
+    props.item.order_products[0].product &&
+    props.item.order_products[0].product.name;
+  let code =
+    props &&
+    props.item &&
+    props.item.order_products[0] &&
+    props.item.order_products[0].product &&
+    props.item.order_products[0].product.code;
 
   return (
     <>
       <View style={styles.BoxStyle}>
-        <View style={[styles.container, Styles.flexDirectionRow]}>
+        <View style={[styles.container, Styles.flexDirectionRow, styles.pT10]}>
           <View style={[Styles.flex2Start, Styles.flexDirectionRow]}>
-            <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
-              {t('cn')} #
-              {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
-            </Text>
+            <TouchableOpacity>
+              <Text
+                size={Mixins.scaleFont(12)}
+                style={{fontWeight: '400'}}
+                color={colors.TextColor}>
+                {t('cn')} #
+                {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.mL10}
               activeOpacity={0.5}
@@ -66,8 +86,19 @@ const OrderDetail = props => {
               <MIcon name="content-copy" size={20} color={colors.TextColor} />
             </TouchableOpacity>
           </View>
-          <View style={[Styles.flexCenter]}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+            }}>
             <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
+            <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
+              {props.item.cod_amount
+                ? TransformPrice(props.item.cod_amount)
+                : 'N/A'}
+              .00
+            </Text>
           </View>
         </View>
         <OrderCard props={props} />
@@ -91,29 +122,14 @@ const OrderDetail = props => {
           </View>
           <View style={[Styles.flexCenter]}>
             <Text size={12} style={styles.mT5}>
-              {props && props.item && props.item.order_products
-                ? props.item.order_products.map(k => {
-                    return (
-                      <View style={styles.Outline}>
-                        <View style={styles.textBox}>
-                          <Text style={styles.text}>
-                            {k && k.product && k.product.name
-                              ? k.product.name
-                              : 'N/A'}
-                          </Text>
-                        </View>
-                        <View style={styles.textBox}>
-                          <Text style={styles.text}>
-                            {' '}
-                            {k && k.product && k.product.code
-                              ? k.product.code
-                              : 'N/A'}
-                          </Text>
-                        </View>
-                      </View>
-                    );
-                  })
-                : null}
+              <View style={styles.Outline}>
+                <View style={styles.textBox}>
+                  <Text style={styles.text}>{name ? name : 'N/A'}</Text>
+                </View>
+                <View style={styles.textBox}>
+                  <Text style={styles.text}>{code ? code : 'N/A'}</Text>
+                </View>
+              </View>
             </Text>
           </View>
         </View>
