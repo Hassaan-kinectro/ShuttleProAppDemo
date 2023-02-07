@@ -58,7 +58,10 @@ const WorkspaceListItem = props => {
               });
             }}>
             <View style={[Styles.flexCenter, Styles.flexDirectionRow]}>
-              <Text lines={1} color={colors.TextColor} style={styles.font}>
+              <Text
+                numberOfLines={1}
+                color={colors.TextColor}
+                style={styles.font}>
                 {t('products')}:{' '}
               </Text>
               <Text style={styles.font}>{item.products}</Text>
@@ -81,7 +84,10 @@ const WorkspaceListItem = props => {
               });
             }}>
             <View style={[Styles.flex3End, Styles.flexDirectionRow]}>
-              <Text lines={1} color={colors.TextColor} style={styles.font}>
+              <Text
+                numberOfLines={1}
+                color={colors.TextColor}
+                style={styles.font}>
                 {t('orders')}:{' '}
               </Text>
               <Text style={styles.font}>{item.orders}</Text>
@@ -112,7 +118,10 @@ const WorkspaceListItem = props => {
               });
             }}>
             <View style={[Styles.flexCenter, Styles.flexDirectionRow]}>
-              <Text lines={1} color={colors.TextColor} style={styles.font}>
+              <Text
+                numberOfLines={1}
+                color={colors.TextColor}
+                style={styles.font}>
                 {t('members')}:{' '}
               </Text>
               <View style={styles.memberStyles}>
@@ -146,7 +155,7 @@ const WorkspaceListItem = props => {
             }}>
             <View style={[Styles.flex3End, Styles.flexDirectionRow]}>
               <Text
-                lines={1}
+                numberOfLines={1}
                 color={colors.TextColor}
                 style={(styles.L8, styles.font)}>
                 {t('shippers')}:
@@ -175,7 +184,7 @@ const WorkspaceListItem = props => {
                 Styles.w100,
               ]}>
               <Text
-                lines={1}
+                numberOfLines={1}
                 color={Colors.WHITE}
                 style={styles.socialProductText}>
                 {props.item.product_details}

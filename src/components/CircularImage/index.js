@@ -21,7 +21,7 @@ const CircularImage = props => {
           />
           {props.imageName && (
             <Text
-              lines={1}
+              numberOfLines={1}
               size={Mixins.scaleFont(10)}
               style={{width: 30}}
               weight="100">

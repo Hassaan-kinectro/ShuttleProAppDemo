@@ -24,7 +24,7 @@ const CardHeader = ({item}) => {
         </View>
         <View style={Styles.flex2Start}>
           <Text
-            lines={1}
+            numberOfLines={2}
             size={Mixins.scaleFont(16)}
             style={[styles.headerText]}>
             {workspaceName}
