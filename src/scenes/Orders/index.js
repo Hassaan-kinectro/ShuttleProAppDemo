@@ -172,16 +172,16 @@ const OrderScreen = ({navigation, route}) => {
                   refreshing={isRefreshing}
                   onRefresh={() =>
                     onRefresh(
+                      setRefreshing,
+                      GetOrdersByFilter,
                       workspaceId,
                       totalFetch,
                       filter,
+                      isArray,
                       page,
                       offset,
-                      isArray,
                       setOrders,
                       orderBy,
-                      setRefreshing,
-                      GetOrdersByFilter,
                       setAllOrders,
                     )
                   }

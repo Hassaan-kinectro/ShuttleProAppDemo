@@ -37,6 +37,7 @@ import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import StoryLoading from '../scenes/StoryLoading';
+import RawText from '../styles/text';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -277,9 +278,13 @@ const CustomDrawerContent = props => {
               style={Styles.DrawerLogo}
             />
           )}
-          <Text numberOfLines={1} style={Styles.WorkspaceLogoText}>
-            {workspaceName}
-          </Text>
+          <RawText
+            children={workspaceName}
+            lines={1}
+            size={24}
+            color={colors.button}
+            style={Styles.WorkspaceLogoText}
+          />
         </TouchableOpacity>
       </View>
       <DrawerItem

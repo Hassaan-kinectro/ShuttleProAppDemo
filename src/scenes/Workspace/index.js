@@ -17,6 +17,7 @@ import {Dark, Light, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import {FONT_FAMILY} from '../../utils/constants';
 import {onRefresh, getRecord} from './helper';
 import Loader from '../../components/Loader';
+import RawText from '../../styles/text';
 
 const Workspace = props => {
   const [auth, setAuth] = useState(false);
@@ -51,12 +52,12 @@ const Workspace = props => {
       <View style={styles.wrapperStyle}>
         <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
           <View style={styles.container}>
-            <Text
+            <RawText
+              children={t('workspaces')}
               size={24}
               color={colors.TextHeader}
-              fontFamily={FONT_FAMILY.SEMI_BOLD}>
-              {t('workspaces')}
-            </Text>
+              fontFamily={FONT_FAMILY.SEMI_BOLD}
+            />
             <MaterialIcons
               name="logout"
               color={colors.TextColor}
@@ -123,12 +124,12 @@ const Workspace = props => {
                     size={40}
                     style={styles.pB10}
                   />
-                  <Text
-                    numberOfLines={1}
+                  <RawText
+                    children={t('workspaces.not.available')}
+                    size={16}
+                    lines={1}
                     color={colors.textColorLight}
-                    size={16}>
-                    {t('workspaces.not.available')}
-                  </Text>
+                  />
                 </View>
               ) : null
             }
