@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {NavigationContainer, useTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StackActions} from '@react-navigation/native';
@@ -18,7 +18,7 @@ import {showMessage} from 'react-native-flash-message';
 import {IS_ANDROID, IS_IOS} from '../utils/orientation';
 import {Routes, HIDE_HEADER} from '../utils/constants';
 import {SignOut, setTheme} from '../config/authSettings';
-import {Colors, GlobalStyle} from '../styles';
+import {Colors, GlobalStyle, Mixins, Text} from '../styles';
 import Loading from '../scenes/Loading';
 import Login from '../scenes/Auth/Login';
 import Workspace from '../scenes/Workspace';
@@ -37,7 +37,6 @@ import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import StoryLoading from '../scenes/StoryLoading';
-import RawText from '../styles/text';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -278,13 +277,13 @@ const CustomDrawerContent = props => {
               style={Styles.DrawerLogo}
             />
           )}
-          <RawText
-            children={workspaceName}
-            lines={1}
-            size={24}
-            color={colors.button}
+          <Text
+            size={Mixins.scaleFont(24)}
             style={Styles.WorkspaceLogoText}
-          />
+            lines={1}
+            color={colors.button}>
+            {workspaceName}
+          </Text>
         </TouchableOpacity>
       </View>
       <DrawerItem
