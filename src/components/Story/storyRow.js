@@ -1,9 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import useStyles from './styles';
-import {PUBLISH} from '../../utils/imagesPath';
+import {PUBLISH, DELETE, INSTAGRAM, FACEBOOK} from '../../utils/imagesPath';
 import {Text} from '../../styles';
 import {
   Modal,
@@ -11,22 +12,41 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
 import Share from 'react-native-share';
 import {handleConvert} from './helper';
 import CircularImage from '../CircularImage';
+import {UpdateStoryById} from '../../services/Stories';
+
 const defaultValue = {id: null, loading: false};
-const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
+const StoryRow = ({
+  item,
+  setLoadingImages,
+  loading,
+  disabled,
+  handleDelete,
+}) => {
   const styles = useStyles();
   const [imageUrl, setImageUrl] = React.useState([]);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isloading, SetIsLoading] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
-  const shareImage = async urls => {
+  const shareInstagramImage = async (urls, id) => {
     setLoadingImages({id: item.id, loading: true});
+    SetIsLoading(true);
+    await UpdateStoryById(id).then(res => {
+      if (res.status === 200) {
+        SetIsLoading(false);
+      } else {
+        SetIsLoading(false);
+      }
+    });
     const resp = await handleConvert(urls);
     let list = [];
     resp.forEach(async image => {
@@ -47,26 +67,77 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
       setLoadingImages(defaultValue);
     }
   };
+  const shareFacebookImage = async (urls, id) => {
+    setLoadingImages({id: item.id, loading: true});
+    SetIsLoading(true);
+    await UpdateStoryById(id).then(res => {
+      if (res.status === 200) {
+        SetIsLoading(false);
+      } else {
+        SetIsLoading(false);
+      }
+    });
+    const resp = await handleConvert(urls);
+    let list = [];
+    resp.forEach(async image => {
+      list.push(image.image);
+    });
+    const shareOptions = {
+      title: 'Share Images to Facebook',
+      failOnCancel: false,
+      urls: list,
+      type: 'image/*',
+      social: Share.Social.FACEBOOK,
+    };
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log('The response', JSON.stringify(ShareResponse, null, 2));
+      setLoadingImages(defaultValue);
+    } catch (error) {
+      setLoadingImages(defaultValue);
+    }
+  };
   console.log(loading, disabled, item.id);
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.flex1}>
+        <View style={{flex: 1}}>
           <TouchableOpacity
+            style={{position: 'relative'}}
             disabled={disabled}
             onPress={() => {
               if (!loading) {
                 setModalVisible(true);
               }
             }}>
-            <CircularImage
-              img={item && item.pagelogo ? item.pagelogo : item.pageicon}
-              name={item.pageName}
-              style={styles.image}
-            />
+            {item && item.type === 'instagram' && (
+              <>
+                <CircularImage
+                  img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                  name={item.pageName}
+                  style={styles.userImage}
+                />
+                <Image source={INSTAGRAM} style={styles.active2} />
+              </>
+            )}
+            {item && item.type === 'facebook' && (
+              <>
+                <CircularImage
+                  img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                  name={item.pageName}
+                  style={styles.userImage}
+                />
+                <Image source={FACEBOOK} style={styles.active2} />
+              </>
+            )}
           </TouchableOpacity>
         </View>
-        <View style={{}}>
+        <View
+          style={{
+            flex: 5,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}>
           <Text numberOfLines={1} style={styles.text}>
             {item.pageName}
           </Text>
@@ -76,20 +147,69 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
               : moment(item.created_at).format('YYYY-MM-DD hh:mm')}
           </Text>
         </View>
-        <View style={styles.container3}>
-          <TouchableOpacity
-            disabled={disabled}
-            onPress={() => {
-              if (!loading) {
-                shareImage(imageUrl);
-              }
-            }}>
-            {loading && !disabled ? (
-              <ActivityIndicator style={styles.image} />
-            ) : (
-              <Image style={styles.image} source={PUBLISH} />
-            )}
-          </TouchableOpacity>
+        <View
+          style={{
+            flex: 3,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+          }}>
+          {item && item.id && item.type === 'instagram' && (
+            <>
+              <TouchableOpacity
+                style={{left: 13}}
+                disabled={disabled}
+                onPress={() => {
+                  if (!loading) {
+                    shareInstagramImage(imageUrl, item.id);
+                  }
+                }}>
+                {loading && !disabled ? (
+                  <ActivityIndicator style={styles.image} />
+                ) : (
+                  <Image style={styles.image} source={PUBLISH} />
+                )}
+              </TouchableOpacity>
+            </>
+          )}
+          {item && item.id && item.type === 'facebook' && (
+            <>
+              <TouchableOpacity
+                style={{left: 13}}
+                disabled={disabled}
+                onPress={() => {
+                  if (!loading) {
+                    shareFacebookImage(imageUrl, item.id);
+                  }
+                }}>
+                {loading && !disabled ? (
+                  <ActivityIndicator style={styles.image} />
+                ) : (
+                  <Image style={styles.image} source={PUBLISH} />
+                )}
+              </TouchableOpacity>
+            </>
+          )}
+          {item && isDeleting ? (
+            <ActivityIndicator style={styles.image} />
+          ) : (
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert('Delete Story', 'Do you want to Delete story', [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => handleDelete(item.id, setIsDeleting),
+                  },
+                ])
+              }>
+              <Image style={styles.image} source={DELETE} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <View style={styles.hairline} />

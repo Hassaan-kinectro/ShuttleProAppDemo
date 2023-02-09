@@ -5,30 +5,63 @@ import {GlobalStyle, Mixins} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import useStyles from './styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import {useDispatch} from 'react-redux';
+import {SetWorkspace} from '../../modules/workspace';
+import {Routes} from '../../utils/constants';
 
-const CardHeader = ({item}) => {
+const CardHeader = ({item, navigation}) => {
   let workspaceName = item.workspace.name;
   let workspaceIcon = item.workspace.icon.thumb.url;
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const styles = useStyles();
+  const dispatch = useDispatch();
+
   return (
     <>
       <View style={styles.container}>
         <View style={Styles.flexCenter}>
-          <CircularImage
-            img={workspaceIcon}
-            name={workspaceName}
-            style={styles.HeaderImage}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(SetWorkspace(item));
+              navigation.navigate(Routes.DRAWER, {
+                screen: Routes.BOTTOMTAB,
+                params: {
+                  screen: Routes.ORDERS,
+                  params: {
+                    workspaceId: item.workspace.id,
+                  },
+                },
+              });
+            }}>
+            <CircularImage
+              img={workspaceIcon}
+              name={workspaceName}
+              style={styles.HeaderImage}
+            />
+          </TouchableOpacity>
         </View>
         <View style={Styles.flex2Start}>
-          <Text
-            lines={1}
-            size={Mixins.scaleFont(16)}
-            style={[styles.headerText]}>
-            {workspaceName}
-          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(SetWorkspace(item));
+              navigation.navigate(Routes.DRAWER, {
+                screen: Routes.BOTTOMTAB,
+                params: {
+                  screen: Routes.ORDERS,
+                  params: {
+                    workspaceId: item.workspace.id,
+                  },
+                },
+              });
+            }}>
+            <Text
+              lines={1}
+              size={Mixins.scaleFont(16)}
+              style={[styles.headerText]}>
+              {workspaceName}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={Styles.flex3End}>
           <TouchableOpacity>

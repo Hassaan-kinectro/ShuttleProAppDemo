@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {View, FlatList, RefreshControl} from 'react-native';
-import {onRefresh, getRecord} from './helper';
+import {getRecord} from './helper';
 import {Text, GlobalStyle, Colors} from '../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
@@ -30,7 +30,6 @@ const OrderScreen = ({navigation, route}) => {
   const [page, changePage] = React.useState(1);
   const [stop, changeStop] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [sending, setCallStatus] = React.useState(false);
   const [isRefreshing, setRefreshing] = React.useState(false);
   const [filter, setfilters] = React.useState({
     startDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
@@ -77,7 +76,6 @@ const OrderScreen = ({navigation, route}) => {
     }
     if (!stop) {
       setLoading(true);
-      setCallStatus(true);
       GetOrdersByFilter(workspaceId, p, totalFetch, f).then(res => {
         if (res.status === 200 && isArray(res.data) && res.data.length > 0) {
           let newOrders = res.data,
@@ -97,22 +95,20 @@ const OrderScreen = ({navigation, route}) => {
           changePage(newOrders.length < totalLength ? page : page + 1);
           changeStop(lastRem !== 0);
           setLoading(false);
-          setCallStatus(false);
         } else {
           setLoading(false);
-          setCallStatus(false);
         }
       });
     }
   };
   const handleLoadMore = () => {
-    console.log('Enter in handleLoadMore');
-    if (page !== 1 && !sending && orders.length > 0) {
+    console.log('Enter in handleLoadMore', page, orders.length);
+    if (page !== 1 && orders.length > 0) {
       if (orders && allOrders && orders.length >= allOrders.length) {
         return false;
       }
       setLoading(true);
-      setCallStatus(true);
+
       setTimeout(() => {
         const totalLength = page * offset;
         changePage(page + 1);
@@ -124,10 +120,37 @@ const OrderScreen = ({navigation, route}) => {
             ),
           ),
         );
-        setCallStatus(false);
+
         setLoading(false);
       }, 500);
     }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await GetOrdersByFilter(workspaceId, 1, totalFetch, filter)
+      .then(res => {
+        if (res.status === 200 && isArray(res.data) && res.data.length > 0) {
+          let newOrders = res.data;
+          const totalLength = page * offset;
+          setOrders(
+            orderBy(
+              newOrders.slice(
+                0,
+                totalLength <= newOrders.length
+                  ? totalLength
+                  : newOrders.length,
+              ),
+            ),
+          );
+          setAllOrders(newOrders);
+        } else {
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    setRefreshing(false);
   };
 
   const renderFooter = () => {
@@ -151,7 +174,14 @@ const OrderScreen = ({navigation, route}) => {
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-        <CustomHeader name={name} navigation={navigation} />
+        <CustomHeader
+          name={name}
+          navigation={navigation}
+          allOrders={allOrders}
+          setOrders={setOrders}
+          page={page}
+          offset={offset}
+        />
         <View style={[Styles.flex]}>
           {loading ? (
             <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
@@ -170,21 +200,7 @@ const OrderScreen = ({navigation, route}) => {
               refreshControl={
                 <RefreshControl
                   refreshing={isRefreshing}
-                  onRefresh={() =>
-                    onRefresh(
-                      workspaceId,
-                      totalFetch,
-                      filter,
-                      page,
-                      offset,
-                      isArray,
-                      setOrders,
-                      orderBy,
-                      setRefreshing,
-                      GetOrdersByFilter,
-                      setAllOrders,
-                    )
-                  }
+                  onRefresh={onRefresh}
                   colors={[colors.themeIcon]}
                   tintColor={colors.themeIcon}
                 />
@@ -215,6 +231,7 @@ const OrderScreen = ({navigation, route}) => {
               onEndReachedThreshold={0.5}
               onEndReached={handleLoadMore}
               renderItem={({item, index}) => (
+                // item.name.toLowerCase.includes(abc.toLowerCase) &&
                 <OrderListItem
                   item={item}
                   key={item.id}

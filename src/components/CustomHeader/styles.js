@@ -1,6 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {scaleSize} from '../../styles/mixins';
+import {deviceWidth} from '../../utils/orientation';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -36,13 +37,15 @@ const useStyles = () => {
       marginRight: scaleSize(150),
     },
     searchContainer: {
+      display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       paddingHorizontal: 16,
     },
     backArrow: {},
     searchInput: {
-      flex: 1,
+      width: deviceWidth - 120,
+      // backgroundColor: 'red',
       marginLeft: 8,
       padding: 8,
       borderBottomWidth: 1,

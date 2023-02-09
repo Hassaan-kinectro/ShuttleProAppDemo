@@ -7,16 +7,8 @@ const useStyles = () => {
   return StyleSheet.create({
     BoxStyle: {
       height: 'auto',
-      borderWidth: 1,
       borderRadius: 20,
-      borderColor: colors.boxBorderColor,
       marginBottom: 10,
-      backgroundColor: colors.boxColor,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.2,
-      shadowRadius: 6,
-      elevation: 5,
-      marginHorizontal: 20,
     },
     pB10: {
       paddingBottom: 10,
@@ -32,6 +24,21 @@ const useStyles = () => {
       height: 400,
     },
     text: {color: colors.TextColor},
+    container: {
+      flex: 1,
+    },
+    header: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      width: '100%',
+      zIndex: 999,
+    },
+    subHeader: {
+      // height: headerHeight / 2,
+      width: '100%',
+      paddingHorizontal: 10,
+    },
     fontFamily: FONT_FAMILY.REGULAR,
   });
 };

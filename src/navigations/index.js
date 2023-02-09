@@ -437,6 +437,7 @@ const DrawerNavigator = ({
       overlayColor={colors.background}
       screenOptions={() => ({
         headerShown: false,
+        swipeEnabled: false,
       })}
       drawerContent={props => (
         <CustomDrawerContent

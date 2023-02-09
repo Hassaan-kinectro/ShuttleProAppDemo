@@ -25,21 +25,7 @@ const WorkspaceListItem = props => {
   return (
     <>
       <View style={styles.BoxStyle}>
-        <TouchableOpacity
-          onPress={() => {
-            dispatch(SetWorkspace(item));
-            navigation.navigate(Routes.DRAWER, {
-              screen: Routes.BOTTOMTAB,
-              params: {
-                screen: Routes.ORDERS,
-                params: {
-                  workspaceId: item.workspace.id,
-                },
-              },
-            });
-          }}>
-          <CardHeader item={item} />
-        </TouchableOpacity>
+        <CardHeader item={item} navigation={navigation} />
         <View style={styles.container2}>
           <TouchableOpacity
             onPress={() => {

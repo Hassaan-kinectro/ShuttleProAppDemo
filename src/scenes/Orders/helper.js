@@ -1,10 +1,10 @@
 import {FetchMailGroups} from '../../services/FetchMailGroup';
 import {FetchDescTemplates} from '../../services/DesTemplate';
 import {TransformForDropDown} from '../../utils/Parser';
+import {GetOrdersByFilter} from '../../services/Order';
 
 export const onRefresh = async (
   setRefreshing,
-  GetOrdersByFilter,
   workspaceId,
   totalFetch,
   filter,
@@ -47,7 +47,6 @@ export const getRecord = async (
   await FetchDescTemplates()
     .then(res => {
       if (res.status === 200) {
-        console.log(res.data, 'this is description template');
         const arr = TransformForDropDown(res.data);
         setEmailTemplates(arr);
       }
@@ -59,7 +58,6 @@ export const getRecord = async (
   FetchMailGroups(workspaceId)
     .then(res => {
       if (res.status === 200) {
-        console.log(res.data, 'this is recipientgroup');
         setRecipientGroup(TransformForDropDown(res.data));
       }
     })
