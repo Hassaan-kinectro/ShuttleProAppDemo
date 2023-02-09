@@ -10,10 +10,10 @@ const OrderRowItem = item => {
   const styles = useStyles();
   return (
     <View style={{marginBottom: 10}}>
-      <Text numberOfLines={1} color={colors.TextColor} style={styles.FontStyle}>
+      <Text lines={1} color={colors.TextColor} style={styles.FontStyle}>
         {item.name}
       </Text>
-      <Text numberOfLines={5} style={[styles.FontStyle, {width: 100}]}>
+      <Text lines={5} style={[styles.FontStyle, {width: 100}]}>
         {item.value}
       </Text>
     </View>

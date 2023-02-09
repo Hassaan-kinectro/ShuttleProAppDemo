@@ -67,10 +67,10 @@ const StoryRow = ({item, setLoadingImages, loading, disabled}) => {
           </TouchableOpacity>
         </View>
         <View style={{}}>
-          <Text numberOfLines={1} style={styles.text}>
+          <Text lines={1} style={styles.text}>
             {item.pageName}
           </Text>
-          <Text numberOfLines={1} style={styles.text}>
+          <Text lines={1} style={styles.text}>
             {item.createdAt
               ? moment(item.createdAt).format('DD MMM YYYY | hh:mm')
               : moment(item.created_at).format('YYYY-MM-DD hh:mm')}

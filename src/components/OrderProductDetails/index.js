@@ -18,7 +18,7 @@ const OrderProductDetails = (item, {check}) => {
   return (
     <View style={[Styles.pB10]}>
       <View style={styles.inline}>
-        <Text numberOfLines={4} style={styles.textStyle}>
+        <Text lines={4} style={styles.textStyle}>
           {item && item.item && item.item.product && item.item.product.name
             ? item.item.product.name
             : 'N/A'}{' '}
