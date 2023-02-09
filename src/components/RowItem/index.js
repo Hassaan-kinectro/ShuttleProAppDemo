@@ -41,7 +41,7 @@ const RowItem = ({item, contact}) => {
       <View style={[styles.boxContainer]}>
         <View>
           <View>
-            <Text lines={1} style={styles.text}>
+            <Text numberOfLines={1} style={styles.text}>
               {item.createdAt
                 ? moment(item.createdAt).format('DD MMM YYYY | hh:mm')
                 : moment(item.created_at).format('YYYY-MM-DD hh:mm')}
@@ -49,14 +49,14 @@ const RowItem = ({item, contact}) => {
           </View>
           {item.status_value && (
             <View style={[styles.fieldWidth]}>
-              <Text lines={8} style={styles.status}>
+              <Text numberOfLines={8} style={styles.status}>
                 {item.status_value}
               </Text>
             </View>
           )}
           {item.message && (
             <View style={[styles.fieldWidth]}>
-              <Text lines={10} style={[styles.mB5, styles.status]}>
+              <Text numberOfLines={10} style={[styles.mB5, styles.status]}>
                 {/* <HTMLView value={item.message} stylesheet={styles} /> */}
                 {item.message}
               </Text>
@@ -68,7 +68,7 @@ const RowItem = ({item, contact}) => {
                 onPress={() => {
                   ShowActivitySelectorModal();
                 }}>
-                <Text lines={1} style={[styles.mB5, styles.status]}>
+                <Text numberOfLines={1} style={[styles.mB5, styles.status]}>
                   {contact}
                 </Text>
               </TouchableOpacity>

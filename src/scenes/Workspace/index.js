@@ -123,10 +123,7 @@ const Workspace = props => {
                     size={40}
                     style={styles.pB10}
                   />
-                  <Text
-                    numberOfLines={1}
-                    color={colors.textColorLight}
-                    size={16}>
+                  <Text size={16} lines={1} color={colors.textColorLight}>
                     {t('workspaces.not.available')}
                   </Text>
                 </View>
