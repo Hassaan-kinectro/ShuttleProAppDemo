@@ -35,6 +35,3 @@ export function isLandscape() {
   const {width, height} = Dimensions.get('window');
   return width > height;
 }
-
-export const getCloser = (value, checkOne, checkTwo) =>
-  Math.abs(value - checkOne) < Math.abs(value - checkTwo) ? checkOne : checkTwo;

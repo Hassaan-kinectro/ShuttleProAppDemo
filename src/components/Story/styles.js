@@ -11,7 +11,7 @@ const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      marginVertical: 10,
+      marginHorizontal: -10,
     },
     container2: {
       flex: 2,
@@ -37,8 +37,8 @@ const useStyles = () => {
     },
     hairline: {
       borderColor: colors.boxBorderColor,
-      borderWidth: 0.5,
-      marginHorizontal: 20,
+      borderWidth: 1,
+      // marginHorizontal: 10,
       marginVertical: 10,
     },
     flex1: {
@@ -47,6 +47,7 @@ const useStyles = () => {
     slide: {
       flex: 1,
       position: 'relative',
+      backgroundColor: colors.background,
     },
     image2: {
       width: '100%',
@@ -92,15 +93,14 @@ const useStyles = () => {
     },
     statusTab: {
       height: 3,
-      // backgroundColor: '#fff',
       backgroundColor: '#bbbbbb',
       flex: 1,
     },
     image: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: 40,
-      height: 40,
+      width: 35,
+      height: 35,
       padding: 2,
       borderRadius: 100,
       marginHorizontal: 10,
@@ -112,11 +112,9 @@ const useStyles = () => {
       alignItems: 'center',
       width: 60,
       height: 60,
-      padding: 5,
+      padding: 30,
       borderRadius: 100,
       marginHorizontal: 10,
-      borderColor: colors.boxBorderColor,
-      borderWidth: 2,
     },
     createStory: {
       height: 60,
@@ -149,8 +147,6 @@ const useStyles = () => {
       marginTop: 5,
     },
     profileIcon: {
-      borderColor: colors.searchIconBackground,
-      borderWidth: 2,
       borderRadius: 100,
       marginLeft: 10,
       marginRight: 10,
@@ -158,33 +154,60 @@ const useStyles = () => {
     },
     profileIcon2: {
       borderColor: colors.searchIconBackground,
-      borderWidth: 2,
       borderRadius: 100,
       marginRight: 10,
       position: 'relative',
     },
     HeaderImage: {
-      width: 50,
-      height: 50,
+      width: 65,
+      height: 65,
       borderRadius: 100,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
     },
     active: {
       width: 15,
       height: 15,
       bottom: 0,
-      right: -2,
-      position: 'absolute',
-      borderWidth: 5,
-      borderRadius: 500,
+      right: -25,
     },
     active2: {
       width: 15,
       height: 15,
       bottom: 0,
-      right: -25,
+      right: -55,
+      top: -15,
+    },
+    active3: {
+      width: 15,
+      height: 15,
+      bottom: 0,
+      right: -45,
+      top: -15,
+    },
+    container4: {
+      flex: 1,
+    },
+    swiperContainer: {
+      borderRadius: 5,
+      backgroundColor: '#ccc',
       position: 'absolute',
-      borderWidth: 5,
-      borderRadius: 500,
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+    image5: {
+      height: '100%',
+      width: '100%',
+    },
+    progressBarContainer5: {
+      height: 4,
+      width: '100%',
+      flexDirection: 'row',
+      marginTop: 20,
+    },
+    progressBarSegment: {
+      height: '100%',
     },
   });
 };

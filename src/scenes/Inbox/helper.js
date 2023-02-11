@@ -26,6 +26,7 @@ export const onRefresh = async (
   setPublishedStories,
   workspaceId,
 ) => {
+  console.log(workspaceId);
   setRefresh(true);
   await FetchStories(workspaceId).then(res => {
     console.log(res);

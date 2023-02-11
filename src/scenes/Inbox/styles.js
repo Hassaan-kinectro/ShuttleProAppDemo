@@ -24,20 +24,21 @@ const useStyles = () => {
       height: 400,
     },
     text: {color: colors.TextColor},
-    container: {
-      flex: 1,
-    },
     header: {
-      position: 'absolute',
       left: 0,
       right: 0,
       width: '100%',
       zIndex: 999,
     },
     subHeader: {
-      // height: headerHeight / 2,
       width: '100%',
       paddingHorizontal: 10,
+    },
+    hairline: {
+      borderColor: colors.boxBorderColor,
+      borderWidth: 1,
+      marginHorizontal: 15,
+      marginTop: 5,
     },
     fontFamily: FONT_FAMILY.REGULAR,
   });

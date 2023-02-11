@@ -20,8 +20,9 @@ import useStyles from './styles';
 import StoryRow from '../../components/Story/storyRow';
 import {
   deviceHeight,
+  deviceWidth,
   getFixedHeaderHeight,
-  getCloser,
+  IS_IOS,
 } from '../../utils/orientation';
 import {getStories, onRefresh} from './helper';
 import Loader from '../../components/Loader';
@@ -33,7 +34,7 @@ import {DeleteStoryById} from '../../services/Stories';
 
 const defaultValue = {id: null, loading: false};
 const headerHeight = 32 * 2;
-const {diffClamp} = Animated;
+
 const Inbox = props => {
   const {navigation, route} = props;
   const styles = useStyles();
@@ -50,54 +51,6 @@ const Inbox = props => {
   const [publishedStories, setPublishedStories] = React.useState([]);
   const [unPublishedStories, setUnPublishedStories] = React.useState([]);
 
-  const ref = useRef(null);
-
-  const scrollY = useRef(new Animated.Value(0));
-  const scrollYClamped = diffClamp(scrollY.current, 0, headerHeight);
-
-  const translateY = scrollYClamped.interpolate({
-    inputRange: [0, headerHeight],
-    outputRange: [0, -(headerHeight / 2)],
-  });
-
-  const translateYNumber = useRef();
-
-  translateY.addListener(({value}) => {
-    translateYNumber.current = value;
-  });
-
-  const handleScroll = Animated.event(
-    [
-      {
-        nativeEvent: {
-          contentOffset: {y: scrollY.current},
-        },
-      },
-    ],
-    {
-      useNativeDriver: true,
-    },
-  );
-
-  const handleSnap = ({nativeEvent}) => {
-    const offsetY = nativeEvent.contentOffset.y;
-    if (
-      !(
-        translateYNumber.current === 0 ||
-        translateYNumber.current === -headerHeight / 2
-      )
-    ) {
-      if (ref.current) {
-        ref.current.scrollToOffset({
-          offset:
-            getCloser(translateYNumber.current, -headerHeight / 2, 0) ===
-            -headerHeight / 2
-              ? offsetY + headerHeight / 2
-              : offsetY - headerHeight / 2,
-        });
-      }
-    }
-  };
   React.useEffect(() => {
     getStories(
       setLoading,
@@ -139,90 +92,89 @@ const Inbox = props => {
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <View style={styles.Wrapper}>
           <CustomHeader name={name} navigation={navigation} />
-          <SafeAreaView style={styles.container}>
-            <Animated.View style={[styles.header, {transform: [{translateY}]}]}>
-              <StoryList
-                {...{headerHeight}}
-                publishedStories={publishedStories}
-              />
-            </Animated.View>
-            {loading ? (
-              <View style={[Styles.Centered]}>{loading && <Loader />}</View>
-            ) : (
-              <Animated.FlatList
-                data={[...unPublishedStories, ...unPublishedStories]}
-                extraData={loading}
-                scrollEventThrottle={16}
-                contentContainerStyle={{paddingTop: headerHeight}}
-                onScroll={handleScroll}
-                ref={ref}
-                onMomentumScrollEnd={handleSnap}
-                nestedScrollEnabled={true}
-                removeClippedSubviews={true}
-                maxToRenderPerBatch={40}
-                initialNumToRender={40}
-                keyExtractor={(item, index) => `${index}`}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refresh}
-                    onRefresh={() =>
-                      onRefresh(
-                        setRefresh,
-                        setUnPublishedStories,
-                        setPublishedStories,
-                        workspaceId,
-                      )
-                    }
-                    colors={[colors.background]}
-                    tintColor={colors.themeIcon}
-                  />
-                }
-                onEndReachedThreshold={0.5}
-                ListEmptyComponent={() =>
-                  !loading && unPublishedStories.length === 0 ? (
-                    <View
-                      style={[
-                        Styles.flexCenter,
-                        {
-                          height:
-                            (deviceHeight - getFixedHeaderHeight() - 40) / 2,
-                        },
-                      ]}>
-                      <AIcon
-                        name="warning"
-                        color={colors.textColorLight}
-                        size={40}
-                        style={styles.pB10}
-                      />
-                      <Text
-                        numberOfLines={1}
-                        color={colors.textColorLight}
-                        size={16}>
-                        <Text style={styles.text}>No Pending Stories </Text>
-                      </Text>
-                    </View>
-                  ) : null
-                }
-                renderItem={({item}) => {
-                  return (
-                    <React.Fragment key={item.id}>
-                      <StoryRow
-                        handleDelete={handleDelete}
-                        item={item}
-                        loading={loadingImages.loading}
-                        setLoadingImages={setLoadingImages}
-                        disabled={
-                          loadingImages.id
-                            ? loadingImages.id !== item.id
-                            : false
-                        }
-                      />
-                    </React.Fragment>
-                  );
-                }}
-              />
-            )}
-          </SafeAreaView>
+
+          <View style={[styles.header]}>
+            <StoryList publishedStories={publishedStories} />
+          </View>
+          <View style={styles.hairline} />
+          {loading ? (
+            <View style={[Styles.Centered]}>{loading && <Loader />}</View>
+          ) : (
+            <FlatList
+              data={[...unPublishedStories]}
+              extraData={loading}
+              scrollEventThrottle={16}
+              nestedScrollEnabled={true}
+              contentContainerStyle={{
+                paddingHorizontal: 10,
+                paddingBottom: IS_IOS ? 180 : 180,
+
+                paddingTop: headerHeight - 40,
+              }}
+              removeClippedSubviews={true}
+              maxToRenderPerBatch={40}
+              initialNumToRender={40}
+              keyExtractor={(item, index) => `${index}`}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refresh}
+                  onRefresh={() =>
+                    onRefresh(
+                      setRefresh,
+                      setUnPublishedStories,
+                      setPublishedStories,
+                      workspaceId,
+                    )
+                  }
+                  colors={[colors.background]}
+                  tintColor={colors.themeIcon}
+                />
+              }
+              onEndReachedThreshold={0.5}
+              ListEmptyComponent={() =>
+                !loading && unPublishedStories.length === 0 ? (
+                  <View
+                    style={[
+                      {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height:
+                          (deviceHeight - getFixedHeaderHeight() - 40) / 2,
+                      },
+                    ]}>
+                    <AIcon
+                      name="warning"
+                      color={colors.textColorLight}
+                      size={40}
+                      style={styles.pB10}
+                    />
+                    <Text
+                      numberOfLines={1}
+                      color={colors.textColorLight}
+                      size={16}>
+                      <Text style={styles.text}>No Pending Stories </Text>
+                    </Text>
+                  </View>
+                ) : null
+              }
+              renderItem={({item}) => {
+                return (
+                  <React.Fragment key={item.id}>
+                    <StoryRow
+                      handleDelete={handleDelete}
+                      item={item}
+                      loading={loadingImages.loading}
+                      setLoadingImages={setLoadingImages}
+                      disabled={
+                        loadingImages.id ? loadingImages.id !== item.id : false
+                      }
+                    />
+                  </React.Fragment>
+                );
+              }}
+            />
+          )}
         </View>
       </Wrapper>
     </>

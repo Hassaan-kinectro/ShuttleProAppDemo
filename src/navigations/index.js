@@ -14,7 +14,6 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Feather from 'react-native-vector-icons/Feather';
-import {showMessage} from 'react-native-flash-message';
 import {IS_ANDROID, IS_IOS} from '../utils/orientation';
 import {Routes, HIDE_HEADER} from '../utils/constants';
 import {SignOut, setTheme} from '../config/authSettings';
@@ -525,11 +524,15 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <AIcon name="creditcard" size={size} color={color} />
+                <MCIcon
+                  name="view-dashboard-outline"
+                  size={size}
+                  color={color}
+                />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <AIcon name="creditcard" size={size} color={color} />
+              <MCIcon name="view-dashboard-outline" size={size} color={color} />
             ),
         }}>
         {props => <Dashboard {...props} />}
@@ -575,11 +578,11 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <AIcon name="inbox" size={size} color={color} />
+                <MaterialIcons name="amp-stories" size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <AIcon name="inbox" size={size} color={color} />
+              <MaterialIcons name="amp-stories" size={size} color={color} />
             ),
         }}>
         {props => <Inbox {...props} />}

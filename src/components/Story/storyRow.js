@@ -20,6 +20,8 @@ import Share from 'react-native-share';
 import {handleConvert} from './helper';
 import CircularImage from '../CircularImage';
 import {UpdateStoryById} from '../../services/Stories';
+import FastImage from 'react-native-fast-image';
+import {useTheme} from '@react-navigation/native';
 
 const defaultValue = {id: null, loading: false};
 const StoryRow = ({
@@ -34,9 +36,14 @@ const StoryRow = ({
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isloading, SetIsLoading] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [imageLoading, setImageLoading] = React.useState(true);
+  const [tapped, setTapped] = React.useState(false);
+
+  const colors = useTheme();
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
+
   const shareInstagramImage = async (urls, id) => {
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
@@ -47,6 +54,7 @@ const StoryRow = ({
         SetIsLoading(false);
       }
     });
+
     const resp = await handleConvert(urls);
     let list = [];
     resp.forEach(async image => {
@@ -97,17 +105,18 @@ const StoryRow = ({
       setLoadingImages(defaultValue);
     }
   };
+
   console.log(loading, disabled, item.id);
   return (
     <>
       <View style={styles.container}>
         <View style={{flex: 1}}>
           <TouchableOpacity
-            style={{position: 'relative'}}
             disabled={disabled}
             onPress={() => {
               if (!loading) {
                 setModalVisible(true);
+                setTapped(true);
               }
             }}>
             {item && item.type === 'instagram' && (
@@ -115,7 +124,13 @@ const StoryRow = ({
                 <CircularImage
                   img={item && item.pagelogo ? item.pagelogo : item.pageicon}
                   name={item.pageName}
-                  style={styles.userImage}
+                  style={[
+                    styles.userImage,
+                    {
+                      borderColor: tapped ? 'transparent' : '#2B7C84',
+                      borderWidth: 3,
+                    },
+                  ]}
                 />
                 <Image source={INSTAGRAM} style={styles.active2} />
               </>
@@ -125,7 +140,13 @@ const StoryRow = ({
                 <CircularImage
                   img={item && item.pagelogo ? item.pagelogo : item.pageicon}
                   name={item.pageName}
-                  style={styles.userImage}
+                  style={[
+                    styles.userImage,
+                    {
+                      borderColor: tapped ? 'transparent' : '#2B7C84',
+                      borderWidth: 3,
+                    },
+                  ]}
                 />
                 <Image source={FACEBOOK} style={styles.active2} />
               </>
@@ -134,7 +155,7 @@ const StoryRow = ({
         </View>
         <View
           style={{
-            flex: 5,
+            flex: 4,
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
           }}>
@@ -214,19 +235,25 @@ const StoryRow = ({
       </View>
       <View style={styles.hairline} />
       <View style={{flex: 1}}>
-        <Modal animationType="slide" transparent={false} visible={modalVisible}>
-          <Swiper loop={true} autoplay={true} showsPagination={false}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          style={{backgroundColor: colors.background}}
+          visible={modalVisible}>
+          <Swiper loop={false} autoplay={true} showsPagination={true}>
             {item &&
               item.images &&
               item.images.length > 0 &&
               item.images.map((image, index) => {
                 return (
                   <View key={index} style={styles.slide}>
-                    <Image
+                    <FastImage
                       style={styles.image2}
+                      onLoad={() => setImageLoading(false)}
                       source={{
-                        uri: 'https://s3-shuttlepro-bucket.s3.amazonaws.com/workspaces/Moaz/product_attachment/12158/default/41975/NC127__3_.jpg',
+                        uri: image,
                       }}
+                      resizeMode="contain"
                     />
                   </View>
                 );

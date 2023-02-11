@@ -38,7 +38,7 @@ const ShowOrder = ({navigation, route}) => {
       setRefreshing(false);
     }, 500);
   };
-  const name = 'Orders';
+  const name = 'Order';
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
