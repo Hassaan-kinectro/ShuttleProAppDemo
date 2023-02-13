@@ -15,6 +15,7 @@ const DashBoard = () => {
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.flex}>
         <Text>{t('coming.soon')}</Text>
+        <Text>aaaa</Text>
       </View>
     </Wrapper>
   );

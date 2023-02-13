@@ -30,6 +30,7 @@ const OrderScreen = ({navigation, route}) => {
   const [page, changePage] = React.useState(1);
   const [stop, changeStop] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [loadmore, setLoadmore] = React.useState(false);
   const [isRefreshing, setRefreshing] = React.useState(false);
   const [filter, setfilters] = React.useState({
     startDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
@@ -107,8 +108,7 @@ const OrderScreen = ({navigation, route}) => {
       if (orders && allOrders && orders.length >= allOrders.length) {
         return false;
       }
-      setLoading(true);
-
+      setLoadmore(true);
       setTimeout(() => {
         const totalLength = page * offset;
         changePage(page + 1);
@@ -121,7 +121,7 @@ const OrderScreen = ({navigation, route}) => {
           ),
         );
 
-        setLoading(false);
+        setLoadmore(false);
       }, 500);
     }
   };
@@ -154,17 +154,11 @@ const OrderScreen = ({navigation, route}) => {
   };
 
   const renderFooter = () => {
-    if (!loading) {
+    if (!loadmore) {
       return null;
     }
     return (
-      <View
-        style={[
-          Styles.flexCenter,
-          Styles.justifyContentCenter,
-          Styles.alignItemsCenter,
-          styles.height,
-        ]}>
+      <View style={[]}>
         <Loader />
       </View>
     );
@@ -231,7 +225,6 @@ const OrderScreen = ({navigation, route}) => {
               onEndReachedThreshold={0.5}
               onEndReached={handleLoadMore}
               renderItem={({item, index}) => (
-                // item.name.toLowerCase.includes(abc.toLowerCase) &&
                 <OrderListItem
                   item={item}
                   key={item.id}

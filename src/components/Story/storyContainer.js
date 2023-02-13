@@ -67,36 +67,40 @@ const StoryList = ({publishedStories}) => {
                   setModalVisible({data: item, open: true});
                   setTapped(true);
                 }}>
-                {item.type === 'instagram' && (
+                {item && item.type === 'instagram' && (
                   <>
                     <CircularImage
-                      img={item.pagelogo ? item.pagelogo : item.images}
+                      img={
+                        item && item.pagelogo ? item.pagelogo : item.pageicon
+                      }
                       name={item.pageName}
                       style={[
-                        styles.HeaderImage,
+                        styles.userImage,
                         {
-                          borderColor: tapped ? 'transparent' : '#2B7C84',
+                          borderColor: tapped ? '#D8ECFF' : '#2B7C84',
                           borderWidth: 3,
                         },
                       ]}
                     />
-                    <Image source={INSTAGRAM} style={styles.active3} />
+                    <Image source={INSTAGRAM} style={styles.active2} />
                   </>
                 )}
-                {item.type === 'facebook' && (
+                {item && item.type === 'facebook' && (
                   <>
                     <CircularImage
-                      img={item.pagelogo ? item.pagelogo : item.images}
+                      img={
+                        item && item.pagelogo ? item.pagelogo : item.pageicon
+                      }
                       name={item.pageName}
                       style={[
-                        styles.HeaderImage,
+                        styles.userImage,
                         {
-                          borderColor: tapped ? 'transparent' : '#2B7C84',
+                          borderColor: tapped ? '#D8ECFF' : '#2B7C84',
                           borderWidth: 3,
                         },
                       ]}
                     />
-                    <Image source={FACEBOOK} style={styles.active3} />
+                    <Image source={FACEBOOK} style={styles.active2} />
                   </>
                 )}
               </TouchableOpacity>

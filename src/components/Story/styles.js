@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
-import {deviceHeight, deviceWidth} from '../../utils/orientation';
+import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -55,7 +55,7 @@ const useStyles = () => {
     },
     closeButton: {
       position: 'absolute',
-      top: 50,
+      top: IS_IOS ? 80 : 50,
       right: 30,
       backgroundColor: 'white',
       padding: 10,
@@ -115,6 +115,17 @@ const useStyles = () => {
       padding: 30,
       borderRadius: 100,
       marginHorizontal: 10,
+    },
+    userImage5: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      padding: 30,
+      borderRadius: 100,
+      marginHorizontal: 10,
+      position: 'absolute',
+      zIndex: 999,
     },
     createStory: {
       height: 60,

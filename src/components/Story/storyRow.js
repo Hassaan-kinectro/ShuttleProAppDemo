@@ -22,6 +22,7 @@ import CircularImage from '../CircularImage';
 import {UpdateStoryById} from '../../services/Stories';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
+import Loader from '../Loader';
 
 const defaultValue = {id: null, loading: false};
 const StoryRow = ({
@@ -106,6 +107,7 @@ const StoryRow = ({
     }
   };
 
+  console.log(imageLoading, 'aaaaaa loading');
   console.log(loading, disabled, item.id);
   return (
     <>
@@ -127,7 +129,7 @@ const StoryRow = ({
                   style={[
                     styles.userImage,
                     {
-                      borderColor: tapped ? 'transparent' : '#2B7C84',
+                      borderColor: tapped ? '#D8ECFF' : '#2B7C84',
                       borderWidth: 3,
                     },
                   ]}
@@ -143,7 +145,7 @@ const StoryRow = ({
                   style={[
                     styles.userImage,
                     {
-                      borderColor: tapped ? 'transparent' : '#2B7C84',
+                      borderColor: tapped ? '#D8ECFF' : '#2B7C84',
                       borderWidth: 3,
                     },
                   ]}
@@ -238,7 +240,7 @@ const StoryRow = ({
         <Modal
           animationType="slide"
           transparent={false}
-          style={{backgroundColor: colors.background}}
+          style={{backgroundColor: colors.background, position: 'relative'}}
           visible={modalVisible}>
           <Swiper loop={false} autoplay={true} showsPagination={true}>
             {item &&
@@ -247,12 +249,26 @@ const StoryRow = ({
               item.images.map((image, index) => {
                 return (
                   <View key={index} style={styles.slide}>
+                    {imageLoading && (
+                      <View
+                        style={{
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          position: 'absolute',
+                          zIndex: 999,
+                          height: '100%',
+                          width: '100%',
+                        }}>
+                        <Loader />
+                      </View>
+                    )}
                     <FastImage
                       style={styles.image2}
-                      onLoad={() => setImageLoading(false)}
                       source={{
                         uri: image,
                       }}
+                      onLoadEnd={() => setImageLoading(false)}
                       resizeMode="contain"
                     />
                   </View>

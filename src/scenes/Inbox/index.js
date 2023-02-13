@@ -92,7 +92,6 @@ const Inbox = props => {
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <View style={styles.Wrapper}>
           <CustomHeader name={name} navigation={navigation} />
-
           <View style={[styles.header]}>
             <StoryList publishedStories={publishedStories} />
           </View>

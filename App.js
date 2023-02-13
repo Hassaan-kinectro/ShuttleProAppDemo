@@ -4,6 +4,13 @@ import store from './src/modules';
 import './src/i18n';
 import Src from './src';
 import FlashMessage from 'react-native-flash-message';
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  ApolloProvider,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 
 const App = () => {
   return (
