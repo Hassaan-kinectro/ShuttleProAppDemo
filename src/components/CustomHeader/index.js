@@ -16,17 +16,13 @@ import {Hamburger, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import useStyles from './styles';
 import {Styles, Text} from '../../styles';
 import TextField from '../TextField';
-import {orderBy} from 'lodash';
 import {FONT_FAMILY} from '../../utils/constants';
 
 const CustomHeader = ({
   navigation,
   name,
   searchIcon = false,
-  allOrders,
-  setOrders,
-  page,
-  offset,
+  onSearchText = () => {},
 }) => {
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceImage = useSelector(
@@ -43,37 +39,11 @@ const CustomHeader = ({
 
   const onSearchChange = text => {
     setSearch(text);
-    OnSearchString(text);
-  };
-  const OnSearchString = text => {
-    console.log('hello');
-    if (text.length > 0) {
-      const result =
-        allOrders &&
-        allOrders.filter(p => {
-          let aa = false;
-          if (p.tracking_id) {
-            aa = p.tracking_id
-              ? p.tracking_id.toLowerCase().includes(text)
-              : false;
-          }
-          if (p && p.customer && p.customer.name) {
-            aa = p.customer.name.toLowerCase().includes(text.toLowerCase());
-            if (!aa) {
-              aa = p.customer.contact.toLowerCase().includes(text);
-            }
-          }
-          return aa;
-        });
-      setOrders(result);
-    } else {
-      const totalLength = page * offset;
-      setOrders(orderBy(allOrders.slice(0, totalLength)));
-    }
+    onSearchText && onSearchText(text);
   };
   const OnSearch = () => {
     Keyboard.dismiss();
-    OnSearchString(search);
+    onSearchText && onSearchText(search);
   };
 
   return (
@@ -131,7 +101,7 @@ const CustomHeader = ({
           )}
           {!searchVisible && (
             <View style={styles.rightIconsContainer}>
-              {searchIcon && (
+              {searchIcon && onSearchText && (
                 <TouchableOpacity
                   style={styles.searchIcon}
                   onPress={() => setSearchVisible(true)}>
