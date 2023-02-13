@@ -170,6 +170,7 @@ const OrderScreen = ({navigation, route}) => {
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <CustomHeader
           name={name}
+          searchIcon={true}
           navigation={navigation}
           allOrders={allOrders}
           setOrders={setOrders}

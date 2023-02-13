@@ -172,7 +172,7 @@ const useStyles = () => {
     },
     pb10: {paddingBottom: 10},
     socialView: {
-      marginTop: 20,
+      marginBottom: 10,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',

@@ -14,7 +14,7 @@ import CircularImage from '../CircularImage';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Hamburger, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import useStyles from './styles';
-import {Text} from '../../styles';
+import {Styles, Text} from '../../styles';
 import TextField from '../TextField';
 import {orderBy} from 'lodash';
 import {FONT_FAMILY} from '../../utils/constants';
@@ -22,6 +22,7 @@ import {FONT_FAMILY} from '../../utils/constants';
 const CustomHeader = ({
   navigation,
   name,
+  searchIcon = false,
   allOrders,
   setOrders,
   page,
@@ -80,56 +81,21 @@ const CustomHeader = ({
       <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
         <View style={styles.headerContainer}>
           {!searchVisible && (
-            <>
-              {name && name === 'Stories' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText2}>
-                    {name}
-                  </Text>
-                </>
-              )}
-              {name && name === 'Order' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText2}>
-                    {name}
-                  </Text>
-                </>
-              )}
-              {name && name === 'Orders' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText}>
-                    {name}
-                  </Text>
-                </>
-              )}
-            </>
+            <View style={[Styles.flexCenterStart, Styles.flexDirectionRow]}>
+              <TouchableOpacity
+                style={styles.menuIcon}
+                onPress={() => navigation.toggleDrawer()}>
+                <Image source={Hamburger} style={styles.hamburgerStyle} />
+              </TouchableOpacity>
+              <Text
+                size={24}
+                color={colors.TextColor}
+                fontFamily={FONT_FAMILY.SEMI_BOLD}
+                lines={1}
+                style={styles.headerText2}>
+                {name}
+              </Text>
+            </View>
           )}
           {searchVisible && (
             <View style={styles.searchContainer}>
@@ -152,7 +118,6 @@ const CustomHeader = ({
                 blurOnSubmit={false}
                 fontSize={14}
                 hideError
-                // inputStyle={styles.customInputStyle}
                 onSubmitEditing={() => {
                   OnSearch();
                 }}
@@ -166,86 +131,28 @@ const CustomHeader = ({
           )}
           {!searchVisible && (
             <View style={styles.rightIconsContainer}>
-              {name && name === 'Stories' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
+              {searchIcon && (
+                <TouchableOpacity
+                  style={styles.searchIcon}
+                  onPress={() => setSearchVisible(true)}>
+                  <FIcon name="search" size={22} color={colors.searchIcon} />
+                </TouchableOpacity>
               )}
-              {name && name === 'Order' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-              )}
-              {name && name === 'Orders' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.searchIcon}
-                    onPress={() => setSearchVisible(true)}>
-                    <FIcon name="search" size={22} color={colors.searchIcon} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-              )}
+              <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
+                <CircularImage
+                  img={workspaceImage}
+                  name={workspaceName}
+                  style={styles.HeaderImage}
+                />
+                <View style={styles.active} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.logoutIcon}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <F5Icon name="sort-down" size={24} color={colors.searchIcon} />
+              </TouchableOpacity>
             </View>
           )}
         </View>

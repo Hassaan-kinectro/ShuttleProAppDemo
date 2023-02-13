@@ -207,7 +207,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.WORKSPACE);
+          navigation.navigate(Routes.WORKSPACES);
         }}
         icon={({size}) => (
           <MaterialIcons
