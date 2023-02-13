@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, StatusBar, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
@@ -12,7 +11,7 @@ import {
   getJSExceptionHandler,
 } from 'react-native-exception-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {isAuthExist, getUser, setTheme} from './config/authSettings';
+import {getUser, setTheme} from './config/authSettings';
 import {UpdateTheme} from './modules/theme/action';
 import {SetUser} from './modules/user/action';
 
@@ -51,7 +50,6 @@ setJSExceptionHandler(errorHandler, true);
 setNativeExceptionHandler(errorString => {});
 
 const Src = () => {
-  const [auth, setAuth] = useState(false);
   const theme = useSelector(state => state.themeChange.theme);
   const Styles = GlobalStyle();
   const dispatch = useDispatch();
@@ -65,9 +63,6 @@ const Src = () => {
   useEffect(() => {
     SplashScreen.hide();
     console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
-    isAuthExist().then(async res => {
-      setAuth(res);
-    });
     getUser().then(async res => {
       if (res) {
         console.log(res);
@@ -84,7 +79,6 @@ const Src = () => {
         backgroundColor={theme === 'DARK' ? Colors.BACKGROUND : Colors.WHISPER}
       />
       <Navigation
-        setAuth={setAuth}
         theme={theme === 'DARK' ? Colors.DarkTheme : Colors.LightTheme}
       />
     </View>

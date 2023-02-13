@@ -30,7 +30,7 @@ const WorkspaceListItem = props => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.PRODUCTS,
@@ -53,7 +53,7 @@ const WorkspaceListItem = props => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.ORDERS,
@@ -78,7 +78,7 @@ const WorkspaceListItem = props => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.SETTINGS,
@@ -111,7 +111,7 @@ const WorkspaceListItem = props => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.SETTINGS,

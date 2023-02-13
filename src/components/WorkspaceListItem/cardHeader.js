@@ -24,7 +24,7 @@ const CardHeader = ({item, navigation}) => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.ORDERS,
@@ -45,7 +45,7 @@ const CardHeader = ({item, navigation}) => {
           <TouchableOpacity
             onPress={() => {
               dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.DRAWER, {
+              navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.ORDERS,
