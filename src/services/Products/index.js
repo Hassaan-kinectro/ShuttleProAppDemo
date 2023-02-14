@@ -13,7 +13,7 @@ const FetchAllProducts = async workspaceId => {
   console.log(token, 'token on axios}}}}}');
 
   return instance
-    .get(`/products/all?workspaceId=${workspaceId}`, token)
+    .get(`/products?workspaceId=${workspaceId}`, token)
     .then(response => {
       if (response.status === 200 || response.status === 201) {
         response = response.data;
