@@ -7,12 +7,10 @@ import {
   Image,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import MIcon from 'react-native-vector-icons/MaterialIcons';
-import FIcon from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 import CircularImage from '../CircularImage';
-import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Hamburger, HeaderDark, HeaderLight} from '../../utils/imagesPath';
+import {BackArrowIcon, SearchIcon, DownArrowIcon} from '../../icons';
 import useStyles from './styles';
 import {Styles, Text} from '../../styles';
 import TextField from '../TextField';
@@ -73,7 +71,7 @@ const CustomHeader = ({
               <TouchableOpacity
                 style={styles.backArrow}
                 onPress={() => setSearchVisible(false)}>
-                <MIcon name="arrow-back" size={24} color={colors.searchIcon} />
+                <BackArrowIcon size={24} color={colors.searchIcon} />
               </TouchableOpacity>
               <TextField
                 placeholderTextColor={colors.TextColor}
@@ -98,7 +96,7 @@ const CustomHeader = ({
               <TouchableOpacity
                 style={[styles.searchIcon, styles.searchMargin]}
                 onPress={OnSearch}>
-                <FIcon name="search" size={22} color={colors.TextColor} />
+                <SearchIcon size={22} color={colors.TextColor} />
               </TouchableOpacity>
             </View>
           )}
@@ -108,7 +106,7 @@ const CustomHeader = ({
                 <TouchableOpacity
                   style={styles.searchIcon}
                   onPress={() => setSearchVisible(true)}>
-                  <FIcon name="search" size={22} color={colors.searchIcon} />
+                  <SearchIcon size={22} color={colors.searchIcon} />
                 </TouchableOpacity>
               )}
               <PopupMenu
@@ -128,11 +126,7 @@ const CustomHeader = ({
                       <View style={styles.active} />
                     </View>
                     <View style={styles.logoutIcon}>
-                      <F5Icon
-                        name="sort-down"
-                        size={24}
-                        color={colors.searchIcon}
-                      />
+                      <DownArrowIcon size={24} color={colors.searchIcon} />
                     </View>
                   </View>
                 )}

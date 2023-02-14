@@ -30,11 +30,11 @@ const CircularImage = props => {
           )}
         </>
       ) : (
-        <Text
-          size={Mixins.scaleFont(16)}
-          style={[props.style, styles.CircularLetterStyle]}>
-          {props.name ? name.toUpperCase() : 'S'}
-        </Text>
+        <View style={[props.style, styles.CircularLetterStyle]}>
+          <Text size={Mixins.scaleFont(16)}>
+            {props.name ? name.toUpperCase() : 'S'}
+          </Text>
+        </View>
       )}
     </View>
   );
