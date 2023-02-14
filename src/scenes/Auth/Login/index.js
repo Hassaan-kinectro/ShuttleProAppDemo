@@ -24,11 +24,6 @@ const LoginScreen = props => {
     await AuthLogin(formData.email, formData.password).then(res => {
       setLoading(false);
       if (res.status === 200) {
-        props.setAuth(true);
-        props.setUserId(res.userId);
-        props.setOrganization_id(res.organization_id);
-        props.setUserName(res.userName);
-        props.setUserRole('admin');
         showMessage({
           message: '',
           description: res.message,

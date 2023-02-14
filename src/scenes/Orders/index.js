@@ -165,16 +165,40 @@ const OrderScreen = ({navigation, route}) => {
   };
 
   const name = 'Orders';
+  const onSearchText = text => {
+    console.log('hello');
+    if (text.length > 0) {
+      const result =
+        allOrders &&
+        allOrders.filter(p => {
+          let aa = false;
+          if (p.tracking_id) {
+            aa = p.tracking_id
+              ? p.tracking_id.toLowerCase().includes(text)
+              : false;
+          }
+          if (p && p.customer && p.customer.name) {
+            aa = p.customer.name.toLowerCase().includes(text.toLowerCase());
+            if (!aa) {
+              aa = p.customer.contact.toLowerCase().includes(text);
+            }
+          }
+          return aa;
+        });
+      setOrders(result);
+    } else {
+      const totalLength = page * offset;
+      setOrders(orderBy(allOrders.slice(0, totalLength)));
+    }
+  };
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <CustomHeader
           name={name}
+          searchIcon={true}
           navigation={navigation}
-          allOrders={allOrders}
-          setOrders={setOrders}
-          page={page}
-          offset={offset}
+          onSearchText={onSearchText}
         />
         <View style={[Styles.flex]}>
           {loading ? (

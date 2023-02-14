@@ -34,7 +34,8 @@ const useStyles = () => {
       marginRight: scaleSize(120),
     },
     headerText2: {
-      marginRight: scaleSize(150),
+      maxWidth: deviceWidth / 2,
+      marginLeft: 10,
     },
     searchContainer: {
       display: 'flex',

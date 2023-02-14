@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
@@ -32,7 +31,6 @@ import {DrawerLogo} from '../utils/imagesPath';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import OrderScreen from '../scenes/Orders';
 import ShowOrder from '../scenes/Orders/ShowOrder';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
@@ -43,8 +41,7 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-const StackCommonOptions = () => {
-  const {colors} = useTheme();
+const StackCommonOptions = colors => {
   return {
     headerTitleAlign: 'center',
     headerStyle: {
@@ -55,19 +52,23 @@ const StackCommonOptions = () => {
     headerTintColor: colors.baseColor,
   };
 };
-const StackCommonHeaderOptions = (
-  navigation,
-  back = false,
-  check,
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-  setWorkspaces,
-) => {
-  const {colors} = useTheme();
-
+const LogoutButton = (colors, navigation) => {
+  return (
+    <MaterialIcons
+      name="logout"
+      color={colors.icon}
+      size={25}
+      style={{paddingRight: 15}}
+      onPress={() => AppLogout(navigation)}
+    />
+  );
+};
+const ThemeButton = ({icon, color}) => {
+  return (
+    <Feather name={icon} color={color} size={25} style={{paddingRight: 15}} />
+  );
+};
+const StackCommonHeaderOptions = (navigation, back = false, check, colors) => {
   if (back) {
     return {
       headerLeft: () => (
@@ -80,45 +81,13 @@ const StackCommonHeaderOptions = (
         />
       ),
       headerRight: () => (
-        <MaterialIcons
-          name="logout"
-          color={colors.icon}
-          size={25}
-          style={{paddingRight: 15}}
-          onPress={() =>
-            AppLogout(
-              navigation,
-              setAuth,
-              setUserName,
-              setOrganization_id,
-              setUserRole,
-              setUserId,
-              setWorkspaces,
-            )
-          }
-        />
+        <LogoutButton colors={colors} navigation={navigation} />
       ),
     };
   } else if (check) {
     return {
       headerRight: () => (
-        <MaterialIcons
-          name="logout"
-          color={colors.icon}
-          size={25}
-          style={{paddingRight: 15}}
-          onPress={() =>
-            AppLogout(
-              navigation,
-              setAuth,
-              setUserName,
-              setOrganization_id,
-              setUserRole,
-              setUserId,
-              setWorkspaces,
-            )
-          }
-        />
+        <LogoutButton colors={colors} navigation={navigation} />
       ),
     };
   } else {
@@ -136,86 +105,38 @@ const StackCommonHeaderOptions = (
   }
 };
 
-export const AppLogout = async (
-  navigation,
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-) => {
-  await setAuth(false);
-  await setUserName(null),
-    await setOrganization_id(null),
-    await setUserRole(null),
-    await setUserId(null);
+export const AppLogout = async navigation => {
   await SignOut();
   navigation.dispatch(StackActions.replace('login'));
 };
 
-const ThemeIcon = () => {
+const ThemeIcon = ({colors}) => {
   const theme = useSelector(state => state.themeChange.theme);
   const dispatch = useDispatch();
-  const [visible, setVisible] = React.useState(true);
-
-  const {colors} = useTheme();
   const Styles = GlobalStyle();
 
-  React.useEffect(() => {
-    AsyncStorage.getItem('Theme').then(res => {
-      if (res === 'DARK') {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    });
-  }, []);
   const setVisibility = React.useCallback(() => {
-    if (theme === 'DARK') {
-      setVisible(false);
-      setTheme('LIGHT');
-      dispatch(UpdateTheme('LIGHT'));
-    } else {
-      setVisible(true);
-      setTheme('DARK');
-      dispatch(UpdateTheme('DARK'));
-    }
+    const value = theme === 'DARK' ? 'LIGHT' : 'DARK';
+    setTheme(value);
+    dispatch(UpdateTheme(value));
   }, [theme]);
   return (
     <TouchableOpacity
       style={Styles.ThemeIcon}
       activeOpacity={0.7}
-      onPress={() => {
-        setVisibility();
-      }}>
-      {visible ? (
-        <Feather
-          name="sun"
-          color={colors.themeIcon}
-          size={25}
-          style={{paddingRight: 15}}
-          onPress={() => {
-            setVisibility();
-          }}
-        />
+      onPress={setVisibility}>
+      {theme === 'DARK' ? (
+        <ThemeButton icon={'sun'} color={colors.themeIcon} />
       ) : (
-        <Feather
-          name="moon"
-          color={colors.themeIcon}
-          size={30}
-          style={{paddingRight: 15}}
-          onPress={() => {
-            setVisibility();
-          }}
-        />
+        <ThemeButton icon={'moon'} color={colors.themeIcon} />
       )}
     </TouchableOpacity>
   );
 };
-const Orders = () => {
+const Orders = colors => {
   return (
     <Stack.Navigator
-      screenOptions={StackCommonOptions}
+      screenOptions={{...StackCommonOptions(colors)}}
       initialRouteName={Routes.ORDERSLIST}>
       <Stack.Screen
         headerMode="screen"
@@ -269,7 +190,7 @@ const SOCIALMEDIA = () => {
   );
 };
 const CustomDrawerContent = props => {
-  const {navigation} = props;
+  const {navigation, colors} = props;
   const workspaceIcon = useSelector(
     state => state.workspace.workspace.workspace.icon.thumb.url,
   );
@@ -279,19 +200,17 @@ const CustomDrawerContent = props => {
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
-  const {colors} = useTheme();
   const Styles = GlobalStyle();
-
   return (
     <DrawerContentScrollView
       style={{backgroundColor: colors.background}}
       {...props}>
       <View
         style={[Styles.flexCenter, Styles.flexDirectionColumn, {height: 180}]}>
-        <ThemeIcon />
+        <ThemeIcon colors={colors} />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate(Routes.WORKSPACE);
+            navigation.navigate(Routes.WORKSPACES);
           }}>
           {workspaceIcon ? (
             <FastImage
@@ -318,7 +237,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.WORKSPACE);
+          navigation.navigate(Routes.WORKSPACES);
         }}
         icon={({size}) => (
           <MaterialIcons
@@ -366,7 +285,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.DRAWER, {
+          navigation.navigate(Routes.WORKSPACE, {
             screen: Routes.BOTTOMTAB,
             params: {
               screen: Routes.ORDERS,
@@ -430,16 +349,7 @@ const CustomDrawerContent = props => {
         activeBackgroundColor={Colors.GRAYLIGHT}
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
-        onPress={() =>
-          AppLogout(
-            navigation,
-            props.setAuth,
-            props.setOrganization_id,
-            props.setUserRole,
-            props.setUserName,
-            props.setUserId,
-          )
-        }
+        onPress={() => AppLogout(navigation)}
         icon={({color, size}) => (
           <AIcon name="logout" size={size} color={colors.labelColor} />
         )}
@@ -452,13 +362,7 @@ const CustomDrawerContent = props => {
     </DrawerContentScrollView>
   );
 };
-const DrawerNavigator = ({
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-}) => {
+const DrawerNavigator = () => {
   const {colors} = useTheme();
   return (
     <Drawer.Navigator
@@ -469,14 +373,7 @@ const DrawerNavigator = ({
         swipeEnabled: false,
       })}
       drawerContent={props => (
-        <CustomDrawerContent
-          {...props}
-          setAuth={setAuth}
-          setUserId={setUserId}
-          setOrganization_id={setOrganization_id}
-          setUserRole={setUserRole}
-          setUserName={setUserName}
-        />
+        <CustomDrawerContent colors={colors} {...props} />
       )}
       drawerStyle={{backgroundColor: colors.themeIcon}}
       defaultStatus="closed"
@@ -498,22 +395,12 @@ const DrawerNavigator = ({
           ),
         }}
         name={Routes.BOTTOMTAB}>
-        {props => (
-          <BottomTabNavigator
-            {...props}
-            setAuth={setAuth}
-            setUserId={setUserId}
-            setOrganization_id={setOrganization_id}
-            setUserRole={setUserRole}
-            setUserName={setUserName}
-          />
-        )}
+        {props => <BottomTabNavigator colors={colors} {...props} />}
       </Drawer.Screen>
     </Drawer.Navigator>
   );
 };
-const BottomTabNavigator = () => {
-  const {colors} = useTheme();
+const BottomTabNavigator = ({colors}) => {
   return (
     <Tab.Navigator
       initialRouteName={Routes.DASHBOARD}
@@ -579,9 +466,9 @@ const BottomTabNavigator = () => {
             ) : (
               <AIcon name="laptop" size={size} color={color} />
             ),
-        }}
-        component={Orders}
-      />
+        }}>
+        {props => <Orders colors={colors} {...props} />}
+      </Tab.Screen>
       <Tab.Screen
         name={Routes.DESIGNS}
         options={{
@@ -636,81 +523,13 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
-const WorkspaceNavigator = ({
-  setAuth,
-  setUserName,
-  setOrganization_id,
-  setUserRole,
-  setUserId,
-}) => {
-  return (
-    <Stack.Navigator
-      initialRouteName={Routes.WORKSPACE}
-      screenOptions={[StackCommonOptions]}>
-      <Stack.Screen
-        name={Routes.WORKSPACE}
-        headerMode="screen"
-        options={({navigation}) => ({
-          headerShown: false,
-          ...StackCommonHeaderOptions(
-            navigation,
-            false,
-            true,
-            setAuth,
-            setUserName,
-            setOrganization_id,
-            setUserRole,
-          ),
-        })}>
-        {props => (
-          <Workspace
-            {...props}
-            setAuth={setAuth}
-            setUserName={setUserName}
-            setOrganization_id={setOrganization_id}
-            setUserRole={setUserRole}
-            setUserId={setUserId}
-          />
-        )}
-      </Stack.Screen>
-
-      <Stack.Screen name={Routes.DRAWER} options={{headerShown: false}}>
-        {props => (
-          <DrawerNavigator
-            {...props}
-            setAuth={setAuth}
-            setUserId={setUserId}
-            setOrganization_id={setOrganization_id}
-            setUserRole={setUserRole}
-            setUserName={setUserName}
-          />
-        )}
-      </Stack.Screen>
-    </Stack.Navigator>
-  );
-};
-
-const Navigation = ({setAuth, theme}) => {
-  const [userId, setUserId] = React.useState(null);
-  const [userName, setUserName] = React.useState(null);
-  const [userRole, setUserRole] = React.useState(null);
-  const [organization_id, setOrganization_id] = React.useState(null);
-  const user = useSelector(state => state.user.user);
-
-  React.useEffect(() => {
-    if (user) {
-      setUserId(user.id);
-      setUserName(user.name);
-      setUserRole(user.role);
-      setOrganization_id(user.organization_id);
-    }
-  }, [user]);
-
+const Navigation = ({theme}) => {
+  const {colors} = useTheme();
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
         initialRouteName={Routes.LOADING}
-        screenOptions={StackCommonOptions}>
+        screenOptions={{...StackCommonOptions(colors)}}>
         <Stack.Screen
           name={Routes.LOADING}
           component={Loading}
@@ -722,28 +541,19 @@ const Navigation = ({setAuth, theme}) => {
           options={HIDE_HEADER}
         />
         <Stack.Screen name={Routes.LOGIN} options={HIDE_HEADER}>
-          {props => (
-            <Login
-              {...props}
-              setAuth={setAuth}
-              setUserId={setUserId}
-              setOrganization_id={setOrganization_id}
-              setUserRole={setUserRole}
-              setUserName={setUserName}
-            />
-          )}
+          {props => <Login {...props} />}
         </Stack.Screen>
-        <Stack.Screen name={Routes.WORKSPACES} options={HIDE_HEADER}>
-          {props => (
-            <WorkspaceNavigator
-              {...props}
-              setAuth={setAuth}
-              setUserId={setUserId}
-              setOrganization_id={setOrganization_id}
-              setUserRole={setUserRole}
-              setUserName={setUserName}
-            />
-          )}
+        <Stack.Screen
+          name={Routes.WORKSPACES}
+          headerMode="screen"
+          options={({navigation}) => ({
+            headerShown: false,
+            ...StackCommonHeaderOptions(navigation, false, true, colors),
+          })}>
+          {props => <Workspace {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name={Routes.WORKSPACE} options={{headerShown: false}}>
+          {props => <DrawerNavigator {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

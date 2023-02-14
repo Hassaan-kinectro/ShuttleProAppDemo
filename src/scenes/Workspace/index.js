@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, RefreshControl, ImageBackground} from 'react-native';
 import {GlobalStyle, Text} from '../../styles';
@@ -19,15 +18,10 @@ import {onRefresh, getRecord} from './helper';
 import Loader from '../../components/Loader';
 
 const Workspace = props => {
-  const [auth, setAuth] = useState(false);
-  const [userId, setUserId] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [userRole, setUserRole] = useState(null);
-  const [organization_id, setOrganization_id] = useState(null);
+  const {route, navigation} = props;
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const {route, navigation} = props;
   const theme = useSelector(state => state.themeChange.theme);
 
   const {colors} = useTheme();
@@ -63,16 +57,7 @@ const Workspace = props => {
               color={colors.TextColor}
               size={25}
               style={styles.pR}
-              onPress={() =>
-                AppLogout(
-                  navigation,
-                  setAuth,
-                  setUserId,
-                  setUserName,
-                  setUserRole,
-                  setOrganization_id,
-                )
-              }
+              onPress={() => AppLogout(navigation)}
             />
           </View>
         </ImageBackground>
