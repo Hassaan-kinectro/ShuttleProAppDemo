@@ -24,6 +24,7 @@ import Settings from '../scenes/Settings';
 import Inbox from '../scenes/Inbox';
 import Design from '../scenes/Designs';
 import Dashboard from '../scenes/Dashboard';
+import SocialMediaProfile from '../scenes/SocialMedia';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import {DrawerLogo} from '../utils/imagesPath';
@@ -34,6 +35,7 @@ import {UpdateTheme} from '../modules/theme/action';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import StoryLoading from '../scenes/StoryLoading';
+import ShowStory from '../scenes/SocialMedia/ShowStory';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -155,6 +157,34 @@ const Orders = colors => {
         })}
         name={Routes.SHOWORDER}
         component={ShowOrder}
+      />
+    </Stack.Navigator>
+  );
+};
+const SOCIALMEDIA = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={StackCommonOptions}
+      initialRouteName={Routes.SOCIALMEDIA}>
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Social Media',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.SOCIALMEDIA}
+        component={SocialMediaProfile}
+      />
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Show Story',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.STORY}
+        component={ShowStory}
       />
     </Stack.Navigator>
   );
@@ -483,7 +513,7 @@ const BottomTabNavigator = ({colors}) => {
         {props => <Design {...props} />}
       </Tab.Screen>
       <Tab.Screen
-        name={Routes.INBOX}
+        name={Routes.SOCIALMEDIA}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) =>
@@ -495,9 +525,9 @@ const BottomTabNavigator = ({colors}) => {
             ) : (
               <MaterialIcons name="amp-stories" size={size} color={color} />
             ),
-        }}>
-        {props => <Inbox {...props} />}
-      </Tab.Screen>
+        }}
+        component={SOCIALMEDIA}
+      />
       <Tab.Screen
         name={Routes.SETTINGS}
         options={{

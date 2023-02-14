@@ -23,6 +23,7 @@ const Workspace = props => {
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const theme = useSelector(state => state.themeChange.theme);
+
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();

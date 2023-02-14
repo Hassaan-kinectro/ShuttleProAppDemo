@@ -107,7 +107,6 @@ const StoryRow = ({
     }
   };
 
-  console.log(imageLoading, 'aaaaaa loading');
   console.log(loading, disabled, item.id);
   return (
     <>

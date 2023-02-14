@@ -6,7 +6,7 @@ import {FONT_FAMILY} from '../../utils/constants';
 import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {TransformPrice} from '../../utils/Parser';
+
 const OrderCard = ({props, OpenActivity}) => {
   const {colors} = useTheme();
   const styles = useStyles();

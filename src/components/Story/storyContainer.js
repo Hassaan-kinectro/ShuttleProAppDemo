@@ -16,12 +16,16 @@ import {useSelector} from 'react-redux';
 import useStyles from './styles';
 import Swiper from 'react-native-swiper';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {Routes} from '../../utils/constants';
+import F5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const StoryList = ({publishedStories}) => {
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,
   });
+  const navigation = useNavigation();
 
   const {colors} = useTheme();
   const [tapped, setTapped] = React.useState(false);
@@ -46,9 +50,26 @@ const StoryList = ({publishedStories}) => {
           horizontal
           showsHorizontalScrollIndicator={false}
           ListHeaderComponent={() => (
-            <>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
               <TouchableOpacity
-                style={styles.profileIcon}
+                style={styles.CreateprofileIcon}
+                onPress={() => {
+                  navigation.navigate(Routes.STORY);
+                }}>
+                <CircularImage
+                  img={workspaceIcon}
+                  name={workspaceName}
+                  style={styles.HeaderImage}
+                />
+                <F5Icon
+                  name="th-list"
+                  size={15}
+                  color={colors.searchIcon}
+                  style={styles.active3}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.CreateprofileIcon}
                 onPress={() => Alert.alert('Create Story', 'Coming Soon')}>
                 <CircularImage
                   img={workspaceIcon}
@@ -57,7 +78,7 @@ const StoryList = ({publishedStories}) => {
                 />
                 <Image source={ADDSTORY} style={styles.active3} />
               </TouchableOpacity>
-            </>
+            </View>
           )}
           renderItem={({item, index}) => {
             return (
@@ -76,10 +97,10 @@ const StoryList = ({publishedStories}) => {
                       name={item.pageName}
                       style={[
                         styles.userImage,
-                        {
-                          borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                          borderWidth: 3,
-                        },
+                        // {
+                        //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
+                        //   borderWidth: 3,
+                        // },
                       ]}
                     />
                     <Image source={INSTAGRAM} style={styles.active2} />
@@ -94,10 +115,10 @@ const StoryList = ({publishedStories}) => {
                       name={item.pageName}
                       style={[
                         styles.userImage,
-                        {
-                          borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                          borderWidth: 3,
-                        },
+                        // {
+                        //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
+                        //   borderWidth: 3,
+                        // },
                       ]}
                     />
                     <Image source={FACEBOOK} style={styles.active2} />
