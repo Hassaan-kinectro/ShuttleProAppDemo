@@ -636,7 +636,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShuttleProApp/ShuttleProApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QB9KAHCZ48;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ShuttleProApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShuttlePro;
@@ -644,7 +644,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -667,14 +667,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShuttleProApp/ShuttleProAppRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QB9KAHCZ48;
 				INFOPLIST_FILE = ShuttleProApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShuttlePro;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

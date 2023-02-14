@@ -13,7 +13,11 @@ const WorkspaceReducer = (
       state = {
         ...state,
         workspace: action.payload,
-        workspaceId: (action.payload && action.payload.id) || '',
+        workspaceId:
+          (action.payload &&
+            action.payload.workspace &&
+            action.payload.workspace.id) ||
+          '',
       };
       break;
     default:

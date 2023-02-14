@@ -16,6 +16,7 @@ import {Hamburger, HeaderDark, HeaderLight} from '../../utils/imagesPath';
 import useStyles from './styles';
 import {Styles, Text} from '../../styles';
 import TextField from '../TextField';
+import PopupMenu from '../PopupMenu';
 import {FONT_FAMILY} from '../../utils/constants';
 
 const CustomHeader = ({
@@ -94,7 +95,9 @@ const CustomHeader = ({
                 clearIcon
                 search
               />
-              <TouchableOpacity style={styles.searchIcon} onPress={OnSearch}>
+              <TouchableOpacity
+                style={[styles.searchIcon, styles.searchMargin]}
+                onPress={OnSearch}>
                 <FIcon name="search" size={22} color={colors.TextColor} />
               </TouchableOpacity>
             </View>
@@ -108,21 +111,53 @@ const CustomHeader = ({
                   <FIcon name="search" size={22} color={colors.searchIcon} />
                 </TouchableOpacity>
               )}
-              <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
-                <CircularImage
-                  img={workspaceImage}
-                  name={workspaceName}
-                  style={styles.HeaderImage}
-                />
-                <View style={styles.active} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.logoutIcon}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <F5Icon name="sort-down" size={24} color={colors.searchIcon} />
-              </TouchableOpacity>
+              <PopupMenu
+                HeaderAnchor={() => (
+                  <View
+                    style={[
+                      Styles.flexDirectionRow,
+                      Styles.justifyContentCenter,
+                      Styles.alignItemsCenter,
+                    ]}>
+                    <View style={styles.profileIcon}>
+                      <CircularImage
+                        img={workspaceImage}
+                        name={workspaceName}
+                        style={styles.HeaderImage}
+                      />
+                      <View style={styles.active} />
+                    </View>
+                    <View style={styles.logoutIcon}>
+                      <F5Icon
+                        name="sort-down"
+                        size={24}
+                        color={colors.searchIcon}
+                      />
+                    </View>
+                  </View>
+                )}
+                options={[
+                  {
+                    label: 'Logout',
+                    onClick: () => {
+                      console.log('The button');
+                    },
+                  },
+                  {
+                    label: 'Logout1',
+                    selected: true,
+                    onClick: () => {
+                      console.log('The button');
+                    },
+                  },
+                  {
+                    label: 'Logout2',
+                    onClick: () => {
+                      console.log('The button');
+                    },
+                  },
+                ]}
+              />
             </View>
           )}
         </View>

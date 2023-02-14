@@ -56,14 +56,17 @@ const GetOrdersByFilter = async (workspaceId, page, offset, filter) => {
   const responseData = {
     loading: false,
     status: 210,
+    count: 0,
     message: 'Something went wrong, Please try again.',
   };
   const token = await getAuthHeader();
   const data = {
+    ...filter,
+    start_date: filter.startDate,
+    end_date: filter.endDate,
     workspace_id: workspaceId,
     page: page,
     limit: offset,
-    ...filter,
   };
   return instance
     .post('/orders/filter', data, token)
@@ -71,14 +74,12 @@ const GetOrdersByFilter = async (workspaceId, page, offset, filter) => {
       if (response.status === 200 || response.status === 201) {
         response = response.data;
         if (response.code === 200) {
-          const product = isArray(response.data)
-            ? response.data
-            : JSON.parse(response.data);
           return {
             ...responseData,
-            data: isArray(product) ? product : [],
             status: 200,
-            message: 'Orders fetched successfully.',
+            message: response.message,
+            count: response.count,
+            data: response.data,
           };
         } else {
           return {

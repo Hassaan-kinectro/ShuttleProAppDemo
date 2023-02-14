@@ -35,7 +35,7 @@ const OrderScreen = ({navigation, route}) => {
   const [filter, setfilters] = React.useState({
     startDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
     endDate: moment().format('YYYY-MM-DD'),
-    status_type_data: 1,
+    status_type: 1,
   });
   const [emailTemplates, setEmailTemplates] = React.useState([]);
   const [recipientGroup, setRecipientGroup] = React.useState([]);
@@ -46,6 +46,7 @@ const OrderScreen = ({navigation, route}) => {
   const offset = 20;
   const totalFetch = 1000;
 
+  console.log(route);
   React.useEffect(() => {
     getRecord(setEmailTemplates, setRecipientGroup, workspaceId);
     if (route.params && route.params.startDate) {
@@ -99,6 +100,7 @@ const OrderScreen = ({navigation, route}) => {
         } else {
           setLoading(false);
         }
+        setLoading(false);
       });
     }
   };

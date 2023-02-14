@@ -44,3 +44,4 @@ export const FONT_FAMILY = {
   MEDIUM: 'Raleway-Medium',
 };
 export const HANDLED = 'handled';
+export const DateFormat = 'YYYY-MM-DD';

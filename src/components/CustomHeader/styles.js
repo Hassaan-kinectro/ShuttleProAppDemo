@@ -38,12 +38,13 @@ const useStyles = () => {
       marginLeft: 10,
     },
     searchContainer: {
-      display: 'flex',
+      flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'center',
       paddingHorizontal: 16,
     },
-    backArrow: {},
+    backArrow: {paddingBottom: 10},
     searchInput: {
       width: deviceWidth - 120,
       // backgroundColor: 'red',
@@ -71,6 +72,9 @@ const useStyles = () => {
       opacity: 2,
       borderRadius: 50,
     },
+    searchMargin: {
+      marginBottom: 10,
+    },
     profileIcon: {
       borderColor: colors.searchIconBackground,
       borderWidth: 2,
@@ -80,10 +84,11 @@ const useStyles = () => {
     },
     logoutIcon: {
       padding: 8,
+      paddingBottom: 15,
     },
     HeaderImage: {
-      width: 33,
-      height: 33,
+      width: 32,
+      height: 32,
       borderRadius: 50,
     },
     hamburgerStyle: {
