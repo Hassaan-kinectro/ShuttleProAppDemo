@@ -23,6 +23,7 @@ export const Routes = {
   SOCIALMEDIA: 'socialmedia',
   DESIGNS: 'designs',
   INBOX: 'inbox',
+  STORY: 'story',
   STORYLOADING: 'story loading',
   SETTINGS: 'settings',
   SHIPPERS: 'shippers',
@@ -44,3 +45,7 @@ export const FONT_FAMILY = {
   MEDIUM: 'Raleway-Medium',
 };
 export const HANDLED = 'handled';
+export const FACEBOOK = 'facebook';
+export const INSTAGRAM = 'instagram';
+export const POST_LIMIT = '25';
+export const TIMELINE = 'timeLine';

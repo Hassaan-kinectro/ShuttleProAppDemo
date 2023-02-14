@@ -89,6 +89,19 @@ export const getAuthHeader = () =>
       .catch(err => reject(err));
   });
 
+export const getAuthToken = () =>
+  new Promise((resolve, reject) => {
+    AsyncStorage.getItem('token')
+      .then(res => {
+        if (res !== null) {
+          resolve(res);
+        } else {
+          resolve(null);
+        }
+      })
+      .catch(err => reject(err));
+  });
+
 export const getAuthHeaderForFiles = () =>
   new Promise((resolve, reject) => {
     AsyncStorage.getItem('token')

@@ -29,6 +29,7 @@ const Workspace = props => {
   const [refresh, setRefresh] = useState(false);
   const {route, navigation} = props;
   const theme = useSelector(state => state.themeChange.theme);
+
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SetWorkspace} from '../../modules/workspace';
 import {Colors, GlobalStyle, Text} from '../../styles';
 import useStyles from './styles';
