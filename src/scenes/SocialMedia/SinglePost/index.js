@@ -23,7 +23,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
                 : pageIcon.url
             }
             name={name}
-            style={[styles.HeaderImage, {flex: 1}]}
+            style={[styles.HeaderImagepost, {flex: 1}]}
           />
           {profileType === 'facebook' && (
             <FastImage source={FACEBOOK} style={styles.activePost} />

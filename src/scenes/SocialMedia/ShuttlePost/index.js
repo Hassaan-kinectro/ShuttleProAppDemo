@@ -23,7 +23,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 : pageIcon.url
             }
             name={name}
-            style={[styles.HeaderImage, {flex: 1}]}
+            style={[styles.HeaderImagepost, {flex: 1}]}
           />
           {profileType === 'facebook' && (
             <Image source={FACEBOOK} style={styles.activePost} />
@@ -31,7 +31,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
           {profileType === 'instagram' && (
             <Image source={INSTAGRAM} style={styles.activePost} />
           )}
-          <View style={[{flex: 5}]}>
+          <View style={[{flex: 8}]}>
             <Text numberOfLines={1} style={[styles.text]}>
               {name}
             </Text>

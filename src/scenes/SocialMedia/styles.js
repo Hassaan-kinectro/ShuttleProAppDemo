@@ -182,6 +182,12 @@ const useStyles = () => {
       borderRadius: 100,
       // borderColor: 'transparent',
     },
+    HeaderImagepost: {
+      width: 32,
+      height: 32,
+      borderRadius: 100,
+      // borderColor: 'transparent',
+    },
     active: {
       width: 15,
       height: 15,
@@ -217,11 +223,11 @@ const useStyles = () => {
       top: -15,
     },
     activePost: {
-      width: 15,
-      height: 15,
+      width: 12,
+      height: 12,
       bottom: 0,
-      right: 8,
-      top: 35,
+      right: 30,
+      top: 18,
     },
     active3: {
       width: 15,
