@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {Colors, Mixins, Text, GlobalStyle} from '../../styles';
 import {deviceHeight, IS_IOS} from '../../utils/orientation';
-import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Wrapper from '../Wrapper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -16,6 +15,7 @@ import {Formik} from 'formik';
 import FlashMessage from 'react-native-flash-message';
 import ActivityForm from '../ActivityForm';
 import {useTheme} from '@react-navigation/native';
+import {CloseIcon} from '../../icons';
 import {CreateActivity} from '../../services/Activity';
 import {useSelector} from 'react-redux';
 import {Dark, Light} from '../../utils/imagesPath';
@@ -209,7 +209,7 @@ const ChangeOrderStatusModal = props => {
                 New Activity
               </Text>
               <TouchableOpacity onPress={onModalClose}>
-                <MIcon name="close" size={24} color={Colors.DANGER} />
+                <CloseIcon size={24} color={Colors.DANGER} />
               </TouchableOpacity>
             </View>
             <KeyboardAwareScrollView

@@ -6,9 +6,8 @@ import useStyles from './styles';
 import {AppLogout} from '../../navigations';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import AIcon from 'react-native-vector-icons/AntDesign';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTheme} from '@react-navigation/native';
+import {WarningIcon, LogoutIcon} from '../../icons';
 import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
 import Wrapper from '../../components/Wrapper';
@@ -52,11 +51,10 @@ const Workspace = props => {
               fontFamily={FONT_FAMILY.SEMI_BOLD}>
               {t('workspaces')}
             </Text>
-            <MaterialIcons
-              name="logout"
+            <LogoutIcon
               color={colors.TextColor}
-              size={25}
               style={styles.pR}
+              size={25}
               onPress={() => AppLogout(navigation)}
             />
           </View>
@@ -103,8 +101,7 @@ const Workspace = props => {
                       height: (deviceHeight - getFixedHeaderHeight() - 40) / 2,
                     },
                   ]}>
-                  <AIcon
-                    name="warning"
+                  <WarningIcon
                     color={colors.textColorLight}
                     size={40}
                     style={styles.pB10}

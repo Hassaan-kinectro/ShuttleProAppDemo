@@ -14,7 +14,6 @@ import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 // Icon
 import Feather from 'react-native-vector-icons/Feather';
 import {Colors} from '../../styles';
-Feather.loadFont();
 
 class DropDownPicker extends React.Component {
   constructor(props) {

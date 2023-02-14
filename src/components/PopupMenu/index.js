@@ -1,12 +1,9 @@
 // import React from 'react';
 // import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
-import AIcon from 'react-native-vector-icons/AntDesign';
-import FIcon from 'react-native-vector-icons/FontAwesome';
-import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {TouchableOpacity, StyleSheet, View, ScrollView} from 'react-native';
-import {Colors, Mixins, Styles, Text} from '../../styles';
 import {useTheme} from '@react-navigation/native';
+import {Colors, Mixins, Styles, Text} from '../../styles';
+import {ThreeDotsIcon} from '../../icons';
 // const PopUpMenu = props => {
 //   let menuRef = React.useRef(null);
 //   const {colors} = useTheme();
@@ -157,8 +154,7 @@ const PopUpMenu = ({HeaderAnchor, options = []}) => {
           {HeaderAnchor ? (
             <HeaderAnchor />
           ) : (
-            <MIcon
-              name="dots-vertical"
+            <ThreeDotsIcon
               size={28}
               color={colors.searchIcon}
               style={Styles.pL5}
