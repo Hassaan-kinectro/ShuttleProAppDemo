@@ -69,7 +69,6 @@ const useStyles = () => {
       textTransform: 'capitalize',
     },
     font: {
-      fontFamily: 'Roboto',
       fontWeight: '500',
       textTransform: 'capitalize',
       fontSize: 12,
@@ -116,14 +115,12 @@ const useStyles = () => {
     },
     subBoxFontHead: {
       fontSize: 10,
-      fontFamily: 'Roboto',
       fontWeight: '400',
       textTransform: 'capitalize',
       color: colors.TextColor,
     },
     subBoxFontPara: {
       fontSize: 12,
-      fontFamily: 'Roboto',
       textTransform: 'capitalize',
       color: colors.TextColor,
       fontWeight: '700',
