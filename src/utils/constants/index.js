@@ -45,6 +45,7 @@ export const FONT_FAMILY = {
   MEDIUM: 'Raleway-Medium',
 };
 export const HANDLED = 'handled';
+export const DateFormat = 'YYYY-MM-DD';
 export const FACEBOOK = 'facebook';
 export const INSTAGRAM = 'instagram';
 export const POST_LIMIT = '25';

@@ -40,6 +40,7 @@ export const BLACK_OVELAY = 'rgba(0,0,0,0.6)';
 export const LightTheme = {
   dark: false,
   colors: {
+    fontPrimary: '#5285d4',
     feildBorder: '#C5C5C5',
     loginText: '#989898',
     TextColor: '#333333',
@@ -83,11 +84,17 @@ export const LightTheme = {
     tabBackgroundColor: '#FAFAFE',
     backgroundModal: '#DFF3F4',
     bottomNav: '#FFFFFF',
+    inProgressCard: '#e0e7ff',
+    criticalCard: '#fecdd3',
+    returnCard: '#fbcfe8',
+    borderHalfOpacity: '#22262f30',
+    tabColor: '#ffedd5',
   },
 };
 export const DarkTheme = {
   dark: true,
   colors: {
+    fontPrimary: '#5285d4',
     bottomNav: '#23313E',
     backgroundModal: '#222830',
     feildBorder: '#C5C5C5',
@@ -114,6 +121,7 @@ export const DarkTheme = {
     textColor: '#eee',
     textColorLight: '#ddd',
     eyeIcon: '#FFFFFF',
+    white: '#fff',
     black: '#000',
     transparent: 'transparent',
     icon: '#9B7DC7',
@@ -129,5 +137,10 @@ export const DarkTheme = {
     searchIcon: '#287787',
     searchIconBackground: '#244E59',
     samebackground: '#E5E5E5',
+    inProgressCard: '#2c4b7f',
+    criticalCard: '#794451',
+    returnCard: '#1a5253',
+    borderHalfOpacity: '#fafafe30',
+    tabColor: '#2a3e5f',
   },
 };

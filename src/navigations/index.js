@@ -277,6 +277,30 @@ const CustomDrawerContent = props => {
           borderBottomColor: colors.themeIcon,
         }}
       />
+      <DrawerItem
+        label="Products"
+        activeTintColor={Colors.WHITE}
+        activeBackgroundColor={Colors.GRAYLIGHT}
+        inactiveTintColor={Colors.GRAY}
+        inactiveBackgroundColor={Colors.TRANSPARENT}
+        onPress={() => {
+          navigation.navigate(Routes.PRODUCTS, {
+            screen: 'ProductsScreen',
+          });
+        }}
+        icon={({color, size}) => (
+          <MCIcon
+            name="image-multiple-outline"
+            size={size}
+            color={colors.labelColor}
+          />
+        )}
+        labelStyle={{marginLeft: -10, color: colors.TextColor}}
+        style={{
+          borderBottomWidth: 0.5,
+          borderBottomColor: colors.themeIcon,
+        }}
+      />
 
       <DrawerItem
         label="Orders"
@@ -470,7 +494,7 @@ const BottomTabNavigator = ({colors}) => {
         {props => <Orders colors={colors} {...props} />}
       </Tab.Screen>
       <Tab.Screen
-        name={Routes.DESIGNS}
+        name={Routes.PRODUCTS}
         options={{
           tabBarIcon: ({focused, color, size}) =>
             focused ? (

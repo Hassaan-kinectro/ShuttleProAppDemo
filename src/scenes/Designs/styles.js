@@ -9,6 +9,7 @@ const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    mB50: {marginBottom: 70},
   });
 };
 export default useStyles;
