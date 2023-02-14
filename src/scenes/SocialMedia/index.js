@@ -65,6 +65,7 @@ const SocialMediaProfile = props => {
                 }
               />
             </View>
+
             {currentProfile && currentProfile.profile_type === 'facebook' && (
               <>
                 <PublishedStories />

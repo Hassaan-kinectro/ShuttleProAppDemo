@@ -1,6 +1,6 @@
-import {View, Image, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {Text} from '../../../styles';
+import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
 import moment from 'moment';
@@ -8,14 +8,16 @@ import {useTheme} from '@react-navigation/native';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
+import FastImage from 'react-native-fast-image';
 const ShuttlePost = ({post, name, pageIcon, profileType}) => {
   const styles = useStyles();
   const {colors} = useTheme();
+  const Styles = GlobalStyle();
 
   return (
     <>
       <View style={styles.postCard}>
-        <View style={{flex: 1, flexDirection: 'row', marginHorizontal: 5}}>
+        <View style={[Styles.flex, Styles.flexDirectionRow, styles.mh5]}>
           <CircularImage
             img={
               pageIcon && pageIcon.thumb && pageIcon.thumb.url
@@ -23,15 +25,15 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 : pageIcon.url
             }
             name={name}
-            style={[styles.HeaderImagepost, {flex: 1}]}
+            style={[styles.HeaderIcon, Styles.flex]}
           />
           {profileType === 'facebook' && (
-            <Image source={FACEBOOK} style={styles.activePost} />
+            <FastImage source={FACEBOOK} style={styles.activePost} />
           )}
           {profileType === 'instagram' && (
-            <Image source={INSTAGRAM} style={styles.activePost} />
+            <FastImage source={INSTAGRAM} style={styles.activePost} />
           )}
-          <View style={[{flex: 8}]}>
+          <View style={styles.flex10Start}>
             <Text numberOfLines={1} style={[styles.text]}>
               {name}
             </Text>
@@ -74,11 +76,12 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
             </View>
           ) : (
             <View style={styles.imageContainerStyle}>
-              <Image
+              <FastImage
                 source={{
                   uri: post.image,
                 }}
-                style={{height: 222, width: 320}}
+                style={styles.imageStyle}
+                resizeMode="contain"
               />
             </View>
           )}

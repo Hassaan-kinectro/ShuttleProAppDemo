@@ -182,7 +182,7 @@ const useStyles = () => {
       borderRadius: 100,
       // borderColor: 'transparent',
     },
-    HeaderImagepost: {
+    HeaderIcon: {
       width: 32,
       height: 32,
       borderRadius: 100,
@@ -223,10 +223,10 @@ const useStyles = () => {
       top: -15,
     },
     activePost: {
-      width: 12,
-      height: 12,
+      width: 15,
+      height: 15,
       bottom: 0,
-      right: 30,
+      right: 10,
       top: 18,
     },
     active3: {
@@ -238,6 +238,16 @@ const useStyles = () => {
     },
     container4: {
       flex: 1,
+    },
+    imageStyle: {
+      height: 320,
+      width: 320,
+      borderRadius: 16,
+    },
+    flex10Start: {
+      flex: 10,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
     },
     swiperContainer: {
       borderRadius: 5,
