@@ -110,8 +110,8 @@ const useStyles = () => {
     userImage: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: 60,
-      height: 60,
+      width: 65,
+      height: 65,
       padding: 30,
       borderRadius: 100,
       marginHorizontal: 10,
@@ -159,15 +159,15 @@ const useStyles = () => {
     },
     profileIcon: {
       borderRadius: 100,
+    },
+    CreateprofileIcon: {
+      borderRadius: 100,
       marginLeft: 10,
-      marginRight: 10,
       position: 'relative',
     },
     profileIcon2: {
-      borderColor: colors.searchIconBackground,
+      borderColor: 'transparent',
       borderRadius: 100,
-      marginRight: 10,
-      position: 'relative',
     },
     HeaderImage: {
       width: 65,

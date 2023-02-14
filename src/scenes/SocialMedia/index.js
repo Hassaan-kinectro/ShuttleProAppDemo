@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {useTranslation} from 'react-i18next';
 import {Styles, Text} from '../../styles';
 import {useSelector} from 'react-redux';
 import Wrapper from '../../components/Wrapper';
@@ -11,27 +10,24 @@ import {Routes} from '../../utils/constants';
 import {defaultWorkspace, getWorkspace} from './helper';
 import SocialTabs from './SocialTabs';
 import CustomHeader from '../../components/CustomHeader';
-import {FACEBOOK, INSTAGRAM} from '../../utils/constants';
 import Facebook from './Facebook';
 import Instagram from './Instagram';
 import DataNotAvailable from './DataNotAvailable';
+import Loader from '../../components/Loader';
+import PublishedStories from './PublishedStories';
 const SocialMediaProfile = props => {
   const styles = useStyles();
-  const {t} = useTranslation();
-  const name = 'Profiles';
+  const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
-  console.log(workspaceId, 'in the story');
   const profileId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
-  console.log(profileId, 'in the story');
   const navigation = useNavigation();
   const [workspace, setWorkspace] = React.useState(defaultWorkspace);
   const [currentProfile, setCurrentProfile] = React.useState(null);
-
   React.useEffect(() => {
     getWorkspace(
       workspaceId,
@@ -49,7 +45,13 @@ const SocialMediaProfile = props => {
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
         <CustomHeader name={name} navigation={navigation} />
-        {workspace.data &&
+        {workspace && workspace.loading && (
+          <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+            <Loader />
+          </View>
+        )}
+        {!workspace.loading &&
+        workspace.data &&
         workspace.data.social_profiles &&
         workspace.data.social_profiles.length > 0 ? (
           <>
@@ -63,24 +65,37 @@ const SocialMediaProfile = props => {
                 }
               />
             </View>
-            <View style={styles.hairline} />
-            {currentProfile && currentProfile.profile_type === FACEBOOK && (
-              <Facebook
-                key={currentProfile.page_id}
-                users={workspace.users}
-                currentProfile={currentProfile}
-              />
+            {currentProfile && currentProfile.profile_type === 'facebook' && (
+              <>
+                <PublishedStories />
+                <Facebook
+                  key={currentProfile.page_id}
+                  users={workspace.users}
+                  currentProfile={currentProfile}
+                />
+              </>
             )}
-            {currentProfile && currentProfile.profile_type === INSTAGRAM && (
-              <Instagram
-                key={currentProfile.page_id}
-                users={workspace.users}
-                currentProfile={currentProfile}
-              />
+            {currentProfile && currentProfile.profile_type === 'instagram' && (
+              <>
+                <PublishedStories />
+                <Instagram
+                  key={currentProfile.page_id}
+                  users={workspace.users}
+                  currentProfile={currentProfile}
+                />
+              </>
             )}
           </>
         ) : (
-          <DataNotAvailable />
+          <>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Routes.STORY);
+              }}>
+              <Text> Click for Stories</Text>
+            </TouchableOpacity>
+            <DataNotAvailable />
+          </>
         )}
 
         {/* {workspace.socialProfile && (
@@ -92,13 +107,6 @@ const SocialMediaProfile = props => {
             modalTitle={t('add.social.profile')}
           />
         )} */}
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(Routes.STORY);
-          }}>
-          <Text> Click for Stories</Text>
-        </TouchableOpacity>
       </View>
     </Wrapper>
   );

@@ -107,7 +107,6 @@ const Inbox = props => {
               contentContainerStyle={{
                 paddingHorizontal: 10,
                 paddingBottom: IS_IOS ? 180 : 180,
-
                 paddingTop: headerHeight - 40,
               }}
               removeClippedSubviews={true}

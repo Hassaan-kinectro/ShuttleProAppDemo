@@ -56,12 +56,12 @@ const ShowStory = props => {
     };
   }, []);
 
-  React.useEffect(() => {
-    if (route.params && route.params.refresh) {
-      setRefresh(route.params.refresh);
-      onRefresh();
-    }
-  }, [route.params]);
+  // React.useEffect(() => {
+  //   if (route.params && route.params.refresh) {
+  //     setRefresh(route.params.refresh);
+  //     onRefresh();
+  //   }
+  // }, [route.params]);
 
   const handleDelete = async (id, setIsDeleting) => {
     setIsDeleting(true);
@@ -82,9 +82,6 @@ const ShowStory = props => {
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <View style={styles.Wrapper}>
           <CustomHeader name={name} navigation={navigation} />
-          <View style={[styles.header]}>
-            <StoryList publishedStories={publishedStories} />
-          </View>
           <View style={styles.hairline} />
           {loading ? (
             <View style={[Styles.Centered]}>{loading && <Loader />}</View>
@@ -104,21 +101,21 @@ const ShowStory = props => {
               maxToRenderPerBatch={40}
               initialNumToRender={40}
               keyExtractor={(item, index) => `${index}`}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refresh}
-                  onRefresh={() =>
-                    onRefresh(
-                      setRefresh,
-                      setUnPublishedStories,
-                      setPublishedStories,
-                      workspaceId,
-                    )
-                  }
-                  colors={[colors.background]}
-                  tintColor={colors.themeIcon}
-                />
-              }
+              // refreshControl={
+              //   <RefreshControl
+              //     refreshing={refresh}
+              //     onRefresh={() =>
+              //       onRefresh(
+              //         setRefresh,
+              //         setUnPublishedStories,
+              //         setPublishedStories,
+              //         workspaceId,
+              //       )
+              //     }
+              //     colors={[colors.background]}
+              //     tintColor={colors.themeIcon}
+              //   />
+              // }
               onEndReachedThreshold={0.5}
               ListEmptyComponent={() =>
                 !loading && unPublishedStories.length === 0 ? (

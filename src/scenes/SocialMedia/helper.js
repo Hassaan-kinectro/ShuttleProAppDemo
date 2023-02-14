@@ -3,6 +3,7 @@ import {POST_LIMIT, TIMELINE} from '../../utils/constants';
 import {uniqBy, orderBy} from 'lodash';
 import moment from 'moment';
 import {fetchNextInstagramPosts} from '../../services/Instagram';
+import {fetchNextFacebookPosts} from '../../services/Facebook';
 
 export const defaultWorkspace = {
   data: null,
@@ -63,6 +64,44 @@ export const fetchNextInstPosts = async (
           ...prev,
           data: UniquePosts(instagram.data.concat(prev.data)),
           next: instagram.next,
+        };
+      });
+    } else {
+      console.log('not ran');
+    }
+  }
+};
+
+export const setFacebookPosts = (data, setPosts) => {
+  if (
+    data &&
+    data.facebook &&
+    data.facebook.data &&
+    data.facebook.data.length > 0
+  ) {
+    setPosts(prev => {
+      console.log(prev.data.concat());
+      return {
+        ...prev,
+        data:
+          prev.data.length > 0
+            ? UniquePosts(data.facebook.data.concat(prev.data), 'id')
+            : data.facebook.data,
+        next: prev.next ? prev.next : data.facebook.next,
+      };
+    });
+  }
+};
+
+export const fetchNextFBPosts = async (next, setPosts, workspaceId, pageId) => {
+  if (next) {
+    const facebook = await fetchNextFacebookPosts(workspaceId, pageId, next);
+    if (facebook.status === 200) {
+      setPosts(prev => {
+        return {
+          ...prev,
+          data: UniquePosts(facebook.data.concat(prev.data), 'faceBookPostId'),
+          next: facebook.next ? facebook.next : '',
         };
       });
     } else {
