@@ -4,12 +4,13 @@ import MaIcons from 'react-native-vector-icons/MaterialIcons';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/Feather';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+
 const AntIcon = ({
   name = 'warning',
   color = '#000',
   size = 40,
   style = {},
-  onPress = () => {},
+  onPress = null,
 }) => {
   return (
     <AIcon
@@ -17,7 +18,7 @@ const AntIcon = ({
       color={color}
       size={size}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : null}
     />
   );
 };
@@ -26,7 +27,7 @@ const MaterialCommunityIcons = ({
   color = '#000',
   size = 25,
   style = {},
-  onPress = () => {},
+  onPress = null,
 }) => {
   return (
     <MIcon
@@ -34,7 +35,7 @@ const MaterialCommunityIcons = ({
       color={color}
       size={size}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : null}
     />
   );
 };
@@ -43,7 +44,7 @@ const MaterialIcons = ({
   color = '#000',
   size = 25,
   style = {},
-  onPress = () => {},
+  onPress = null,
 }) => {
   return (
     <MaIcons
@@ -51,7 +52,7 @@ const MaterialIcons = ({
       color={color}
       size={size}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : null}
     />
   );
 };
@@ -60,7 +61,7 @@ const FeatherIcons = ({
   color = '#000',
   size = 22,
   style = {},
-  onPress = () => {},
+  onPress = null,
 }) => {
   return (
     <FIcon
@@ -68,7 +69,7 @@ const FeatherIcons = ({
       color={color}
       size={size}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : null}
     />
   );
 };
@@ -77,7 +78,7 @@ const FontAwesome5Icons = ({
   color = '#000',
   size = 22,
   style = {},
-  onPress = () => {},
+  onPress = null,
 }) => {
   return (
     <F5Icon
@@ -85,7 +86,7 @@ const FontAwesome5Icons = ({
       color={color}
       size={size}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : null}
     />
   );
 };
@@ -102,7 +103,7 @@ export const ThreeDotsIcon = props => {
   return <MaterialCommunityIcons name="dots-vertical" {...props} />;
 };
 export const BackArrowIcon = props => {
-  return <MaterialCommunityIcons name="arrow-back" {...props} />;
+  return <MaterialIcons name="arrow-back" {...props} />;
 };
 export const SearchIcon = props => {
   return <FeatherIcons name="search" {...props} />;
