@@ -51,74 +51,6 @@ const CustomHeader = ({
       <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
         <View style={styles.headerContainer}>
           {!searchVisible && (
-<<<<<<< HEAD
-            <>
-              {name && name === 'Stories' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText2}>
-                    {name}
-                  </Text>
-                </>
-              )}
-              {name && name === 'Profiles' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText2}>
-                    {name}
-                  </Text>
-                </>
-              )}
-              {name && name === 'Order' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText2}>
-                    {name}
-                  </Text>
-                </>
-              )}
-              {name && name === 'Orders' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.menuIcon}
-                    onPress={() => navigation.toggleDrawer()}>
-                    <Image source={Hamburger} style={styles.hamburgerStyle} />
-                  </TouchableOpacity>
-                  <Text
-                    size={24}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    style={styles.headerText}>
-                    {name}
-                  </Text>
-                </>
-              )}
-            </>
-=======
             <View style={[Styles.flexCenterStart, Styles.flexDirectionRow]}>
               <TouchableOpacity
                 style={styles.menuIcon}
@@ -134,7 +66,6 @@ const CustomHeader = ({
                 {name}
               </Text>
             </View>
->>>>>>> origin/main
           )}
           {searchVisible && (
             <View style={styles.searchContainer}>
@@ -170,119 +101,12 @@ const CustomHeader = ({
           )}
           {!searchVisible && (
             <View style={styles.rightIconsContainer}>
-<<<<<<< HEAD
-              {name && name === 'Stories' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-              )}
-              {name && name === 'Profiles' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-              )}
-              {name && name === 'Order' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-              )}
-              {name && name === 'Orders' && (
-                <>
-                  <TouchableOpacity
-                    style={styles.searchIcon}
-                    onPress={() => setSearchVisible(true)}>
-                    <FIcon name="search" size={22} color={colors.searchIcon} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.profileIcon}
-                    onPress={() => {}}>
-                    <CircularImage
-                      img={workspaceImage}
-                      name={workspaceName}
-                      style={styles.HeaderImage}
-                    />
-                    <View style={styles.active} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.logoutIcon}
-                    onPress={() => {
-                      navigation.goBack();
-                    }}>
-                    <F5Icon
-                      name="sort-down"
-                      size={24}
-                      color={colors.searchIcon}
-                    />
-                  </TouchableOpacity>
-                </>
-=======
               {searchIcon && onSearchText && (
                 <TouchableOpacity
                   style={styles.searchIcon}
                   onPress={() => setSearchVisible(true)}>
                   <FIcon name="search" size={22} color={colors.searchIcon} />
                 </TouchableOpacity>
->>>>>>> origin/main
               )}
               <TouchableOpacity style={styles.profileIcon} onPress={() => {}}>
                 <CircularImage
