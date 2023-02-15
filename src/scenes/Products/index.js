@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, RefreshControl, View} from 'react-native';
+import {FlatList, RefreshControl, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {Text, Styles, Colors} from '../../styles';
 import {useSelector} from 'react-redux';
@@ -14,8 +14,11 @@ import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
 import ProductListItem from '../../components/ProductListItem';
+import LinearGradient from 'react-native-linear-gradient';
+import {LibraryAdd, PlusIcon} from '../../icons';
+import {Routes} from '../../utils/constants';
 
-const DashBoard = ({navigation}) => {
+const Products = ({navigation}) => {
   const styles = useStyles();
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
@@ -26,6 +29,7 @@ const DashBoard = ({navigation}) => {
   const [loading, setLoading] = React.useState(true);
   const [allProducts, setAllProducts] = React.useState([]);
   const [products, setProducts] = React.useState([]);
+  const [addProduct, setAddProduct] = React.useState(false);
   const {t} = useTranslation();
   const offset = 20;
   const {colors} = useTheme();
@@ -36,16 +40,13 @@ const DashBoard = ({navigation}) => {
       if (productsData.status === 200) {
         setAllProducts(productsData.data);
         setProducts(productsData.data);
-        console.log(productsData, 'productsData}}}}}');
       } else {
         setAllProducts([]);
         setProducts([]);
       }
       setLoading(false);
     };
-    fetchData().catch(e => {
-      console.log(e, 'error on fetch IIIIIIII');
-    });
+    fetchData().catch(e => {});
   }, [workspaceId]);
 
   const onSearchText = text => {
@@ -134,9 +135,45 @@ const DashBoard = ({navigation}) => {
             </View>
           )}
         </View>
+        {addProduct ? (
+          <TouchableOpacity
+            onPress={() => {
+              addProduct ? setAddProduct(false) : setAddProduct(true);
+              navigation.navigate(Routes.CREATEPRODUCTS);
+            }}>
+            <LinearGradient
+              colors={['#139A5C', '#3662A8']}
+              start={{x: 0.5, y: 0.0}}
+              end={{x: 0.5, y: 1.0}}
+              locations={[0.2794, 0.9161]}
+              style={styles.addProductIconLibrary}>
+              <LibraryAdd
+                size={25}
+                color={Colors.WHITE}
+                style={styles.addProductIconLibraryTransfor}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
+
+        <TouchableOpacity
+          onPress={() => {
+            addProduct ? setAddProduct(false) : setAddProduct(true);
+          }}>
+          <LinearGradient
+            colors={['#139A5C', '#3662A8']}
+            start={{x: 0.5, y: 0.0}}
+            end={{x: 0.5, y: 1.0}}
+            locations={[0.2794, 0.9161]}
+            style={styles.addProductIcon}>
+            <PlusIcon style={styles.opacity} size={30} color={Colors.WHITE} />
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </Wrapper>
   );
 };
 
-export default DashBoard;
+export default Products;

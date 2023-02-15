@@ -22,7 +22,7 @@ import Login from '../scenes/Auth/Login';
 import Workspace from '../scenes/Workspace';
 import Settings from '../scenes/Settings';
 import Inbox from '../scenes/Inbox';
-import Design from '../scenes/Designs';
+import Products from '../scenes/Products';
 import Dashboard from '../scenes/Dashboard';
 import SocialMediaProfile from '../scenes/SocialMedia';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -36,6 +36,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import StoryLoading from '../scenes/StoryLoading';
 import ShowStory from '../scenes/SocialMedia/ShowStory';
+import CreateProduct from '../scenes/Products/create product';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -157,6 +158,34 @@ const Orders = colors => {
         })}
         name={Routes.SHOWORDER}
         component={ShowOrder}
+      />
+    </Stack.Navigator>
+  );
+};
+const Product = colors => {
+  return (
+    <Stack.Navigator
+      screenOptions={{...StackCommonOptions(colors)}}
+      initialRouteName={Routes.PRODUCTSLIST}>
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Product Screen',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.PRODUCTSLIST}
+        component={Products}
+      />
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Create Product Screen',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.CREATEPRODUCTS}
+        component={CreateProduct}
       />
     </Stack.Navigator>
   );
@@ -510,7 +539,7 @@ const BottomTabNavigator = ({colors}) => {
               <MCIcon name="image-multiple-outline" size={size} color={color} />
             ),
         }}>
-        {props => <Design {...props} />}
+        {props => <Product {...props} />}
       </Tab.Screen>
       <Tab.Screen
         name={Routes.SOCIALMEDIA}

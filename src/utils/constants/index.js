@@ -13,6 +13,8 @@ export const Routes = {
   DASHBOARD: 'dashboard',
   DRAWER: 'drawer',
   PRODUCTS: 'products',
+  CREATEPRODUCTS: 'create products',
+  PRODUCTSLIST: 'products list',
   ORDERS: 'orders',
   ORDERSLIST: 'orders list',
   ORDERTIMELINE: 'order timeline',
