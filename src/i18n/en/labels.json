@@ -2,5 +2,7 @@
   "email.label": "Email",
   "password.label": "Password",
   "email.placeholder": "Enter Email",
-  "password.placeholder": "*********"
+  "password.placeholder": "*********",
+  "product.details.label.description": "Description",
+  "product.details.placeholder.description": "e.g. sample description"
 }

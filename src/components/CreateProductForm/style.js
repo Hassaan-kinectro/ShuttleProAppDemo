@@ -137,11 +137,33 @@ const useStyles = () => {
       justifyContent: 'space-between',
     },
     InputTFStyle: {
-      backgroundColor: 'transparent',
       height: 40,
+      margin: 0,
+      flex: 1,
+      justifyContent: 'space-around',
+      padding: 0,
       fontFamily: FONT_FAMILY.LIGHT,
-      borderColor: colors.feildBorder,
       borderBottomWidth: 1,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 0,
+      borderRadius: 20,
+      zIndex: 5000,
+    },
+    dropDownSTyle: {
+      height: 40,
+    },
+    placeholderStyle: {
+      color: colors.placeholder,
+      fontFamily: FONT_FAMILY.LIGHT,
+    },
+    errorStyle: {
+      // backgroundColor: 'red',
+      marginHorizontal: 5,
+      padding: 0,
+    },
+    mB90: {
+      marginBottom: 90,
     },
   });
 };

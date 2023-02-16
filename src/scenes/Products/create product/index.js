@@ -9,15 +9,21 @@ import {useTranslation} from 'react-i18next';
 import {Formik} from 'formik';
 import CreateProductForm from '../../../components/CreateProductForm';
 import {VALID_NAME} from '../../../utils/Parser/helper';
+import {getAllCategories, getAllTags} from './helper';
 import * as yup from 'yup';
 
 const CreateProduct = ({navigation}) => {
+  const [tags, setTags] = React.useState({data: []});
+  const [categories, setCategories] = React.useState({data: []});
   const theme = useSelector(state => state.themeChange.theme);
   const {t} = useTranslation();
   const initialsVal = {
     productName: '',
     productCode: '',
-    preferences: 0,
+    preference: '',
+    categories: [],
+    tags: [],
+    description: '',
   };
   const createProductSchema = yup.object().shape({
     productName: yup
@@ -30,8 +36,24 @@ const CreateProduct = ({navigation}) => {
       .required(t('validation.product.code.required'))
       .matches(VALID_NAME, t('validation.onlyLetter.required'))
       .max(50, t('validation.maxLength.required')),
-    preferences: yup.number().required('Field required.'),
+    preference: yup.object().nullable().required('Field required.'),
+    categories: yup.array().min(1, t('validation.product.category.required')),
+    description: yup
+      .string()
+      .required(t('validation.description_status.required')),
   });
+  const workspaceId = useSelector(
+    state => state.workspace.workspace.workspace.id,
+  );
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      getAllCategories(setCategories, workspaceId);
+      getAllTags(tags, setTags, workspaceId);
+    };
+    fetchData().catch(e => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [workspaceId]);
 
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -51,7 +73,11 @@ const CreateProduct = ({navigation}) => {
             {props => {
               return (
                 <>
-                  <CreateProductForm {...props} />
+                  <CreateProductForm
+                    {...props}
+                    tags={tags}
+                    categories={categories}
+                  />
                 </>
               );
             }}
