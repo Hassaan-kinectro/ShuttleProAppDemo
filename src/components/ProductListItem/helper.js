@@ -15,8 +15,3 @@ export const getImageUrl = (attachments, type = 'default') => {
     return attachment;
   }
 };
-
-// export const generateCatergory = productCategory => {
-//   let cate = '';
-//   if(productCategory.)
-// };

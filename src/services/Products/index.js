@@ -15,7 +15,6 @@ const FetchAllProducts = async workspaceId => {
     .then(response => {
       if (response.status === 200 || response.status === 201) {
         response = response.data;
-        console.log(response, 'responseokOKOKOK on axios}}}}}');
 
         if (response.code === 200) {
           const product = isArray(response.data)
@@ -36,7 +35,6 @@ const FetchAllProducts = async workspaceId => {
       }
     })
     .catch(err => {
-      console.log(err);
       return {
         ...responseData,
         message: ParseError(

@@ -2,7 +2,7 @@ import instance from '../../config/axios';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 
-const FetchCategoryList = async (workspaceId, page = 1, limit = 100000) => {
+const FetchTags = async (workspaceId, page = 1, limit = 100000) => {
   const responseData = {
     loading: false,
     status: 210,
@@ -10,12 +10,9 @@ const FetchCategoryList = async (workspaceId, page = 1, limit = 100000) => {
   };
   const token = await getAuthHeader();
   return instance
-    .get(
-      `/categories?workspaceId=${workspaceId}&page=${page}&limit=${limit}`,
-      token,
-    )
+    .get(`/tags?workspaceId=${workspaceId}&page=${page}&limit=${limit}`, token)
     .then(response => {
-      if (response.status === 200 || response.status === 201) {
+      if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
           return {
@@ -28,16 +25,21 @@ const FetchCategoryList = async (workspaceId, page = 1, limit = 100000) => {
           return {
             ...responseData,
             message: response.message,
+            data: [],
+            count: 0,
           };
         }
       } else {
         return {
           ...responseData,
           message: ParseError(response.data),
+          data: [],
+          count: 0,
         };
       }
     })
     .catch(err => {
+      console.log(err);
       return {
         ...responseData,
         message: ParseError(
@@ -47,4 +49,4 @@ const FetchCategoryList = async (workspaceId, page = 1, limit = 100000) => {
     });
 };
 
-export {FetchCategoryList};
+export {FetchTags};

@@ -1,4 +1,10 @@
 {
   "email.required": "Email",
-  "password.required": "Password"
+  "password.required": "Password",
+  "validation.product.name.required": "Product name is required!",
+  "validation.product.code.required": "Product code is required!",
+  "validation.onlyLetter.required": "Only letters, numbers, dashes, and underscore are allowed!",
+  "validation.maxLength.required": "Only 50 characters are allowed!",
+  "validation.description_status.required": "Description is required",
+  "validation.product.category.required": "Category is required!"
 }
