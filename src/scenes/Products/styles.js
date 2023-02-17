@@ -28,7 +28,7 @@ const useStyles = () => {
       height: 42,
       width: 42,
       right: 30,
-      bottom: IS_IOS ? 180 : 155,
+      bottom: IS_IOS ? 170 : 155,
       borderRadius: 30,
       display: 'flex',
       justifyContent: 'center',
