@@ -50,7 +50,7 @@ const CreateStory = props => {
   const [categories, setCategories] = React.useState(defaultCategories);
   const workspaceId = useSelector(state => state.workspace.workspaceId);
   const theme = useSelector(state => state.themeChange.theme);
-  const userId = useSelector(state => state.user.user.id);
+  const userId = useSelector(state => state.user?.user?.id);
   console.log(userId);
   React.useEffect(() => {
     Promise.all([

@@ -1,5 +1,5 @@
 import {FetchCategoryList} from '../../../services/Categories';
-import {FetchTags} from '../../../services/tags';
+import {FetchTags} from '../../../services/Tags';
 import {capitalize} from '../../../utils/Parser/helper';
 
 export const getAllTags = async (tags, setTags, workspaceId) => {

@@ -13,6 +13,7 @@ const SaveStories = async data => {
   return instance
     .post('/stories/', data, token)
     .then(response => {
+      console.log(response, 'aaaaaaaaa');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
@@ -37,7 +38,7 @@ const SaveStories = async data => {
       }
     })
     .catch(err => {
-      console.log(err);
+      console.log(err, 'erroeerrr');
       return {
         ...responseData,
         message: ParseError(

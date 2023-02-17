@@ -80,6 +80,7 @@ const StoryModal = ({
           onPress={() => {
             if (!loading) {
               FormData(values, selectedImages);
+              setModalVisible(false);
             }
           }}>
           {loading ? (

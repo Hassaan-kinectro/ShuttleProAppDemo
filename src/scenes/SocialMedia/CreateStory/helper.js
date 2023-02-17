@@ -230,7 +230,9 @@ export const saveStory = async (values, selectedImages) => {
       carousel: selectedImages || [],
       productIds:
         values && values.productIds && values.productIds.length > 0
-          ? values.productIds.map(product => product.id)
+          ? values.productIds.map(product => {
+              return {productId: product.id};
+            })
           : [],
       userId: values.userId || '',
       shareAt: dateFormat,
