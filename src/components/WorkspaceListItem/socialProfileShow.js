@@ -19,6 +19,13 @@ const SocialProfileShow = ({i, result, item, navigation}) => {
                 screen: Routes.BOTTOMTAB,
                 params: {
                   screen: Routes.SOCIALMEDIA,
+                  params: {
+                    screen: Routes.SOCIALMEDIA,
+                    params: {
+                      workspaceId: item.workspace.id,
+                      socialProfile: i,
+                    },
+                  },
                   initial: false,
                 },
                 initial: false,
@@ -46,6 +53,13 @@ const SocialProfileShow = ({i, result, item, navigation}) => {
                   screen: Routes.BOTTOMTAB,
                   params: {
                     screen: Routes.SOCIALMEDIA,
+                    params: {
+                      screen: Routes.SOCIALMEDIA,
+                      params: {
+                        workspaceId: item.workspace.id,
+                        socialProfile: i,
+                      },
+                    },
                     initial: false,
                   },
                   initial: false,

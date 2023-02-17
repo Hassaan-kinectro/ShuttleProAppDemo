@@ -33,12 +33,15 @@ const CustomHeader = ({
   onSearchText = () => {},
 }) => {
   const theme = useSelector(state => state.themeChange.theme);
-  const workspaceImage = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
-  );
-  const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
-  );
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceImage =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
   const [searchVisible, setSearchVisible] = useState(false);
   const [search, setSearch] = React.useState('');
 

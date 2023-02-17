@@ -15,7 +15,7 @@ import DataNotAvailable from './DataNotAvailable';
 import Loader from '../../components/Loader';
 import PublishedStories from './PublishedStories';
 
-const SocialMediaProfile = props => {
+const SocialMediaProfile = ({route}) => {
   const styles = useStyles();
 
   const name = 'Social Profiles';
@@ -23,27 +23,17 @@ const SocialMediaProfile = props => {
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
-  const profileId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
   const navigation = useNavigation();
   const [workspace, setWorkspace] = React.useState(defaultWorkspace);
   const [currentProfile, setCurrentProfile] = React.useState(null);
-  const [activeProfile, setActiveProfile] = React.useState(null);
   const [postModals, setPostModals] = React.useState(postModalDefault);
 
   React.useEffect(() => {
-    getWorkspace(
-      workspaceId,
-      setWorkspace,
-      setCurrentProfile,
-      profileId || null,
-    );
-  }, [workspaceId, profileId]);
+    getWorkspace(workspaceId, setWorkspace, setCurrentProfile, route.params);
+  }, [workspaceId, route]);
 
   const changeProfile = React.useCallback(profile => {
     setCurrentProfile(profile);
-    setActiveProfile(profile);
   }, []);
   console.log(currentProfile, 'currentProfile');
   return (
@@ -62,7 +52,6 @@ const SocialMediaProfile = props => {
           <>
             <View style={Styles.flexDirectionRow}>
               <SocialTabs
-                activeProfile={activeProfile && activeProfile.id}
                 workspaceId={workspaceId}
                 currentProfile={currentProfile}
                 changeProfile={changeProfile}

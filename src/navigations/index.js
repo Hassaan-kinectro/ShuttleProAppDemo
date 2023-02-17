@@ -232,15 +232,17 @@ const SOCIALMEDIA = () => {
 };
 const CustomDrawerContent = props => {
   const {navigation, colors} = props;
-  const workspaceIcon = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
-  );
-  const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
-  );
-  const workspaceId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceIcon =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
+  const workspaceId =
+    (workspace && workspace.workspace && workspace.workspace.id) || null;
   const Styles = GlobalStyle();
   return (
     <DrawerContentScrollView

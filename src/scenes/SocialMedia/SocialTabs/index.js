@@ -7,7 +7,7 @@ import {Text} from '../../../styles';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../../utils/constants';
 
-const SocialTabs = ({socialProfiles, changeProfile, activeProfile}) => {
+const SocialTabs = ({socialProfiles, changeProfile, currentProfile}) => {
   const styles = useStyles();
   const {colors} = useTheme();
   return (
@@ -15,6 +15,11 @@ const SocialTabs = ({socialProfiles, changeProfile, activeProfile}) => {
       <ScrollView horizontal={true}>
         {socialProfiles && socialProfiles.length > 0
           ? socialProfiles.slice(0, 8).map((s, i) => {
+              const selected =
+                s.id.toString() ===
+                (currentProfile &&
+                  currentProfile.id &&
+                  currentProfile.id.toString());
               return (
                 <TouchableOpacity
                   key={i}
@@ -23,7 +28,7 @@ const SocialTabs = ({socialProfiles, changeProfile, activeProfile}) => {
                   <View
                     style={[
                       styles.innerHeader,
-                      s.id === activeProfile ? styles.bg : styles.bgLight,
+                      selected ? styles.bg : styles.bgLight,
                     ]}>
                     {s.profile_type === 'facebook' && (
                       <Image source={FACEBOOK} style={styles.activeHeader} />
@@ -36,9 +41,7 @@ const SocialTabs = ({socialProfiles, changeProfile, activeProfile}) => {
                       color={colors.TextColor}
                       fontFamily={FONT_FAMILY.REGULAR}
                       style={[
-                        s.id === activeProfile
-                          ? styles.white
-                          : {color: colors.TextColor},
+                        selected ? styles.white : {color: colors.TextColor},
                         {marginHorizontal: 5},
                       ]}>
                       {s.name}

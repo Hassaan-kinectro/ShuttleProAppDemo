@@ -277,8 +277,9 @@ export const getWorkspace = async (
   id,
   setWorkspace,
   setCurrentProfile,
-  profileId = null,
+  params = null,
 ) => {
+  console.log(params);
   setWorkspace(prev => {
     return {...prev, loading: true};
   });
@@ -288,9 +289,12 @@ export const getWorkspace = async (
       resp.data.social_profiles && resp.data.social_profiles.length > 0
         ? resp.data.social_profiles
         : [];
-    const profile = profileId
-      ? profiles.find(p => p.id.toString() === profileId.toString())
-      : resp.data.social_profiles[0];
+    const profile =
+      params && params.socialProfile && params.socialProfile.id
+        ? profiles.find(
+            p => p.id.toString() === params.socialProfile.id.toString(),
+          )
+        : resp.data.social_profiles[0];
     setCurrentProfile(
       profile
         ? profile

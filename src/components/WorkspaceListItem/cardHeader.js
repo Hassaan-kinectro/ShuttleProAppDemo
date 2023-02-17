@@ -8,8 +8,8 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Routes} from '../../utils/constants';
 
 const CardHeader = ({item, navigateTo}) => {
-  let workspaceName = item.workspace.name;
-  let workspaceIcon = item.workspace.icon.thumb.url;
+  let workspaceName = item?.workspace?.name;
+  let workspaceIcon = item?.workspace?.icon?.thumb?.url;
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const styles = useStyles();

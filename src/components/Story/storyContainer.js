@@ -40,12 +40,15 @@ const StoryList = ({
   const {colors} = useTheme();
   const [tapped, setTapped] = React.useState(false);
   const styles = useStyles();
-  const workspaceIcon = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
-  );
-  const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
-  );
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceIcon =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
 
   return (
     <>
