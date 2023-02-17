@@ -31,15 +31,20 @@ const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
             top: 10,
             left: 10,
             borderRadius: 50,
-            color: 'red',
+            color: 'white',
           }}
         />
       ) : (
         <MaterialIcons
           name="check-box-outline-blank"
-          color={colors.TextColor}
           size={20}
-          style={{position: 'absolute', top: 10, left: 10, borderRadius: 50}}
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            borderRadius: 50,
+            color: 'white',
+          }}
         />
       )}
     </TouchableOpacity>

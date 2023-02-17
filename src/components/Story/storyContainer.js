@@ -30,6 +30,7 @@ const StoryList = ({
   closeModal,
   currentProfile,
 }) => {
+  console.log(publishedStories, 'these are published');
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,
@@ -93,53 +94,53 @@ const StoryList = ({
             </View>
           )}
           renderItem={({item}) => {
-            <React.Fragment key={item.id}>
-              return (
-              <TouchableOpacity
-                style={styles.profileIcon2}
-                onPress={() => {
-                  setModalVisible({data: item, open: true});
-                  setTapped(true);
-                }}>
-                {item && item.type === 'instagram' && (
-                  <>
-                    <CircularImage
-                      img={
-                        item && item.pagelogo ? item.pagelogo : item.pageicon
-                      }
-                      name={item.pageName}
-                      style={[
-                        styles.userImage,
-                        // {
-                        //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                        //   borderWidth: 3,
-                        // },
-                      ]}
-                    />
-                    <Image source={INSTAGRAM} style={styles.active2} />
-                  </>
-                )}
-                {item && item.type === 'facebook' && (
-                  <>
-                    <CircularImage
-                      img={
-                        item && item.pagelogo ? item.pagelogo : item.pageicon
-                      }
-                      name={item.pageName}
-                      style={[
-                        styles.userImage,
-                        // {
-                        //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                        //   borderWidth: 3,
-                        // },
-                      ]}
-                    />
-                    <Image source={FACEBOOK} style={styles.active2} />
-                  </>
-                )}
-              </TouchableOpacity>
-              );
-            </React.Fragment>;
+            return (
+              <React.Fragment key={item.id}>
+                <TouchableOpacity
+                  style={styles.profileIcon2}
+                  onPress={() => {
+                    setModalVisible({data: item, open: true});
+                    setTapped(true);
+                  }}>
+                  {item && item.type === 'instagram' && (
+                    <>
+                      <CircularImage
+                        img={
+                          item && item.pagelogo ? item.pagelogo : item.pageicon
+                        }
+                        name={item.pageName}
+                        style={[
+                          styles.userImage,
+                          // {
+                          //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
+                          //   borderWidth: 3,
+                          // },
+                        ]}
+                      />
+                      <Image source={INSTAGRAM} style={styles.active2} />
+                    </>
+                  )}
+                  {item && item.type === 'facebook' && (
+                    <>
+                      <CircularImage
+                        img={
+                          item && item.pagelogo ? item.pagelogo : item.pageicon
+                        }
+                        name={item.pageName}
+                        style={[
+                          styles.userImage,
+                          // {
+                          //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
+                          //   borderWidth: 3,
+                          // },
+                        ]}
+                      />
+                      <Image source={FACEBOOK} style={styles.active2} />
+                    </>
+                  )}
+                </TouchableOpacity>
+              </React.Fragment>
+            );
           }}
         />
       </View>

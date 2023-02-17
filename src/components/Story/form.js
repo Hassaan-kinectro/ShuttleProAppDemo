@@ -41,6 +41,7 @@ const Form = ({
       setFieldValue('userId', userId || '');
     }
   }, []);
+  console.log();
 
   React.useEffect(() => {
     if (currentProfile && setFieldValue && setFieldValue) {
@@ -71,7 +72,6 @@ const Form = ({
         Constants.STORY_TYPE,
         (currentProfile && currentProfile.profile_type) || '',
       );
-      setFieldValue(Constants._DATE, moment().format(Constants._DATE_FORMAT));
     }
   }, [currentProfile]);
 
@@ -123,136 +123,151 @@ const Form = ({
       {values.selectionType &&
         values.selectionType.id &&
         values.selectionType.id === Constants.PRODUCT && (
-          <DropDownPicker
-            items={products.data}
-            defaultValue={[]}
-            scrollViewProps={{
-              keyboardShouldPersistTaps: 'always',
-            }}
-            dropDownMaxHeight={200}
-            isVisible={productVisible}
-            multiple={true}
-            onOpen={() => {
-              changeVisibility();
-              setProductVisibility(true);
-            }}
-            onClose={() => setProductVisibility(false)}
-            min={0}
-            max={10}
-            multipleText="%d product selected."
-            placeholder="Select Product"
-            containerStyle={Styles.containerStyle}
-            style={Styles.dropDownContainerStyle}
-            itemStyle={Styles.itemStyle}
-            arrowColor={colors.button}
-            labelStyle={Styles.labelStyle}
-            activeLabelStyle={Styles.activeLabelStyle}
-            selectedLabelStyle={Styles.activeLabelStyle}
-            placeholderStyle={Styles.placeholderStyle}
-            dropDownStyle={Styles.dropDownContainerStyle}
-            searchablePlaceholderTextColor={colors.placeholder}
-            searchableStyle={Styles.searchableStyle}
-            onChangeItem={value => {
-              if (value) {
-                setFieldValue(Constants.PRODUCT_ID, value);
-              } else {
-                setFieldValue(Constants.PRODUCT_ID, value);
-                setFieldValue(Constants.IMG_ARR, []);
-                setFieldValue(Constants.SELECTED_IMG_ARR, []);
-                setFieldValue(Constants.DELETED_NUM_ARR, []);
-              }
-            }}
-            zIndex={50010}
-          />
+          <>
+            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
+              Products
+            </Text>
+            <DropDownPicker
+              items={products.data}
+              defaultValue={[]}
+              scrollViewProps={{
+                keyboardShouldPersistTaps: 'always',
+              }}
+              dropDownMaxHeight={200}
+              isVisible={productVisible}
+              multiple={true}
+              onOpen={() => {
+                changeVisibility();
+                setProductVisibility(true);
+              }}
+              onClose={() => setProductVisibility(false)}
+              min={0}
+              max={10}
+              multipleText="%d product selected."
+              placeholder="Select Product"
+              containerStyle={Styles.containerStyle}
+              style={Styles.dropDownContainerStyle}
+              itemStyle={Styles.itemStyle}
+              arrowColor={colors.button}
+              labelStyle={Styles.labelStyle}
+              activeLabelStyle={Styles.activeLabelStyle}
+              selectedLabelStyle={Styles.activeLabelStyle}
+              placeholderStyle={Styles.placeholderStyle}
+              dropDownStyle={Styles.dropDownContainerStyle}
+              searchablePlaceholderTextColor={colors.placeholder}
+              searchableStyle={Styles.searchableStyle}
+              onChangeItem={value => {
+                if (value) {
+                  setFieldValue(Constants.PRODUCT_ID, value);
+                } else {
+                  setFieldValue(Constants.PRODUCT_ID, value);
+                  setFieldValue(Constants.IMG_ARR, []);
+                  setFieldValue(Constants.SELECTED_IMG_ARR, []);
+                  setFieldValue(Constants.DELETED_NUM_ARR, []);
+                }
+              }}
+              zIndex={50010}
+            />
+          </>
         )}
       {values.selectionType &&
         values.selectionType.id &&
         values.selectionType.id === Constants.CATEGORY && (
-          <DropDownPicker
-            items={categories.data}
-            defaultValue={[]}
-            scrollViewProps={{
-              keyboardShouldPersistTaps: 'always',
-            }}
-            dropDownMaxHeight={200}
-            isVisible={categoryVisible}
-            onOpen={() => {
-              changeVisibility();
-              setCategoryVisible(true);
-            }}
-            multiple={true}
-            min={0}
-            max={10}
-            multipleText="%d category selected."
-            onClose={() => setCategoryVisible(false)}
-            placeholder="Select Category"
-            containerStyle={Styles.containerStyle}
-            style={Styles.dropDownContainerStyle}
-            itemStyle={Styles.itemStyle}
-            arrowColor={colors.button}
-            labelStyle={Styles.labelStyle}
-            activeLabelStyle={Styles.activeLabelStyle}
-            selectedLabelStyle={Styles.activeLabelStyle}
-            placeholderStyle={Styles.placeholderStyle}
-            dropDownStyle={Styles.dropDownContainerStyle}
-            searchablePlaceholderTextColor={colors.placeholder}
-            searchableStyle={Styles.searchableStyle}
-            onChangeItem={value => {
-              if (value) {
-                setFieldValue(Constants.CATEGORY_ID, value);
-              } else {
-                setFieldValue(Constants.CATEGORY_ID, value);
-                setFieldValue(Constants.IMG_ARR, []);
-                setFieldValue(Constants.SELECTED_IMG_ARR, []);
-                setFieldValue(Constants.DELETED_NUM_ARR, []);
-              }
-            }}
-            zIndex={50010}
-          />
+          <>
+            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
+              Category
+            </Text>
+            <DropDownPicker
+              items={categories.data}
+              defaultValue={[]}
+              scrollViewProps={{
+                keyboardShouldPersistTaps: 'always',
+              }}
+              dropDownMaxHeight={200}
+              isVisible={categoryVisible}
+              onOpen={() => {
+                changeVisibility();
+                setCategoryVisible(true);
+              }}
+              multiple={true}
+              min={0}
+              max={10}
+              multipleText="%d category selected."
+              onClose={() => setCategoryVisible(false)}
+              placeholder="Select Category"
+              containerStyle={Styles.containerStyle}
+              style={Styles.dropDownContainerStyle}
+              itemStyle={Styles.itemStyle}
+              arrowColor={colors.button}
+              labelStyle={Styles.labelStyle}
+              activeLabelStyle={Styles.activeLabelStyle}
+              selectedLabelStyle={Styles.activeLabelStyle}
+              placeholderStyle={Styles.placeholderStyle}
+              dropDownStyle={Styles.dropDownContainerStyle}
+              searchablePlaceholderTextColor={colors.placeholder}
+              searchableStyle={Styles.searchableStyle}
+              onChangeItem={value => {
+                if (value) {
+                  setFieldValue(Constants.CATEGORY_ID, value);
+                } else {
+                  setFieldValue(Constants.CATEGORY_ID, value);
+                  setFieldValue(Constants.IMG_ARR, []);
+                  setFieldValue(Constants.SELECTED_IMG_ARR, []);
+                  setFieldValue(Constants.DELETED_NUM_ARR, []);
+                }
+              }}
+              zIndex={50010}
+            />
+          </>
         )}
       {values.selectionType &&
         values.selectionType.id &&
         values.selectionType.id === Constants.TAG && (
-          <DropDownPicker
-            items={tags.data}
-            defaultValue={[]}
-            scrollViewProps={{
-              keyboardShouldPersistTaps: 'always',
-            }}
-            dropDownMaxHeight={200}
-            isVisible={tagVisible}
-            onOpen={() => {
-              changeVisibility();
-              setTagVisible(true);
-            }}
-            onClose={() => setTagVisible(false)}
-            placeholder="Select Tags"
-            multiple={true}
-            min={0}
-            max={10}
-            multipleText="%d tag selected."
-            containerStyle={Styles.containerStyle}
-            style={Styles.dropDownContainerStyle}
-            itemStyle={Styles.itemStyle}
-            arrowColor={colors.button}
-            labelStyle={Styles.labelStyle}
-            activeLabelStyle={Styles.activeLabelStyle}
-            selectedLabelStyle={Styles.activeLabelStyle}
-            placeholderStyle={Styles.placeholderStyle}
-            dropDownStyle={Styles.dropDownContainerStyle}
-            searchablePlaceholderTextColor={colors.placeholder}
-            searchableStyle={Styles.searchableStyle}
-            onChangeItem={value => {
-              if (value) {
-                setFieldValue(Constants.TAG_ID, value);
-              } else {
-                setFieldValue(Constants.TAG_ID, value);
-                setFieldValue(Constants.IMG_ARR, []);
-                setFieldValue(Constants.SELECTED_IMG_ARR, []);
-                setFieldValue(Constants.DELETED_NUM_ARR, []);
-              }
-            }}
-          />
+          <>
+            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
+              Tags
+            </Text>
+            <DropDownPicker
+              items={tags.data}
+              defaultValue={[]}
+              scrollViewProps={{
+                keyboardShouldPersistTaps: 'always',
+              }}
+              dropDownMaxHeight={200}
+              isVisible={tagVisible}
+              onOpen={() => {
+                changeVisibility();
+                setTagVisible(true);
+              }}
+              onClose={() => setTagVisible(false)}
+              placeholder="Select Tags"
+              multiple={true}
+              min={0}
+              max={10}
+              multipleText="%d tag selected."
+              containerStyle={Styles.containerStyle}
+              style={Styles.dropDownContainerStyle}
+              itemStyle={Styles.itemStyle}
+              arrowColor={colors.button}
+              labelStyle={Styles.labelStyle}
+              activeLabelStyle={Styles.activeLabelStyle}
+              selectedLabelStyle={Styles.activeLabelStyle}
+              placeholderStyle={Styles.placeholderStyle}
+              dropDownStyle={Styles.dropDownContainerStyle}
+              searchablePlaceholderTextColor={colors.placeholder}
+              searchableStyle={Styles.searchableStyle}
+              onChangeItem={value => {
+                if (value) {
+                  setFieldValue(Constants.TAG_ID, value);
+                } else {
+                  setFieldValue(Constants.TAG_ID, value);
+                  setFieldValue(Constants.IMG_ARR, []);
+                  setFieldValue(Constants.SELECTED_IMG_ARR, []);
+                  setFieldValue(Constants.DELETED_NUM_ARR, []);
+                }
+              }}
+            />
+          </>
         )}
       <View>
         <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>

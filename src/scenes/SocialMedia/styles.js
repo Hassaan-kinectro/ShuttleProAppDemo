@@ -344,8 +344,8 @@ const useStyles = () => {
       alignItems: 'center',
       flexDirection: 'column',
       marginTop: 10,
-      height: '100%',
-      width: '100%',
+      height: 320,
+      width: 320,
     },
     buttonWrapper: {
       // ...Styles.w50,
