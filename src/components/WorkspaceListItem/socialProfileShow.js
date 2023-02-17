@@ -1,27 +1,31 @@
-import {StyleSheet, Image, Text, View} from 'react-native';
+import {StyleSheet, Image, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import CircularImage from '../CircularImage';
-import {FONT_FAMILY} from '../../utils/constants';
+import {FONT_FAMILY, Routes} from '../../utils/constants';
 import {Instagram, Facebook} from '../../utils/imagesPath';
-const SocialProfileShow = ({i, result}) => {
+import {useDispatch} from 'react-redux';
+import {SetWorkspace} from '../../modules/workspace';
+const SocialProfileShow = ({i, result, item, navigation}) => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <View style={styles.container}>
         {i.profile_type === 'facebook' ? (
-          <View style={styles.mainContainer}>
-            <Image style={styles.fbImage} source={Facebook} />
-            <CircularImage
-              img={
-                i.page_icon.thumb.url ? i.page_icon.thumb.url : i.page_icon.url
-              }
-              name={i.username}
-              style={styles.image}
-            />
-          </View>
-        ) : (
-          <>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(SetWorkspace(item));
+              navigation.navigate(Routes.WORKSPACE, {
+                screen: Routes.BOTTOMTAB,
+                params: {
+                  screen: Routes.SOCIALMEDIA,
+                  initial: false,
+                },
+                initial: false,
+              });
+            }}>
             <View style={styles.mainContainer}>
-              <Image style={styles.fbImage} source={Instagram} />
+              <Image style={styles.fbImage} source={Facebook} />
               <CircularImage
                 img={
                   i.page_icon.thumb.url
@@ -32,6 +36,34 @@ const SocialProfileShow = ({i, result}) => {
                 style={styles.image}
               />
             </View>
+          </TouchableOpacity>
+        ) : (
+          <>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(SetWorkspace(item));
+                navigation.navigate(Routes.WORKSPACE, {
+                  screen: Routes.BOTTOMTAB,
+                  params: {
+                    screen: Routes.SOCIALMEDIA,
+                    initial: false,
+                  },
+                  initial: false,
+                });
+              }}>
+              <View style={styles.mainContainer}>
+                <Image style={styles.fbImage} source={Instagram} />
+                <CircularImage
+                  img={
+                    i.page_icon.thumb.url
+                      ? i.page_icon.thumb.url
+                      : i.page_icon.url
+                  }
+                  name={i.username}
+                  style={styles.image}
+                />
+              </View>
+            </TouchableOpacity>
           </>
         )}
         <Text style={styles.text}>{result ? result : null}</Text>
