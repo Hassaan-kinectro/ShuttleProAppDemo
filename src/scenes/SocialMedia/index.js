@@ -44,7 +44,7 @@ const SocialMediaProfile = props => {
     setCurrentProfile(profile);
     setActiveProfile(profile);
   }, []);
-
+  console.log(currentProfile, 'currentProfile');
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>

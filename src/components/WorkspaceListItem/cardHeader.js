@@ -27,7 +27,7 @@ const CardHeader = ({item, navigation}) => {
               navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
-                  screen: Routes.ORDERS,
+                  screen: Routes.DASHBOARD,
                   params: {
                     workspaceId: item.workspace.id,
                   },
@@ -48,7 +48,7 @@ const CardHeader = ({item, navigation}) => {
               navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
-                  screen: Routes.ORDERS,
+                  screen: Routes.DASHBOARD,
                   params: {
                     workspaceId: item.workspace.id,
                   },
