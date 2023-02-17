@@ -80,7 +80,6 @@ const Form = ({
       <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
         Product
       </Text>
-
       <DropDownPicker
         items={selectionTypes}
         defaultValue={values.selectionTypes}

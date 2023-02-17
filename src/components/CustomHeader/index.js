@@ -34,10 +34,10 @@ const CustomHeader = ({
 }) => {
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceImage = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
+    state => state?.workspace?.workspace?.workspace?.icon?.thumb?.url,
   );
   const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
+    state => state?.workspace?.workspace?.workspace?.name,
   );
   const [searchVisible, setSearchVisible] = useState(false);
   const [search, setSearch] = React.useState('');

@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 import {deviceWidth, IS_PAD} from '../utils/orientation';
 import * as Colors from './colors';
 import * as Mixins from './mixins';
-
 const GlobalStyle = theme => {
   const {colors} = useTheme();
   return StyleSheet.create({
@@ -34,7 +33,6 @@ const GlobalStyle = theme => {
     justifyContentSpaceBetween: {
       justifyContent: 'space-between',
     },
-
     CircleImageView: {
       width: '100%',
       height: 50,
@@ -121,7 +119,6 @@ const GlobalStyle = theme => {
     pL5: {
       paddingLeft: 5,
     },
-
     pL15: {
       paddingLeft: 15,
     },
@@ -156,7 +153,6 @@ const GlobalStyle = theme => {
     pV5: {paddingVertical: 5},
     pB10: {paddingBottom: 10},
     pB5: {paddingBottom: 5},
-
     mT10: {marginTop: 10},
     mT15: {marginTop: 15},
     mT5: {marginTop: 5},
@@ -233,14 +229,12 @@ const GlobalStyle = theme => {
     w100: {
       width: '100%',
     },
-
     InputStyle: {
       backgroundColor: 'transparent',
       height: 45,
       borderColor: colors.feildBorder,
       borderBottomWidth: 1,
     },
-
     InputErrorStyle: {
       backgroundColor: colors.textAreaColor,
       height: 45,
@@ -310,7 +304,7 @@ const GlobalStyle = theme => {
       borderBottomWidth: 1,
       backgroundColor: colors.background,
       borderBottomColor: colors.feildBorder,
-      color: colors.TextColor,
+      color: '#FFF',
       paddingLeft: 10,
       borderRadius: 0,
     },
