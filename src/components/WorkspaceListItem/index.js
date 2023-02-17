@@ -158,7 +158,15 @@ const WorkspaceListItem = props => {
               item.social_profiles.map((i, key) => {
                 const name2 = i.name;
                 result = name2.slice(0, 5) + '...';
-                return <SocialProfileShow i={i} result={result} key={i.id} />;
+                return (
+                  <SocialProfileShow
+                    i={i}
+                    result={result}
+                    item={item}
+                    navigation={navigation}
+                    key={i.id}
+                  />
+                );
               })
             ) : (
               <View style={styles.pb10}>

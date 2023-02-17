@@ -5,9 +5,11 @@ import {Text} from '../../styles';
 import {SHOPIFY, WOOCOMMERCE} from '../../utils/imagesPath';
 import {getImageUrl} from './helper';
 import {ThreeDotsIcon} from '../../icons';
+import {useTheme} from '@react-navigation/native';
 
 const ProductListItem = ({item}) => {
   const styles = useStyles();
+  const {colors} = useTheme();
   return (
     <>
       <View style={styles.BoxStyle}>
@@ -35,7 +37,7 @@ const ProductListItem = ({item}) => {
             ) : (
               <Text />
             )}
-            <ThreeDotsIcon size={22} />
+            <ThreeDotsIcon size={22} color={colors.TextColor} />
           </View>
         </View>
         <View style={styles.container2}>
