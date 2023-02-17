@@ -1,7 +1,7 @@
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import useStyles from './style';
-import {Text} from '../../styles';
+import {Mixins, Text} from '../../styles';
 import TextField from '../TextField';
 import {FONT_FAMILY} from '../../utils/constants';
 import {PlusIcon} from '../../icons';
@@ -9,6 +9,9 @@ import {GlobalStyle} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import DropDownPicker from '../DropDown';
 import {useTranslation} from 'react-i18next';
+import LinearGradient from 'react-native-linear-gradient';
+import {WHITE} from '../../styles/colors';
+import MediaPicker from '../MediaPicker';
 
 const CreateProductForm = props => {
   const {colors} = useTheme();
@@ -33,7 +36,7 @@ const CreateProductForm = props => {
   ];
 
   return (
-    <ScrollView style={styles.mB90}>
+    <ScrollView>
       <View style={styles.BoxStyle}>
         <View style={styles.justifyContentSpaceBetween}>
           <Text
@@ -42,7 +45,7 @@ const CreateProductForm = props => {
             fontFamily={FONT_FAMILY.BOLD}>
             Product Details
           </Text>
-          <PlusIcon size={24} color={colors.TextColor} />
+          <PlusIcon size={30} color={colors.TextColor} />
         </View>
         <View>
           <TextField
@@ -194,25 +197,26 @@ const CreateProductForm = props => {
             }}
           />
           <TextField
+            // hideLabel={true}
             label={t('product.details.label.description')}
             placeholder={t('product.details.placeholder.description')}
-            name="productName"
-            // labelStyle={{fontSize: Mixins.scaleFont(15)}}
+            name="description"
+            labelStyle={styles.descLabelSty}
             type="textArea"
             returnKeyType="next"
             autoCorrect={false}
-            onChangeText={rem => props.setFieldValue('productName', rem)}
-            onBlur={() => props.setFieldTouched('productName')}
-            error={props.touched.productName && props.errors.productName}
+            onChangeText={rem => props.setFieldValue('description', rem)}
+            onBlur={() => props.setFieldTouched('description')}
+            error={props.touched.description && props.errors.description}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
-            hideLabel={true}
-            inputStyle={styles.InputTFStyle}
+            inputStyle={styles.descriptionTFStyle}
             placeholderTextColor={colors.placeholder}
             tintColor={colors.tintColor}
             textColor={colors.TextColor}
             fontSize={14}
+            multiline={true}
             baseColor={colors.baseColor}
           />
         </View>
@@ -228,7 +232,43 @@ const CreateProductForm = props => {
             fontFamily={FONT_FAMILY.BOLD}>
             Product Media
           </Text>
-          <PlusIcon size={24} color={colors.TextColor} />
+          <PlusIcon size={30} color={colors.TextColor} />
+        </View>
+        <View>
+          <MediaPicker />
+        </View>
+      </View>
+      <View style={styles.BoxStyle}>
+        <View style={styles.justifyContentSpaceBetween}>
+          <View style={styles.addProductVariantStyle}>
+            <View>
+              <Text
+                size={18}
+                color={colors.TextColor}
+                fontFamily={FONT_FAMILY.BOLD}
+                style={Styles.flexCenter}>
+                Product Varients
+              </Text>
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() => {
+                  // addProduct ? setAddProduct(false) : setAddProduct(true);
+                }}>
+                <LinearGradient
+                  colors={['#139A5C', '#3662A8']}
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 1}}
+                  locations={[0.0, 1.0]}
+                  useAngle={true}
+                  angle={199.18}
+                  style={styles.addProductVariant}>
+                  <PlusIcon style={styles.opacity} size={15} color={WHITE} />
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <PlusIcon size={30} color={colors.TextColor} />
         </View>
       </View>
     </ScrollView>

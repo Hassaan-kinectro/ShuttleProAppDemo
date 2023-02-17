@@ -3,6 +3,7 @@ import {deviceWidth, IS_IOS, IS_PAD} from '../../utils/orientation';
 import {scaleSize} from '../../styles/mixins';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
+import {Mixins} from '../../styles';
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
@@ -150,6 +151,26 @@ const useStyles = () => {
       borderRadius: 20,
       zIndex: 5000,
     },
+    descriptionTFStyle: {
+      height: 55,
+      margin: 0,
+      flex: 1,
+      justifyContent: 'space-around',
+      padding: 0,
+      fontFamily: FONT_FAMILY.LIGHT,
+      borderBottomWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderTopWidth: 1,
+      borderRadius: 5,
+      zIndex: 5000,
+    },
+    descLabelSty: {
+      fontSize: Mixins.scaleFont(14),
+      fontFamily: FONT_FAMILY.LIGHT,
+      marginTop: 10,
+      marginBottom: 0,
+    },
     dropDownSTyle: {
       height: 40,
     },
@@ -164,6 +185,25 @@ const useStyles = () => {
     },
     mB90: {
       marginBottom: 90,
+    },
+    addProductVariantStyle: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      alignContent: 'center',
+    },
+    addProductVariant: {
+      position: 'relative',
+      height: 22,
+      width: 22,
+      marginLeft: 5,
+      borderRadius: 30,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      order: 1,
+      flexGrow: 0,
     },
   });
 };

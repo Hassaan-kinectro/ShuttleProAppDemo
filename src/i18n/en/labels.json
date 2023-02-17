@@ -3,6 +3,6 @@
   "password.label": "Password",
   "email.placeholder": "Enter Email",
   "password.placeholder": "*********",
-  "product.details.label.description": "Description",
+  "product.details.label.description": "Product Description",
   "product.details.placeholder.description": "e.g. sample description"
 }

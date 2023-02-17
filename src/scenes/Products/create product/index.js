@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {Keyboard, View} from 'react-native';
 import {Styles} from '../../../styles';
 import React from 'react';
 import Wrapper from '../../../components/Wrapper';
@@ -11,12 +11,14 @@ import CreateProductForm from '../../../components/CreateProductForm';
 import {VALID_NAME} from '../../../utils/Parser/helper';
 import {getAllCategories, getAllTags} from './helper';
 import * as yup from 'yup';
+import useStyles from '../../../components/CreateProductForm/style';
 
 const CreateProduct = ({navigation}) => {
   const [tags, setTags] = React.useState({data: []});
   const [categories, setCategories] = React.useState({data: []});
   const theme = useSelector(state => state.themeChange.theme);
   const {t} = useTranslation();
+  const styles = useStyles();
   const initialsVal = {
     productName: '',
     productCode: '',
@@ -55,6 +57,26 @@ const CreateProduct = ({navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workspaceId]);
 
+  const [isKeyboardOpen, setIsKeyboardOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setIsKeyboardOpen(true),
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setIsKeyboardOpen(false),
+    );
+
+    // Clean up the event listeners
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={Styles.flex}>
@@ -72,13 +94,13 @@ const CreateProduct = ({navigation}) => {
             initialValues={initialsVal}>
             {props => {
               return (
-                <>
+                <View style={!isKeyboardOpen ? styles.mB90 : Styles.flex}>
                   <CreateProductForm
                     {...props}
                     tags={tags}
                     categories={categories}
                   />
-                </>
+                </View>
               );
             }}
           </Formik>
