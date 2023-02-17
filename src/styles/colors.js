@@ -88,7 +88,7 @@ export const LightTheme = {
     criticalCard: '#fecdd3',
     returnCard: '#fbcfe8',
     borderHalfOpacity: '#22262f30',
-    tabColor: '#ffedd5',
+    tabColor: '#5285d450',
   },
 };
 export const DarkTheme = {

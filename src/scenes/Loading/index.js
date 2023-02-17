@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import {StackActions, useTheme} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 import {GlobalStyle} from '../../styles';
 import {Routes} from '../../utils/constants';
 import messaging from '@react-native-firebase/messaging';
@@ -10,8 +11,8 @@ import {requestUserPermission} from '../../utils/notifications';
 const LoadingScreen = ({navigation, route}) => {
   const {colors} = useTheme();
   const Styles = GlobalStyle();
+  const workspace = useSelector(state => state.workspace.workspace);
   React.useEffect(() => {
-    console.log('useEffect ran12345');
     requestUserPermission();
     notificationListener();
   }, []);
@@ -19,7 +20,12 @@ const LoadingScreen = ({navigation, route}) => {
     isAuthExist().then(async res => {
       if (res) {
         setTimeout(() => {
-          navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
+          console.log(workspace);
+          if (workspace) {
+            navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
+          } else {
+            navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
+          }
         }, 1000);
       } else {
         navigation.dispatch(StackActions.replace(Routes.LOGIN));

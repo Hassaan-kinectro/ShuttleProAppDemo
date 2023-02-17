@@ -1,5 +1,3 @@
-// import React from 'react';
-// import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import {TouchableOpacity, StyleSheet, View, ScrollView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Colors, Mixins, Styles, Text} from '../../styles';
@@ -72,20 +70,20 @@ import {ThreeDotsIcon} from '../../icons';
 //             )}
 //           </TouchableOpacity>
 //         }
-//         style={styles.MenuContainer}>
-//         <ScrollView style={styles.MenuHeight}>
+//         style={styles.menuContainer}>
+//         <ScrollView style={styles.menuHeight}>
 //           {props.options && props.options.length > 0
 //             ? props.options.map((op, i) => (
 //                 <View key={op.label}>
 //                   <MenuItem
 //                     style={[
-//                       styles.MenuItemStyle,
+//                       styles.menuItemStyle,
 //                       op.selected && op.selected === true
-//                         ? styles.MenuItemSelected
+//                         ? styles.menuItemSelected
 //                         : {},
 //                     ]}
 //                     textStyle={
-//                       (styles.MenuItemTextStyle,
+//                       (styles.menuItemTextStyle,
 //                       {color: op.disabled ? Colors.GRAY : colors.textColor})
 //                     }
 //                     onPress={() => {
@@ -108,13 +106,13 @@ import {ThreeDotsIcon} from '../../icons';
 //                 <View key={op.label}>
 //                   <MenuItem
 //                     style={[
-//                       styles.MenuItemStyle,
+//                       styles.menuItemStyle,
 //                       op.selected && op.selected === true
-//                         ? styles.MenuItemSelected
+//                         ? styles.menuItemSelected
 //                         : {},
 //                     ]}
 //                     textStyle={
-//                       (styles.MenuItemTextStyle,
+//                       (styles.menuItemTextStyle,
 //                       {color: op.disabled ? 'red' : 'pink'})
 //                     }
 //                     onPress={() => {
@@ -136,7 +134,7 @@ import {ThreeDotsIcon} from '../../icons';
 
 import React, {useState} from 'react';
 
-import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+import {Menu} from 'react-native-material-menu';
 const PopUpMenu = ({HeaderAnchor, options = []}) => {
   const {colors} = useTheme();
   const styles = useStyles(colors);
@@ -162,69 +160,87 @@ const PopUpMenu = ({HeaderAnchor, options = []}) => {
           )}
         </TouchableOpacity>
       }
-      style={styles.MenuContainer}
+      style={styles.menuContainer}
       onRequestClose={hideMenu}>
-      <ScrollView style={styles.MenuHeight}>
+      <ScrollView style={styles.menuHeight}>
         {options && options.length > 0
           ? options.map((op, i) => (
               <View key={op.label}>
-                <MenuItem
+                <TouchableOpacity
                   style={[
-                    styles.MenuItemStyle,
+                    styles.menuItemStyle,
                     op.selected && op.selected === true
-                      ? styles.MenuItemSelected
+                      ? styles.menuItemSelected
                       : {},
-                  ]}
-                  textStyle={[
-                    styles.MenuItemTextStyle,
-                    {color: op.disabled ? Colors.GRAY : colors.textColor},
+                    options.length - 1 === i && styles.lastItemStyle,
+                    i === 0 && styles.firstItemStyle,
+                    op.disabled && styles.menuItemDisabled,
                   ]}
                   onPress={() => {
-                    hideMenu(op.onClick);
-                    // op.onClick();
+                    op.onClick();
+                    hideMenu();
                   }}>
-                  {op.icon ? op.icon : null} {op.label}
-                </MenuItem>
-                {options.length - 1 !== i && (
-                  <MenuDivider color={Colors.GRAY} />
-                )}
+                  {op.icon ? op.icon : null}
+                  <Text
+                    style={[
+                      styles.menuItemTextStyle,
+                      op.selected && op.selected === true
+                        ? styles.menuItemTextSelected
+                        : {},
+                      op.disabled && styles.menuItemTextDisabled,
+                      op.icon ? Styles.pL10 : null,
+                    ]}>
+                    {op.label}
+                  </Text>
+                </TouchableOpacity>
+                {options.length - 1 !== i && <View style={styles.divider} />}
               </View>
             ))
           : null}
       </ScrollView>
-      {/* <MenuItem
-        style={[styles.MenuItemStyle, styles.MenuItemSelected]}
-        textStyle={[styles.MenuItemTextStyle, {color: colors.textColor}]}
-        onPress={hideMenu}>
-        Menu item 1
-      </MenuItem>
-      <MenuItem onPress={hideMenu}>Menu item 2</MenuItem>
-      <MenuItem disabled>Disabled item</MenuItem>
-      <MenuDivider />
-      <MenuItem onPress={hideMenu}>Menu item 4</MenuItem> */}
     </Menu>
   );
 };
 const useStyles = colors => {
   return StyleSheet.create({
-    MenuHeight: {
+    menuHeight: {
       maxHeight: 350,
     },
-    MenuContainer: {
+    menuContainer: {
       backgroundColor: colors.boxColor,
+      borderRadius: 20,
       ...Mixins.boxShadow(Colors.BLACK, {height: 2, width: 0}, 4, 0.5),
     },
-    MenuItemStyle: {
+    menuItemStyle: {
+      justifyContent: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
       height: 40,
-      borderRadius: 3,
-      color: colors.textColor,
+      marginHorizontal: 15,
+      minWidth: 100,
+      borderRadius: 0,
     },
-    MenuItemSelected: {
-      backgroundColor: colors.gradient1,
+    menuItemSelected: {
+      backgroundColor: colors.fontPrimary,
     },
-    MenuItemTextStyle: {
-      color: Colors.textColor,
+    menuItemDisabled: {},
+    lastItemStyle: {
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
+    },
+    firstItemStyle: {
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+    },
+    menuItemTextStyle: {
+      color: colors.fontPrimary,
       fontSize: Mixins.scaleFont(14),
+    },
+    menuItemTextSelected: {
+      color: colors.white,
+    },
+    menuItemTextDisabled: {
+      color: colors.loginText,
     },
     arrowButton: {
       backgroundColor: colors.icon,
@@ -234,12 +250,13 @@ const useStyles = colors => {
       marginTop: 2,
       marginLeft: 15,
     },
-    mLeft: {
-      //  marginLeft: 10,
-    },
     seperator: {
       backgroundColor: colors.background,
       height: 2,
+    },
+    divider: {
+      backgroundColor: colors.boxBorderColor,
+      height: 1,
     },
   });
 };

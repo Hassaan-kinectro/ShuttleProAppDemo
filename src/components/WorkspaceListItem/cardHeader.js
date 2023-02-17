@@ -5,17 +5,14 @@ import {GlobalStyle, Mixins} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import useStyles from './styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
-import {useDispatch} from 'react-redux';
-import {SetWorkspace} from '../../modules/workspace';
 import {Routes} from '../../utils/constants';
 
-const CardHeader = ({item, navigation}) => {
+const CardHeader = ({item, navigateTo}) => {
   let workspaceName = item.workspace.name;
   let workspaceIcon = item.workspace.icon.thumb.url;
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const styles = useStyles();
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -23,16 +20,7 @@ const CardHeader = ({item, navigation}) => {
         <View style={Styles.flexCenter}>
           <TouchableOpacity
             onPress={() => {
-              dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.WORKSPACE, {
-                screen: Routes.BOTTOMTAB,
-                params: {
-                  screen: Routes.ORDERS,
-                  params: {
-                    workspaceId: item.workspace.id,
-                  },
-                },
-              });
+              navigateTo(Routes.DASHBOARD);
             }}>
             <CircularImage
               img={workspaceIcon}
@@ -44,16 +32,7 @@ const CardHeader = ({item, navigation}) => {
         <View style={Styles.flex2Start}>
           <TouchableOpacity
             onPress={() => {
-              dispatch(SetWorkspace(item));
-              navigation.navigate(Routes.WORKSPACE, {
-                screen: Routes.BOTTOMTAB,
-                params: {
-                  screen: Routes.ORDERS,
-                  params: {
-                    workspaceId: item.workspace.id,
-                  },
-                },
-              });
+              navigateTo(Routes.DASHBOARD);
             }}>
             <Text
               lines={1}

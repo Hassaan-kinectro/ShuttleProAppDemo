@@ -5,10 +5,11 @@ import {deviceWidth} from '../../../utils/orientation';
 const useStyles = () => {
   const {colors} = useTheme();
   const space = deviceWidth / 30;
-  const cardHeight = 260;
+  const cardHeight = 180;
   return StyleSheet.create({
     carHeight: {
       height: cardHeight,
+      marginBottom: 40,
     },
     cardStyle: {
       borderRadius: 15,
@@ -32,9 +33,18 @@ const useStyles = () => {
       justifyContent: 'center',
     },
     cardItem: {
-      width: (deviceWidth - space) / 2.05,
+      width: (deviceWidth - space - 80) / 2.05,
       alignItems: 'center',
-      paddingVertical: cardHeight / 15,
+      paddingVertical: cardHeight / 10,
+    },
+    paginationStyle: {
+      position: 'absolute',
+      bottom: -30,
+      padding: 0,
+      alignItems: 'center',
+      alignSelf: 'center',
+      justifyContent: 'center',
+      paddingVertical: 10,
     },
     inactiveDotStyle: {
       backgroundColor: colors.TextColor,
@@ -43,8 +53,8 @@ const useStyles = () => {
       width: 10,
       height: 10,
       borderRadius: 5,
-      marginHorizontal: 8,
-      backgroundColor: colors.secondary,
+      marginHorizontal: -2,
+      backgroundColor: colors.fontPrimary,
     },
   });
 };

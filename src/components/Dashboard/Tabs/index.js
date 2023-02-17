@@ -27,24 +27,26 @@ const Tabs = ({filterValues, setFilterValues}) => {
   };
   return (
     <View style={styles.tabStyle}>
-      {tabs.map((tab, i) => (
-        <TouchableOpacity
-          key={tab.id}
-          onPress={() => onTabChange(tab)}
-          style={[
-            styles.tabItemStyle,
-            filterValues.tab === tab.id && styles.activeTab,
-          ]}>
-          <Text
+      <View style={styles.tab1Style}>
+        {tabs.map((tab, i) => (
+          <TouchableOpacity
+            key={tab.id}
+            onPress={() => onTabChange(tab)}
             style={[
-              styles.tabText &&
-                filterValues.tab === tab.id &&
-                styles.activeText,
+              styles.tabItemStyle,
+              filterValues.tab === tab.id && styles.activeTab,
             ]}>
-            {tab.label}
-          </Text>
-        </TouchableOpacity>
-      ))}
+            <Text
+              style={[
+                styles.tabText &&
+                  filterValues.tab === tab.id &&
+                  styles.activeText,
+              ]}>
+              {tab.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };

@@ -9,7 +9,7 @@ import {Dark, Light} from '../../utils/imagesPath';
 import CustomHeader from '../../components/CustomHeader';
 import {OrderStatistics, OrdersChart, Tabs} from '../../components/Dashboard';
 import {DateFormat} from '../../utils/constants';
-const DashBoard = ({navigation}) => {
+const Dashboard = ({navigation}) => {
   const {t} = useTranslation();
   const theme = useSelector(state => state.themeChange.theme);
   const [filterValues, setFilterValues] = useState({
@@ -53,4 +53,4 @@ const DashBoard = ({navigation}) => {
   );
 };
 
-export default DashBoard;
+export default Dashboard;

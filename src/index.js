@@ -11,9 +11,10 @@ import {
   getJSExceptionHandler,
 } from 'react-native-exception-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getUser, setTheme} from './config/authSettings';
+import {getUser, setTheme, getWorkspace} from './config/authSettings';
 import {UpdateTheme} from './modules/theme/action';
 import {SetUser} from './modules/user/action';
+import {SetWorkspace} from './modules/workspace';
 
 const reporter = error => {
   // Logic for reporting to devs
@@ -65,8 +66,13 @@ const Src = () => {
     console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
     getUser().then(async res => {
       if (res) {
-        console.log(res);
         dispatch(SetUser(res ? res : null));
+      }
+    });
+    getWorkspace().then(async res => {
+      if (res) {
+        console.log(res, 'Asadasa');
+        dispatch(SetWorkspace(res ? res : null));
       }
     });
   }, []);

@@ -20,6 +20,7 @@ import {Colors, GlobalStyle} from '../styles';
 import Loading from '../scenes/Loading';
 import Login from '../scenes/Auth/Login';
 import Workspace from '../scenes/Workspace';
+import Notifications from '../scenes/Notifications';
 import Settings from '../scenes/Settings';
 import Inbox from '../scenes/Inbox';
 import Design from '../scenes/Designs';
@@ -575,6 +576,15 @@ const Navigation = ({theme}) => {
             ...StackCommonHeaderOptions(navigation, false, true, colors),
           })}>
           {props => <Workspace {...props} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name={Routes.NOTIFICATIONS}
+          headerMode="screen"
+          options={({navigation}) => ({
+            headerShown: false,
+            ...StackCommonHeaderOptions(navigation, false, true, colors),
+          })}>
+          {props => <Notifications {...props} />}
         </Stack.Screen>
         <Stack.Screen name={Routes.WORKSPACE} options={{headerShown: false}}>
           {props => <DrawerNavigator {...props} />}

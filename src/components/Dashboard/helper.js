@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
   FetchDaysOrderByDate,
   FetchCriticalOrdersByDate,
@@ -6,6 +7,23 @@ import {
 } from '../../services/Dashboard';
 import * as Constants from './Constants';
 export const statisticsDefaultValue = [
+  {
+    type: Constants.CRITICAL,
+    label: 'Critical Orders',
+    color: 'criticalCard',
+    loading: true,
+    data: [
+      {
+        label: 'Ready To Return',
+        key: 'ready_to_return',
+        value: 0,
+        statusType: 0,
+      },
+      {label: 'On Hold', key: 'on_hold', value: 0, statusType: 0},
+      {label: 'Queried', key: 'queriedCount', value: 0, statusType: 0},
+      {label: 'Important', key: 'important', value: 0, statusType: 0},
+    ],
+  },
   {
     type: Constants.IN_PROGRESS,
     label: 'InProgress Orders',
@@ -44,23 +62,6 @@ export const statisticsDefaultValue = [
         start: 8,
         end: 4,
       },
-    ],
-  },
-  {
-    type: Constants.CRITICAL,
-    label: 'Critical Orders',
-    color: 'criticalCard',
-    loading: true,
-    data: [
-      {
-        label: 'Ready To Return',
-        key: 'ready_to_return',
-        value: 0,
-        statusType: 0,
-      },
-      {label: 'On Hold', key: 'on_hold', value: 0, statusType: 0},
-      {label: 'Queried', key: 'queriedCount', value: 0, statusType: 0},
-      {label: 'Important', key: 'important', value: 0, statusType: 0},
     ],
   },
   {
@@ -218,6 +219,9 @@ const ModifyData = data => {
   });
   return r;
 };
+const ModifyDataForXAxis = data => {
+  return data.map(d => dayjs(d).format('MMM DD'));
+};
 export const getChartOrders = async (
   workspaceId,
   startDate,
@@ -235,7 +239,7 @@ export const getChartOrders = async (
         return {...prev, loading: false};
       });
       setChartData({
-        xAxis: resp.data.xAxis || [],
+        xAxis: ModifyDataForXAxis(resp.data.xAxis) || [],
         yAxis: ModifyDataForYAxis(resp.data.orderCount) || [],
         booked: ModifyData(resp.data.amountCount),
         delivered: ModifyData(resp.data.deliveredAmountCount),

@@ -2,7 +2,7 @@ export const Routes = {
   LOADING: 'loading',
   LOGIN: 'login',
   SignUp: 'signUp',
-  CustomHeader: 'customHeader',
+  NOTIFICATIONS: 'notifications',
   WORKSPACES: 'workspaces',
   WORKSPACE: 'workspace',
   CREATEWORKSPACE: 'create workspace',

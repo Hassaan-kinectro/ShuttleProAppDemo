@@ -10,17 +10,26 @@ import {useTheme} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import CircularImage from '../CircularImage';
 import {Hamburger, HeaderDark, HeaderLight} from '../../utils/imagesPath';
-import {BackArrowIcon, SearchIcon, DownArrowIcon} from '../../icons';
+import {
+  BackArrowIcon,
+  SearchIcon,
+  DownArrowIcon,
+  LogoutIcon,
+  NotificationIcon,
+} from '../../icons';
 import useStyles from './styles';
 import {Styles, Text} from '../../styles';
 import TextField from '../TextField';
 import PopupMenu from '../PopupMenu';
-import {FONT_FAMILY} from '../../utils/constants';
+import {FONT_FAMILY, Routes} from '../../utils/constants';
+import {AppLogout} from '../../navigations';
 
 const CustomHeader = ({
   navigation,
   name,
   searchIcon = false,
+  backIcon = false,
+  drawer = true,
   onSearchText = () => {},
 }) => {
   const theme = useSelector(state => state.themeChange.theme);
@@ -51,11 +60,20 @@ const CustomHeader = ({
         <View style={styles.headerContainer}>
           {!searchVisible && (
             <View style={[Styles.flexCenterStart, Styles.flexDirectionRow]}>
-              <TouchableOpacity
-                style={styles.menuIcon}
-                onPress={() => navigation.toggleDrawer()}>
-                <Image source={Hamburger} style={styles.hamburgerStyle} />
-              </TouchableOpacity>
+              {drawer && (
+                <TouchableOpacity
+                  style={styles.menuIcon}
+                  onPress={() => navigation.toggleDrawer()}>
+                  <Image source={Hamburger} style={styles.hamburgerStyle} />
+                </TouchableOpacity>
+              )}
+              {backIcon && !drawer && (
+                <TouchableOpacity
+                  style={styles.menuIcon}
+                  onPress={() => navigation.goBack()}>
+                  <BackArrowIcon size={28} color={colors.searchIcon} />
+                </TouchableOpacity>
+              )}
               <Text
                 size={24}
                 color={colors.TextColor}
@@ -71,7 +89,7 @@ const CustomHeader = ({
               <TouchableOpacity
                 style={styles.backArrow}
                 onPress={() => setSearchVisible(false)}>
-                <BackArrowIcon size={24} color={colors.searchIcon} />
+                <BackArrowIcon size={28} color={colors.searchIcon} />
               </TouchableOpacity>
               <TextField
                 placeholderTextColor={colors.TextColor}
@@ -132,22 +150,20 @@ const CustomHeader = ({
                 )}
                 options={[
                   {
+                    label: 'Notifications',
+                    icon: (
+                      <NotificationIcon size={18} color={colors.fontPrimary} />
+                    ),
+                    onClick: () => {
+                      navigation.navigate(Routes.NOTIFICATIONS);
+                    },
+                  },
+                  {
                     label: 'Logout',
+                    icon: <LogoutIcon size={18} color={colors.fontPrimary} />,
                     onClick: () => {
                       console.log('The button');
-                    },
-                  },
-                  {
-                    label: 'Logout1',
-                    selected: true,
-                    onClick: () => {
-                      console.log('The button');
-                    },
-                  },
-                  {
-                    label: 'Logout2',
-                    onClick: () => {
-                      console.log('The button');
+                      AppLogout(navigation);
                     },
                   },
                 ]}
