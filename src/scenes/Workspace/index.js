@@ -1,23 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList, RefreshControl, ImageBackground} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 import {GlobalStyle, Text} from '../../styles';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
 import useStyles from './styles';
-import {AppLogout} from '../../navigations';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '@react-navigation/native';
-import {WarningIcon, LogoutIcon} from '../../icons';
+import {WarningIcon} from '../../icons';
 import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
+import CustomHeader from '../../components/CustomHeader';
 import Wrapper from '../../components/Wrapper';
-import {Dark, Light, HeaderDark, HeaderLight} from '../../utils/imagesPath';
-import {FONT_FAMILY} from '../../utils/constants';
+import {Dark, Light} from '../../utils/imagesPath';
 import {onRefresh, getRecord} from './helper';
 import Loader from '../../components/Loader';
 
-const Workspace = props => {
-  const {route, navigation} = props;
+const Workspace = ({route, navigation}) => {
   const [workspaceList, setWorkspaceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -42,24 +40,11 @@ const Workspace = props => {
 
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-      <View style={styles.wrapperStyle}>
-        <ImageBackground source={theme === 'DARK' ? HeaderDark : HeaderLight}>
-          <View style={styles.container}>
-            <Text
-              size={24}
-              color={colors.TextHeader}
-              fontFamily={FONT_FAMILY.SEMI_BOLD}>
-              {t('workspaces')}
-            </Text>
-            <LogoutIcon
-              color={colors.TextColor}
-              style={styles.pR}
-              size={25}
-              onPress={() => AppLogout(navigation)}
-            />
-          </View>
-        </ImageBackground>
-      </View>
+      <CustomHeader
+        name={t('workspaces')}
+        navigation={navigation}
+        drawer={false}
+      />
       <View
         style={[
           Styles.alignItemsCenter,
@@ -104,7 +89,7 @@ const Workspace = props => {
                   <WarningIcon
                     color={colors.textColorLight}
                     size={40}
-                    style={styles.pB10}
+                    style={Styles.pB10}
                   />
                   <Text
                     numberOfLines={1}
@@ -120,7 +105,7 @@ const Workspace = props => {
                 <WorkspaceListItem
                   item={item}
                   key={item.id}
-                  navigation={props.navigation}
+                  navigation={navigation}
                 />
               );
             }}

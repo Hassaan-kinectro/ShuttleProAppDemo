@@ -5,23 +5,27 @@ import {FONT_FAMILY} from '../../../utils/constants';
 
 const useStyles = () => {
   const {colors} = useTheme();
-  const space = deviceWidth / 36;
   return StyleSheet.create({
     tabStyle: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'row',
+      marginBottom: 15,
+    },
+    tab1Style: {
       backgroundColor: colors.tabColor,
-      marginHorizontal: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+      paddingHorizontal: 5,
       paddingVertical: 5,
-      marginBottom: 10,
-      borderRadius: 20,
+      borderRadius: 30,
     },
     tabItemStyle: {
-      padding: 10,
+      height: 32,
       minWidth: deviceWidth / 6,
       alignItems: 'center',
+      justifyContent: 'center',
       borderRadius: 20,
     },
     activeTab: {

@@ -20,7 +20,7 @@ const OrderStatistics = ({date, startDate, endDate}) => {
   const navigation = useNavigation();
   const {colors} = useTheme();
   const isCarousel = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [data, setData] = useState(statisticsDefaultValue);
   const workspaceId = useSelector(state => state.workspace.workspaceId);
 
@@ -95,11 +95,12 @@ const OrderStatistics = ({date, startDate, endDate}) => {
         layout={'default'}
         ref={isCarousel}
         data={data}
+        firstItem={currentIndex}
         renderItem={_renderItem}
         sliderWidth={deviceWidth}
         sliderHeight={deviceWidth / 1.2}
         itemHeight={deviceWidth / 1.2}
-        itemWidth={deviceWidth - 20}
+        itemWidth={deviceWidth - 80}
         onSnapToItem={index => setCurrentIndex(index)}
         // autoplay
         loop
@@ -109,6 +110,7 @@ const OrderStatistics = ({date, startDate, endDate}) => {
         activeDotIndex={currentIndex}
         carouselRef={isCarousel}
         dotStyle={styles.dotStyle}
+        containerStyle={styles.paginationStyle}
         tappableDots={true}
         inactiveDotStyle={styles.inactiveDotStyle}
         inactiveDotOpacity={0.9}

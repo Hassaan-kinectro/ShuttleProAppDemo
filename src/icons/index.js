@@ -94,7 +94,7 @@ export const WarningIcon = props => {
   return <AntIcon name="warning" {...props} />;
 };
 export const LogoutIcon = props => {
-  return <MaterialIcons name="logout" {...props} />;
+  return <AntIcon name="logout" {...props} />;
 };
 export const CloseIcon = props => {
   return <MaterialCommunityIcons name="close" {...props} />;
@@ -104,6 +104,9 @@ export const ThreeDotsIcon = props => {
 };
 export const BackArrowIcon = props => {
   return <MaterialIcons name="arrow-back" {...props} />;
+};
+export const NotificationIcon = props => {
+  return <MaterialIcons name="notifications-active" {...props} />;
 };
 export const SearchIcon = props => {
   return <FeatherIcons name="search" {...props} />;

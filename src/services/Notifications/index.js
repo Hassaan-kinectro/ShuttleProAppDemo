@@ -98,7 +98,6 @@ const UpdateNotification = async (formdata, id) => {
 };
 
 const GetNotificationByDeviceId = async device => {
-  console.log(device, 'this is device');
   const responseData = {
     loading: false,
     status: 210,

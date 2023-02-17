@@ -83,3 +83,16 @@ export const GET_INSTAGRAM_ALL_POSTS = gql`
     }
   }
 `;
+export const GET_NOTIFICATION_UPDATES = gql`
+  query getAllNotificationUpdates($workspaceId: String!) {
+    getAllNotificationUpdates(workspaceId: $workspaceId) {
+      _id
+      type
+      operation
+      actionId
+      isRead
+      workspaceId
+      message
+    }
+  }
+`;

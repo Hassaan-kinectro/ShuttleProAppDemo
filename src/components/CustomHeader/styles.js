@@ -12,7 +12,7 @@ const useStyles = () => {
       shadowOpacity: 50,
       borderBottomLeftRadius: 35,
       borderBottomRightRadius: 35,
-      marginBottom: 25,
+      marginBottom: 10,
       borderBottomWidth: 1,
       height: 130,
       borderColor: colors.boxBorderColor,

@@ -69,6 +69,23 @@ export const getUser = () =>
       })
       .catch(err => reject(err));
   });
+export const setWorkspace = data => {
+  console.log(data);
+  AsyncStorage.setItem('worksapce', JSON.stringify(data));
+};
+
+export const getWorkspace = () =>
+  new Promise((resolve, reject) => {
+    AsyncStorage.getItem('worksapce')
+      .then(res => {
+        if (res !== null) {
+          resolve(JSON.parse(res));
+        } else {
+          resolve(null);
+        }
+      })
+      .catch(err => reject(err));
+  });
 export const getAuthHeader = () =>
   new Promise((resolve, reject) => {
     AsyncStorage.getItem('token')

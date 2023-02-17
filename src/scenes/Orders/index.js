@@ -46,7 +46,6 @@ const OrderScreen = ({navigation, route}) => {
   const offset = 20;
   const totalFetch = 1000;
 
-  console.log(route);
   React.useEffect(() => {
     getRecord(setEmailTemplates, setRecipientGroup, workspaceId);
     if (route.params && route.params.startDate) {
