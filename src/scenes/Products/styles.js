@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {IS_IOS} from '../../utils/orientation';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -15,7 +16,8 @@ const useStyles = () => {
       height: 60,
       width: 60,
       right: 20,
-      bottom: 85,
+      // bottom: 85,
+      bottom: IS_IOS ? 100 : 85,
       borderRadius: 30,
       display: 'flex',
       justifyContent: 'center',
@@ -26,7 +28,7 @@ const useStyles = () => {
       height: 42,
       width: 42,
       right: 30,
-      bottom: 155,
+      bottom: IS_IOS ? 180 : 155,
       borderRadius: 30,
       display: 'flex',
       justifyContent: 'center',
