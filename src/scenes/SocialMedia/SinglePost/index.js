@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View} from 'react-native';
 import React from 'react';
-import {Text} from '../../../styles';
+import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
 import moment from 'moment';
@@ -11,11 +12,12 @@ import CircularImage from '../../../components/CircularImage';
 const SinglePost = ({post, name, pageIcon, profileType}) => {
   const styles = useStyles();
   const {colors} = useTheme();
+  const Styles = GlobalStyle();
 
   return (
     <>
       <View style={styles.postCard}>
-        <View style={{flex: 1, flexDirection: 'row', marginHorizontal: 5}}>
+        <View style={[Styles.flex, Styles.flexDirectionRow, styles.mh5]}>
           <CircularImage
             img={
               pageIcon && pageIcon.thumb && pageIcon.thumb.url
@@ -23,7 +25,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
                 : pageIcon.url
             }
             name={name}
-            style={[styles.HeaderImage, {flex: 1}]}
+            style={[styles.HeaderIcon, Styles.flex]}
           />
           {profileType === 'facebook' && (
             <FastImage source={FACEBOOK} style={styles.activePost} />
@@ -31,7 +33,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
           {profileType === 'instagram' && (
             <FastImage source={INSTAGRAM} style={styles.activePost} />
           )}
-          <View style={[{flex: 5}]}>
+          <View style={styles.flex10Start}>
             <Text numberOfLines={1} style={[styles.text]}>
               {name}
             </Text>
@@ -53,6 +55,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
               {name}
             </Text>
           )}
+
           {post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
               <AIcon
@@ -71,14 +74,13 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
                 source={{
                   uri: post.image,
                 }}
-                style={{height: 222, width: 320}}
+                style={styles.imageStyle}
                 resizeMode="cover"
               />
             </View>
           )}
         </View>
       </View>
-      <View style={styles.hairline} />
     </>
   );
 };

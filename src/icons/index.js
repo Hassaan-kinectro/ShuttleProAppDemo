@@ -114,3 +114,9 @@ export const SearchIcon = props => {
 export const DownArrowIcon = props => {
   return <FontAwesome5Icons name="sort-down" {...props} />;
 };
+export const LibraryAdd = props => {
+  return <MaterialIcons name="library-add" {...props} />;
+};
+export const PlusIcon = props => {
+  return <MIcon name="plus" {...props} />;
+};

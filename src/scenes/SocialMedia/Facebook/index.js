@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Text, View, FlatList, RefreshControl} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import React from 'react';
 import {defaultPosts, setFacebookPosts, fetchNextFBPosts} from '../helper';
 import {GET_FACEBOOK_ALL_POSTS} from '../../../graphql';
@@ -76,9 +76,8 @@ const Facebook = ({currentProfile, users}) => {
           maxToRenderPerBatch={40}
           initialNumToRender={40}
           contentContainerStyle={{
-            paddingHorizontal: 10,
+            paddingHorizontal: 5,
             paddingBottom: IS_IOS ? 180 : 120,
-            paddingTop: headerHeight - 40,
           }}
           keyExtractor={(item, index) => `${index}`}
           // refreshControl={
@@ -119,24 +118,30 @@ const Facebook = ({currentProfile, users}) => {
             return (
               <>
                 {item.workspaceId ? (
-                  <ShuttlePost
-                    post={item}
-                    name={name}
-                    users={users}
-                    pageIcon={page_icon && page_icon.url ? page_icon.url : ''}
-                    profileType={profile_type}
-                    setPosts={setPosts}
-                    currentProfile={currentProfile}
-                    refetch={refetch}
-                  />
+                  <>
+                    <ShuttlePost
+                      post={item}
+                      name={name}
+                      users={users}
+                      pageIcon={page_icon && page_icon.url ? page_icon.url : ''}
+                      profileType={profile_type}
+                      setPosts={setPosts}
+                      currentProfile={currentProfile}
+                      refetch={refetch}
+                    />
+                    <View style={styles.hairline} />
+                  </>
                 ) : (
-                  <SinglePost
-                    key={item.id}
-                    post={item}
-                    name={name}
-                    pageIcon={page_icon}
-                    profileType={profile_type}
-                  />
+                  <>
+                    <SinglePost
+                      key={item.id}
+                      post={item}
+                      name={name}
+                      pageIcon={page_icon}
+                      profileType={profile_type}
+                    />
+                    <View style={styles.hairline} />
+                  </>
                 )}
               </>
             );

@@ -343,7 +343,6 @@ class DropDownPicker extends React.Component {
       });
 
       const index = this.props.items.findIndex(i => i.value === item.value);
-
       // onChangeItem callback
       this.props.onChangeItem(item, index);
     } else {
@@ -365,12 +364,12 @@ class DropDownPicker extends React.Component {
       });
 
       // onChangeItem callback
-      this.props.onChangeItem(choice.map(i => i.value));
+      this.props.onChangeItem(choice);
     }
 
     // onClose callback (! multiple)
     if (!multiple) {
-      this.props.onClose();
+      this.props && this.props.onClose();
     }
   }
 
@@ -405,11 +404,14 @@ class DropDownPicker extends React.Component {
     let label;
 
     if (typeof item === 'object') {
-      len = item.label.length;
-      label = item.label.substr(
-        0,
-        selected ? this.props.selectedLabelLength : this.props.labelLength,
-      );
+      len = item && item.label && item.label.length;
+      label =
+        item &&
+        item.label &&
+        item.label.substr(
+          0,
+          selected ? this.props.selectedLabelLength : this.props.labelLength,
+        );
     } else if (item !== null && typeof item !== 'undefined') {
       len = item.length;
       label = item.substr(
@@ -420,7 +422,7 @@ class DropDownPicker extends React.Component {
       return item;
     }
 
-    let len2 = label.length;
+    let len2 = label && label.length;
     return label + (len !== len2 ? '...' : '');
   }
 
@@ -556,7 +558,7 @@ class DropDownPicker extends React.Component {
               this.scrollViewRef = ref;
             }}
             {...scrollViewProps}>
-            {items.length > 0 ? (
+            {items && items.length > 0 ? (
               items.map((item, index) => (
                 <View
                   key={index}

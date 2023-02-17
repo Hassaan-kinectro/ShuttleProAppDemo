@@ -23,6 +23,7 @@ import {UpdateStoryById} from '../../services/Stories';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
+import {deviceWidth, IS_IOS} from '../../utils/orientation';
 
 const defaultValue = {id: null, loading: false};
 const StoryRow = ({
@@ -246,6 +247,7 @@ const StoryRow = ({
               item.images &&
               item.images.length > 0 &&
               item.images.map((image, index) => {
+                console.log(item.type);
                 return (
                   <View key={index} style={styles.slide}>
                     {imageLoading && (
@@ -274,6 +276,31 @@ const StoryRow = ({
                 );
               })}
           </Swiper>
+          {item && item.id && item.type === 'instagram' && (
+            <>
+              <TouchableOpacity
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  zIndex: 999,
+                  left: deviceWidth / 2.5,
+                  top: IS_IOS ? 700 : 600,
+                }}
+                onPress={() => {
+                  // if (!loading) {
+                  //   shareFacebookImage(imageUrl, item.id);
+                  // }
+                }}>
+                {loading ? (
+                  <ActivityIndicator style={styles.publishicon} />
+                ) : (
+                  <Image style={styles.publishicon} source={PUBLISH} />
+                )}
+              </TouchableOpacity>
+            </>
+          )}
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setModalVisible(false)}>

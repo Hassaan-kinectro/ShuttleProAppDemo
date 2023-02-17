@@ -71,7 +71,6 @@ export const DeleteStoryById = async id => {
     });
 };
 export const UpdateStoryById = async id => {
-  console.log(id, 'in the service update');
   const responseData = {
     loading: false,
     status: 210,
@@ -83,7 +82,6 @@ export const UpdateStoryById = async id => {
   return instance
     .put(`/stories/${id}`, {data: {}}, token)
     .then(response => {
-      console.log(response, 'aaaaaaaaarrrrrrrrrrr');
       if (response && response.data && response.data.code === 200) {
         response = {
           status: 200,

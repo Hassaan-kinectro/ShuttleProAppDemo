@@ -7,7 +7,7 @@ import {Dark, Light} from '../../utils/imagesPath';
 import useStyles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../utils/constants';
-import {defaultWorkspace, getWorkspace} from './helper';
+import {defaultWorkspace, getWorkspace, postModalDefault} from './helper';
 import SocialTabs from './SocialTabs';
 import CustomHeader from '../../components/CustomHeader';
 import Facebook from './Facebook';
@@ -28,6 +28,9 @@ const SocialMediaProfile = props => {
   const navigation = useNavigation();
   const [workspace, setWorkspace] = React.useState(defaultWorkspace);
   const [currentProfile, setCurrentProfile] = React.useState(null);
+  const [activeProfile, setActiveProfile] = React.useState(null);
+  const [postModals, setPostModals] = React.useState(postModalDefault);
+
   React.useEffect(() => {
     getWorkspace(
       workspaceId,
@@ -39,6 +42,7 @@ const SocialMediaProfile = props => {
 
   const changeProfile = React.useCallback(profile => {
     setCurrentProfile(profile);
+    setActiveProfile(profile);
   }, []);
 
   return (
@@ -57,6 +61,7 @@ const SocialMediaProfile = props => {
           <>
             <View style={Styles.flexDirectionRow}>
               <SocialTabs
+                activeProfile={activeProfile && activeProfile.id}
                 workspaceId={workspaceId}
                 currentProfile={currentProfile}
                 changeProfile={changeProfile}
@@ -67,7 +72,12 @@ const SocialMediaProfile = props => {
             </View>
             {currentProfile && currentProfile.profile_type === 'facebook' && (
               <>
-                <PublishedStories />
+                <PublishedStories
+                  users={workspace.users}
+                  currentProfile={currentProfile}
+                  postModals={postModals}
+                  setPostModals={setPostModals}
+                />
                 <Facebook
                   key={currentProfile.page_id}
                   users={workspace.users}
@@ -77,7 +87,12 @@ const SocialMediaProfile = props => {
             )}
             {currentProfile && currentProfile.profile_type === 'instagram' && (
               <>
-                <PublishedStories />
+                <PublishedStories
+                  users={workspace.users}
+                  currentProfile={currentProfile}
+                  postModals={postModals}
+                  setPostModals={setPostModals}
+                />
                 <Instagram
                   key={currentProfile.page_id}
                   users={workspace.users}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
@@ -5,7 +6,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Alert,
   Modal,
   Text,
 } from 'react-native';
@@ -19,8 +19,17 @@ import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../utils/constants';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import Form from './form';
+import Story from './story';
+import CreateStory from '../../scenes/SocialMedia/CreateStory';
 
-const StoryList = ({publishedStories}) => {
+const StoryList = ({
+  publishedStories,
+  open,
+  loading,
+  closeModal,
+  currentProfile,
+}) => {
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,
@@ -29,6 +38,7 @@ const StoryList = ({publishedStories}) => {
 
   const {colors} = useTheme();
   const [tapped, setTapped] = React.useState(false);
+  const styles = useStyles();
   const workspaceIcon = useSelector(
     state => state.workspace.workspace.workspace.icon.thumb.url,
   );
@@ -36,8 +46,6 @@ const StoryList = ({publishedStories}) => {
     state => state.workspace.workspace.workspace.name,
   );
 
-  const styles = useStyles();
-  console.log(publishedStories, 'publishedStories', publishedStories.length);
   return (
     <>
       <View
@@ -54,7 +62,7 @@ const StoryList = ({publishedStories}) => {
               <TouchableOpacity
                 style={styles.CreateprofileIcon}
                 onPress={() => {
-                  navigation.navigate(Routes.STORY);
+                  navigation.navigate(Routes.SHOWSTORY);
                 }}>
                 <CircularImage
                   img={workspaceIcon}
@@ -64,13 +72,17 @@ const StoryList = ({publishedStories}) => {
                 <F5Icon
                   name="th-list"
                   size={15}
-                  color={colors.searchIcon}
+                  color={colors.button}
                   style={styles.active3}
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.CreateprofileIcon}
-                onPress={() => Alert.alert('Create Story', 'Coming Soon')}>
+                onPress={() => {
+                  navigation.navigate(Routes.CREATESTORY, {
+                    currentProfile: currentProfile,
+                  });
+                }}>
                 <CircularImage
                   img={workspaceIcon}
                   name={workspaceName}
@@ -80,8 +92,9 @@ const StoryList = ({publishedStories}) => {
               </TouchableOpacity>
             </View>
           )}
-          renderItem={({item, index}) => {
-            return (
+          renderItem={({item}) => {
+            <React.Fragment key={item.id}>
+              return (
               <TouchableOpacity
                 style={styles.profileIcon2}
                 onPress={() => {
@@ -125,10 +138,12 @@ const StoryList = ({publishedStories}) => {
                   </>
                 )}
               </TouchableOpacity>
-            );
+              );
+            </React.Fragment>;
           }}
         />
       </View>
+      <View style={styles.hairline2} />
       <View style={{flex: 1}}>
         <Modal
           animationType="slide"

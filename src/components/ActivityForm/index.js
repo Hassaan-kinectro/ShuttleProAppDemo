@@ -156,6 +156,11 @@ const ActivityForm = props => {
     setTemplateVisibility(false);
   };
 
+  {
+    props && props.ComType ? console.log(props.ComType) : console.log('aaaa');
+  }
+  console.log(communicationName, 'name');
+
   return (
     <>
       {!hideField ? (
@@ -326,7 +331,7 @@ const ActivityForm = props => {
           confirmBtnText="OK"
           cancelBtnText="CANCEL"
           format="YYYY-MM-DD HH:mm"
-          onDateChange={(date) => {
+          onDateChange={date => {
             props.setFieldValue('notificationTime', date);
           }}
           iconComponent={

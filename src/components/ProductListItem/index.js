@@ -1,17 +1,13 @@
-import {View, TouchableOpacity, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import React from 'react';
 import useStyles from './styles';
-import {GlobalStyle, Text} from '../../styles';
-import {useTheme} from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Text} from '../../styles';
 import {SHOPIFY, WOOCOMMERCE} from '../../utils/imagesPath';
 import {getImageUrl} from './helper';
+import {ThreeDotsIcon} from '../../icons';
 
 const ProductListItem = ({item}) => {
-  console.log(item, 'item fetch ok data ');
   const styles = useStyles();
-  const Styles = GlobalStyle();
-  const {colors} = useTheme();
   return (
     <>
       <View style={styles.BoxStyle}>
@@ -39,7 +35,7 @@ const ProductListItem = ({item}) => {
             ) : (
               <Text />
             )}
-            <MaterialCommunityIcons size={20} name="dots-vertical" />
+            <ThreeDotsIcon size={22} />
           </View>
         </View>
         <View style={styles.container2}>

@@ -75,7 +75,6 @@ const Instagram = ({currentProfile, users}) => {
           contentContainerStyle={{
             paddingHorizontal: 10,
             paddingBottom: IS_IOS ? 180 : 120,
-            paddingTop: headerHeight - 40,
           }}
           keyExtractor={(item, index) => `${index}`}
           // refreshControl={
@@ -116,24 +115,30 @@ const Instagram = ({currentProfile, users}) => {
             return (
               <>
                 {item.workspaceId ? (
-                  <ShuttlePost
-                    post={item}
-                    name={name}
-                    users={users}
-                    pageIcon={page_icon && page_icon.url ? page_icon.url : ''}
-                    profileType={profile_type}
-                    setPosts={setPosts}
-                    currentProfile={currentProfile}
-                    refetch={refetch}
-                  />
+                  <>
+                    <ShuttlePost
+                      post={item}
+                      name={name}
+                      users={users}
+                      pageIcon={page_icon && page_icon.url ? page_icon.url : ''}
+                      profileType={profile_type}
+                      setPosts={setPosts}
+                      currentProfile={currentProfile}
+                      refetch={refetch}
+                    />
+                    <View style={styles.hairline} />
+                  </>
                 ) : (
-                  <SinglePost
-                    key={item.id}
-                    post={item}
-                    name={name}
-                    pageIcon={page_icon}
-                    profileType={profile_type}
-                  />
+                  <>
+                    <SinglePost
+                      key={item.id}
+                      post={item}
+                      name={name}
+                      pageIcon={page_icon}
+                      profileType={profile_type}
+                    />
+                    <View style={styles.hairline} />
+                  </>
                 )}
               </>
             );

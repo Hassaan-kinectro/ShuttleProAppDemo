@@ -2,9 +2,12 @@ import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
 import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
+import {GlobalStyle} from '../../styles';
 
 const useStyles = () => {
   const {colors} = useTheme();
+  const Styles = GlobalStyle();
+
   return StyleSheet.create({
     container: {
       display: 'flex',
@@ -39,6 +42,12 @@ const useStyles = () => {
       borderColor: colors.boxBorderColor,
       borderWidth: 1,
       // marginHorizontal: 10,
+      marginVertical: 10,
+    },
+    hairline2: {
+      borderColor: colors.boxBorderColor,
+      borderWidth: 1,
+      marginHorizontal: 10,
       marginVertical: 10,
     },
     flex1: {
@@ -107,6 +116,44 @@ const useStyles = () => {
       borderColor: colors.boxBorderColor,
       borderWidth: 2,
     },
+    publishicon: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      padding: 2,
+      borderRadius: 100,
+      marginHorizontal: 10,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
+    },
+    buttonWrapper: {
+      // ...Styles.w50,
+      height: 48,
+      marginTop: 30,
+      width: '40%',
+      // marginRight: 10,
+    },
+    buttonWrapper2: {
+      ...Styles.w100,
+      height: 48,
+      marginTop: 30,
+    },
+    buttonContainer: {
+      ...Styles.w100,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+    },
+    linearGradient: {
+      width: '100%',
+      borderRadius: 5,
+      ...Styles.justifyContentCenter,
+      height: 48,
+    },
+    buttonText: {
+      textAlign: 'center',
+      lineHeight: 19,
+    },
     userImage: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -115,7 +162,46 @@ const useStyles = () => {
       padding: 30,
       borderRadius: 100,
       marginHorizontal: 10,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
     },
+    containerimagesArr: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    imageContainer: {
+      width: '50%',
+      aspectRatio: 1,
+      marginVertical: 5,
+      marginHorizontal: 5,
+      borderWidth: 1,
+      borderColor: '#ccc',
+    },
+    selectedImageContainer: {
+      borderColor: colors.button,
+      borderStyle: 'dotted',
+      borderWidth: 3,
+    },
+    imageArr: {
+      height: 80,
+      width: 80,
+      aspectRatio: 1,
+      margin: 5,
+      borderRadius: 10,
+      position: 'relative',
+    },
+    addActivity: {
+      backgroundColor: colors.button,
+      width: 125,
+      height: 40,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    modal: {
+      margin: 0,
+      marginTop: 0,
+    },
+    mB15: {marginBottom: 15},
     userImage5: {
       justifyContent: 'center',
       alignItems: 'center',

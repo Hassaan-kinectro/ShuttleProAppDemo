@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import {View, RefreshControl, Text, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import React, {useRef} from 'react';
 import CustomHeader from '../../../components/CustomHeader';
 import {useSelector} from 'react-redux';
@@ -19,7 +19,6 @@ import Loader from '../../../components/Loader';
 import {GlobalStyle} from '../../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
-import StoryList from '../../../components/Story/storyContainer';
 import {DeleteStoryById} from '../../../services/Stories';
 
 const defaultValue = {id: null, loading: false};

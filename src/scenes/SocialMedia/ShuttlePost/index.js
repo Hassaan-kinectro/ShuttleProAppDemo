@@ -1,6 +1,7 @@
-import {View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
-import {Text} from '../../../styles';
+/* eslint-disable react-native/no-inline-styles */
+import {View, TouchableOpacity} from 'react-native';
+import React, {useCallback} from 'react';
+import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
 import moment from 'moment';
@@ -8,14 +9,27 @@ import {useTheme} from '@react-navigation/native';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
-const ShuttlePost = ({post, name, pageIcon, profileType}) => {
+import PopupMenu from '../../../components/PopupMenu';
+import Swiper from 'react-native-swiper';
+
+import FastImage from 'react-native-fast-image';
+import {GetMenuList} from '../helper';
+const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
-
+  const Styles = GlobalStyle();
+  const getAction = useCallback(
+    action => {
+      if (action.onClick) {
+        action.onClick(post, profileType, setPosts);
+      }
+    },
+    [post, profileType, setPosts],
+  );
   return (
     <>
       <View style={styles.postCard}>
-        <View style={{flex: 1, flexDirection: 'row', marginHorizontal: 5}}>
+        <View style={[Styles.flex, Styles.flexDirectionRow, styles.mh5]}>
           <CircularImage
             img={
               pageIcon && pageIcon.thumb && pageIcon.thumb.url
@@ -23,15 +37,15 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 : pageIcon.url
             }
             name={name}
-            style={[styles.HeaderImage, {flex: 1}]}
+            style={[styles.HeaderIcon, Styles.flex]}
           />
           {profileType === 'facebook' && (
-            <Image source={FACEBOOK} style={styles.activePost} />
+            <FastImage source={FACEBOOK} style={styles.activePost} />
           )}
           {profileType === 'instagram' && (
-            <Image source={INSTAGRAM} style={styles.activePost} />
+            <FastImage source={INSTAGRAM} style={styles.activePost} />
           )}
-          <View style={[{flex: 5}]}>
+          <View style={styles.flex10Start}>
             <Text numberOfLines={1} style={[styles.text]}>
               {name}
             </Text>
@@ -41,13 +55,10 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 : moment(post.created_at).format('YYYY-MM-DD hh:mm')}
             </Text>
           </View>
-          <TouchableOpacity>
-            <F5Icon
-              name={'ellipsis-v'}
-              size={20}
-              style={{color: colors.TextColor}}
-            />
-          </TouchableOpacity>
+          <PopupMenu
+            options={GetMenuList(post.postStatus, post.scheduleId)}
+            onClick={getAction}
+          />
         </View>
         <Text
           numberOfLines={5}
@@ -72,13 +83,32 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 Wait! Image is loading...
               </Text>
             </View>
+          ) : post.carousel ? (
+            <Swiper style={{height: 320}} showsPagination={true}>
+              {post.carousel &&
+                post.carousel.length > 0 &&
+                post.carousel.map((image, index) => {
+                  return (
+                    <View key={`${index}`}>
+                      <FastImage
+                        style={styles.imageStyle}
+                        source={{
+                          uri: image,
+                        }}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  );
+                })}
+            </Swiper>
           ) : (
             <View style={styles.imageContainerStyle}>
-              <Image
+              <FastImage
                 source={{
                   uri: post.image,
                 }}
-                style={{height: 222, width: 320}}
+                style={styles.imageStyle}
+                resizeMode="contain"
               />
             </View>
           )}
