@@ -24,6 +24,9 @@ export const Routes = {
   DESIGNS: 'designs',
   INBOX: 'inbox',
   STORY: 'story',
+  SHOWSTORY: 'showStory',
+  CREATESTORY: 'createStory',
+  LOADIMAGES: 'loadImages',
   STORYLOADING: 'story loading',
   SETTINGS: 'settings',
   SHIPPERS: 'shippers',
@@ -50,3 +53,5 @@ export const FACEBOOK = 'facebook';
 export const INSTAGRAM = 'instagram';
 export const POST_LIMIT = '25';
 export const TIMELINE = 'timeLine';
+export const POST_DATE_TIME = 'YYYY-MM-DDTHH:mm';
+export const DATE = 'YYYY-MM-DD';

@@ -9,7 +9,7 @@ import StoryList from '../../../components/Story/storyContainer';
 
 const defaultValue = {id: null, loading: false};
 
-const PublishedStories = props => {
+const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
@@ -27,11 +27,24 @@ const PublishedStories = props => {
     };
   }, []);
 
+  const closeStoryModal = React.useCallback(() => {
+    setPostModals(prev => {
+      return {
+        ...prev,
+        facebookStory: false,
+      };
+    });
+  }, [setPostModals]);
+
   return (
     <>
-      <View style={[]}>
-        <StoryList publishedStories={publishedStories} />
-      </View>
+      <StoryList
+        publishedStories={publishedStories}
+        currentProfile={currentProfile}
+        closeModal={closeStoryModal}
+        open={postModals.facebookStory}
+        loading={postModals.loading}
+      />
     </>
   );
 };

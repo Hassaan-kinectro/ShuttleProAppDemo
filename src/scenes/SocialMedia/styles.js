@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
 import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
-
+import {GlobalStyle} from '../../styles';
 const useStyles = () => {
   const {colors} = useTheme();
+  const Styles = GlobalStyle();
   return StyleSheet.create({
     container: {
       display: 'flex',
@@ -26,6 +27,16 @@ const useStyles = () => {
       alignItems: 'flex-end',
       flexDirection: 'row',
     },
+    BoxStyle: {
+      height: 'auto',
+      width: IS_IOS ? deviceWidth - 40 : deviceWidth - 40,
+      borderWidth: 1,
+      borderRadius: 20,
+      borderColor: colors.boxBorderColor,
+      marginBottom: 40,
+      backgroundColor: colors.boxColor,
+      marginHorizontal: 20,
+    },
     hairline: {
       borderColor: colors.boxBorderColor,
       borderWidth: 1,
@@ -39,6 +50,17 @@ const useStyles = () => {
     },
     flex1: {
       flex: 1,
+    },
+    publishicon: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      padding: 2,
+      borderRadius: 100,
+      marginHorizontal: 10,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
     },
     slide: {
       flex: 1,
@@ -222,6 +244,33 @@ const useStyles = () => {
       right: -40,
       top: -15,
     },
+    topHeader: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+      marginBottom: 10,
+    },
+    bg: {backgroundColor: '#5285D4'},
+    white: {color: '#fff'},
+    bgLight: {backgroundColor: colors.LightBackground},
+    innerHeader: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      borderColor: colors.fontPrimary,
+      borderWidth: 2,
+      padding: 8,
+      borderRadius: 50,
+    },
+    activeHeader: {
+      width: 15,
+      height: 15,
+    },
     activePost: {
       width: 15,
       height: 15,
@@ -295,7 +344,37 @@ const useStyles = () => {
       alignItems: 'center',
       flexDirection: 'column',
       marginTop: 10,
+      height: '100%',
+      width: '100%',
     },
+    buttonWrapper: {
+      // ...Styles.w50,
+      height: 48,
+      marginTop: 30,
+      width: '40%',
+      // marginRight: 10,
+    },
+    buttonWrapper2: {
+      ...Styles.w100,
+      height: 48,
+      marginTop: 30,
+    },
+    buttonContainer: {
+      ...Styles.w100,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+    },
+    linearGradient: {
+      width: '100%',
+      borderRadius: 5,
+      ...Styles.justifyContentCenter,
+      height: 48,
+    },
+    buttonText: {
+      textAlign: 'center',
+      lineHeight: 19,
+    },
+
     dropIcon: {position: 'absolute', top: 20, right: 15, width: 20},
   });
 };

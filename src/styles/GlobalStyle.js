@@ -233,6 +233,7 @@ const GlobalStyle = theme => {
     w100: {
       width: '100%',
     },
+
     InputStyle: {
       backgroundColor: 'transparent',
       height: 45,
@@ -257,23 +258,26 @@ const GlobalStyle = theme => {
       paddingBottom: 10,
     },
     dateFont: {
-      color: colors.textColor,
+      color: colors.TextColor,
       opacity: 0.5,
       fontSize: 14,
     },
     dateText: {
-      color: colors.textColor,
+      color: colors.TextColor,
       opacity: 0.5,
       fontSize: 12,
     },
     datePickerStyle: {
       paddingLeft: 10,
-      color: colors.textColor,
+      borderBottomColor: colors.feildBorder,
+      color: colors.TextColor,
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      backgroundColor: colors.textAreaColor,
-      borderWidth: 1,
-      borderColor: colors.button,
+      backgroundColor: 'transparent',
+      borderBottomWidth: 1,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 0,
       borderRadius: 5,
       height: 45,
     },
@@ -293,7 +297,7 @@ const GlobalStyle = theme => {
       borderRadius: 0,
     },
     placeholderStyle: {
-      color: colors.placeholder,
+      color: colors.TextColor,
     },
     activeLabelStyle: {
       color: colors.TextColor,

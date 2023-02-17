@@ -36,6 +36,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import StoryLoading from '../scenes/StoryLoading';
 import ShowStory from '../scenes/SocialMedia/ShowStory';
+import CreateStory from '../scenes/SocialMedia/CreateStory';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -183,8 +184,18 @@ const SOCIALMEDIA = () => {
           title: 'Show Story',
           ...StackCommonHeaderOptions(navigation),
         })}
-        name={Routes.STORY}
+        name={Routes.SHOWSTORY}
         component={ShowStory}
+      />
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Create Story',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.CREATESTORY}
+        component={CreateStory}
       />
     </Stack.Navigator>
   );

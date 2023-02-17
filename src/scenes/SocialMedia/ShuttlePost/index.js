@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
@@ -9,12 +9,23 @@ import {useTheme} from '@react-navigation/native';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
+import PopupMenu from '../../../components/PopupMenu';
+import Swiper from 'react-native-swiper';
+
 import FastImage from 'react-native-fast-image';
-const ShuttlePost = ({post, name, pageIcon, profileType}) => {
+import {GetMenuList} from '../helper';
+const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
   const Styles = GlobalStyle();
-
+  const getAction = useCallback(
+    action => {
+      if (action.onClick) {
+        action.onClick(post, profileType, setPosts);
+      }
+    },
+    [post, profileType, setPosts],
+  );
   return (
     <>
       <View style={styles.postCard}>
@@ -44,13 +55,10 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 : moment(post.created_at).format('YYYY-MM-DD hh:mm')}
             </Text>
           </View>
-          <TouchableOpacity>
-            <F5Icon
-              name={'ellipsis-v'}
-              size={20}
-              style={{color: colors.TextColor}}
-            />
-          </TouchableOpacity>
+          <PopupMenu
+            options={GetMenuList(post.postStatus, post.scheduleId)}
+            onClick={getAction}
+          />
         </View>
         <Text
           numberOfLines={5}
@@ -75,6 +83,24 @@ const ShuttlePost = ({post, name, pageIcon, profileType}) => {
                 Wait! Image is loading...
               </Text>
             </View>
+          ) : post.carousel ? (
+            <Swiper style={{height: 320}} showsPagination={true}>
+              {post.carousel &&
+                post.carousel.length > 0 &&
+                post.carousel.map((image, index) => {
+                  return (
+                    <View key={`${index}`}>
+                      <FastImage
+                        style={styles.imageStyle}
+                        source={{
+                          uri: image,
+                        }}
+                        resizeMode="contain"
+                      />
+                    </View>
+                  );
+                })}
+            </Swiper>
           ) : (
             <View style={styles.imageContainerStyle}>
               <FastImage

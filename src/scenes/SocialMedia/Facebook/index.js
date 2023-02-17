@@ -76,9 +76,8 @@ const Facebook = ({currentProfile, users}) => {
           maxToRenderPerBatch={40}
           initialNumToRender={40}
           contentContainerStyle={{
-            paddingHorizontal: 10,
+            paddingHorizontal: 5,
             paddingBottom: IS_IOS ? 180 : 120,
-            paddingTop: headerHeight - 40,
           }}
           keyExtractor={(item, index) => `${index}`}
           // refreshControl={

@@ -55,6 +55,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
               {name}
             </Text>
           )}
+
           {post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
               <AIcon

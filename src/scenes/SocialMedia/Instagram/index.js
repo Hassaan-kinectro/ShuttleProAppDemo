@@ -75,7 +75,6 @@ const Instagram = ({currentProfile, users}) => {
           contentContainerStyle={{
             paddingHorizontal: 10,
             paddingBottom: IS_IOS ? 180 : 120,
-            paddingTop: headerHeight - 40,
           }}
           keyExtractor={(item, index) => `${index}`}
           // refreshControl={

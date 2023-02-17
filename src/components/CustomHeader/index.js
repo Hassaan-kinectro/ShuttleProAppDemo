@@ -137,19 +137,6 @@ const CustomHeader = ({
                       console.log('The button');
                     },
                   },
-                  {
-                    label: 'Logout1',
-                    selected: true,
-                    onClick: () => {
-                      console.log('The button');
-                    },
-                  },
-                  {
-                    label: 'Logout2',
-                    onClick: () => {
-                      console.log('The button');
-                    },
-                  },
                 ]}
               />
             </View>

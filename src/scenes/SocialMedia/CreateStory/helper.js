@@ -1,13 +1,16 @@
-import {convertImageTobase64} from '../../utils/urlParser';
+import {convertImageTobase64} from '../../../utils/urlParser';
 import moment from 'moment';
 import * as Yup from 'yup';
 // import {DATE, POST_DATE_TIME} from '../../util';
-import {SaveStories, SaveScheduleStories} from '../../services/SocialProfiles';
+import {
+  SaveStories,
+  SaveScheduleStories,
+} from '../../../services/SocialProfiles';
 import {showMessage} from 'react-native-flash-message';
-import * as Constants from '../../scenes/SocialMedia/Constants';
-import {POST_DATE_TIME, DATE} from '../../scenes/SocialMedia/Constants';
-import {FetchProductImages} from '../../services/Instagram';
-import {FetchFilterProducts} from '../../services/Products';
+import * as Constants from '../Constants';
+import {POST_DATE_TIME, DATE} from '../Constants';
+import {FetchProductImages} from '../../../services/Instagram';
+import {FetchFilterProducts} from '../../../services/Products';
 import {flattenDeep, min, uniqBy} from 'lodash';
 
 let base64Images;
@@ -75,7 +78,6 @@ export const initialValues = {
 };
 
 export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
-  console.log(values, setFieldValue, workspaceId);
   setFieldValue(Constants.IMG_ARR, []);
   setFieldValue(Constants.SELECTED_IMG_ARR, []);
   setFieldValue(Constants.DELETED_NUM_ARR, []);
@@ -85,7 +87,6 @@ export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
     values.selectionType &&
     values.selectionType.id === Constants.PRODUCT
   ) {
-    console.log(values.productIds, 'start');
     setFieldValue(Constants.IMG_LOADING, true);
     const ids = values.productIds.map(product => product.id);
     const resp = await FetchProductImages(ids, workspaceId);
@@ -109,34 +110,45 @@ export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
     }
     setFieldValue(Constants.IMG_LOADING, false);
   } else if (
+    workspaceId &&
     values &&
     values.selectionType &&
     values.selectionType.id === Constants.CATEGORY
   ) {
     setFieldValue(Constants.IMG_LOADING, true);
+    const categoryids =
+      values && values.categoryId && values.categoryId.length > 0
+        ? values.categoryId.map(category => category.id)
+        : null;
     const resp = await FetchFilterProducts({
-      category: values.categoryId,
+      category: categoryids,
       tag: null,
       preference: null,
-      workspaceId: workspaceId,
+      workspaceId: workspaceId ? workspaceId : null,
     });
     if (resp.status === 200) {
       setFieldValue(Constants.IMG_ARR, getImagesArr(resp.data));
     } else {
+      console.log('else return for category');
       setFieldValue(Constants.IMG_ARR, []);
     }
     setFieldValue(Constants.IMG_LOADING, false);
   } else {
     setFieldValue(Constants.IMG_LOADING, true);
+    const tagids =
+      values && values.tagId && values.tagId.length > 0
+        ? values.tagId.map(tag => tag.id)
+        : null;
     const resp = await FetchFilterProducts({
       category: null,
-      tag: values.tagId,
+      tag: tagids,
       preference: null,
-      workspaceId: workspaceId,
+      workspaceId: workspaceId ? workspaceId : null,
     });
     if (resp.status === 200) {
       setFieldValue(Constants.IMG_ARR, getImagesArr(resp.data));
     } else {
+      console.log('else return for');
       setFieldValue(Constants.IMG_ARR, []);
     }
     setFieldValue(Constants.IMG_LOADING, false);
@@ -201,36 +213,39 @@ const getImagesArr = respData => {
   return result;
 };
 
-export const saveStory = async (values, handles, closeStoryModal) => {
+export const saveStory = async (values, selectedImages) => {
+  console.log(values, selectedImages, 'RAAAAAANNN CONSSSOLEEEE');
   if (values[Constants.FORM_TYPE] === Constants.CUSTOM) {
     let dateFormat = '';
     if (values.date) {
       dateFormat = moment(values.date).format(POST_DATE_TIME);
     }
-
-    handles.setFieldValue('loading', true);
     let formData = {
       type: values.type || '',
       pageName: values.pageName || '',
       pagelogo: values.pagelogo || '',
-      workspaceId: values.workspaceId.toString() || '',
+      workspaceId: values.workspaceId || '',
       pageId: values.pageId || '',
       accessToken: values.accessToken || '',
-      carousel: values.carousel || '',
-      productIds: values.products || [],
+      carousel: selectedImages || [],
+      productIds:
+        values && values.productIds && values.productIds.length > 0
+          ? values.productIds.map(product => product.id)
+          : [],
       userId: values.userId || '',
       shareAt: dateFormat,
     };
-    console.log(formData);
     const resp = await SaveStories(formData);
+    console.log(resp, 'this is resp');
     if (resp.status === 200) {
+      console.log(resp.status, 'this is status');
       showMessage({
         message: resp.message,
         description: 'Story Saved Successfully',
         type: 'success',
       });
-      handles.resetForm();
-      closeStoryModal();
+      // handles.resetForm();
+      // closeStoryModal();
     } else {
       showMessage({
         message: resp.message,
@@ -238,10 +253,10 @@ export const saveStory = async (values, handles, closeStoryModal) => {
         type: 'DANGER',
       });
     }
-    handles.setFieldValue('loading', false);
+    // handles.setFieldValue('loading', false);
   } else {
     console.log(values);
-    handles.setFieldValue('loading', true);
+    // handles.setFieldValue('loading', true);
     const stories = values.slots.map(s => {
       return {
         type: values.type || '',
@@ -264,8 +279,8 @@ export const saveStory = async (values, handles, closeStoryModal) => {
         description: 'Story Schedule Saved Successfully',
         type: 'success',
       });
-      handles.resetForm();
-      closeStoryModal();
+      // handles.resetForm();
+      // closeStoryModal();
     } else {
       showMessage({
         message: resp.message,
@@ -273,6 +288,6 @@ export const saveStory = async (values, handles, closeStoryModal) => {
         type: 'DANGER',
       });
     }
-    handles.setFieldValue('loading', false);
+    // handles.setFieldValue('loading', false);
   }
 };

@@ -1,143 +1,12 @@
 // import React from 'react';
 // import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
+import React, {useState} from 'react';
 import {TouchableOpacity, StyleSheet, View, ScrollView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Colors, Mixins, Styles, Text} from '../../styles';
 import {ThreeDotsIcon} from '../../icons';
-// const PopUpMenu = props => {
-//   let menuRef = React.useRef(null);
-//   const {colors} = useTheme();
-//   const styles = useStyles(colors);
-//   const setMenuRef = ref => {
-//     menuRef = ref;
-//   };
-//   const hideMenu = onclick => {
-//     menuRef.hide(() => {
-//       // console.log('WOW! MENU IS CLOSED!');
-//       if (onclick) {
-//         onclick();
-//       }
-//     });
-//   };
-
-//   const showMenu = () => {
-//     menuRef.show();
-//   };
-//   return (
-//     <>
-//       <Menu
-//         ref={setMenuRef}
-//         button={
-//           <TouchableOpacity
-//             style={[
-//               Styles.alignItemsCenter,
-//               Styles.flexDirectionRow,
-
-//               Styles.justifyContentCenter,
-//               // styles.mLeft,
-//               props.iconType === 'AntDesign' ? styles.arrowButton : {},
-//               {...props.style},
-//             ]}
-//             activeOpacity={0.6}
-//             onPress={() => {
-//               showMenu();
-//             }}>
-//             {props.text ? props.text : null}
-//             {props.iconType === 'FontAwesome' && (
-//               <FIcon
-//                 name={props.iconName}
-//                 size={props.size || 26}
-//                 color={props.color || Colors.GRAYBTN}
-//                 //style=
-//               />
-//             )}
-//             {props.iconType === 'FontAwesome5' && (
-//               <F5Icon
-//                 name={props.iconName}
-//                 size={props.size || 26}
-//                 color={props.color || Colors.GRAYBTN}
-//                 //style=
-//               />
-//             )}
-//             {props.iconType === 'Material' && (
-//               <MIcon
-//                 name={props.iconName}
-//                 size={props.size || 10}
-//                 color={props.color || Colors.WHITE}
-//               />
-//             )}
-//             {props.iconType === 'AntDesign' && (
-//               <AIcon name={props.iconName} size={10} color={Colors.WHITE} />
-//               //   ||
-//             )}
-//           </TouchableOpacity>
-//         }
-//         style={styles.MenuContainer}>
-//         <ScrollView style={styles.MenuHeight}>
-//           {props.options && props.options.length > 0
-//             ? props.options.map((op, i) => (
-//                 <View key={op.label}>
-//                   <MenuItem
-//                     style={[
-//                       styles.MenuItemStyle,
-//                       op.selected && op.selected === true
-//                         ? styles.MenuItemSelected
-//                         : {},
-//                     ]}
-//                     textStyle={
-//                       (styles.MenuItemTextStyle,
-//                       {color: op.disabled ? Colors.GRAY : colors.textColor})
-//                     }
-//                     onPress={() => {
-//                       hideMenu(op.onClick);
-//                       // op.onClick();
-//                     }}>
-//                     {op.icon ? op.icon : null} {op.label}
-//                   </MenuItem>
-//                   {props.options.length - 1 !== i && (
-//                     <MenuDivider color={Colors.GRAY} />
-//                   )}
-//                 </View>
-//               ))
-//             : null}
-//           {props.subOptions && props.subOptions.length > 0 && (
-//             <View style={styles.seperator} />
-//           )}
-//           {props.subOptions && props.subOptions.length > 0
-//             ? props.subOptions.map((op, i) => (
-//                 <View key={op.label}>
-//                   <MenuItem
-//                     style={[
-//                       styles.MenuItemStyle,
-//                       op.selected && op.selected === true
-//                         ? styles.MenuItemSelected
-//                         : {},
-//                     ]}
-//                     textStyle={
-//                       (styles.MenuItemTextStyle,
-//                       {color: op.disabled ? 'red' : 'pink'})
-//                     }
-//                     onPress={() => {
-//                       hideMenu(op.onClick);
-//                     }}>
-//                     {op.icon ? op.icon : null} {op.label}
-//                   </MenuItem>
-//                   {props.subOptions.length - 1 !== i && (
-//                     <MenuDivider color={Colors.GRAY} />
-//                   )}
-//                 </View>
-//               ))
-//             : null}
-//         </ScrollView>
-//       </Menu>
-//     </>
-//   );
-// };
-
-import React, {useState} from 'react';
-
 import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
-const PopUpMenu = ({HeaderAnchor, options = []}) => {
+const PopUpMenu = ({HeaderAnchor, options = [], onClick = null}) => {
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const [visible, setVisible] = useState(false);
@@ -180,8 +49,12 @@ const PopUpMenu = ({HeaderAnchor, options = []}) => {
                     {color: op.disabled ? Colors.GRAY : colors.textColor},
                   ]}
                   onPress={() => {
-                    hideMenu(op.onClick);
-                    // op.onClick();
+                    hideMenu();
+                    if (onClick) {
+                      onClick(op);
+                    } else {
+                      op.onClick();
+                    }
                   }}>
                   {op.icon ? op.icon : null} {op.label}
                 </MenuItem>
