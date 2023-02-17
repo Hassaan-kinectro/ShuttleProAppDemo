@@ -166,7 +166,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
-              zIndex={50010}
+              zIndex={50008}
             />
           </>
         )}
@@ -216,7 +216,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
-              zIndex={50010}
+              zIndex={50005}
             />
           </>
         )}
@@ -266,6 +266,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
+              zIndex={50002}
             />
           </>
         )}

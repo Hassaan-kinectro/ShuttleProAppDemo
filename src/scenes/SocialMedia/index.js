@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {Styles, Text} from '../../styles';
+import {View} from 'react-native';
+import {Styles} from '../../styles';
 import {useSelector} from 'react-redux';
 import Wrapper from '../../components/Wrapper';
 import {Dark, Light} from '../../utils/imagesPath';
 import useStyles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {Routes} from '../../utils/constants';
 import {defaultWorkspace, getWorkspace, postModalDefault} from './helper';
 import SocialTabs from './SocialTabs';
 import CustomHeader from '../../components/CustomHeader';
@@ -15,8 +14,10 @@ import Instagram from './Instagram';
 import DataNotAvailable from './DataNotAvailable';
 import Loader from '../../components/Loader';
 import PublishedStories from './PublishedStories';
+
 const SocialMediaProfile = props => {
   const styles = useStyles();
+
   const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
@@ -103,12 +104,6 @@ const SocialMediaProfile = props => {
           </>
         ) : (
           <>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(Routes.STORY);
-              }}>
-              <Text> Click for Stories</Text>
-            </TouchableOpacity>
             <DataNotAvailable />
           </>
         )}

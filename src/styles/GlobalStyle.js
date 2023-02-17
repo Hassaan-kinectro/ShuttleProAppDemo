@@ -250,7 +250,6 @@ const GlobalStyle = theme => {
       width: '100%',
       paddingBottom: 5,
       marginTop: 10,
-      backgroundColor: 'pink',
     },
     iconComponent: {
       position: 'absolute',
@@ -309,14 +308,14 @@ const GlobalStyle = theme => {
     itemStyle: {
       justifyContent: 'flex-start',
       borderBottomWidth: 1,
-      backgroundColor: 'pink',
+      backgroundColor: colors.background,
       borderBottomColor: colors.feildBorder,
       color: colors.TextColor,
       paddingLeft: 10,
       borderRadius: 0,
     },
     dropDownContainerStyle: {
-      backgroundColor: 'blue',
+      backgroundColor: 'transparent',
       borderBottomWidth: 1,
       borderLeftWidth: 0,
       borderRightWidth: 0,
@@ -327,7 +326,6 @@ const GlobalStyle = theme => {
     containerStyle: {
       height: 45,
       marginBottom: 20,
-      backgroundColor: 'red',
     },
     activeItemStyle: {
       backgroundColor: colors.background,

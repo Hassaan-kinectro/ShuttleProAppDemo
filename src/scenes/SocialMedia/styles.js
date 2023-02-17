@@ -339,13 +339,13 @@ const useStyles = () => {
       left: 40,
     },
     imageContainerStyle: {
-      flex: 1,
+      // flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
-      marginTop: 10,
-      height: 320,
-      width: 320,
+      // marginTop: 10,
+      height: 340,
+      width: 340,
     },
     buttonWrapper: {
       // ...Styles.w50,

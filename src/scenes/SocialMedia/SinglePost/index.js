@@ -55,30 +55,31 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
               {name}
             </Text>
           )}
-
-          {post.image && post.image.includes('video') ? (
-            <View style={styles.imageContainerStyle}>
-              <AIcon
-                name="warning"
-                color={colors.textColorLight}
-                size={40}
-                style={styles.pB10}
-              />
-              <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                Wait! Image is loading...
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.imageContainerStyle}>
-              <FastImage
-                source={{
-                  uri: post.image,
-                }}
-                style={styles.imageStyle}
-                resizeMode="cover"
-              />
-            </View>
-          )}
+          <View style={{backgroundColor: 'blue'}}>
+            {post.image && post.image.includes('video') ? (
+              <View style={styles.imageContainerStyle}>
+                <AIcon
+                  name="warning"
+                  color={colors.textColorLight}
+                  size={40}
+                  style={styles.pB10}
+                />
+                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
+                  Wait! Image is loading...
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.imageContainerStyle}>
+                <FastImage
+                  source={{
+                    uri: post.image,
+                  }}
+                  style={styles.imageStyle}
+                  resizeMode="cover"
+                />
+              </View>
+            )}
+          </View>
         </View>
       </View>
     </>
