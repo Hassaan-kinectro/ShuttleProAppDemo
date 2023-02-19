@@ -67,10 +67,10 @@ const OrdersFilterModal = props => {
         setEndDate(props.filter.endDate);
       }
       if (props.filter.status_type && props.statusTypes) {
-        setStatus(
-          props.statusTypes.find(s => s.value === props.filter.status_type)
-            .value,
+        const al = props.statusTypes.find(
+          s => s.value === props.filter.status_type,
         );
+        setStatus((al && al.value) || null);
       }
     }
   }, [props.filter, props.statusTypes]);
