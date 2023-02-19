@@ -154,6 +154,11 @@ const useStyles = () => {
       textAlign: 'center',
       lineHeight: 19,
     },
+    buttonText2: {
+      textAlign: 'center',
+      lineHeight: 19,
+      paddingHorizontal: 20,
+    },
     userImage: {
       justifyContent: 'center',
       alignItems: 'center',

@@ -41,7 +41,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         }
         contentContainerStyle={{
           paddingHorizontal: 5,
-          paddingBottom: IS_IOS ? 180 : 200,
+          paddingBottom: IS_IOS ? deviceHeight - 770 : deviceHeight - 670,
         }}
         ListHeaderComponent={() => {
           return (

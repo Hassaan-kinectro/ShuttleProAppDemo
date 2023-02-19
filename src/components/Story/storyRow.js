@@ -5,7 +5,7 @@
 import React from 'react';
 import useStyles from './styles';
 import {PUBLISH, DELETE, INSTAGRAM, FACEBOOK} from '../../utils/imagesPath';
-import {Text} from '../../styles';
+import {Text, Mixins} from '../../styles';
 import {
   Modal,
   View,
@@ -24,6 +24,8 @@ import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
 import {deviceWidth, IS_IOS} from '../../utils/orientation';
+import LinearGradient from 'react-native-linear-gradient';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const defaultValue = {id: null, loading: false};
 const StoryRow = ({
@@ -45,7 +47,7 @@ const StoryRow = ({
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
-
+  console.log(item.status, 'this is itemaaaaaaaa');
   const shareInstagramImage = async (urls, id) => {
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
@@ -177,42 +179,76 @@ const StoryRow = ({
             justifyContent: 'flex-end',
             alignItems: 'flex-end',
           }}>
-          {item && item.id && item.type === 'instagram' && (
-            <>
-              <TouchableOpacity
-                style={{left: 13}}
-                disabled={disabled}
-                onPress={() => {
-                  if (!loading) {
-                    shareInstagramImage(imageUrl, item.id);
-                  }
-                }}>
-                {loading && !disabled ? (
-                  <ActivityIndicator style={styles.image} />
-                ) : (
-                  <Image style={styles.image} source={PUBLISH} />
-                )}
-              </TouchableOpacity>
-            </>
-          )}
-          {item && item.id && item.type === 'facebook' && (
-            <>
-              <TouchableOpacity
-                style={{left: 13}}
-                disabled={disabled}
-                onPress={() => {
-                  if (!loading) {
-                    shareFacebookImage(imageUrl, item.id);
-                  }
-                }}>
-                {loading && !disabled ? (
-                  <ActivityIndicator style={styles.image} />
-                ) : (
-                  <Image style={styles.image} source={PUBLISH} />
-                )}
-              </TouchableOpacity>
-            </>
-          )}
+          {item &&
+            item.id &&
+            item.type === 'instagram' &&
+            item.status === 'ready' && (
+              <>
+                <TouchableOpacity
+                  style={{left: 13}}
+                  disabled={disabled}
+                  onPress={() => {
+                    if (!loading) {
+                      shareInstagramImage(imageUrl, item.id);
+                    }
+                  }}>
+                  {loading && !disabled ? (
+                    <ActivityIndicator style={styles.image} />
+                  ) : (
+                    <Image style={styles.image} source={PUBLISH} />
+                  )}
+                </TouchableOpacity>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'facebook' &&
+            item.status === 'ready' && (
+              <>
+                <TouchableOpacity
+                  style={{left: 13}}
+                  disabled={disabled}
+                  onPress={() => {
+                    if (!loading) {
+                      shareFacebookImage(imageUrl, item.id);
+                    }
+                  }}>
+                  {loading && !disabled ? (
+                    <ActivityIndicator style={styles.image} />
+                  ) : (
+                    <Image style={styles.image} source={PUBLISH} />
+                  )}
+                </TouchableOpacity>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'instagram' &&
+            item.status === 'published' && (
+              <>
+                <View style={{left: 13}} disabled={disabled}>
+                  {loading && !disabled ? (
+                    <ActivityIndicator style={styles.image} />
+                  ) : (
+                    <Image style={styles.image} source={PUBLISH} />
+                  )}
+                </View>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'facebook' &&
+            item.status === 'published' && (
+              <>
+                <View style={{left: 13}} disabled={disabled}>
+                  {loading && !disabled ? (
+                    <ActivityIndicator style={styles.image} />
+                  ) : (
+                    <Image style={styles.image} source={PUBLISH} />
+                  )}
+                </View>
+              </>
+            )}
           {item && isDeleting ? (
             <ActivityIndicator style={styles.image} />
           ) : (
@@ -276,31 +312,172 @@ const StoryRow = ({
                 );
               })}
           </Swiper>
-          {item && item.id && item.type === 'instagram' && (
-            <>
-              <TouchableOpacity
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  zIndex: 999,
-                  left: deviceWidth / 2.5,
-                  top: IS_IOS ? 700 : 600,
-                }}
-                onPress={() => {
-                  // if (!loading) {
-                  //   shareFacebookImage(imageUrl, item.id);
-                  // }
-                }}>
-                {loading ? (
-                  <ActivityIndicator style={styles.publishicon} />
-                ) : (
-                  <Image style={styles.publishicon} source={PUBLISH} />
-                )}
-              </TouchableOpacity>
-            </>
-          )}
+          {item &&
+            item.id &&
+            item.type === 'instagram' &&
+            item.status === 'published' && (
+              <>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    zIndex: 999,
+                    left: deviceWidth / 2.5,
+                    top: IS_IOS ? 700 : 600,
+                  }}>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.9}}
+                    colors={['#131', '#3662A8']}
+                    style={styles.linearGradient}>
+                    {loading ? (
+                      <ActivityIndicator
+                        type={'ThreeBounce'}
+                        size={30}
+                        color={colors.textColorLight}
+                      />
+                    ) : (
+                      <Text
+                        size={Mixins.scaleFont(16)}
+                        fontFamily={FONT_FAMILY.REGULAR}
+                        color="#fff"
+                        style={[styles.buttonText2]}>
+                        Published
+                      </Text>
+                    )}
+                  </LinearGradient>
+                </View>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'instagram' &&
+            item.status === 'ready' && (
+              <>
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    zIndex: 999,
+                    left: deviceWidth / 2.5,
+                    top: IS_IOS ? 700 : 600,
+                  }}
+                  onPress={() => {
+                    if (!loading) {
+                      shareFacebookImage(imageUrl, item.id);
+                    }
+                  }}>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.9}}
+                    colors={['#139A5C', '#3662A8']}
+                    style={styles.linearGradient}>
+                    {loading ? (
+                      <ActivityIndicator
+                        type={'ThreeBounce'}
+                        size={30}
+                        color={colors.textColorLight}
+                      />
+                    ) : (
+                      <Text
+                        size={Mixins.scaleFont(16)}
+                        fontFamily={FONT_FAMILY.REGULAR}
+                        color="#fff"
+                        style={[styles.buttonText2]}>
+                        Publish
+                      </Text>
+                    )}
+                  </LinearGradient>
+                </TouchableOpacity>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'facebook' &&
+            item.status === 'published' && (
+              <>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    zIndex: 999,
+                    left: deviceWidth / 2.5,
+                    top: IS_IOS ? 700 : 600,
+                  }}>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.9}}
+                    colors={['#131', '#3662A8']}
+                    style={styles.linearGradient}>
+                    {loading ? (
+                      <ActivityIndicator
+                        type={'ThreeBounce'}
+                        size={30}
+                        color={colors.textColorLight}
+                      />
+                    ) : (
+                      <Text
+                        size={Mixins.scaleFont(16)}
+                        fontFamily={FONT_FAMILY.REGULAR}
+                        color="#fff"
+                        style={[styles.buttonText2]}>
+                        Published
+                      </Text>
+                    )}
+                  </LinearGradient>
+                </View>
+              </>
+            )}
+          {item &&
+            item.id &&
+            item.type === 'facebook' &&
+            item.status === 'ready' && (
+              <>
+                <TouchableOpacity
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    zIndex: 999,
+                    left: deviceWidth / 2.5,
+                    top: IS_IOS ? 700 : 600,
+                  }}
+                  onPress={() => {
+                    if (!loading) {
+                      shareFacebookImage(imageUrl, item.id);
+                    }
+                  }}>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 0, y: 0.9}}
+                    colors={['#139A5C', '#3662A8']}
+                    style={styles.linearGradient}>
+                    {loading ? (
+                      <ActivityIndicator
+                        type={'ThreeBounce'}
+                        size={30}
+                        color={colors.textColorLight}
+                      />
+                    ) : (
+                      <Text
+                        size={Mixins.scaleFont(16)}
+                        fontFamily={FONT_FAMILY.REGULAR}
+                        color="#fff"
+                        style={[styles.buttonText2]}>
+                        Publish
+                      </Text>
+                    )}
+                  </LinearGradient>
+                </TouchableOpacity>
+              </>
+            )}
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setModalVisible(false)}>

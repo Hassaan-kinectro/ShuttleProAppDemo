@@ -61,7 +61,7 @@ const Instagram = ({currentProfile, users}) => {
   return (
     <>
       {loading ? (
-        <View style={[Styles.w100, Styles.h50, Styles.Centered]}>
+        <View style={{marginBottom: deviceHeight - 600}}>
           {loading && <Loader />}
         </View>
       ) : (

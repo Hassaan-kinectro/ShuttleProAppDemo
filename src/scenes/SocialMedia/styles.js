@@ -333,7 +333,6 @@ const useStyles = () => {
     text: {
       fontFamily: FONT_FAMILY.REGULAR,
       fontWeight: '500',
-      fontSize: 12,
       color: colors.TextColor,
       marginTop: 5,
     },
@@ -373,6 +372,7 @@ const useStyles = () => {
       ...Styles.w100,
       ...Styles.justifyContentCenter,
       ...Styles.alignItemsCenter,
+      marginVertical: 20,
     },
     linearGradient: {
       width: '100%',

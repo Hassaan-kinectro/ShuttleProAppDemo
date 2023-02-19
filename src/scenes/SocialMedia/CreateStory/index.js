@@ -89,7 +89,6 @@ const CreateStory = props => {
                             <ImageList
                               values={values}
                               setFieldValue={setFieldValue}
-                              // loading={loading}
                               save={saveData}
                             />
                           </>
@@ -128,11 +127,50 @@ const CreateStory = props => {
                                 type={type}
                               />
                             </View>
+                            <TouchableOpacity
+                              style={styles.buttonContainer}
+                              onPress={() => {
+                                console.log(values, values.date);
+                                if (values.date) {
+                                  onClickLoadMedia(
+                                    values,
+                                    setFieldValue,
+                                    workspaceId,
+                                  );
+                                }
+                              }}>
+                              {values.imagesLoading ? (
+                                <LinearGradient
+                                  start={{x: 0, y: 0}}
+                                  end={{x: 0, y: 0.9}}
+                                  colors={['#139A5C', '#3662A8']}
+                                  style={styles.linearGradient}>
+                                  <ActivityIndicator
+                                    type={'ThreeBounce'}
+                                    size={30}
+                                    color={colors.textColorLight}
+                                  />
+                                </LinearGradient>
+                              ) : (
+                                <LinearGradient
+                                  start={{x: 0, y: 0}}
+                                  end={{x: 0, y: 0.9}}
+                                  colors={['#139A5C', '#3662A8']}
+                                  style={styles.linearGradient}>
+                                  <Text
+                                    size={Mixins.scaleFont(16)}
+                                    fontFamily={FONT_FAMILY.REGULAR}
+                                    color={colors.white}
+                                    style={[styles.buttonText]}>
+                                    Load Media
+                                  </Text>
+                                </LinearGradient>
+                              )}
+                            </TouchableOpacity>
 
-                            <View style={styles.buttonWrapper2}>
+                            {/* <View style={styles.buttonWrapper2}>
                               <TouchableOpacity
                                 style={styles.buttonContainer}
-                                // disabled={loading}
                                 onPress={() => {
                                   console.log(values, values.date);
                                   if (values.date) {
@@ -171,7 +209,7 @@ const CreateStory = props => {
                                   </LinearGradient>
                                 )}
                               </TouchableOpacity>
-                            </View>
+                            </View> */}
                           </>
                         )}
                       </>

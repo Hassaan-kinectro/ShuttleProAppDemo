@@ -22,7 +22,6 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Styles} from '../../styles';
 
 const StoryList = ({publishedStories, currentProfile}) => {
-  console.log(publishedStories, 'these are published');
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,

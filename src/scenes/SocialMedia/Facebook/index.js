@@ -21,7 +21,6 @@ import ShuttlePost from '../ShuttlePost';
 const Facebook = ({currentProfile, users}) => {
   const {t} = useTranslation();
   const Styles = GlobalStyle();
-  const headerHeight = 32 * 2;
   const {colors} = useTheme();
   const styles = useStyles();
 
@@ -55,7 +54,7 @@ const Facebook = ({currentProfile, users}) => {
       return null;
     }
     return (
-      <View style={[]}>
+      <View style={{}}>
         <Loader />
       </View>
     );
@@ -64,7 +63,7 @@ const Facebook = ({currentProfile, users}) => {
   return (
     <>
       {loading ? (
-        <View style={[Styles.w100, Styles.Centered]}>
+        <View style={{marginBottom: deviceHeight - 600}}>
           {loading && <Loader />}
         </View>
       ) : (

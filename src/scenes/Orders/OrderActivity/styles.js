@@ -16,6 +16,14 @@ const useStyles = () => {
     leftWidth: {
       width: 140,
     },
+    linearGradient: {
+      ...Styles.justifyContentCenter,
+      backgroundColor: colors.button,
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      ...Styles.flexCenter,
+    },
     boxContainer: {
       marginBottom: 100,
       marginLeft: 20,
@@ -66,13 +74,6 @@ const useStyles = () => {
     buttonContainerStyle: {
       alignItems: 'flex-end',
       paddingRight: 20,
-    },
-    buttonStyle: {
-      backgroundColor: colors.button,
-      width: 36,
-      height: 36,
-      borderRadius: 18,
-      ...Styles.flexCenter,
     },
   });
 };
