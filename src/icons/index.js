@@ -96,6 +96,24 @@ export const WarningIcon = props => {
 export const LogoutIcon = props => {
   return <AntIcon name="logout" {...props} />;
 };
+export const SettingIcon = props => {
+  return <AntIcon name="setting" {...props} />;
+};
+export const SocialIcon = props => {
+  return <AntIcon name="facebook-square" {...props} />;
+};
+export const FilterIcon = props => {
+  return <AntIcon name="filter" {...props} />;
+};
+export const RocketIcon = props => {
+  return <AntIcon name="rocket" {...props} />;
+};
+export const OrderIcon = props => {
+  return <MaterialCommunityIcons name="cart-outline" {...props} />;
+};
+export const DashboardIcon = props => {
+  return <MaterialCommunityIcons name="view-dashboard-outline" {...props} />;
+};
 export const CloseIcon = props => {
   return <MaterialCommunityIcons name="close" {...props} />;
 };
@@ -108,8 +126,17 @@ export const BackArrowIcon = props => {
 export const NotificationIcon = props => {
   return <MaterialIcons name="notifications-active" {...props} />;
 };
+export const StoryIcon = props => {
+  return <MaterialIcons name="amp-stories" {...props} />;
+};
+export const WorkspaceIcon = props => {
+  return <MaterialIcons name="workspaces-outline" {...props} />;
+};
 export const SearchIcon = props => {
   return <FeatherIcons name="search" {...props} />;
+};
+export const ProductIcon = props => {
+  return <FontAwesome5Icons name="shopping-bag" {...props} />;
 };
 export const DownArrowIcon = props => {
   return <FontAwesome5Icons name="sort-down" {...props} />;

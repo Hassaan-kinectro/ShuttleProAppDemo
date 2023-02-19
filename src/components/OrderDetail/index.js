@@ -52,29 +52,14 @@ const OrderDetail = props => {
       type: 'success',
     });
   };
-  let name =
-    props &&
-    props.item &&
-    props.item.order_products[0] &&
-    props.item.order_products[0].product &&
-    props.item.order_products[0].product.name;
-  let code =
-    props &&
-    props.item &&
-    props.item.order_products[0] &&
-    props.item.order_products[0].product &&
-    props.item.order_products[0].product.code;
 
   return (
     <>
       <View style={styles.BoxStyle}>
-        <View style={[styles.container, Styles.flexDirectionRow, styles.pT10]}>
-          <View style={[Styles.flex2Start, Styles.flexDirectionRow]}>
+        <View style={[styles.container, Styles.flexDirectionRow]}>
+          <View style={[styles.flex2Start, Styles.flexDirectionRow]}>
             <TouchableOpacity>
-              <Text
-                size={Mixins.scaleFont(12)}
-                style={{fontWeight: '400'}}
-                color={colors.TextColor}>
+              <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
                 {t('cn')} #
                 {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
               </Text>
@@ -96,7 +81,7 @@ const OrderDetail = props => {
             <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
               {props.item.cod_amount
                 ? TransformPrice(props.item.cod_amount)
-                : 'N/A'}
+                : '0'}
               .00
             </Text>
           </View>
@@ -109,28 +94,28 @@ const OrderDetail = props => {
             Styles.flex,
             Styles.justifyContentStart,
             Styles.alignItemsStart,
-            Styles.pH20,
           ]}>
           <View style={[Styles.flex2Start]}>
             <Text
               style={styles.fS12}
               size={Mixins.scaleFont(16)}
-              weight="400"
               color={colors.TextColor}>
               Product Details
             </Text>
           </View>
           <View style={[Styles.flexCenter]}>
-            <Text size={12} style={styles.mT5}>
-              <View style={styles.Outline}>
-                <View style={styles.textBox}>
-                  <Text style={styles.text}>{name ? name : 'N/A'}</Text>
-                </View>
-                <View style={styles.textBox}>
-                  <Text style={styles.text}>{code ? code : 'N/A'}</Text>
-                </View>
-              </View>
-            </Text>
+            <View style={styles.Outline}>
+              {props.item &&
+                props.item &&
+                props.item.order_products &&
+                props.item.order_products.map(o => (
+                  <View key={o.product && o.product.id} style={styles.textBox}>
+                    <Text size={11} style={styles.text}>
+                      {o.product && o.product.name ? o.product.name : 'N/A'}
+                    </Text>
+                  </View>
+                ))}
+            </View>
           </View>
         </View>
       </View>
@@ -140,6 +125,9 @@ const OrderDetail = props => {
             style={[styles.w50, tabIndex === 0 ? styles.bg : styles.bgLight]}
             onPress={() => setTabIndex(0)}>
             <Text
+              fontFamily={
+                tabIndex === 0 ? FONT_FAMILY.BOLD : FONT_FAMILY.SEMI_BOLD
+              }
               style={[
                 tabIndex === 0 ? styles.white : {color: colors.TextColor},
               ]}>
@@ -152,6 +140,9 @@ const OrderDetail = props => {
             style={[styles.w50, tabIndex === 1 ? styles.bg : styles.bgLight]}
             onPress={() => setTabIndex(1)}>
             <Text
+              fontFamily={
+                tabIndex === 2 ? FONT_FAMILY.BOLD : FONT_FAMILY.SEMI_BOLD
+              }
               style={[
                 tabIndex === 1 ? styles.white : {color: colors.TextColor},
               ]}>

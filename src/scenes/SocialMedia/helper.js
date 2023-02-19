@@ -40,7 +40,7 @@ export const selectionTypes = [
   {
     id: 'product',
     name: 'Product',
-    label: 'product',
+    label: 'Product',
     value: 'Product',
   },
   {
@@ -121,10 +121,11 @@ export const getAllProducts = async (setProducts, workspaceId) => {
       return {
         ...prev,
         data: resp.data.map(d => {
+          console.log(d);
           return {
             ...d,
-            label: d.name,
-            value: d.name,
+            label: d.name + ` (${capitalize(d.code || '')})`,
+            value: d.id,
             name:
               d.name && d.code
                 ? capitalize(d.name) + ` (${capitalize(d.code)})`
@@ -277,8 +278,9 @@ export const getWorkspace = async (
   id,
   setWorkspace,
   setCurrentProfile,
-  profileId = null,
+  params = null,
 ) => {
+  console.log(params);
   setWorkspace(prev => {
     return {...prev, loading: true};
   });
@@ -288,9 +290,12 @@ export const getWorkspace = async (
       resp.data.social_profiles && resp.data.social_profiles.length > 0
         ? resp.data.social_profiles
         : [];
-    const profile = profileId
-      ? profiles.find(p => p.id.toString() === profileId.toString())
-      : resp.data.social_profiles[0];
+    const profile =
+      params && params.socialProfile && params.socialProfile.id
+        ? profiles.find(
+            p => p.id.toString() === params.socialProfile.id.toString(),
+          )
+        : resp.data.social_profiles[0];
     setCurrentProfile(
       profile
         ? profile

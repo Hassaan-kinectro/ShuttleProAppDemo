@@ -33,9 +33,19 @@ const useStyles = () => {
       borderWidth: 1,
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
-      marginBottom: 40,
+      marginBottom: 10,
       backgroundColor: colors.boxColor,
-      marginHorizontal: 20,
+      paddingHorizontal: 20,
+      paddingTop: 10,
+      paddingBottom: 40,
+      shadowColor: colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 5,
     },
     hairline: {
       borderColor: colors.boxBorderColor,
@@ -247,11 +257,11 @@ const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       paddingVertical: 10,
-      paddingHorizontal: 10,
+      paddingHorizontal: 5,
       marginBottom: 10,
     },
     bg: {backgroundColor: '#5285D4'},
-    white: {color: '#fff'},
+    white: {color: '#fff', fontFamily: FONT_FAMILY.BOLD},
     bgLight: {backgroundColor: colors.LightBackground},
     innerHeader: {
       flex: 1,
@@ -261,8 +271,9 @@ const useStyles = () => {
       width: '100%',
       borderColor: colors.fontPrimary,
       borderWidth: 2,
-      padding: 8,
-      borderRadius: 50,
+      paddingHorizontal: 8,
+      height: 28,
+      borderRadius: 14,
     },
     activeHeader: {
       width: 15,
@@ -352,9 +363,11 @@ const useStyles = () => {
       // marginRight: 10,
     },
     buttonWrapper2: {
-      ...Styles.w100,
+      width: '90%',
       height: 48,
       marginTop: 30,
+      marginBottom: 20,
+      marginHorizontal: '5%',
     },
     buttonContainer: {
       ...Styles.w100,
@@ -372,7 +385,6 @@ const useStyles = () => {
       textAlign: 'center',
       lineHeight: 19,
     },
-
     dropIcon: {position: 'absolute', top: 20, right: 15, width: 20},
   });
 };

@@ -19,14 +19,9 @@ import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../utils/constants';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import {Styles} from '../../styles';
 
-const StoryList = ({
-  publishedStories,
-  open,
-  loading,
-  closeModal,
-  currentProfile,
-}) => {
+const StoryList = ({publishedStories, currentProfile}) => {
   console.log(publishedStories, 'these are published');
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
@@ -37,42 +32,40 @@ const StoryList = ({
   const {colors} = useTheme();
   const [tapped, setTapped] = React.useState(false);
   const styles = useStyles();
-  const workspaceIcon = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
-  );
-  const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
-  );
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceIcon =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
 
   return (
     <>
-      <View
-        style={{
-          borderColor: colors.boxBorderColor,
-        }}>
+      <View>
         <FlatList
           data={publishedStories && publishedStories}
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={Styles.pL10}
           ListHeaderComponent={() => (
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View style={[Styles.flexDirectionRow]}>
               <TouchableOpacity
                 style={styles.CreateprofileIcon}
                 onPress={() => {
                   navigation.navigate(Routes.SHOWSTORY);
                 }}>
-                <CircularImage
-                  img={workspaceIcon}
-                  name={workspaceName}
-                  style={styles.HeaderImage}
-                />
-                <F5Icon
-                  name="th-list"
-                  size={15}
-                  color={colors.button}
-                  style={styles.active3}
-                />
+                <View style={styles.HeaderImage}>
+                  <F5Icon
+                    name="th-list"
+                    size={16}
+                    color={colors.fontPrimary}
+                    style={Styles.textCenter}
+                  />
+                </View>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.CreateprofileIcon}
@@ -106,13 +99,7 @@ const StoryList = ({
                           item && item.pagelogo ? item.pagelogo : item.pageicon
                         }
                         name={item.pageName}
-                        style={[
-                          styles.userImage,
-                          // {
-                          //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                          //   borderWidth: 3,
-                          // },
-                        ]}
+                        style={[styles.userImage]}
                       />
                       <Image source={INSTAGRAM} style={styles.active2} />
                     </>
@@ -124,13 +111,7 @@ const StoryList = ({
                           item && item.pagelogo ? item.pagelogo : item.pageicon
                         }
                         name={item.pageName}
-                        style={[
-                          styles.userImage,
-                          // {
-                          //   borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                          //   borderWidth: 3,
-                          // },
-                        ]}
+                        style={[styles.userImage]}
                       />
                       <Image source={FACEBOOK} style={styles.active2} />
                     </>

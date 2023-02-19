@@ -15,6 +15,14 @@ const useStyles = () => {
       marginBottom: 10,
       backgroundColor: colors.boxColor,
       marginHorizontal: 20,
+      shadowColor: colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 5,
     },
     w40: {
       width: '40%',
@@ -32,6 +40,10 @@ const useStyles = () => {
     container2: {
       flex: 1,
       paddingHorizontal: 20,
+<<<<<<< HEAD
+=======
+      marginTop: 5,
+>>>>>>> origin/dashboard
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -170,7 +182,6 @@ const useStyles = () => {
     w25: {
       width: 25,
     },
-    pb10: {paddingBottom: 10},
     socialView: {
       marginBottom: 10,
       display: 'flex',

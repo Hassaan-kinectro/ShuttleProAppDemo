@@ -6,7 +6,7 @@ import useStyles from './styles';
 import moment from 'moment';
 // import HTMLView from 'react-native-htmlview';
 import ActivitySelector from '../ActivitySelector';
-import {Badge, Line, RedBadge} from '../../utils/imagesPath';
+import {Badge, RedBadge} from '../../utils/imagesPath';
 
 const RowItem = ({item, contact}) => {
   const [visibleActivitySelector, setActivityVisibilitySelector] =
@@ -28,7 +28,19 @@ const RowItem = ({item, contact}) => {
   };
   const {colors} = useTheme();
   const styles = useStyles(colors);
-
+  const Parser = description => {
+    if (!description) return '';
+    const regex = /(<([^>]+)>)/gi;
+    const parsedescription = description
+      .replace(/&amp;/g, '&')
+      .replace(/&gt;/g, '>')
+      .replace(/&lt;/g, '<')
+      .replace(/&quot;/g, '"')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&#039;/g, "'");
+    // let desc = entities.decodeHTML(parsedescription);
+    return parsedescription.replace(regex, '');
+  };
   return (
     <View style={styles.container1}>
       <View style={styles.container2}>
@@ -36,7 +48,6 @@ const RowItem = ({item, contact}) => {
           source={item && item.status === 'success' ? Badge : RedBadge}
           style={styles.image}
         />
-        <Image source={Line} style={styles.width} />
       </View>
       <View style={[styles.boxContainer]}>
         <View>
@@ -58,7 +69,7 @@ const RowItem = ({item, contact}) => {
             <View style={[styles.fieldWidth]}>
               <Text lines={10} style={[styles.mB5, styles.status]}>
                 {/* <HTMLView value={item.message} stylesheet={styles} /> */}
-                {item.message}
+                {Parser(item.message)}
               </Text>
             </View>
           )}

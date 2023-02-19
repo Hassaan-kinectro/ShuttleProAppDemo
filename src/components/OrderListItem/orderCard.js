@@ -15,7 +15,7 @@ const OrderCard = ({props, OpenActivity}) => {
   return (
     <>
       <View style={[styles.container, Styles.flexDirectionRow, styles.pT10]}>
-        <View style={[Styles.flex2Start]}>
+        <View style={[styles.flex2Start]}>
           <Text
             size={12}
             fontFamily={FONT_FAMILY.SEMI_BOLD}
@@ -25,18 +25,13 @@ const OrderCard = ({props, OpenActivity}) => {
               : 'N/A'}{' '}
           </Text>
         </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-          }}>
+        <View style={styles.flexMinBox}>
           <Text style={[Styles.mB5, styles.fS10]}>{t('booking.date')}</Text>
         </View>
       </View>
       <View style={[styles.container, Styles.flexDirectionRow, styles.pT5]}>
         {OpenActivity && (
-          <View style={[Styles.flex2Start]}>
+          <View style={[styles.flex2Start]}>
             <TouchableOpacity
               onPress={() => {
                 OpenActivity();
@@ -54,7 +49,7 @@ const OrderCard = ({props, OpenActivity}) => {
           </View>
         )}
         {!OpenActivity && (
-          <View style={[Styles.flex2Start]}>
+          <View style={[styles.flex2Start]}>
             <Text
               size={12}
               fontFamily={FONT_FAMILY.SEMI_BOLD}
@@ -67,12 +62,7 @@ const OrderCard = ({props, OpenActivity}) => {
           </View>
         )}
 
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-          }}>
+        <View style={styles.flexMinBox}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
             {moment(props.item.updated_at).format('DD MMM, YYYY')}
           </Text>
@@ -85,9 +75,8 @@ const OrderCard = ({props, OpenActivity}) => {
           Styles.flex,
           Styles.justifyContentStart,
           Styles.alignItemsStart,
-          Styles.pH20,
         ]}>
-        <View style={[Styles.flex2Start]}>
+        <View style={[styles.flex2Start]}>
           <Text
             size={Mixins.scaleFont(12)}
             fontFamily={FONT_FAMILY.REGULAR}

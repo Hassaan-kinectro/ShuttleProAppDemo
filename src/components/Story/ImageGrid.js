@@ -1,18 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import {TouchableOpacity, Image, Dimensions} from 'react-native';
+import {TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import AIcon from 'react-native-vector-icons/AntDesign';
 import useStyles from './styles';
-import {useTheme} from '@react-navigation/native';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-const IMAGES_PER_ROW = 3;
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const IMAGE_SIZE = SCREEN_WIDTH / IMAGES_PER_ROW / 1.4;
-
+import {deviceWidth} from '../../utils/orientation';
+const box = (deviceWidth - 80) / 3;
 const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
   const styles = useStyles();
-  const {colors} = useTheme();
   const MAX_IMAGES = 10;
   const handleImagePress = image => {
     if (selectedImages.includes(image)) {
@@ -27,12 +22,7 @@ const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
     <TouchableOpacity onPress={() => handleImagePress(item.image)}>
       <Image
         source={{uri: item.image}}
-        style={{
-          width: IMAGE_SIZE,
-          height: IMAGE_SIZE,
-          margin: '2%',
-          borderRadius: 10,
-        }}
+        style={[styles.imageArr, {width: box, height: box}]}
       />
       {selectedImages.includes(item && item.image) ? (
         <MaterialIcons

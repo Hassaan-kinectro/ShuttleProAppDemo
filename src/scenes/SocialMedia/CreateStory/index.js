@@ -57,7 +57,8 @@ const CreateStory = props => {
   }, []);
 
   const saveData = async (values, selectedImages = []) => {
-    const data = await saveStory(values, selectedImages);
+    console.log(values, selectedImages, 'aaaaaaassssssccccccc');
+    const data = await saveStory(values, selectedImages, navigation);
     console.log(data, 'response');
   };
 
@@ -66,44 +67,35 @@ const CreateStory = props => {
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
         <View style={styles.Wrapper}>
           <CustomHeader name={name} navigation={navigation} />
-          <View style={styles.BoxStyle}>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={StorySchema}
-                onSubmit={(values, handles) => {
-                  saveData(values);
-                }}>
-                {p => {
-                  const {touched, errors, values, handleChange, setFieldValue} =
-                    p;
-                  return (
-                    <>
-                      <View
-                        style={[
-                          Styles.flex,
-                          {
-                            paddingHorizontal: scaleSize(25),
-                            paddingVertical: scaleSize(10),
-                          },
-                        ]}>
-                        <>
-                          {values &&
-                          !values.isPreview &&
-                          values.imagesArr &&
-                          values.imagesArr.length > 0 ? (
-                            <>
-                              <ImageList
-                                values={values}
-                                setFieldValue={setFieldValue}
-                                loading={
-                                  route && route.params && route.params.loading
-                                }
-                                save={saveData}
-                              />
-                            </>
-                          ) : (
-                            <>
+          <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={StorySchema}
+              onSubmit={(values, handles) => {
+                saveData(values);
+              }}>
+              {p => {
+                const {touched, errors, values, handleChange, setFieldValue} =
+                  p;
+                return (
+                  <>
+                    <View style={[Styles.flex, Styles.pH20, Styles.pT10]}>
+                      <>
+                        {values &&
+                        !values.isPreview &&
+                        values.imagesArr &&
+                        values.imagesArr.length > 0 ? (
+                          <>
+                            <ImageList
+                              values={values}
+                              setFieldValue={setFieldValue}
+                              // loading={loading}
+                              save={saveData}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <View style={styles.BoxStyle}>
                               <View
                                 style={{
                                   flex: 1,
@@ -135,87 +127,60 @@ const CreateStory = props => {
                                 }
                                 type={type}
                               />
-                              {values.date === '' ? (
-                                <View style={{marginVertical: 20}}>
-                                  {values.imagesLoading ? (
-                                    <LinearGradient
-                                      start={{x: 0, y: 0}}
-                                      end={{x: 0, y: 0.9}}
-                                      colors={['#139A5C', '#3662A8']}
-                                      style={styles.linearGradient}>
-                                      <ActivityIndicator
-                                        type={'ThreeBounce'}
-                                        size={30}
-                                        color={colors.textColorLight}
-                                      />
-                                    </LinearGradient>
-                                  ) : (
-                                    <LinearGradient
-                                      start={{x: 0, y: 0}}
-                                      end={{x: 0, y: 0.9}}
-                                      colors={['#139A5C', '#3662A8']}
-                                      style={styles.linearGradient}>
-                                      <Text
-                                        size={Mixins.scaleFont(16)}
-                                        fontFamily={FONT_FAMILY.REGULAR}
-                                        color={colors.white}
-                                        style={[styles.buttonText]}>
-                                        Load Media
-                                      </Text>
-                                    </LinearGradient>
-                                  )}
-                                </View>
-                              ) : (
-                                <View style={{marginVertical: 20}}>
-                                  <TouchableOpacity
-                                    style={styles.buttonContainer}
-                                    onPress={() => {
-                                      onClickLoadMedia(
-                                        values,
-                                        setFieldValue,
-                                        workspaceId,
-                                      );
-                                    }}>
-                                    {values.imagesLoading ? (
-                                      <LinearGradient
-                                        start={{x: 0, y: 0}}
-                                        end={{x: 0, y: 0.9}}
-                                        colors={['#139A5C', '#3662A8']}
-                                        style={styles.linearGradient}>
-                                        <ActivityIndicator
-                                          type={'ThreeBounce'}
-                                          size={30}
-                                          color={colors.textColorLight}
-                                        />
-                                      </LinearGradient>
-                                    ) : (
-                                      <LinearGradient
-                                        start={{x: 0, y: 0}}
-                                        end={{x: 0, y: 0.9}}
-                                        colors={['#139A5C', '#3662A8']}
-                                        style={styles.linearGradient}>
-                                        <Text
-                                          size={Mixins.scaleFont(16)}
-                                          fontFamily={FONT_FAMILY.REGULAR}
-                                          color={colors.white}
-                                          style={[styles.buttonText]}>
-                                          Load Media
-                                        </Text>
-                                      </LinearGradient>
-                                    )}
-                                  </TouchableOpacity>
-                                </View>
-                              )}
-                            </>
-                          )}
-                        </>
-                      </View>
-                    </>
-                  );
-                }}
-              </Formik>
-            </KeyboardAwareScrollView>
-          </View>
+                            </View>
+
+                            <View style={styles.buttonWrapper2}>
+                              <TouchableOpacity
+                                style={styles.buttonContainer}
+                                // disabled={loading}
+                                onPress={() => {
+                                  console.log(values, values.date);
+                                  if (values.date) {
+                                    onClickLoadMedia(
+                                      values,
+                                      setFieldValue,
+                                      workspaceId,
+                                    );
+                                  }
+                                }}>
+                                {values.imagesLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </TouchableOpacity>
+                            </View>
+                          </>
+                        )}
+                      </>
+                    </View>
+                  </>
+                );
+              }}
+            </Formik>
+          </KeyboardAwareScrollView>
         </View>
       </Wrapper>
     </>

@@ -10,16 +10,19 @@ import StoryList from '../../../components/Story/storyContainer';
 const defaultValue = {id: null, loading: false};
 
 const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
-  const workspaceId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
+  const workspaceId = useSelector(state => state.workspace.workspaceId);
 
   const [loading, setLoading] = React.useState(false);
   const [loadingImages, setLoadingImages] = React.useState(defaultValue);
   const [publishedStories, setPublishedStories] = React.useState([]);
 
   React.useEffect(() => {
-    getStories(setLoading, setPublishedStories, workspaceId);
+    getStories(
+      setLoading,
+      setPublishedStories,
+      workspaceId,
+      currentProfile.profile_type,
+    );
     return () => {
       setPublishedStories([]);
       setLoading(false);
@@ -37,14 +40,13 @@ const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
   }, [setPostModals]);
 
   return (
-    <>
-      <StoryList
-        publishedStories={publishedStories}
-        currentProfile={currentProfile}
-        closeModal={closeStoryModal}
-        open={postModals.facebookStory}
-      />
-    </>
+    <StoryList
+      publishedStories={publishedStories}
+      currentProfile={currentProfile}
+      closeModal={closeStoryModal}
+      open={postModals.facebookStory}
+      loading={postModals.loading}
+    />
   );
 };
 

@@ -5,6 +5,9 @@ import {IS_IOS} from '../../utils/orientation';
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
+    listContainer: {
+      paddingTop: 10,
+    },
     flex: {
       display: 'flex',
       justifyContent: 'center',

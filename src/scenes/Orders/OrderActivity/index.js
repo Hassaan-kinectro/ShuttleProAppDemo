@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {View, ScrollView, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import useStyles from './styles';
 import {Text, Colors, GlobalStyle} from '../../../styles';
 import {FONT_FAMILY} from '../../../utils/constants';
@@ -40,55 +40,59 @@ const OrderActivity = props => {
     };
   }, []);
 
-  const ActivityModelClose = React.useCallback(() => {
-    setActivityVisibility(false);
-  }, [visibleActivity]);
+  const ActivityModelClose = React.useCallback(
+    data => {
+      console.log(data);
+      if (data && data.id) {
+        getData(props, setOrderDetail, setLoading, workspace_id);
+      }
+      setActivityVisibility(false);
+    },
+    [visibleActivity],
+  );
   const ShowActivityModal = React.useCallback(() => {
     setActivityVisibility(true);
   }, [visibleActivity]);
 
   return (
     <>
-      <View
-        style={[Styles.flex, Styles.flexDirectionColumn, styles.ActivityBox]}>
-        <View style={[Styles.flex, styles.main]}>
+      <View style={[Styles.flex, Styles.flexDirectionColumn]}>
+        <View style={[Styles.flexCenterEnd, styles.buttonContainerStyle]}>
+          <TouchableOpacity
+            onPress={ShowActivityModal}
+            style={[styles.buttonStyle]}>
+            <MIcon
+              style={styles.opacity}
+              name="plus"
+              size={22}
+              color={Colors.WHITE}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.boxContainer]}>
           {loading ? (
             <View style={[Styles.flexCenter]}>
               <Loader />
             </View>
           ) : (
-            <ScrollView style={[]}>
-              <View style={[Styles.flex, Styles.flexDirectionRow]}>
-                <View style={styles.container}>
-                  {orderDetail && orderDetail.length > 0 ? (
-                    orderDetail.map(o => (
-                      <RowItem key={o.id} item={o} contact={contact} />
-                    ))
-                  ) : (
-                    <View
-                      style={[
-                        Styles.flexCenter,
-                        {fontFamily: FONT_FAMILY.REGULAR},
-                      ]}>
-                      <Text style={styles.fS15}>
-                        {t('activities.not.available')}
-                      </Text>
-                    </View>
-                  )}
+            <View style={styles.container}>
+              {orderDetail && orderDetail.length > 0 ? (
+                orderDetail.map(o => (
+                  <RowItem key={o.id} item={o} contact={contact} />
+                ))
+              ) : (
+                <View
+                  style={[
+                    Styles.flexCenter,
+                    {fontFamily: FONT_FAMILY.REGULAR},
+                  ]}>
+                  <Text fontFamily={FONT_FAMILY.REGULAR} lines={12}>
+                    {t('activities.not.available')}
+                  </Text>
                 </View>
-              </View>
-            </ScrollView>
+              )}
+            </View>
           )}
-          <TouchableOpacity
-            onPress={ShowActivityModal}
-            style={[Styles.flexCenter, Styles.floatButton]}>
-            <MIcon
-              style={styles.opacity}
-              name="plus"
-              size={30}
-              color={Colors.WHITE}
-            />
-          </TouchableOpacity>
         </View>
       </View>
       <ActivityModal

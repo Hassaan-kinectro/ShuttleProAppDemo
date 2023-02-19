@@ -46,9 +46,9 @@ const useStyles = () => {
     },
     hairline2: {
       borderColor: colors.boxBorderColor,
-      borderWidth: 1,
+      borderWidth: 0.5,
       marginHorizontal: 10,
-      marginVertical: 10,
+      marginVertical: 0,
     },
     flex1: {
       flex: 1,
@@ -157,11 +157,10 @@ const useStyles = () => {
     userImage: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: 65,
-      height: 65,
-      padding: 30,
-      borderRadius: 100,
-      marginHorizontal: 10,
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      marginHorizontal: 5,
       borderColor: colors.boxBorderColor,
       borderWidth: 2,
     },
@@ -247,8 +246,7 @@ const useStyles = () => {
       borderRadius: 100,
     },
     CreateprofileIcon: {
-      borderRadius: 100,
-      marginLeft: 10,
+      // marginLeft: 10,
       position: 'relative',
     },
     profileIcon2: {
@@ -256,11 +254,14 @@ const useStyles = () => {
       borderRadius: 100,
     },
     HeaderImage: {
-      width: 65,
-      height: 65,
-      borderRadius: 100,
+      width: 48,
+      height: 48,
+      borderRadius: 24,
       borderColor: colors.boxBorderColor,
       borderWidth: 2,
+      marginHorizontal: 5,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
     },
     active: {
       width: 15,
@@ -272,14 +273,14 @@ const useStyles = () => {
       width: 15,
       height: 15,
       bottom: 0,
-      right: -55,
+      right: -35,
       top: -15,
     },
     active3: {
       width: 15,
       height: 15,
       bottom: 0,
-      right: -45,
+      right: -35,
       top: -15,
     },
     container4: {

@@ -45,11 +45,11 @@ const ShowOrder = ({navigation, route}) => {
         <CustomHeader name={name} navigation={navigation} />
         <View style={[Styles.flex]}>
           {loading ? (
-            <View style={[Styles.flexCenter, Styles.primaryBackground]}>
+            <View style={[Styles.flexCenter]}>
               <Loader />
             </View>
           ) : (
-            <ScrollView style={[Styles.pL10, Styles.pR10]}>
+            <ScrollView style={[Styles.pT10]}>
               <OrderDetail
                 item={order}
                 orderDetail={orderDetail}

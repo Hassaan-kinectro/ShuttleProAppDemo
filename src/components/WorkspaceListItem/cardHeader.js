@@ -8,8 +8,8 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Routes} from '../../utils/constants';
 
 const CardHeader = ({item, navigateTo}) => {
-  let workspaceName = item.workspace.name;
-  let workspaceIcon = item.workspace.icon.thumb.url;
+  let workspaceName = item?.workspace?.name;
+  let workspaceIcon = item?.workspace?.icon?.thumb?.url;
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const styles = useStyles();
@@ -43,13 +43,13 @@ const CardHeader = ({item, navigateTo}) => {
           </TouchableOpacity>
         </View>
         <View style={Styles.flex3End}>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <F5Icon
               name={'ellipsis-v'}
               size={20}
               style={{color: colors.TextColor}}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </>

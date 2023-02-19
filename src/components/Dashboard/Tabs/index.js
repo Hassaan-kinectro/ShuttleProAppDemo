@@ -1,7 +1,6 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
-import {useTheme} from '@react-navigation/native';
 import useStyles from './styles';
 import {Text} from '../../../styles';
 import {DateFormat} from '../../../utils/constants';
@@ -13,7 +12,6 @@ const tabs = [
 ];
 const Tabs = ({filterValues, setFilterValues}) => {
   const styles = useStyles();
-  const {colors} = useTheme();
   const onTabChange = tab => {
     setFilterValues(prev => {
       return {
@@ -27,7 +25,7 @@ const Tabs = ({filterValues, setFilterValues}) => {
   };
   return (
     <View style={styles.tabStyle}>
-      <View style={styles.tab1Style}>
+      <View style={styles.tabInnerStyle}>
         {tabs.map((tab, i) => (
           <TouchableOpacity
             key={tab.id}

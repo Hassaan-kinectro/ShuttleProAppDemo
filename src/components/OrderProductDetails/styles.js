@@ -2,17 +2,22 @@ import {useTheme} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 import {FONT_FAMILY} from '../../utils/constants';
 import {deviceWidth} from '../../utils/orientation';
-import {scaleSize} from '../../styles/mixins';
 
 const useStyles = () => {
   const {colors} = useTheme();
+  const box = deviceWidth / 3.5;
   return StyleSheet.create({
     halfWidth: {
       width: deviceWidth - 20,
     },
+    textBoxContainer: {
+      width: box * 1.6,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    },
     productImage: {
-      width: 115,
-      height: 115,
+      width: box,
+      height: box,
       borderColor: 'transparent',
       borderWidth: 1,
       borderRadius: 10,
@@ -35,28 +40,20 @@ const useStyles = () => {
       marginTop: 11,
     },
     inline: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      marginLeft: scaleSize(15),
-      marginRight: 52,
       flexDirection: 'row',
     },
     RowWidth: {
       width: 100,
     },
     textStyle: {
-      width: 100,
       fontSize: 12,
-      fontStyle: 'normal',
-      fontWeight: '600',
-      marginVertical: 11,
-      fontFamily: FONT_FAMILY.REGULAR,
+      marginBottom: 10,
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
     },
     FontStyle: {
       fontSize: 12,
-      fontStyle: 'normal',
-      fontWeight: '400',
       fontFamily: FONT_FAMILY.REGULAR,
     },
   });

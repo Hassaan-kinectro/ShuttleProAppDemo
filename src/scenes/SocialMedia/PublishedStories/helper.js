@@ -1,12 +1,12 @@
 import {FetchStories} from '../../../services/Stories';
 export const getStories = async (
   setLoading,
-
   setPublishedStories,
   workspaceId,
+  profileType,
 ) => {
   setLoading(true);
-  await FetchStories(workspaceId).then(res => {
+  await FetchStories(workspaceId, profileType).then(res => {
     console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {

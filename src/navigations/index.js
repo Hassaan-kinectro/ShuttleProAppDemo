@@ -13,13 +13,24 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Feather from 'react-native-vector-icons/Feather';
+import {
+  DashboardIcon,
+  LogoutIcon,
+  OrderIcon,
+  ProductIcon,
+  RocketIcon,
+  SettingIcon,
+  SocialIcon,
+  StoryIcon,
+  WorkspaceIcon,
+} from '../icons';
 import {IS_ANDROID, IS_IOS} from '../utils/orientation';
 import {Routes, HIDE_HEADER} from '../utils/constants';
 import {SignOut, setTheme} from '../config/authSettings';
 import {Colors, GlobalStyle} from '../styles';
 import Loading from '../scenes/Loading';
 import Login from '../scenes/Auth/Login';
-import Workspace from '../scenes/Workspace';
+import Workspaces from '../scenes/Workspaces';
 import Notifications from '../scenes/Notifications';
 import Settings from '../scenes/Settings';
 import Inbox from '../scenes/Inbox';
@@ -232,15 +243,17 @@ const SOCIALMEDIA = () => {
 };
 const CustomDrawerContent = props => {
   const {navigation, colors} = props;
-  const workspaceIcon = useSelector(
-    state => state.workspace.workspace.workspace.icon.thumb.url,
-  );
-  const workspaceName = useSelector(
-    state => state.workspace.workspace.workspace.name,
-  );
-  const workspaceId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceIcon =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
+  const workspaceId =
+    (workspace && workspace.workspace && workspace.workspace.id) || null;
   const Styles = GlobalStyle();
   return (
     <DrawerContentScrollView
@@ -281,11 +294,7 @@ const CustomDrawerContent = props => {
           navigation.navigate(Routes.WORKSPACES);
         }}
         icon={({size}) => (
-          <MaterialIcons
-            name="credit-card"
-            size={size}
-            color={colors.labelColor}
-          />
+          <WorkspaceIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -310,7 +319,7 @@ const CustomDrawerContent = props => {
           });
         }}
         icon={({color, size}) => (
-          <AIcon name="home" size={size} color={colors.labelColor} />
+          <DashboardIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -330,11 +339,7 @@ const CustomDrawerContent = props => {
           });
         }}
         icon={({color, size}) => (
-          <MCIcon
-            name="image-multiple-outline"
-            size={size}
-            color={colors.labelColor}
-          />
+          <ProductIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -364,7 +369,7 @@ const CustomDrawerContent = props => {
           });
         }}
         icon={({color, size}) => (
-          <AIcon name="laptop" size={size} color={colors.labelColor} />
+          <OrderIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -383,7 +388,7 @@ const CustomDrawerContent = props => {
           navigation.navigate(Routes.INBOX);
         }}
         icon={({color, size}) => (
-          <AIcon name="inbox" size={size} color={colors.labelColor} />
+          <StoryIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -391,7 +396,6 @@ const CustomDrawerContent = props => {
           borderBottomColor: colors.themeIcon,
         }}
       />
-
       <DrawerItem
         label="Settings"
         activeTintColor={Colors.WHITE}
@@ -400,7 +404,7 @@ const CustomDrawerContent = props => {
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => navigation.navigate(Routes.SETTINGS)}
         icon={({color, size}) => (
-          <AIcon name="setting" size={size} color={colors.labelColor} />
+          <SettingIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -416,7 +420,7 @@ const CustomDrawerContent = props => {
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => AppLogout(navigation)}
         icon={({color, size}) => (
-          <AIcon name="logout" size={size} color={colors.labelColor} />
+          <LogoutIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{
@@ -456,7 +460,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         options={{
           drawerIcon: ({color, size}) => (
-            <AIcon name="rocket" size={size} color={color} />
+            <RocketIcon size={size} color={color} />
           ),
         }}
         name={Routes.BOTTOMTAB}>
@@ -506,15 +510,11 @@ const BottomTabNavigator = ({colors}) => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <MCIcon
-                  name="view-dashboard-outline"
-                  size={size}
-                  color={color}
-                />
+                <DashboardIcon size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <MCIcon name="view-dashboard-outline" size={size} color={color} />
+              <DashboardIcon size={size} color={color} />
             ),
         }}>
         {props => <Dashboard {...props} />}
@@ -525,11 +525,11 @@ const BottomTabNavigator = ({colors}) => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <AIcon name="laptop" size={size} color={color} />
+                <OrderIcon size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <AIcon name="laptop" size={size} color={color} />
+              <OrderIcon size={size} color={color} />
             ),
         }}>
         {props => <Orders colors={colors} {...props} />}
@@ -540,15 +540,11 @@ const BottomTabNavigator = ({colors}) => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <MCIcon
-                  name="image-multiple-outline"
-                  size={size}
-                  color={color}
-                />
+                <ProductIcon size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <MCIcon name="image-multiple-outline" size={size} color={color} />
+              <ProductIcon size={size} color={color} />
             ),
         }}>
         {props => <Product {...props} />}
@@ -560,11 +556,11 @@ const BottomTabNavigator = ({colors}) => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <MaterialIcons name="amp-stories" size={size} color={color} />
+                <SocialIcon size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <MaterialIcons name="amp-stories" size={size} color={color} />
+              <SocialIcon size={size} color={color} />
             ),
         }}
         component={SOCIALMEDIA}
@@ -575,12 +571,11 @@ const BottomTabNavigator = ({colors}) => {
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
               <View style={tabStyles.box}>
-                <AIcon name="setting" size={size} color={color} />
-
+                <SettingIcon size={size} color={color} />
                 <View style={tabStyles.button} />
               </View>
             ) : (
-              <AIcon name="setting" size={size} color={color} />
+              <SettingIcon size={size} color={color} />
             ),
         }}>
         {props => <Settings {...props} />}
@@ -615,7 +610,7 @@ const Navigation = ({theme}) => {
             headerShown: false,
             ...StackCommonHeaderOptions(navigation, false, true, colors),
           })}>
-          {props => <Workspace {...props} />}
+          {props => <Workspaces {...props} />}
         </Stack.Screen>
         <Stack.Screen
           name={Routes.NOTIFICATIONS}

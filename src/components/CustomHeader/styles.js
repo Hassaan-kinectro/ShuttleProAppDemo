@@ -7,27 +7,30 @@ const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
     container: {
+      height: 125,
+      shadowColor: colors.black,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      elevation: 6,
+    },
+    container2: {
       overflow: 'hidden',
-      shadowRadius: 1,
-      shadowOpacity: 50,
-      borderBottomLeftRadius: 35,
-      borderBottomRightRadius: 35,
-      marginBottom: 10,
-      borderBottomWidth: 1,
-      height: 130,
-      borderColor: colors.boxBorderColor,
+      borderBottomLeftRadius: 25,
+      borderBottomRightRadius: 25,
       borderWidth: 0.5,
-      shadowOffset: {width: 0, height: 15},
-      elevation: 5,
+      borderColor: colors.boxBorderColor,
     },
     headerContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 16,
-      height: 140,
+      height: 120,
       paddingTop: 40,
-      elevation: 5,
     },
     menuIcon: {},
     headerText: {

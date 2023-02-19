@@ -13,6 +13,7 @@ import {deviceWidth, deviceHeight} from '../../utils/orientation';
 import MModal from 'react-native-modal';
 import Moment from 'moment';
 import {useTheme} from '@react-navigation/native';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const FORMATS = {
   date: 'YYYY-MM-DD',
@@ -207,8 +208,8 @@ const DatePickerField = props => {
                   },
                 ]}>
                 <TouchableHighlight
-                  activeOpacity={1}
-                  style={{backgroundColor: Colors.WHITE}}
+                  activeOpacity={0.1}
+                  // style={{backgroundColor: Colors.WHITE}}
                   underlayColor={'#00000077'}
                   onPress={onPressMask}>
                   <View
@@ -221,12 +222,12 @@ const DatePickerField = props => {
                         date={dateValue}
                         style={{
                           width: deviceWidth - 20,
-                          backgroundColor: colors.gradient2,
+                          backgroundColor: colors.LightBackground,
                         }}
                         onDateChange={onDateChange}
                         androidVariant="nativeAndroid"
                         textColor={
-                          colors.textColor //props.check ? Colors.WHITE : Colors.SECONDARY_5
+                          colors.fontPrimary //props.check ? Colors.WHITE : Colors.SECONDARY_5
                         }
                         // fadeToColor={'#000'}
                         mode={props.mode}
@@ -240,6 +241,7 @@ const DatePickerField = props => {
                       ]}>
                       <TouchableHighlight
                         underlayColor={'transparent'}
+                        activeOpacity={0.1}
                         onPress={onPressCancel}
                         style={[
                           styles.btnText,
@@ -256,6 +258,7 @@ const DatePickerField = props => {
                         </Text>
                       </TouchableHighlight>
                       <TouchableHighlight
+                        activeOpacity={0.1}
                         underlayColor={'transparent'}
                         onPress={onPressConfirm}
                         style={[
@@ -280,6 +283,7 @@ const DatePickerField = props => {
         </View>
         {dateValue ? (
           <TouchableOpacity
+            activeOpacity={0.1}
             onPress={() => {
               onDateChange(null);
               props.onDateChange(null);
@@ -355,18 +359,19 @@ let useStyles = colors => {
     },
     btnTextText: {
       fontSize: 16,
-      color: Colors.SECONDARY_3,
+      color: colors.white,
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
     },
     btnTextCancel: {
       color: Colors.SECONDARY_4,
     },
     btnCancel: {
       left: 0,
-      backgroundColor: Colors.DANGER,
+      backgroundColor: colors.errorColor,
     },
     btnConfirm: {
       right: 0,
-      backgroundColor: colors.button,
+      backgroundColor: colors.fontPrimary,
     },
     datePicker: {
       marginTop: 42,

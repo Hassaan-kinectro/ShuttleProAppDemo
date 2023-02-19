@@ -8,13 +8,14 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import {Colors, Mixins, Text, GlobalStyle} from '../../styles';
+import {Colors, Mixins, Text, GlobalStyle, Styles} from '../../styles';
 import {deviceHeight, IS_IOS} from '../../utils/orientation';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Wrapper from '../Wrapper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
 import FlashMessage from 'react-native-flash-message';
+import LinearGradient from 'react-native-linear-gradient';
 import ActivityForm from '../ActivityForm';
 import {useTheme} from '@react-navigation/native';
 import {CloseIcon} from '../../icons';
@@ -23,7 +24,6 @@ import {useSelector} from 'react-redux';
 import {Dark, Light} from '../../utils/imagesPath';
 import {scaleSize} from '../../styles/mixins';
 import {showMessage} from 'react-native-flash-message';
-import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../utils/constants';
 
 const ComType = [
@@ -53,9 +53,7 @@ const initials = {
 const ChangeOrderStatusModal = props => {
   const theme = useSelector(state => state.themeChange.theme);
 
-  const workspace_id = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
+  const workspaceId = useSelector(state => state.workspace.workspaceId);
   const {obj} = props;
   const [loading, setLoading] = React.useState(false);
   const [reset, setReset] = React.useState(false);
@@ -113,7 +111,7 @@ const ChangeOrderStatusModal = props => {
             : null,
         notificationTimer: '',
         scheduledTime: '',
-        workspaceId: workspace_id,
+        workspaceId: workspaceId,
         subject: FormData && FormData.remarks ? FormData.remarks : null,
         mailGroupId:
           FormData && FormData.recipientGroup && FormData.recipientGroup.id
@@ -146,7 +144,8 @@ const ChangeOrderStatusModal = props => {
               type: 'success',
             });
             setLoading(false);
-            onModalClose();
+            props.setVisibility(res.data);
+            setReset(true);
             setReset(true);
             resetForm();
           }, 1000);
@@ -200,15 +199,11 @@ const ChangeOrderStatusModal = props => {
                 Styles.justifyContentSpaceBetween,
                 {
                   paddingHorizontal: 20,
-                  paddingVertical: 20,
+                  paddingBottom: 20,
                 },
               ]}>
               <Text
-                style={{
-                  fontFamily: 'Raleway',
-                  fontWeight: '600',
-                  fontStyle: 'normal',
-                }}
+                fontFamily={FONT_FAMILY.SEMI_BOLD}
                 size={Mixins.scaleFont(20)}>
                 New Activity
               </Text>
@@ -260,14 +255,22 @@ const ChangeOrderStatusModal = props => {
                             {...props}
                           />
                           <TouchableOpacity
-                            onPress={props.handleSubmit}
+                            style={[styles.buttonContainer]}
                             disabled={loading || ifNot}
-                            style={[
-                              Styles.alignItemsCenter,
-                              Styles.justifyContentCenter,
-                              styles.addActivity,
-                            ]}>
-                            {!loading && (
+                            onPress={props.handleSubmit}>
+                            {loading ? (
+                              <LinearGradient
+                                start={{x: 0, y: 0}}
+                                end={{x: 0, y: 0.9}}
+                                colors={['#139A5C', '#3662A8']}
+                                style={styles.linearGradient}>
+                                <ActivityIndicator
+                                  type={'ThreeBounce'}
+                                  size={30}
+                                  color={colors.textColorLight}
+                                />
+                              </LinearGradient>
+                            ) : (
                               <LinearGradient
                                 start={{x: 0, y: 0}}
                                 end={{x: 0, y: 0.9}}
@@ -280,19 +283,6 @@ const ChangeOrderStatusModal = props => {
                                   style={[styles.buttonText]}>
                                   ADD ACTIVITY
                                 </Text>
-                              </LinearGradient>
-                            )}
-                            {loading && (
-                              <LinearGradient
-                                start={{x: 0, y: 0}}
-                                end={{x: 0, y: 0.9}}
-                                colors={['#139A5C', '#3662A8']}
-                                style={styles.linearGradient}>
-                                <ActivityIndicator
-                                  type={'ThreeBounce'}
-                                  size={30}
-                                  color={colors.textColorLight}
-                                />
                               </LinearGradient>
                             )}
                           </TouchableOpacity>
@@ -314,7 +304,7 @@ const useStyles = colors => {
   return StyleSheet.create({
     addActivity: {
       backgroundColor: colors.button,
-      width: 200,
+      width: '100%',
       height: 40,
       borderRadius: 5,
       marginTop: 10,
@@ -323,10 +313,18 @@ const useStyles = colors => {
       margin: 0,
       marginTop: 0,
     },
+    buttonContainer: {
+      ...Styles.w100,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+      height: 40,
+      borderRadius: 5,
+      marginTop: 30,
+    },
     linearGradient: {
       width: '100%',
       borderRadius: 5,
-      justifyContent: 'center',
+      ...Styles.justifyContentCenter,
       height: 48,
     },
     buttonText: {

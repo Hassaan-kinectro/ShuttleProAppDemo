@@ -13,7 +13,7 @@ const OrderRowItem = item => {
       <Text lines={1} color={colors.TextColor} style={styles.FontStyle}>
         {item.name}
       </Text>
-      <Text lines={5} style={[styles.FontStyle, {width: 100}]}>
+      <Text lines={5} style={[styles.FontStyle]}>
         {item.value}
       </Text>
     </View>

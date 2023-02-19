@@ -44,8 +44,8 @@ const useStyles = colors => {
   return StyleSheet.create({
     CircularLetterStyle: {
       backgroundColor: colors.gradient1,
-      textAlign: 'center',
-      textAlignVertical: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     image: {borderWidth: 1, borderColor: colors.boxColor},
   });

@@ -6,15 +6,14 @@ const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
     container1: {
-      display: 'flex',
       flexDirection: 'row',
     },
     container2: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 30,
-      marginLeft: 10,
+      marginVertical: 5,
+      marginLeft: 0,
     },
     image: {
       width: 30,
@@ -22,25 +21,23 @@ const useStyles = () => {
       marginBottom: 3,
     },
     text: {
-      fontWeight: '500',
-      fontStyle: 'normal',
       fontSize: 12,
       color: colors.TextColor,
-      fontFamily: FONT_FAMILY.REGULAR,
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
     },
     boxContainer: {
       backgroundColor: colors.boxColor,
       paddingVertical: 15,
-      paddingHorizontal: 10,
+      paddingHorizontal: 15,
       borderRadius: 20,
       borderWidth: 1,
-      marginBottom: 30,
-      marginLeft: 20,
-      marginRight: 20,
+      marginVertical: 5,
+      marginLeft: 15,
+      marginRight: 15,
       borderColor: colors.boxBorderColor,
     },
     fieldWidth: {
-      width: deviceWidth - 230,
+      width: deviceWidth - 120,
       justifyContent: 'center',
     },
     width: {
