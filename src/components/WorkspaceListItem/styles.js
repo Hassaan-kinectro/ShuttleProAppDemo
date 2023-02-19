@@ -40,10 +40,7 @@ const useStyles = () => {
     container2: {
       flex: 1,
       paddingHorizontal: 20,
-<<<<<<< HEAD
-=======
       marginTop: 5,
->>>>>>> origin/dashboard
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
