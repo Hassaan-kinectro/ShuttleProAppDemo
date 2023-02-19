@@ -17,7 +17,6 @@ import PublishedStories from './PublishedStories';
 
 const SocialMediaProfile = props => {
   const styles = useStyles();
-
   const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(

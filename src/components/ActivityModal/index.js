@@ -23,6 +23,8 @@ import {useSelector} from 'react-redux';
 import {Dark, Light} from '../../utils/imagesPath';
 import {scaleSize} from '../../styles/mixins';
 import {showMessage} from 'react-native-flash-message';
+import LinearGradient from 'react-native-linear-gradient';
+import {FONT_FAMILY} from '../../utils/constants';
 
 const ComType = [
   {label: 'Email', value: 'email'},
@@ -266,23 +268,32 @@ const ChangeOrderStatusModal = props => {
                               styles.addActivity,
                             ]}>
                             {!loading && (
-                              <Text
-                                size={Mixins.scaleFont(16)}
-                                color={Colors.WHITE}
-                                style={[
-                                  {
-                                    paddingRight: loading ? 15 : 0,
-                                  },
-                                ]}>
-                                ADD ACTIVITY
-                              </Text>
+                              <LinearGradient
+                                start={{x: 0, y: 0}}
+                                end={{x: 0, y: 0.9}}
+                                colors={['#139A5C', '#3662A8']}
+                                style={styles.linearGradient}>
+                                <Text
+                                  size={Mixins.scaleFont(16)}
+                                  fontFamily={FONT_FAMILY.REGULAR}
+                                  color={colors.white}
+                                  style={[styles.buttonText]}>
+                                  ADD ACTIVITY
+                                </Text>
+                              </LinearGradient>
                             )}
                             {loading && (
-                              <ActivityIndicator
-                                type={'ThreeBounce'}
-                                size={30}
-                                color={colors.textColorLight}
-                              />
+                              <LinearGradient
+                                start={{x: 0, y: 0}}
+                                end={{x: 0, y: 0.9}}
+                                colors={['#139A5C', '#3662A8']}
+                                style={styles.linearGradient}>
+                                <ActivityIndicator
+                                  type={'ThreeBounce'}
+                                  size={30}
+                                  color={colors.textColorLight}
+                                />
+                              </LinearGradient>
                             )}
                           </TouchableOpacity>
                         </>
@@ -311,6 +322,16 @@ const useStyles = colors => {
     modal: {
       margin: 0,
       marginTop: 0,
+    },
+    linearGradient: {
+      width: '100%',
+      borderRadius: 5,
+      justifyContent: 'center',
+      height: 48,
+    },
+    buttonText: {
+      textAlign: 'center',
+      lineHeight: 19,
     },
   });
 };

@@ -12,7 +12,7 @@ const useStyles = () => {
       borderWidth: 1,
       borderRadius: 20,
       borderColor: colors.boxBorderColor,
-      marginBottom: 40,
+      marginBottom: 10,
       backgroundColor: colors.boxColor,
       marginHorizontal: 20,
     },
@@ -32,13 +32,12 @@ const useStyles = () => {
     container2: {
       flex: 1,
       paddingHorizontal: 20,
-      marginTop: 18,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     L8: {
-      left: 5,
+      left: 10,
     },
     container3: {
       flex: 1,
@@ -96,6 +95,7 @@ const useStyles = () => {
       marginLeft: 5,
       display: 'flex',
       flexDirection: 'row',
+      right: 5,
     },
     member1: {
       height: 24,

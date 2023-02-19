@@ -43,7 +43,6 @@ const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
         currentProfile={currentProfile}
         closeModal={closeStoryModal}
         open={postModals.facebookStory}
-        loading={postModals.loading}
       />
     </>
   );
