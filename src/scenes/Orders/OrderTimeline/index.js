@@ -28,37 +28,8 @@ const OrderTimeline = props => {
   }, [props.props.item]);
 
   return (
-    <View style={[Styles.flex, Styles.flexDirectionColumn, styles.ActivityBox]}>
-      <View style={[Styles.flex, styles.box]}>
-        {loading ? (
-          <View style={[Styles.flexCenter]}>
-            <Loader />
-          </View>
-        ) : (
-          <ScrollView style={[]}>
-            <View style={styles.container1}>
-              <View style={styles.container}>
-                {orderDetail &&
-                orderDetail.checkpoints &&
-                orderDetail.checkpoints.length > 0 ? (
-                  orderDetail.checkpoints.map(o => (
-                    <RowItem key={o.id} item={o} />
-                  ))
-                ) : (
-                  <View
-                    style={[
-                      Styles.flexCenter,
-                      {fontFamily: FONT_FAMILY.REGULAR},
-                    ]}>
-                    <Text style={styles.fS15}>
-                      {t('timeline.not.available')}
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </View>
-          </ScrollView>
-        )}
+    <View style={[Styles.flexDirectionColumn]}>
+      <View style={[Styles.flexCenterEnd, styles.buttonContainerStyle]}>
         <TouchableOpacity
           onPress={() =>
             GetBookedOrderStatus(
@@ -68,14 +39,35 @@ const OrderTimeline = props => {
               workspace_id,
             )
           }
-          style={[Styles.flexCenter, Styles.floatButton]}>
+          style={[styles.buttonStyle]}>
           <MIcon
             style={styles.updateicon}
             name="update"
-            size={30}
+            size={22}
             color={Colors.WHITE}
           />
         </TouchableOpacity>
+      </View>
+      <View style={[styles.boxContainer]}>
+        {loading ? (
+          <View style={[Styles.flexCenter]}>
+            <Loader />
+          </View>
+        ) : (
+          <View style={styles.container}>
+            {orderDetail &&
+            orderDetail.checkpoints &&
+            orderDetail.checkpoints.length > 0 ? (
+              orderDetail.checkpoints.map(o => <RowItem key={o.id} item={o} />)
+            ) : (
+              <View style={[Styles.flexCenter]}>
+                <Text fontFamily={FONT_FAMILY.REGULAR} lines={12}>
+                  {t('timeline.not.available')}
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
       </View>
     </View>
   );

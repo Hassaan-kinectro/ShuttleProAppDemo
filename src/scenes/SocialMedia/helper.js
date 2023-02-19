@@ -40,7 +40,7 @@ export const selectionTypes = [
   {
     id: 'product',
     name: 'Product',
-    label: 'product',
+    label: 'Product',
     value: 'Product',
   },
   {
@@ -121,10 +121,11 @@ export const getAllProducts = async (setProducts, workspaceId) => {
       return {
         ...prev,
         data: resp.data.map(d => {
+          console.log(d);
           return {
             ...d,
-            label: d.name,
-            value: d.name,
+            label: d.name + ` (${capitalize(d.code || '')})`,
+            value: d.id,
             name:
               d.name && d.code
                 ? capitalize(d.name) + ` (${capitalize(d.code)})`

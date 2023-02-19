@@ -1,11 +1,28 @@
 import {StyleSheet} from 'react-native';
 import {deviceWidth, IS_PAD} from '../utils/orientation';
 import * as Colors from './colors';
-import * as Mixins from './mixins';
 
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
+  },
+  flex2: {
+    flex: 2,
+  },
+  flex3: {
+    flex: 3,
+  },
+  pH20: {
+    paddingHorizontal: 20,
+  },
+  pH30: {
+    paddingHorizontal: 30,
+  },
+  justifyContentStart: {
+    justifyContent: 'flex-start',
+  },
+  alignItemsStart: {
+    alignItems: 'flex-start',
   },
   justifyContentCenter: {
     justifyContent: 'center',
@@ -23,9 +40,6 @@ const styles = StyleSheet.create({
   },
   alignSelfCenter: {
     alignSelf: 'center',
-  },
-  primaryBackground: {
-    backgroundColor: Colors.PRIMARY_DARK,
   },
   flexCenter: {
     flex: 1,
@@ -46,6 +60,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  flex2Start: {
+    flex: 2,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  flex3End: {
+    flex: 3,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
   loadingBackground: {
     backgroundColor: Colors.BLACK,
   },
@@ -54,6 +78,9 @@ const styles = StyleSheet.create({
   },
   flexDirectionRow: {
     flexDirection: 'row',
+  },
+  L8: {
+    left: 8,
   },
   pL10: {
     paddingLeft: 10,
@@ -79,14 +106,23 @@ const styles = StyleSheet.create({
   pR20: {
     paddingRight: 20,
   },
+  pT10: {
+    paddingTop: 10,
+  },
+  pT5: {
+    paddingTop: 5,
+  },
   fend: {
     alignSelf: 'flex-end',
   },
   h100: {height: '100%'},
+  h10: {height: 10},
+  h20: {height: 20},
   h50: {height: '50%'},
   w50: {width: '50%'},
   pV5: {paddingVertical: 5},
   pB10: {paddingBottom: 10},
+  pB5: {paddingBottom: 5},
   mT10: {marginTop: 10},
   mT15: {marginTop: 15},
   mT5: {marginTop: 5},
@@ -94,64 +130,17 @@ const styles = StyleSheet.create({
   mB10: {marginBottom: 10},
   mB15: {marginBottom: 15},
   mB20: {marginBottom: 20},
+  mB30: {marginBottom: 30},
+  mL10: {marginLeft: 10},
   mV10: {marginVertical: 10},
   mV15: {marginVertical: 15},
-  background_LIGHT_BLACK_2: {backgroundColor: Colors.LIGHT_BLACK_2},
   positionRelative: {position: 'relative'},
   rowFlexEnd: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  authButtonMargin: {},
-  authButtonWrapper: {
-    flex: 0.4,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginTop: 40,
-  },
   textCenter: {
     textAlign: 'center',
-  },
-  authLogo: {
-    width: 160,
-    height: 150,
-    borderRadius: 5,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginVertical: 5,
-  },
-  DrawerLogo: {
-    width: 130,
-    height: 130,
-    borderRadius: 60,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginVertical: 5,
-  },
-  dateInputField: {
-    paddingLeft: 5,
-    borderWidth: 0,
-    color: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.PRIMARY_1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingTop: 5,
-    paddingBottom: 10,
-  },
-  floatButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.PRIMARY_1,
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-  },
-  text12Primary_1: {
-    fontSize: Mixins.scaleFont(12),
-    color: Colors.PRIMARY_1,
   },
   Centered: {
     justifyContent: 'center',
@@ -160,69 +149,6 @@ const styles = StyleSheet.create({
   },
   w100: {
     width: '100%',
-  },
-  InputStyle: {
-    backgroundColor: Colors.PRIMARY_LIGHT,
-    height: 45,
-    borderColor: Colors.PRIMARY_1,
-    borderWidth: 1,
-  },
-
-  InputErrorStyle: {
-    backgroundColor: Colors.PRIMARY_LIGHT,
-    height: 45,
-    borderColor: Colors.DANGER,
-  },
-
-  WorkspaceLogoText: {
-    width: 150,
-    height: 20,
-    marginBottom: 5,
-    fontSize: 14,
-    color: Colors.PRIMARY_1,
-    textAlignVertical: 'center',
-    textAlign: 'center',
-  },
-  dropDownStyle: {
-    backgroundColor: Colors.PRIMARY_LIGHT,
-    borderWidth: 0,
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
-  },
-  placeholderStyle: {
-    color: Colors.GRAY,
-  },
-  activeLabelStyle: {
-    color: Colors.WHITE,
-  },
-  labelStyle: {
-    color: Colors.WHITE,
-    paddingLeft: 5,
-  },
-  itemStyle: {
-    justifyContent: 'flex-start',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.PRIMARY_DARK,
-    paddingLeft: 10,
-    borderRadius: 0,
-  },
-  dropDownContainerStyle: {
-    backgroundColor: Colors.PRIMARY_LIGHT,
-    borderWidth: 1,
-    borderColor: Colors.PRIMARY_1,
-    borderRadius: 0,
-  },
-  containerStyle: {
-    height: 45,
-    marginBottom: 20,
-  },
-  activeItemStyle: {
-    backgroundColor: Colors.PRIMARY_DARK,
-  },
-  searchableStyle: {
-    height: 40,
-    marginBottom: 0,
-    borderBottomWidth: 0,
   },
 });
 export default styles;

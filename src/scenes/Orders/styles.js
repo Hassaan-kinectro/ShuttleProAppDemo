@@ -1,11 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {Styles} from '../../styles';
 
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
     listContainer: {
-      paddingHorizontal: 10,
+      paddingTop: 10,
+      paddingHorizontal: 5,
       paddingBottom: 120,
     },
     customInputStyle: {
@@ -34,6 +36,20 @@ const useStyles = () => {
       width: '100%',
       height: '100%',
     },
+    filterContainer: {
+      alignItems: 'flex-end',
+      paddingHorizontal: 15,
+      paddingTop: 10,
+    },
+    filterStyle: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: colors.searchIconBackground,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+    },
+    filterIcon: {},
   });
 };
 export default useStyles;

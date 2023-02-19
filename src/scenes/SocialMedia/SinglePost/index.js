@@ -55,7 +55,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
               {name}
             </Text>
           )}
-          <View style={{backgroundColor: 'blue'}}>
+          <View>
             {post.image && post.image.includes('video') ? (
               <View style={styles.imageContainerStyle}>
                 <AIcon

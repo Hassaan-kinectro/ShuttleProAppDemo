@@ -1,6 +1,7 @@
-import {StyleSheet, Image, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import CircularImage from '../CircularImage';
+import {Text} from '../../styles';
 import {FONT_FAMILY, Routes} from '../../utils/constants';
 import {Instagram, Facebook} from '../../utils/imagesPath';
 import {useDispatch} from 'react-redux';
@@ -80,7 +81,9 @@ const SocialProfileShow = ({i, result, item, navigation}) => {
             </TouchableOpacity>
           </>
         )}
-        <Text style={styles.text}>{result ? result : null}</Text>
+        <Text size={12} style={styles.text}>
+          {result ? result : null}
+        </Text>
       </View>
     </>
   );
@@ -109,8 +112,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 25,
-    height: 25,
+    width: 36,
+    height: 36,
     borderRadius: 100,
     marginHorizontal: 10,
   },

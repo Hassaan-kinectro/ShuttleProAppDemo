@@ -84,7 +84,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
               </Text>
             </View>
           ) : post.carousel ? (
-            <Swiper style={{height: 320}} showsPagination={true}>
+            <Swiper style={{height: 340}} showsPagination={true}>
               {post.carousel &&
                 post.carousel.length > 0 &&
                 post.carousel.map((image, index) => {

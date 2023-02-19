@@ -62,7 +62,7 @@ export const LightTheme = {
     button: '#2B7C84',
     primary: '#9389A0',
     secondary: '#FF9BAB',
-    placeholder: '#ADADAD',
+    placeholder: '#333333',
     textColor: '#4E4E4E',
     textColorLight: '#AFAFAF',
     white: '#fff',

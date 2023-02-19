@@ -2,13 +2,13 @@ import {StyleSheet} from 'react-native';
 import {deviceHeight, IS_IOS, deviceWidth} from '../../../utils/orientation';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../../utils/constants';
+import {Styles} from '../../../styles';
 const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
     ActivityBox: {height: IS_IOS ? deviceHeight - 650 : deviceHeight - 580},
     container: {
       padding: 5,
-      paddingTop: 20,
     },
     fieldWidth: {
       width: deviceWidth - 230,
@@ -17,15 +17,9 @@ const useStyles = () => {
       width: 140,
     },
     boxContainer: {
-      backgroundColor: colors.boxColor,
-      paddingVertical: 15,
-      paddingHorizontal: 10,
-      borderRadius: 20,
-      borderWidth: 1,
-      marginBottom: 30,
+      marginBottom: 100,
       marginLeft: 20,
       marginRight: 20,
-      borderColor: colors.boxBorderColor,
     },
     rowItem: {
       display: 'flex',
@@ -68,6 +62,17 @@ const useStyles = () => {
     },
     opacity: {
       opacity: 1,
+    },
+    buttonContainerStyle: {
+      alignItems: 'flex-end',
+      paddingRight: 20,
+    },
+    buttonStyle: {
+      backgroundColor: colors.button,
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      ...Styles.flexCenter,
     },
   });
 };

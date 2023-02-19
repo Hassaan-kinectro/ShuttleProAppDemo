@@ -5,7 +5,6 @@ import {useSelector} from 'react-redux';
 import Wrapper from '../../components/Wrapper';
 import {Dark, Light} from '../../utils/imagesPath';
 import useStyles from './styles';
-import {useNavigation} from '@react-navigation/native';
 import {defaultWorkspace, getWorkspace, postModalDefault} from './helper';
 import SocialTabs from './SocialTabs';
 import CustomHeader from '../../components/CustomHeader';
@@ -15,15 +14,11 @@ import DataNotAvailable from './DataNotAvailable';
 import Loader from '../../components/Loader';
 import PublishedStories from './PublishedStories';
 
-const SocialMediaProfile = ({route}) => {
+const SocialMediaProfile = ({route, navigation}) => {
   const styles = useStyles();
-
   const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);
-  const workspaceId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
-  const navigation = useNavigation();
+  const workspaceId = useSelector(state => state.workspace.workspaceId);
   const [workspace, setWorkspace] = React.useState(defaultWorkspace);
   const [currentProfile, setCurrentProfile] = React.useState(null);
   const [postModals, setPostModals] = React.useState(postModalDefault);

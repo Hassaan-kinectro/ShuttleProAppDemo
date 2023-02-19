@@ -23,6 +23,7 @@ const Dashboard = ({navigation}) => {
         <CustomHeader name={t('dashboard')} navigation={navigation} />
         <FlatList
           data={[0]}
+          contentContainerStyle={Styles.pT10}
           keyExtractor={item => item.toString()}
           ListHeaderComponent={() => (
             <Tabs

@@ -33,7 +33,6 @@ const ActivityForm = props => {
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();
-
   useEffect(() => {
     if (props.reset) {
       setStatus(null);
@@ -63,7 +62,7 @@ const ActivityForm = props => {
           props.emailTemplates &&
           props.emailTemplates.length > 0 &&
           props.emailTemplates.filter(i => i.type === obj.name);
-        setTempTemplates(emailTemps);
+        setTempTemplates(emailTemps ? emailTemps : props.emailTemplates);
       }
       if (obj.type) {
         const arr =
@@ -98,6 +97,7 @@ const ActivityForm = props => {
     }
     if (props.visible && props.emailTemplates) {
       setTemplateData(props.emailTemplates);
+      setTempTemplates(props.emailTemplates);
     }
   }, [props.visible]);
 
@@ -156,11 +156,11 @@ const ActivityForm = props => {
     setTemplateVisibility(false);
   };
 
-  {
-    props && props.ComType ? console.log(props.ComType) : console.log('aaaa');
-  }
-  console.log(communicationName, 'name');
-
+  // {
+  //   props && props.ComType ? console.log(props.ComType) : console.log('aaaa');
+  // }
+  // console.log(communicationName, 'name');
+  console.log(props.emailTemplates, tempTemplates);
   return (
     <>
       {!hideField ? (

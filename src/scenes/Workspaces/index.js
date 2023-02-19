@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, FlatList, RefreshControl} from 'react-native';
-import {GlobalStyle, Text} from '../../styles';
-import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
-import useStyles from './styles';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '@react-navigation/native';
+import {GlobalStyle, Text} from '../../styles';
+import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
+import useStyles from './styles';
 import {WarningIcon} from '../../icons';
-import {GetWorkSpaceUser} from '../../services/Workspace';
 import WorkspaceListItem from '../../components/WorkspaceListItem';
 import CustomHeader from '../../components/CustomHeader';
 import Wrapper from '../../components/Wrapper';
@@ -16,17 +15,18 @@ import {onRefresh, getRecord} from './helper';
 import Loader from '../../components/Loader';
 
 const Workspace = ({route, navigation}) => {
-  const [workspaceList, setWorkspaceList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [refresh, setRefresh] = useState(false);
-  const theme = useSelector(state => state.themeChange.theme);
-
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Styles = GlobalStyle();
   const {t} = useTranslation();
+  const [workspaceList, setWorkspaceList] = useState({
+    loading: false,
+    data: [],
+  });
+  const [refresh, setRefresh] = useState(false);
+  const theme = useSelector(state => state.themeChange.theme);
   useEffect(() => {
-    getRecord(setLoading, GetWorkSpaceUser, setWorkspaceList);
+    getRecord(setWorkspaceList);
     return () => {
       setWorkspaceList([]);
     };
@@ -34,7 +34,7 @@ const Workspace = ({route, navigation}) => {
   React.useEffect(() => {
     if (route.params && route.params.refresh) {
       setRefresh(route.params.refresh);
-      onRefresh();
+      onRefresh(setRefresh, setWorkspaceList);
     }
   }, [route.params]);
 
@@ -52,33 +52,31 @@ const Workspace = ({route, navigation}) => {
           Styles.flatList,
           styles.innerContainer,
         ]}>
-        <View style={styles.h10} />
-        {loading ? (
+        {workspaceList.loading ? (
           <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
-            {loading && <Loader />}
+            {workspaceList.loading && <Loader />}
           </View>
         ) : (
           <FlatList
-            data={workspaceList}
-            extraData={loading}
+            data={workspaceList.data}
+            extraData={workspaceList.loading}
             nestedScrollEnabled={true}
             removeClippedSubviews={true}
             maxToRenderPerBatch={40}
             initialNumToRender={40}
+            contentContainerStyle={Styles.pT10}
             keyExtractor={(item, index) => `${index}`}
             refreshControl={
               <RefreshControl
                 refreshing={refresh}
-                onRefresh={() =>
-                  onRefresh(setRefresh, GetWorkSpaceUser, setWorkspaceList)
-                }
+                onRefresh={() => onRefresh(setRefresh, setWorkspaceList)}
                 colors={[colors.background]}
                 tintColor={colors.themeIcon}
               />
             }
             onEndReachedThreshold={0.5}
             ListEmptyComponent={() =>
-              !loading && workspaceList.length === 0 ? (
+              !workspaceList.loading && workspaceList.data.length === 0 ? (
                 <View
                   style={[
                     Styles.flexCenter,

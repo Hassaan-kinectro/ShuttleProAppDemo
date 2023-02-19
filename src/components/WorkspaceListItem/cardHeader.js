@@ -43,13 +43,13 @@ const CardHeader = ({item, navigateTo}) => {
           </TouchableOpacity>
         </View>
         <View style={Styles.flex3End}>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <F5Icon
               name={'ellipsis-v'}
               size={20}
               style={{color: colors.TextColor}}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </>

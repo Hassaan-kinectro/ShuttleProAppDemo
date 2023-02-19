@@ -5,7 +5,8 @@ import AIcon from 'react-native-vector-icons/AntDesign';
 import useStyles from './styles';
 import {useTheme} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import {deviceWidth} from '../../utils/orientation';
+const box = (deviceWidth - 80) / 3;
 const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
   const styles = useStyles();
   const {colors} = useTheme();
@@ -21,7 +22,10 @@ const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
   };
   return (
     <TouchableOpacity onPress={() => handleImagePress(item.image)}>
-      <Image source={{uri: item.image}} style={styles.imageArr} />
+      <Image
+        source={{uri: item.image}}
+        style={[styles.imageArr, {width: box, height: box}]}
+      />
       {selectedImages.includes(item && item.image) ? (
         <MaterialIcons
           name="check-box"

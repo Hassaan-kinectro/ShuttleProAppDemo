@@ -11,16 +11,23 @@ const GetStatusTypes = async () => {
   };
   const token = await getAuthHeader();
   return instance
-    .get('/v1/status_types', token)
+    .get('/statusTypes', token)
     .then(response => {
       if (response.status === 200) {
         response = response.data;
-        return {
-          ...responseData,
-          data: isArray(response) ? response : [],
-          status: 200,
-          message: 'Status types fetched successfully.',
-        };
+        if (response.code === 200) {
+          return {
+            ...responseData,
+            status: 200,
+            message: 'Status types fetch successfully.',
+            data: response.data,
+          };
+        } else {
+          return {
+            ...responseData,
+            message: response.message,
+          };
+        }
       } else {
         return {
           ...responseData,
@@ -29,7 +36,7 @@ const GetStatusTypes = async () => {
       }
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err, 'asaddsa');
       return {
         ...responseData,
         message: ParseError(
