@@ -64,13 +64,10 @@ const useStyles = () => {
     publishicon: {
       justifyContent: 'center',
       alignItems: 'center',
-      width: 60,
-      height: 60,
-      padding: 2,
-      borderRadius: 100,
-      marginHorizontal: 10,
+
+      paddingHorizontal: 40,
+      color: colors.white,
       borderColor: colors.boxBorderColor,
-      borderWidth: 2,
     },
     slide: {
       flex: 1,
@@ -336,7 +333,6 @@ const useStyles = () => {
     text: {
       fontFamily: FONT_FAMILY.REGULAR,
       fontWeight: '500',
-      fontSize: 12,
       color: colors.TextColor,
       marginTop: 5,
     },
@@ -376,12 +372,14 @@ const useStyles = () => {
       ...Styles.w100,
       ...Styles.justifyContentCenter,
       ...Styles.alignItemsCenter,
+      marginVertical: 20,
     },
     linearGradient: {
       width: '100%',
       borderRadius: 5,
       ...Styles.justifyContentCenter,
       height: 48,
+      flex: 1,
     },
     buttonText: {
       textAlign: 'center',

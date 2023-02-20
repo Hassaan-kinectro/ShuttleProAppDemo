@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   Centered: {
+    flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',

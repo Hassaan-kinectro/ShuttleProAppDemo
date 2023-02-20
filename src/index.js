@@ -71,7 +71,6 @@ const Src = () => {
     });
     getWorkspace().then(async res => {
       if (res) {
-        console.log(res, 'Asadasa');
         dispatch(SetWorkspace(res ? res : null));
       }
     });

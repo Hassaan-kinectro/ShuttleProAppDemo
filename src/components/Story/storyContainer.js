@@ -19,19 +19,9 @@ import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../utils/constants';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
-import Form from './form';
-import Story from './story';
-import CreateStory from '../../scenes/SocialMedia/CreateStory';
 import {Styles} from '../../styles';
 
-const StoryList = ({
-  publishedStories,
-  open,
-  loading,
-  closeModal,
-  currentProfile,
-}) => {
-  console.log(publishedStories, 'these are published');
+const StoryList = ({publishedStories, currentProfile}) => {
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,

@@ -14,12 +14,16 @@ import ImageGrid from './ImageGrid';
 import {GlobalStyle, Text, Mixins} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import useStyles from './styles';
-import {IS_IOS} from '../../utils/orientation';
+import {deviceHeight, IS_IOS} from '../../utils/orientation';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../utils/constants';
 import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
+import Loader from '../Loader';
+const HEIGHT = deviceHeight;
+const PUBLISH_BACK = HEIGHT - 400;
 
 const ImageList = ({values, setFieldValue, loading, save}) => {
+  console.log(loading);
   const {colors} = useTheme();
   const styles = useStyles();
   const Styles = GlobalStyle();
@@ -37,7 +41,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         }
         contentContainerStyle={{
           paddingHorizontal: 5,
-          paddingBottom: IS_IOS ? 180 : 200,
+          paddingBottom: IS_IOS ? deviceHeight - 770 : deviceHeight - 670,
         }}
         ListHeaderComponent={() => {
           return (
