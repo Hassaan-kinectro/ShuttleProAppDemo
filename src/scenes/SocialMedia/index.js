@@ -35,15 +35,14 @@ const SocialMediaProfile = ({route, navigation}) => {
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
         <CustomHeader name={name} navigation={navigation} />
-        {workspace && workspace.loading && (
-          <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+        {workspace && workspace.loading ? (
+          <View style={[Styles.w100, Styles.h50, Styles.Centered]}>
             <Loader />
           </View>
-        )}
-        {!workspace.loading &&
-        workspace.data &&
-        workspace.data.social_profiles &&
-        workspace.data.social_profiles.length > 0 ? (
+        ) : !workspace.loading &&
+          workspace.data &&
+          workspace.data.social_profiles &&
+          workspace.data.social_profiles.length > 0 ? (
           <>
             <View style={Styles.flexDirectionRow}>
               <SocialTabs
@@ -91,16 +90,6 @@ const SocialMediaProfile = ({route, navigation}) => {
             <DataNotAvailable />
           </>
         )}
-
-        {/* {workspace.socialProfile && (
-          <AddSocialProfileModal
-            open={workspace.socialProfile}
-            closeModal={closeSocialModal}
-            maxWidth={MD}
-            workspaceId={workspaceId}
-            modalTitle={t('add.social.profile')}
-          />
-        )} */}
       </View>
     </Wrapper>
   );

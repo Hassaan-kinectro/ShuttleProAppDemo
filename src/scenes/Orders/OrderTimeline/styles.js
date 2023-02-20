@@ -24,6 +24,14 @@ const useStyles = () => {
       marginRight: 20,
       // borderColor: colors.boxBorderColor,
     },
+    linearGradient: {
+      ...Styles.justifyContentCenter,
+      backgroundColor: colors.button,
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      ...Styles.flexCenter,
+    },
     container1: {
       // display: 'flex',
       flexDirection: 'row',
@@ -41,13 +49,6 @@ const useStyles = () => {
     buttonContainerStyle: {
       alignItems: 'flex-end',
       paddingRight: 20,
-    },
-    buttonStyle: {
-      backgroundColor: colors.button,
-      width: 36,
-      height: 36,
-      borderRadius: 18,
-      ...Styles.flexCenter,
     },
   });
 };

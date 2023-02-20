@@ -11,6 +11,9 @@ import {useSelector} from 'react-redux';
 import Loader from '../../../components/Loader';
 import RowItem from '../../../components/RowItem';
 import {useTranslation} from 'react-i18next';
+import {WarningIcon} from '../../../icons';
+import {useTheme} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const OrderActivity = props => {
   let contact;
@@ -26,6 +29,7 @@ const OrderActivity = props => {
   const workspace_id = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
+  const {colors} = useTheme();
   const [loading, setLoading] = React.useState(false);
   const [orderDetail, setOrderDetail] = React.useState({});
   const [visibleActivity, setActivityVisibility] = React.useState(false);
@@ -58,16 +62,20 @@ const OrderActivity = props => {
     <>
       <View style={[Styles.flex, Styles.flexDirectionColumn]}>
         <View style={[Styles.flexCenterEnd, styles.buttonContainerStyle]}>
-          <TouchableOpacity
-            onPress={ShowActivityModal}
-            style={[styles.buttonStyle]}>
-            <MIcon
-              style={styles.opacity}
-              name="plus"
-              size={22}
-              color={Colors.WHITE}
-            />
-          </TouchableOpacity>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.9}}
+            colors={['#139A5C', '#3662A8']}
+            style={styles.linearGradient}>
+            <TouchableOpacity onPress={ShowActivityModal}>
+              <MIcon
+                style={styles.opacity}
+                name="plus"
+                size={22}
+                color={Colors.WHITE}
+              />
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
         <View style={[styles.boxContainer]}>
           {loading ? (
@@ -86,6 +94,11 @@ const OrderActivity = props => {
                     Styles.flexCenter,
                     {fontFamily: FONT_FAMILY.REGULAR},
                   ]}>
+                  <WarningIcon
+                    color={colors.textColorLight}
+                    size={40}
+                    style={Styles.pB10}
+                  />
                   <Text fontFamily={FONT_FAMILY.REGULAR} lines={12}>
                     {t('activities.not.available')}
                   </Text>

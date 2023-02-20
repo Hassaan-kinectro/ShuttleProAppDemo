@@ -46,7 +46,7 @@ const useStyles = () => {
       alignItems: 'center',
     },
     L8: {
-      left: 5,
+      left: 10,
     },
     container3: {
       flex: 1,
@@ -104,6 +104,7 @@ const useStyles = () => {
       marginLeft: 5,
       display: 'flex',
       flexDirection: 'row',
+      right: 5,
     },
     member1: {
       height: 24,

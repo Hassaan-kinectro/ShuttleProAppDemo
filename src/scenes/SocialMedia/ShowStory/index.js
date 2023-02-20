@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import {View, Text, FlatList, RefreshControl} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 import React, {useRef} from 'react';
 import CustomHeader from '../../../components/CustomHeader';
 import {useSelector} from 'react-redux';
@@ -16,7 +16,7 @@ import {
 } from '../../../utils/orientation';
 import {getStories, onRefresh} from './helper';
 import Loader from '../../../components/Loader';
-import {GlobalStyle} from '../../../styles';
+import {GlobalStyle, Text} from '../../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
 import {DeleteStoryById} from '../../../services/Stories';
@@ -69,6 +69,9 @@ const ShowStory = props => {
         setUnPublishedStories(
           unPublishedStories.filter(record => record.id !== id),
         );
+        setPublishedStories(
+          publishedStories.filter(record => record.id !== id),
+        );
         setIsDeleting(false);
       } else {
         setIsDeleting(false);
@@ -86,7 +89,7 @@ const ShowStory = props => {
             <View style={[Styles.Centered]}>{loading && <Loader />}</View>
           ) : (
             <FlatList
-              data={[...unPublishedStories]}
+              data={[...unPublishedStories, ...publishedStories]}
               extraData={loading}
               scrollEventThrottle={16}
               nestedScrollEnabled={true}
@@ -125,20 +128,20 @@ const ShowStory = props => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         height:
-                          (deviceHeight - getFixedHeaderHeight() - 40) / 2,
+                          (deviceHeight - getFixedHeaderHeight() - 10) / 1.4,
                       },
                     ]}>
                     <AIcon
                       name="warning"
                       color={colors.textColorLight}
                       size={40}
-                      style={Styles.pB10}
                     />
                     <Text
                       numberOfLines={1}
                       color={colors.textColorLight}
+                      style={styles.text}
                       size={16}>
-                      <Text style={styles.text}>No Pending Stories </Text>
+                      No Pending Stories
                     </Text>
                   </View>
                 ) : null

@@ -286,34 +286,6 @@ const ChangeOrderStatusModal = props => {
                               </LinearGradient>
                             )}
                           </TouchableOpacity>
-                          {/* <TouchableOpacity
-                            onPress={props.handleSubmit}
-                            disabled={loading || ifNot}
-                            style={[
-                              Styles.alignItemsCenter,
-                              Styles.justifyContentCenter,
-                              styles.addActivity,
-                            ]}>
-                            {!loading && (
-                              <Text
-                                size={Mixins.scaleFont(16)}
-                                color={Colors.WHITE}
-                                style={[
-                                  {
-                                    paddingRight: loading ? 15 : 0,
-                                  },
-                                ]}>
-                                ADD ACTIVITY
-                              </Text>
-                            )}
-                            {loading && (
-                              <ActivityIndicator
-                                type={'ThreeBounce'}
-                                size={30}
-                                color={colors.textColorLight}
-                              />
-                            )}
-                          </TouchableOpacity> */}
                         </>
                       </View>
                     </>

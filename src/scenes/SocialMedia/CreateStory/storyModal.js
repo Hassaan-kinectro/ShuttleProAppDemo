@@ -5,7 +5,6 @@ import {
   Modal,
   TouchableOpacity,
   ActivityIndicator,
-  Image,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -13,8 +12,10 @@ import FastImage from 'react-native-fast-image';
 import Loader from '../../../components/Loader';
 import {useTheme} from '@react-navigation/native';
 import useStyles from '../styles';
-import {PUBLISH} from '../../../utils/imagesPath';
 import {deviceWidth, IS_IOS} from '../../../utils/orientation';
+import LinearGradient from 'react-native-linear-gradient';
+import {FONT_FAMILY} from '../../../utils/constants';
+import {Mixins} from '../../../styles';
 
 const StoryModal = ({
   data,
@@ -74,7 +75,7 @@ const StoryModal = ({
             alignItems: 'center',
             position: 'absolute',
             zIndex: 999,
-            left: deviceWidth / 2.5,
+            left: deviceWidth / 3,
             top: IS_IOS ? 700 : 600,
           }}
           onPress={() => {
@@ -86,7 +87,19 @@ const StoryModal = ({
           {loading ? (
             <ActivityIndicator style={styles.publishicon} />
           ) : (
-            <Image style={styles.publishicon} source={PUBLISH} />
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 0.9}}
+              colors={['#139A5C', '#3662A8']}
+              style={styles.linearGradient}>
+              <Text
+                size={Mixins.scaleFont(16)}
+                fontFamily={FONT_FAMILY.REGULAR}
+                color={colors.white}
+                style={[styles.publishicon]}>
+                Publish
+              </Text>
+            </LinearGradient>
           )}
         </TouchableOpacity>
 

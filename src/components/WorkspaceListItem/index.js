@@ -125,7 +125,7 @@ const WorkspaceListItem = props => {
             <Text
               lines={1}
               color={colors.TextColor}
-              style={(styles.L8, styles.font)}>
+              style={[styles.L8, styles.font]}>
               {t('shippers')}:
             </Text>
             <View style={styles.shipperStyle}>
