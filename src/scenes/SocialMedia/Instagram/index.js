@@ -117,6 +117,7 @@ const Instagram = ({currentProfile, users}) => {
                 {item.workspaceId ? (
                   <>
                     <ShuttlePost
+                      key={item.id}
                       post={item}
                       name={name}
                       users={users}

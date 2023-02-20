@@ -12,6 +12,7 @@ import {descriptionTemplateParser} from '../../utils/Parser';
 const ActivityForm = props => {
   const {order} = props;
   const {obj} = props;
+  console.log(obj, 'this is obj');
 
   const [status, setStatus] = useState(null);
   const [communicationType, setCommunicationType] = useState(null);

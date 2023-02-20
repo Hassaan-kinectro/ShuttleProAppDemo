@@ -12,7 +12,7 @@ import FastImage from 'react-native-fast-image';
 import Loader from '../../../components/Loader';
 import {useTheme} from '@react-navigation/native';
 import useStyles from '../styles';
-import {deviceWidth, IS_IOS} from '../../../utils/orientation';
+import {deviceHeight, deviceWidth, IS_IOS} from '../../../utils/orientation';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../../utils/constants';
 import {Mixins} from '../../../styles';
@@ -76,7 +76,7 @@ const StoryModal = ({
             position: 'absolute',
             zIndex: 999,
             left: deviceWidth / 3,
-            top: IS_IOS ? 700 : 600,
+            bottom: IS_IOS ? deviceHeight - 750 : deviceHeight - 680,
           }}
           onPress={() => {
             if (!loading) {

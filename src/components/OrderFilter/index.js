@@ -33,12 +33,14 @@ const FilterTag = filter => {
         <MIcon
           name={filter.icon}
           size={20}
-          color={colors.gradient1}
+          color="#fff"
           style={Styles.pR10}
           onPress={filter.onclick}
         />
       )}
-      <Text>{name}</Text>
+      <Text size={13} color="#fff">
+        {name}
+      </Text>
       <MIcon
         name="close-circle-outline"
         size={24}
@@ -204,7 +206,9 @@ const OrdersFilterModal = props => {
                         Styles.justifyContentCenter,
                         styles.button,
                       ]}>
-                      <Text>Apply Filter</Text>
+                      <Text size={13} color="#fff">
+                        Apply Filter
+                      </Text>
                     </TouchableOpacity>
                   </>
                 ) : null}
@@ -224,7 +228,7 @@ const OrdersFilterModal = props => {
                   iconComponent={
                     <AIcon
                       name="calendar"
-                      color={colors.icon}
+                      color={colors.button}
                       size={22}
                       style={[Styles.iconComponent]}
                     />
@@ -259,7 +263,7 @@ const OrdersFilterModal = props => {
                   iconComponent={
                     <AIcon
                       name="calendar"
-                      color={colors.icon}
+                      color={colors.button}
                       size={22}
                       style={[Styles.iconComponent]}
                     />

@@ -297,8 +297,11 @@ const useStyles = () => {
       flex: 1,
     },
     imageStyle: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
       height: 320,
-      width: 320,
+      width: 340,
       borderRadius: 16,
     },
     flex10Start: {
@@ -346,11 +349,8 @@ const useStyles = () => {
       left: 40,
     },
     imageContainerStyle: {
-      // flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      flex: 1,
       flexDirection: 'column',
-      // marginTop: 10,
       height: 340,
       width: 340,
     },

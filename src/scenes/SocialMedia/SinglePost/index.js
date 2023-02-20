@@ -8,6 +8,7 @@ import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
+import Swiper from 'react-native-swiper';
 import CircularImage from '../../../components/CircularImage';
 const SinglePost = ({post, name, pageIcon, profileType}) => {
   const styles = useStyles();
@@ -49,15 +50,10 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
           style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
-        <View>
-          {post.type === 'carousel' && profileType === 'instagram' && (
-            <Text numberOfLines={1} style={[styles.text]}>
-              {name}
-            </Text>
-          )}
-          <View>
-            {post.image && post.image.includes('video') ? (
-              <View style={styles.imageContainerStyle}>
+        <View style={[Styles.flexCenter]}>
+          {post.image && post.image.includes('video') ? (
+            <View style={styles.imageContainerStyle}>
+              <View style={[Styles.flexCenter]}>
                 <AIcon
                   name="warning"
                   color={colors.textColorLight}
@@ -68,18 +64,34 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
                   Wait! Image is loading...
                 </Text>
               </View>
-            ) : (
-              <View style={styles.imageContainerStyle}>
-                <FastImage
-                  source={{
-                    uri: post.image,
-                  }}
-                  style={styles.imageStyle}
-                  resizeMode="cover"
-                />
-              </View>
-            )}
-          </View>
+            </View>
+          ) : post && post.carousel && post.carousel.length > 0 ? (
+            <Swiper style={{height: 340}} showsPagination={true}>
+              {post.carousel.map((image, index) => {
+                return (
+                  <View key={`${index}`}>
+                    <FastImage
+                      style={styles.imageStyle}
+                      source={{
+                        uri: image,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                );
+              })}
+            </Swiper>
+          ) : (
+            <View style={styles.imageContainerStyle}>
+              <FastImage
+                source={{
+                  uri: post.image,
+                }}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
+            </View>
+          )}
         </View>
       </View>
     </>

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import React, {useCallback} from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
@@ -11,7 +11,9 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
 import PopupMenu from '../../../components/PopupMenu';
 import Swiper from 'react-native-swiper';
-
+// import VideoPlayer from 'react-native-video-player';
+// import Video from 'react-native-video';
+// import VideoPlayer from 'react-native-video-controls';
 import FastImage from 'react-native-fast-image';
 import {GetMenuList} from '../helper';
 const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
@@ -26,6 +28,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
     },
     [post, profileType, setPosts],
   );
+
   return (
     <>
       <View style={styles.postCard}>
@@ -65,41 +68,36 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
           style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
-        <View>
-          {post.type === 'carousel' && profileType === 'instagram' && (
-            <Text numberOfLines={1} style={[styles.text]}>
-              {name}
-            </Text>
-          )}
-          {post.image && post.image.includes('video') ? (
+        <View style={[Styles.flexCenter]}>
+          {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              <AIcon
-                name="warning"
-                color={colors.textColorLight}
-                size={40}
-                style={styles.pB10}
-              />
-              <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                Wait! Image is loading...
-              </Text>
+              <View style={[Styles.flexCenter]}>
+                <AIcon
+                  name="warning"
+                  color={colors.textColorLight}
+                  size={40}
+                  style={styles.pB10}
+                />
+                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
+                  Wait! Image is loading...
+                </Text>
+              </View>
             </View>
-          ) : post.carousel ? (
+          ) : post && post.carousel && post.carousel.length > 0 ? (
             <Swiper style={{height: 340}} showsPagination={true}>
-              {post.carousel &&
-                post.carousel.length > 0 &&
-                post.carousel.map((image, index) => {
-                  return (
-                    <View key={`${index}`}>
-                      <FastImage
-                        style={styles.imageStyle}
-                        source={{
-                          uri: image,
-                        }}
-                        resizeMode="contain"
-                      />
-                    </View>
-                  );
-                })}
+              {post.carousel.map((image, index) => {
+                return (
+                  <View key={`${index}`}>
+                    <FastImage
+                      style={styles.imageStyle}
+                      source={{
+                        uri: image,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                );
+              })}
             </Swiper>
           ) : (
             <View style={styles.imageContainerStyle}>
@@ -108,7 +106,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                   uri: post.image,
                 }}
                 style={styles.imageStyle}
-                resizeMode="contain"
+                resizeMode="cover"
               />
             </View>
           )}

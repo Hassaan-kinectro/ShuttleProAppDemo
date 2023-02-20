@@ -27,7 +27,7 @@ const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
       setSelectedImages([...selectedImages, image]);
     }
   };
-  console.log(item, 'this is item');
+
   return (
     <>
       <TouchableOpacity onPress={() => handleImagePress(item.image)}>
@@ -38,6 +38,7 @@ const ImageGrid = ({item, selectedImages, setSelectedImages}) => {
         {selectedImages.includes(item && item.image) ? (
           <MaterialIcons
             name="check-box"
+            color={colors.backgroundColor}
             size={20}
             style={{
               position: 'absolute',
