@@ -73,7 +73,8 @@ const OrderListItem = props => {
     mailGroupId: '',
     name: 'call',
     type: 'confirmationCall',
-    templateId: '63cf96a39059c3118a028079',
+    templateId: '',
+    // templateId: '63cf96a39059c3118a028079',
     status: '',
   };
   const OpenActivity = () => {
@@ -89,8 +90,8 @@ const OrderListItem = props => {
   return (
     <>
       <View style={styles.BoxStyle}>
-        <View style={[styles.container, Styles.flexDirectionRow, styles.pT15]}>
-          <View style={[Styles.flex2Start]}>
+        <View style={[styles.container, Styles.flexDirectionRow]}>
+          <View style={[styles.flex2Start]}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -100,26 +101,18 @@ const OrderListItem = props => {
                   recipientGroup: props.recipientGroup,
                 });
               }}>
-              <Text
-                size={Mixins.scaleFont(12)}
-                style={{fontWeight: '400'}}
-                color={colors.TextColor}>
+              <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
                 {t('cn')} #
                 {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
               </Text>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-start',
-              alignItems: 'flex-start',
-            }}>
+          <View style={styles.flexMinBox}>
             <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
             <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
               {props.item.cod_amount
                 ? TransformPrice(props.item.cod_amount)
-                : 'N/A'}
+                : '0'}
               .00
             </Text>
           </View>
@@ -167,13 +160,13 @@ const OrderListItem = props => {
                 style={[
                   Styles.flexCenter,
                   {
-                    height: (deviceHeight - getFixedHeaderHeight() - 100) / 8,
+                    height: 60,
                   },
                 ]}>
                 <AIcon
                   name="warning"
                   color={colors.textColorLight}
-                  size={40}
+                  size={24}
                   style={styles.pB10}
                 />
                 <Text style={styles.errorText}>Products Not Available</Text>

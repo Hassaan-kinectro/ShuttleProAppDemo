@@ -11,7 +11,7 @@ import moment from 'moment';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import DatePickerField from '../DateTimePicker';
 import {selectionTypes} from '../../scenes/SocialMedia/helper';
-
+const dropDownMaxHeight = 150;
 const Form = ({
   values,
   setFieldValue,
@@ -80,14 +80,13 @@ const Form = ({
       <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
         Product
       </Text>
-
       <DropDownPicker
         items={selectionTypes}
         defaultValue={values.selectionTypes}
         scrollViewProps={{
           keyboardShouldPersistTaps: 'always',
         }}
-        dropDownMaxHeight={200}
+        dropDownMaxHeight={dropDownMaxHeight}
         isVisible={nameVisible}
         onOpen={() => {
           changeVisibility();
@@ -133,7 +132,7 @@ const Form = ({
               scrollViewProps={{
                 keyboardShouldPersistTaps: 'always',
               }}
-              dropDownMaxHeight={200}
+              dropDownMaxHeight={dropDownMaxHeight}
               isVisible={productVisible}
               multiple={true}
               onOpen={() => {
@@ -166,7 +165,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
-              zIndex={50010}
+              zIndex={50008}
             />
           </>
         )}
@@ -183,7 +182,7 @@ const Form = ({
               scrollViewProps={{
                 keyboardShouldPersistTaps: 'always',
               }}
-              dropDownMaxHeight={200}
+              dropDownMaxHeight={dropDownMaxHeight}
               isVisible={categoryVisible}
               onOpen={() => {
                 changeVisibility();
@@ -216,7 +215,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
-              zIndex={50010}
+              zIndex={50005}
             />
           </>
         )}
@@ -233,7 +232,7 @@ const Form = ({
               scrollViewProps={{
                 keyboardShouldPersistTaps: 'always',
               }}
-              dropDownMaxHeight={200}
+              dropDownMaxHeight={dropDownMaxHeight}
               isVisible={tagVisible}
               onOpen={() => {
                 changeVisibility();
@@ -266,6 +265,7 @@ const Form = ({
                   setFieldValue(Constants.DELETED_NUM_ARR, []);
                 }
               }}
+              zIndex={50002}
             />
           </>
         )}
@@ -311,5 +311,4 @@ const Form = ({
     </>
   );
 };
-
 export default Form;

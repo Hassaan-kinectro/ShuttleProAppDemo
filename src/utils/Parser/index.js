@@ -13,6 +13,10 @@ export const ParseError = error => {
       err = error.error;
       console.log(err, 'string');
     }
+    if (error.message && isString(error.message)) {
+      err = error.message;
+      console.log(err, 'string');
+    }
   }
   if (err === 'Invalid login credentials. Please try again.') {
     err = 'Email and password is invalid!';

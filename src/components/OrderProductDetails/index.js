@@ -34,16 +34,15 @@ const OrderProductDetails = (item, {check}) => {
           Styles.flex,
           Styles.flexDirectionRow,
           Styles.justifyContentSpaceBetween,
-          Styles.pH30,
         ]}>
-        <View style={[Styles.flex2Start]}>
+        <View style={[Styles.flex]}>
           <FastImage
             style={[styles.productImage]}
             source={{uri: img.uri}}
             resizeMode={FastImage.resizeMode.cover}
           />
         </View>
-        <View style={[Styles.flexCenter]}>
+        <View style={[styles.textBoxContainer]}>
           <View style={[Styles.flex, Styles.flexDirectionColumn]}>
             <OrderRowItem
               name={'Amount'}

@@ -61,6 +61,7 @@ const Notifications = ({navigation}) => {
           removeClippedSubviews={true}
           maxToRenderPerBatch={40}
           initialNumToRender={40}
+          contentContainerStyle={Styles.pT10}
           keyExtractor={item => item._id.toString()}
           //   ListHeaderComponent={() => (
           //     <Tabs

@@ -10,9 +10,9 @@ const useStyles = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 15,
+      marginBottom: 10,
     },
-    tab1Style: {
+    tabInnerStyle: {
       backgroundColor: colors.tabColor,
       justifyContent: 'center',
       alignItems: 'center',
@@ -22,7 +22,7 @@ const useStyles = () => {
       borderRadius: 30,
     },
     tabItemStyle: {
-      height: 32,
+      height: 28,
       minWidth: deviceWidth / 6,
       alignItems: 'center',
       justifyContent: 'center',

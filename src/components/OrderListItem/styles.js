@@ -14,9 +14,15 @@ const useStyles = () => {
       marginBottom: 10,
       backgroundColor: colors.boxColor,
       marginHorizontal: 10,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.2,
-      shadowRadius: 6,
+      shadowColor: colors.black,
+      paddingTop: 15,
+      paddingHorizontal: 15,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
       elevation: 5,
     },
     listItem: {
@@ -33,6 +39,17 @@ const useStyles = () => {
       marginBottom: 5,
       marginTop: IS_IOS ? 5 : 5,
       marginHorizontal: 5,
+    },
+    flex2Start: {
+      flex: 2,
+      height: '100%',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    },
+    flexMinBox: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
     },
     TrackingId: {
       width: deviceWidth - 100,
@@ -106,21 +123,22 @@ const useStyles = () => {
       width: 25,
     },
     mT20: {
-      marginTop: 20,
+      marginTop: 5,
     },
     pB10: {
       paddingBottom: 10,
     },
     errorText: {
       color: colors.textColorLight,
-      fontSize: Mixins.scaleFont(16),
-      paddingBottom: 20,
+      fontSize: Mixins.scaleFont(12),
+      paddingBottom: 10,
     },
     container: {
       flex: 1,
-      paddingLeft: 20,
+      // paddingLeft: 20,
       justifyContent: 'center',
       alignItems: 'center',
+      // backgroundColor: '#000',
     },
     pT15: {
       paddingTop: 15,

@@ -2,7 +2,12 @@ import instance from '../../config/axios';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 
-export const FetchStories = async (workspaceId, page = 1, limit = 500) => {
+export const FetchStories = async (
+  workspaceId,
+  profileType = 'facebook',
+  page = 1,
+  limit = 500,
+) => {
   const responseData = {
     loading: false,
     status: 210,
@@ -11,7 +16,10 @@ export const FetchStories = async (workspaceId, page = 1, limit = 500) => {
 
   const token = await getAuthHeader();
   return instance
-    .get(`/stories/?workspaceId=${workspaceId}`, token)
+    .get(
+      `/stories/?workspaceId=${workspaceId}&profileType=${profileType}`,
+      token,
+    )
     .then(response => {
       if (response && response.data && response.data.code === 200) {
         response = {

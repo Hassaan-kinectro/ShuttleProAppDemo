@@ -132,7 +132,7 @@ const ShowStory = props => {
                       name="warning"
                       color={colors.textColorLight}
                       size={40}
-                      style={styles.pB10}
+                      style={Styles.pB10}
                     />
                     <Text
                       numberOfLines={1}

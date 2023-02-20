@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import {View, FlatList, RefreshControl, TouchableOpacity} from 'react-native';
 import {getRecord} from './helper';
 import {Text, GlobalStyle, Colors} from '../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
@@ -17,13 +17,13 @@ import OrderListItem from '../../components/OrderListItem';
 import CustomHeader from '../../components/CustomHeader';
 import Loader from '../../components/Loader';
 import Wrapper from '../../components/Wrapper';
+import OrderFilter from '../../components/OrderFilter';
+import {FilterIcon} from '../../icons';
 
 const OrderScreen = ({navigation, route}) => {
   const theme = useSelector(state => state.themeChange.theme);
-  const workspaceId = useSelector(
-    state => state.workspace.workspace.workspace.id,
-  );
-
+  const workspaceId = useSelector(state => state.workspace.workspaceId);
+  const [visible, setVisibility] = React.useState(false);
   const [allOrders, setAllOrders] = React.useState([]);
   const [orders, setOrders] = React.useState([]);
   const [lastIndex, changeLastIndex] = React.useState(0);
@@ -39,6 +39,7 @@ const OrderScreen = ({navigation, route}) => {
   });
   const [emailTemplates, setEmailTemplates] = React.useState([]);
   const [recipientGroup, setRecipientGroup] = React.useState([]);
+  const [statusTypes, setStatusTypes] = React.useState([]);
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const {t} = useTranslation();
@@ -47,7 +48,12 @@ const OrderScreen = ({navigation, route}) => {
   const totalFetch = 1000;
 
   React.useEffect(() => {
-    getRecord(setEmailTemplates, setRecipientGroup, workspaceId);
+    getRecord(
+      setEmailTemplates,
+      setRecipientGroup,
+      setStatusTypes,
+      workspaceId,
+    );
     if (route.params && route.params.startDate) {
       setOrders([]);
       setAllOrders([]);
@@ -75,6 +81,7 @@ const OrderScreen = ({navigation, route}) => {
       p = page;
       f = filter;
     }
+    setfilters(f);
     if (!stop) {
       setLoading(true);
       GetOrdersByFilter(workspaceId, p, totalFetch, f).then(res => {
@@ -164,7 +171,7 @@ const OrderScreen = ({navigation, route}) => {
       </View>
     );
   };
-
+  console.log('statusTypes', filter, orders.length);
   const name = 'Orders';
   const onSearchText = text => {
     console.log('hello');
@@ -201,6 +208,17 @@ const OrderScreen = ({navigation, route}) => {
           navigation={navigation}
           onSearchText={onSearchText}
         />
+        <View style={styles.filterContainer}>
+          <TouchableOpacity
+            style={styles.filterStyle}
+            onPress={() => setVisibility(true)}>
+            <FilterIcon
+              size={18}
+              color={colors.searchIcon}
+              style={styles.filterIcon}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={[Styles.flex]}>
           {loading ? (
             <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
@@ -260,6 +278,15 @@ const OrderScreen = ({navigation, route}) => {
             />
           )}
         </View>
+        {visible && (
+          <OrderFilter
+            statusTypes={statusTypes}
+            visible={visible}
+            filter={filter}
+            getFilter={getOrdersList}
+            setVisibility={setVisibility}
+          />
+        )}
       </Wrapper>
     </>
   );

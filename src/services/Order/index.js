@@ -246,7 +246,7 @@ const getOrderStatus = async (workspace_id, order_id) => {
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err, err.response.data);
         return {
           ...responseData,
           message: ParseError(

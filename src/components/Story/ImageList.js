@@ -28,7 +28,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
   const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
-    <ScrollView>
+    <React.Fragment>
       <FlatList
         data={
           values && values.imagesArr && values.imagesArr.length > 0
@@ -47,7 +47,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                   flex: 1,
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  marginVertical: 20,
+                  marginVertical: 10,
                 }}>
                 <Text
                   size={20}
@@ -57,7 +57,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                   Select Story Media
                 </Text>
                 <Text
-                  size={12}
+                  size={10}
                   color={colors.TextColor}
                   fontFamily={FONT_FAMILY.LIGHT}
                   lines={1}>
@@ -84,24 +84,18 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                     onPress={() => {
                       setFieldValue && setFieldValue('imagesArr', []);
                     }}>
-                    {values.imagesLoading ? (
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 0, y: 0.9}}
-                        colors={['#139A5C', '#3662A8']}
-                        style={styles.linearGradient}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}}
+                      end={{x: 0, y: 0.9}}
+                      colors={['#139A5C', '#3662A8']}
+                      style={styles.linearGradient}>
+                      {values.imagesLoading ? (
                         <ActivityIndicator
                           type={'ThreeBounce'}
                           size={30}
                           color={colors.textColorLight}
                         />
-                      </LinearGradient>
-                    ) : (
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 0, y: 0.9}}
-                        colors={['#139A5C', '#3662A8']}
-                        style={styles.linearGradient}>
+                      ) : (
                         <Text
                           size={Mixins.scaleFont(16)}
                           fontFamily={FONT_FAMILY.REGULAR}
@@ -109,8 +103,8 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                           style={[styles.buttonText]}>
                           Back
                         </Text>
-                      </LinearGradient>
-                    )}
+                      )}
+                    </LinearGradient>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonWrapper}>
@@ -120,24 +114,18 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                     onPress={() => {
                       setModalVisible(true);
                     }}>
-                    {values.imagesLoading ? (
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 0, y: 0.9}}
-                        colors={['#139A5C', '#3662A8']}
-                        style={styles.linearGradient}>
+                    <LinearGradient
+                      start={{x: 0, y: 0}}
+                      end={{x: 0, y: 0.9}}
+                      colors={['#139A5C', '#3662A8']}
+                      style={styles.linearGradient}>
+                      {values.imagesLoading ? (
                         <ActivityIndicator
                           type={'ThreeBounce'}
                           size={30}
                           color={colors.textColorLight}
                         />
-                      </LinearGradient>
-                    ) : (
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 0, y: 0.9}}
-                        colors={['#139A5C', '#3662A8']}
-                        style={styles.linearGradient}>
+                      ) : (
                         <Text
                           size={Mixins.scaleFont(16)}
                           fontFamily={FONT_FAMILY.REGULAR}
@@ -145,8 +133,8 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
                           style={[styles.buttonText]}>
                           Preview
                         </Text>
-                      </LinearGradient>
-                    )}
+                      )}
+                    </LinearGradient>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -155,7 +143,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         }}
         nestedScrollEnabled={true}
         numColumns={numColumns}
-        keyExtractor={index => `${index}`}
+        keyExtractor={item => item.id.toString()}
         renderItem={({item}) => {
           return (
             <React.Fragment key={item.id}>
@@ -181,7 +169,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
           }
         />
       )}
-    </ScrollView>
+    </React.Fragment>
   );
 };
 

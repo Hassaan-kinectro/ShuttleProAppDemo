@@ -2,6 +2,7 @@ import {FetchMailGroups} from '../../services/FetchMailGroup';
 import {FetchDescTemplates} from '../../services/DesTemplate';
 import {TransformForDropDown} from '../../utils/Parser';
 import {GetOrdersByFilter} from '../../services/Order';
+import {GetStatusTypes} from '../../services/StatusType';
 
 export const onRefresh = async (
   setRefreshing,
@@ -42,10 +43,12 @@ export const onRefresh = async (
 export const getRecord = async (
   setEmailTemplates,
   setRecipientGroup,
+  setStatusTypes,
   workspaceId,
 ) => {
-  await FetchDescTemplates()
+  await FetchDescTemplates(workspaceId)
     .then(res => {
+      console.log(res, 'res');
       if (res.status === 200) {
         const arr = TransformForDropDown(res.data);
         setEmailTemplates(arr);
@@ -59,6 +62,15 @@ export const getRecord = async (
     .then(res => {
       if (res.status === 200) {
         setRecipientGroup(TransformForDropDown(res.data));
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  GetStatusTypes()
+    .then(res => {
+      if (res.status === 200) {
+        setStatusTypes(TransformForDropDown(res.data));
       }
     })
     .catch(err => {

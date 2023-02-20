@@ -483,11 +483,11 @@ class DropDownPicker extends React.Component {
               },
               this.state.choice.label !== null && this.props.selectedLabelStyle,
               this.state.choice.icon && {marginLeft: 5},
-              multiple
-                ? {
-                    color: Colors.WHISPER,
-                  }
-                : null,
+              // multiple
+              //   ? {
+              //       color: Colors.WHISPER,
+              //     }
+              //   : null,
             ]}>
             {multiple
               ? this.state.choice.length > 0
@@ -627,7 +627,7 @@ class DropDownPicker extends React.Component {
               ))
             ) : (
               <View style={styles.notFound}>
-                {this.props.searchableError()}
+                {<Text style={this.props.placeholderStyle}>Not Found</Text>}
               </View>
             )}
           </ScrollView>

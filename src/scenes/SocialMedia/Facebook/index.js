@@ -64,7 +64,7 @@ const Facebook = ({currentProfile, users}) => {
   return (
     <>
       {loading ? (
-        <View style={[Styles.w100, Styles.h50, Styles.Centered]}>
+        <View style={[Styles.w100, Styles.Centered]}>
           {loading && <Loader />}
         </View>
       ) : (

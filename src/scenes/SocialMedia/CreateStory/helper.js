@@ -12,6 +12,7 @@ import {POST_DATE_TIME, DATE} from '../Constants';
 import {FetchProductImages} from '../../../services/Instagram';
 import {FetchFilterProducts} from '../../../services/Products';
 import {flattenDeep, min, uniqBy} from 'lodash';
+import {Routes} from '../../../utils/constants';
 
 let base64Images;
 export const handleConvert = async imageUrl => {
@@ -213,7 +214,7 @@ const getImagesArr = respData => {
   return result;
 };
 
-export const saveStory = async (values, selectedImages) => {
+export const saveStory = async (values, selectedImages, navigation) => {
   console.log(values, selectedImages, 'RAAAAAANNN CONSSSOLEEEE');
   if (values[Constants.FORM_TYPE] === Constants.CUSTOM) {
     let dateFormat = '';
@@ -246,6 +247,7 @@ export const saveStory = async (values, selectedImages) => {
         description: 'Story Saved Successfully',
         type: 'success',
       });
+      navigation.navigate(Routes.SHOWSTORY);
       // handles.resetForm();
       // closeStoryModal();
     } else {
