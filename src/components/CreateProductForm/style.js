@@ -140,8 +140,8 @@ const useStyles = () => {
     InputTFStyle: {
       height: 40,
       margin: 0,
-      flex: 1,
-      justifyContent: 'space-around',
+      // flex: 1,
+      justifyContent: 'flex-start',
       padding: 0,
       fontFamily: FONT_FAMILY.LIGHT,
       borderBottomWidth: 1,
