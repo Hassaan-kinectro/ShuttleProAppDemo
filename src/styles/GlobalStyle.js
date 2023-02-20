@@ -106,9 +106,8 @@ const GlobalStyle = theme => {
     itemStyle: {
       justifyContent: 'flex-start',
       borderBottomWidth: 1,
-      backgroundColor: colors.background,
-      borderBottomColor: colors.feildBorder,
-      color: colors.TextColor,
+      backgroundColor: colors.boxColor,
+      borderBottomColor: colors.boxBorderColor,
       paddingLeft: 10,
       borderRadius: 0,
     },
