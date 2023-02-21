@@ -26,20 +26,26 @@ const Products = ({navigation}) => {
   );
   const [isRefreshing, setRefreshing] = React.useState(false);
   const [page, changePage] = React.useState(1);
+  const [count, setCount] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
   const [allProducts, setAllProducts] = React.useState([]);
   const [products, setProducts] = React.useState([]);
   const [addProduct, setAddProduct] = React.useState(false);
   const {t} = useTranslation();
-  const offset = 20;
+  const offset = 10;
   const {colors} = useTheme();
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const productsData = await FetchAllProducts(workspaceId);
+      const productsData = await FetchAllProducts(workspaceId, 10, 1);
       if (productsData.status === 200) {
-        setAllProducts(productsData.data);
-        setProducts(productsData.data);
+        setCount(productsData.count);
+        setAllProducts(
+          productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+        );
+        setProducts(
+          productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+        );
       } else {
         setAllProducts([]);
         setProducts([]);
@@ -72,6 +78,52 @@ const Products = ({navigation}) => {
       setProducts(orderBy(allProducts.slice(0, totalLength)));
     }
   };
+  const onRefresh = () => {
+    const fetchData = async () => {
+      const productsData = await FetchAllProducts(workspaceId, 10, page);
+      if (productsData.status === 200) {
+        setAllProducts(
+          productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+        );
+        setProducts(
+          productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+        );
+      } else {
+        setAllProducts([]);
+        setProducts([]);
+      }
+      setLoading(false);
+    };
+    fetchData().catch(e => {});
+  };
+  const handleLoadMore = () => {
+    if (offset * (page + 1) - count <= offset) {
+      const fetchData = async () => {
+        const productsData = await FetchAllProducts(workspaceId, 10, page + 1);
+        if (productsData.status === 200) {
+          setCount(productsData.count);
+          changePage(page + 1);
+          setAllProducts(prev => {
+            return [
+              ...prev,
+              ...productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+            ];
+          });
+          setProducts(prev => {
+            return [
+              ...prev,
+              ...productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
+            ];
+          });
+        } else {
+          setAllProducts([]);
+          setProducts([]);
+        }
+        setLoading(false);
+      };
+      fetchData().catch(e => {});
+    }
+  };
 
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -90,7 +142,7 @@ const Products = ({navigation}) => {
           ) : (
             <View>
               <FlatList
-                data={products.sort((a, b) => a.name.localeCompare(b.name))}
+                data={products}
                 contentContainerStyle={styles.listContainer}
                 extraData={loading}
                 style={styles.mB50}
@@ -102,7 +154,7 @@ const Products = ({navigation}) => {
                 refreshControl={
                   <RefreshControl
                     refreshing={isRefreshing}
-                    // onRefresh={onRefresh}
+                    onRefresh={onRefresh}
                     colors={[colors.themeIcon]}
                     tintColor={colors.themeIcon}
                   />
@@ -130,6 +182,7 @@ const Products = ({navigation}) => {
                   ) : null
                 }
                 onEndReachedThreshold={0.5}
+                onEndReached={handleLoadMore}
                 renderItem={({item, index}) => <ProductListItem item={item} />}
               />
             </View>

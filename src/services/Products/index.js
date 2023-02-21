@@ -3,7 +3,7 @@ import instance from '../../config/axios';
 import {isArray, isObject} from 'lodash';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
-const FetchAllProducts = async workspaceId => {
+const FetchAllProducts = async (workspaceId, limit = 100000, page = 1) => {
   const responseData = {
     loading: false,
     status: 210,
@@ -11,11 +11,13 @@ const FetchAllProducts = async workspaceId => {
   };
   const token = await getAuthHeader();
   return instance
-    .get(`/products?workspaceId=${workspaceId}`, token)
+    .get(
+      `/products?workspaceId=${workspaceId}&limit=${limit}&page=${page}`,
+      token,
+    )
     .then(response => {
       if (response.status === 200 || response.status === 201) {
         response = response.data;
-
         if (response.code === 200) {
           const product = isArray(response.data)
             ? response.data
@@ -24,6 +26,7 @@ const FetchAllProducts = async workspaceId => {
             ...responseData,
             data: isArray(product) ? product : [],
             status: 200,
+            count: response.count,
             message: 'Products fetched successfully.',
           };
         }

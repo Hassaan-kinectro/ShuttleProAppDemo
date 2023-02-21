@@ -9,7 +9,6 @@ export const getImageUrl = (attachments, type = 'default') => {
     attachment.image.thumb &&
     attachment.image.thumb.url
   ) {
-    console.log(attachment.image.thumb.url, 'attachment image 331');
     return attachment.image.thumb.url;
   } else {
     return attachment;
