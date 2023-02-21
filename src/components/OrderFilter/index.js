@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import MModal from 'react-native-modal';
 import {TouchableOpacity, View, ScrollView, StyleSheet} from 'react-native';
-import {Colors, Mixins, Button, Spinner, Text, GlobalStyle} from '../../styles';
-import {IS_IPHONEX, deviceHeight, deviceWidth} from '../../utils/orientation';
+import {Colors, Text, GlobalStyle} from '../../styles';
+import {deviceHeight} from '../../utils/orientation';
 import {isNull} from 'lodash';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -211,7 +211,19 @@ const OrdersFilterModal = props => {
                       </Text>
                     </TouchableOpacity>
                   </>
-                ) : null}
+                ) : (
+                  <View
+                    onPress={submitForm}
+                    style={[
+                      Styles.alignItemsCenter,
+                      Styles.justifyContentCenter,
+                      styles.button,
+                    ]}>
+                    <Text size={13} color="#fff">
+                      Apply Filter
+                    </Text>
+                  </View>
+                )}
 
                 <DateTimePicker
                   style={Styles.picker}
