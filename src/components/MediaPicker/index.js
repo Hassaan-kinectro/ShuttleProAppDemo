@@ -32,13 +32,13 @@ const MediaPicker = () => {
 
     try {
       console.log(' try start from here>>>>');
-      // ImagePicker.openPicker({
-      //   width: 300,
-      //   height: 400,
-      //   cropping: true,
-      // }).then(image => {
-      //   console.log(image);
-      // });
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        console.log(image);
+      });
     } catch (e) {
       console.log(' start from here>>>>', e, 'error on catah >>>>>');
     }
