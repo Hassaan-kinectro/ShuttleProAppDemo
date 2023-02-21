@@ -148,7 +148,7 @@ const useStyles = () => {
       borderLeftWidth: 0,
       borderRightWidth: 0,
       borderTopWidth: 0,
-      borderRadius: 20,
+      // borderRadius: 20,
       zIndex: 5000,
     },
     descriptionTFStyle: {
@@ -182,6 +182,7 @@ const useStyles = () => {
       // backgroundColor: 'red',
       marginHorizontal: 5,
       padding: 0,
+      marginVertical: 0,
     },
     mB90: {
       marginBottom: 90,
