@@ -20,11 +20,6 @@ import {FONT_FAMILY} from '../../utils/constants';
 import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
 import Loader from '../Loader';
 
-const HEIGHT = deviceHeight;
-{
-  HEIGHT ? console.log(HEIGHT) : console.log('null');
-}
-
 const ImageList = ({values, setFieldValue, loading, save}) => {
   console.log(loading);
   const {colors} = useTheme();

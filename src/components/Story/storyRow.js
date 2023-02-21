@@ -24,8 +24,9 @@ import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
 import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
-import LinearGradient from 'react-native-linear-gradient';
-import {FONT_FAMILY} from '../../utils/constants';
+import {CloseIcon} from '../../icons';
+import {GlobalStyle, Colors} from '../../styles';
+import F5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const defaultValue = {id: null, loading: false};
 const StoryRow = ({
@@ -44,6 +45,7 @@ const StoryRow = ({
   const [tapped, setTapped] = React.useState(false);
 
   const colors = useTheme();
+  const Styles = GlobalStyle();
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
@@ -110,12 +112,14 @@ const StoryRow = ({
     }
   };
 
-  console.log(loading, disabled, item.id);
+  // console.log(loading, disabled, item);
+  console.log(item.createdAt, 'this is ite4m');
   return (
     <>
       <View style={styles.container}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 0.8, top: 8}}>
           <TouchableOpacity
+            style={{flex: 1, top: 8}}
             disabled={disabled}
             onPress={() => {
               if (!loading) {
@@ -123,38 +127,74 @@ const StoryRow = ({
                 setTapped(true);
               }
             }}>
-            {item && item.type === 'instagram' && (
+            {item && item.type === 'instagram' && item.status === 'ready' && (
               <>
                 <CircularImage
                   img={item && item.pagelogo ? item.pagelogo : item.pageicon}
                   name={item.pageName}
-                  style={[
-                    styles.userImage,
-                    {
-                      borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                      borderWidth: 3,
-                    },
-                  ]}
+                  style={[styles.userImage]}
                 />
                 <Image source={INSTAGRAM} style={styles.active2} />
               </>
             )}
-            {item && item.type === 'facebook' && (
+            {item &&
+              item.type === 'instagram' &&
+              item.status === 'published' && (
+                <>
+                  <CircularImage
+                    img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                    name={item.pageName}
+                    style={[styles.userImage]}
+                  />
+                  <Image source={INSTAGRAM} style={styles.active2} />
+                  <F5Icon
+                    name="check-double"
+                    size={16}
+                    color="green"
+                    style={{
+                      width: 15,
+                      height: 15,
+                      bottom: 0,
+                      right: -35,
+                      top: -65,
+                    }}
+                  />
+                </>
+              )}
+            {item && item.type === 'facebook' && item.status === 'ready' && (
               <>
                 <CircularImage
                   img={item && item.pagelogo ? item.pagelogo : item.pageicon}
                   name={item.pageName}
-                  style={[
-                    styles.userImage,
-                    {
-                      borderColor: tapped ? '#D8ECFF' : '#2B7C84',
-                      borderWidth: 3,
-                    },
-                  ]}
+                  style={[styles.userImage]}
                 />
                 <Image source={FACEBOOK} style={styles.active2} />
               </>
             )}
+            {item &&
+              item.type === 'facebook' &&
+              item.status === 'published' && (
+                <>
+                  <CircularImage
+                    img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                    name={item.pageName}
+                    style={[styles.userImage]}
+                  />
+                  <Image source={FACEBOOK} style={styles.active2} />
+                  <F5Icon
+                    name="check-double"
+                    size={16}
+                    color="green"
+                    style={{
+                      width: 15,
+                      height: 15,
+                      bottom: 0,
+                      right: -35,
+                      top: -65,
+                    }}
+                  />
+                </>
+              )}
           </TouchableOpacity>
         </View>
         <View
@@ -319,35 +359,25 @@ const StoryRow = ({
               <>
                 <View
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    flex: 1,
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
+                    bottom: deviceHeight / 7.5,
                   }}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 0.9}}
-                    colors={['#131', '#3662A8']}
-                    style={styles.linearGradient}>
-                    {loading ? (
-                      <ActivityIndicator
-                        type={'ThreeBounce'}
-                        size={30}
-                        color={colors.textColorLight}
-                      />
-                    ) : (
-                      <Text
-                        size={Mixins.scaleFont(16)}
-                        fontFamily={FONT_FAMILY.REGULAR}
-                        color="#fff"
-                        style={[styles.buttonText2]}>
-                        Published
-                      </Text>
-                    )}
-                  </LinearGradient>
+                  {loading ? (
+                    <ActivityIndicator style={styles.publishicon2} />
+                  ) : (
+                    <Image
+                      source={PUBLISH}
+                      style={{
+                        height: 60,
+                        width: 60,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    />
+                  )}
                 </View>
               </>
             )}
@@ -358,40 +388,30 @@ const StoryRow = ({
               <>
                 <TouchableOpacity
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    flex: 1,
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
+                    bottom: deviceHeight / 7.5,
                   }}
                   onPress={() => {
                     if (!loading) {
                       shareFacebookImage(imageUrl, item.id);
                     }
                   }}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 0.9}}
-                    colors={['#139A5C', '#3662A8']}
-                    style={styles.linearGradient}>
-                    {loading ? (
-                      <ActivityIndicator
-                        type={'ThreeBounce'}
-                        size={30}
-                        color={colors.textColorLight}
-                      />
-                    ) : (
-                      <Text
-                        size={Mixins.scaleFont(16)}
-                        fontFamily={FONT_FAMILY.REGULAR}
-                        color="#fff"
-                        style={[styles.buttonText2]}>
-                        Publish
-                      </Text>
-                    )}
-                  </LinearGradient>
+                  {loading ? (
+                    <ActivityIndicator style={styles.publishicon2} />
+                  ) : (
+                    <Image
+                      source={PUBLISH}
+                      style={{
+                        height: 60,
+                        width: 60,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    />
+                  )}
                 </TouchableOpacity>
               </>
             )}
@@ -402,35 +422,25 @@ const StoryRow = ({
               <>
                 <View
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    flex: 1,
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
+                    bottom: deviceHeight / 7.5,
                   }}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 0.9}}
-                    colors={['#131', '#3662A8']}
-                    style={styles.linearGradient}>
-                    {loading ? (
-                      <ActivityIndicator
-                        type={'ThreeBounce'}
-                        size={30}
-                        color={colors.textColorLight}
-                      />
-                    ) : (
-                      <Text
-                        size={Mixins.scaleFont(16)}
-                        fontFamily={FONT_FAMILY.REGULAR}
-                        color="#fff"
-                        style={[styles.buttonText2]}>
-                        Published
-                      </Text>
-                    )}
-                  </LinearGradient>
+                  {loading ? (
+                    <ActivityIndicator style={styles.publishicon2} />
+                  ) : (
+                    <Image
+                      source={PUBLISH}
+                      style={{
+                        height: 60,
+                        width: 60,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    />
+                  )}
                 </View>
               </>
             )}
@@ -441,48 +451,65 @@ const StoryRow = ({
               <>
                 <TouchableOpacity
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    flex: 1,
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
+                    bottom: deviceHeight / 7.5,
                   }}
                   onPress={() => {
                     if (!loading) {
                       shareFacebookImage(imageUrl, item.id);
                     }
                   }}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 0.9}}
-                    colors={['#139A5C', '#3662A8']}
-                    style={styles.linearGradient}>
-                    {loading ? (
-                      <ActivityIndicator
-                        type={'ThreeBounce'}
-                        size={30}
-                        color={colors.textColorLight}
-                      />
-                    ) : (
-                      <Text
-                        size={Mixins.scaleFont(16)}
-                        fontFamily={FONT_FAMILY.REGULAR}
-                        color="#fff"
-                        style={[styles.buttonText2]}>
-                        Publish
-                      </Text>
-                    )}
-                  </LinearGradient>
+                  {loading ? (
+                    <ActivityIndicator style={styles.publishicon2} />
+                  ) : (
+                    <Image
+                      source={PUBLISH}
+                      style={{
+                        height: 60,
+                        width: 60,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    />
+                  )}
                 </TouchableOpacity>
               </>
             )}
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => setModalVisible(false)}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
+          <View style={styles.containerModal}>
+            <View style={Styles.flexCenter}>
+              <CircularImage
+                img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                name={item.pageName}
+                style={styles.HeaderImage5}
+              />
+            </View>
+            <View style={Styles.flex2Start}>
+              <View>
+                <Text
+                  lines={1}
+                  size={Mixins.scaleFont(16)}
+                  style={[styles.headerText]}>
+                  {item && item.pageName}
+                </Text>
+                <Text
+                  lines={1}
+                  size={Mixins.scaleFont(5)}
+                  style={[styles.headerText2]}>
+                  {item.createdAt
+                    ? moment(item.createdAt).format('DD MMM YYYY | hh:mm')
+                    : moment(item.created_at).format('YYYY-MM-DD hh:mm')}
+                </Text>
+              </View>
+            </View>
+            <View style={Styles.flex3End}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <CloseIcon size={30} color={Colors.WHISPER} />
+              </TouchableOpacity>
+            </View>
+          </View>
         </Modal>
       </View>
     </>

@@ -19,6 +19,7 @@ import {useTheme} from '@react-navigation/native';
 import ShuttlePost from '../ShuttlePost';
 
 const Facebook = ({currentProfile, users}) => {
+  console.log(currentProfile, '12345');
   const {t} = useTranslation();
   const Styles = GlobalStyle();
   const {colors} = useTheme();
@@ -26,6 +27,7 @@ const Facebook = ({currentProfile, users}) => {
 
   const {access_token, page_id, workspace_id, profile_type, name, page_icon} =
     currentProfile;
+
   const [posts, setPosts] = React.useState(defaultPosts);
   const [loadmore, setLoadmore] = React.useState(false);
 

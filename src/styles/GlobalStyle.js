@@ -22,6 +22,9 @@ const GlobalStyle = theme => {
     },
     textCenter: {
       textAlign: 'center',
+      position: 'absolute',
+      top: 10,
+      left: 30,
     },
     DrawerLogo: {
       width: 150,

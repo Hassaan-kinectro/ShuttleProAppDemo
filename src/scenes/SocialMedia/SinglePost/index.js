@@ -78,7 +78,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
                       <FastImage
                         style={styles.imageStyle}
                         source={{
-                          uri: image,
+                          uri: image && image.src ? image.src : image,
                         }}
                         resizeMode={FastImage.resizeMode.contain}
                       />

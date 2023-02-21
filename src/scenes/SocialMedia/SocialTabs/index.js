@@ -14,27 +14,32 @@ const SocialTabs = ({socialProfiles, changeProfile, currentProfile}) => {
     <ScrollView horizontal={true} style={Styles.pL5}>
       {socialProfiles && socialProfiles.length > 0
         ? socialProfiles.slice(0, 8).map((s, i) => {
+            console.log(s);
             const selected =
-              s.id.toString() ===
-              (currentProfile &&
-                currentProfile.id &&
-                currentProfile.id.toString());
+              s && s.id === (currentProfile && currentProfile.id);
             return (
               <TouchableOpacity
                 key={i}
-                onPress={() => changeProfile(s)}
+                onPress={() => {
+                  console.log('Press here', s);
+                  changeProfile(s);
+                }}
                 style={[styles.topHeader]}>
                 <View
                   style={[
                     styles.innerHeader,
                     selected ? styles.bg : styles.bgLight,
                   ]}>
-                  {s.profile_type === 'facebook' && (
-                    <Image source={FACEBOOK} style={styles.activeHeader} />
-                  )}
-                  {s.profile_type === 'instagram' && (
-                    <Image source={INSTAGRAM} style={styles.activeHeader} />
-                  )}
+                  {s &&
+                    s.profile_type === 'facebook' &&
+                    s.profile_type !== 'instagram' && (
+                      <Image source={FACEBOOK} style={styles.activeHeader} />
+                    )}
+                  {s &&
+                    s.profile_type !== 'facebook' &&
+                    s.profile_type === 'instagram' && (
+                      <Image source={INSTAGRAM} style={styles.activeHeader} />
+                    )}
                   <Text
                     size={12}
                     color={colors.TextColor}

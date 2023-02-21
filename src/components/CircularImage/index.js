@@ -47,7 +47,11 @@ const useStyles = colors => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    image: {borderWidth: 1, borderColor: colors.boxColor},
+    image: {
+      borderWidth: 1,
+      borderColor: colors.boxColor,
+      backgroundColor: 'pink',
+    },
   });
 };
 export default CircularImage;

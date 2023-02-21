@@ -280,21 +280,19 @@ export const getWorkspace = async (
   setCurrentProfile,
   params = null,
 ) => {
-  console.log(params);
   setWorkspace(prev => {
     return {...prev, loading: true};
   });
   const resp = await GetWorkSpace(id);
   if (resp.status === 200 && resp.data) {
+    console.log(resp.data, 'this is resp');
     const profiles =
       resp.data.social_profiles && resp.data.social_profiles.length > 0
         ? resp.data.social_profiles
         : [];
     const profile =
       params && params.socialProfile && params.socialProfile.id
-        ? profiles.find(
-            p => p.id.toString() === params.socialProfile.id.toString(),
-          )
+        ? profiles.find(p => p.id === params.socialProfile.id)
         : resp.data.social_profiles[0];
     setCurrentProfile(
       profile

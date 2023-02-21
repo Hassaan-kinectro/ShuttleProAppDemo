@@ -33,11 +33,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
       <View style={styles.postCard}>
         <View style={[Styles.flex, Styles.flexDirectionRow, styles.mh5]}>
           <CircularImage
-            img={
-              pageIcon && pageIcon.thumb && pageIcon.thumb.url
-                ? pageIcon.thumb.url
-                : pageIcon.url
-            }
+            img={pageIcon && pageIcon}
             name={name}
             style={[styles.HeaderIcon, Styles.flex]}
           />
@@ -67,6 +63,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
           style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
+
         <View style={[Styles.flexCenter]}>
           {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
@@ -92,7 +89,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                       <FastImage
                         style={styles.imageStyle}
                         source={{
-                          uri: image,
+                          uri: image && image.src ? image.src : image,
                         }}
                         resizeMode={FastImage.resizeMode.contain}
                       />

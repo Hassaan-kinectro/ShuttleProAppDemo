@@ -34,7 +34,7 @@ const Form = ({
     setCategoryVisible(false);
     setTagVisible(false);
   };
-  const userId = useSelector(state => state.user.user.id);
+  const userId = useSelector(state => state?.user?.user?.id);
 
   React.useEffect(() => {
     if (userId && userId && setFieldValue && setFieldValue) {
