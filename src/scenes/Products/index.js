@@ -72,6 +72,20 @@ const Products = ({navigation}) => {
       setProducts(orderBy(allProducts.slice(0, totalLength)));
     }
   };
+  const onRefresh = () => {
+    const fetchData = async () => {
+      const productsData = await FetchAllProducts(workspaceId);
+      if (productsData.status === 200) {
+        setAllProducts(productsData.data);
+        setProducts(productsData.data);
+      } else {
+        setAllProducts([]);
+        setProducts([]);
+      }
+      setLoading(false);
+    };
+    fetchData().catch(e => {});
+  };
 
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -102,7 +116,7 @@ const Products = ({navigation}) => {
                 refreshControl={
                   <RefreshControl
                     refreshing={isRefreshing}
-                    // onRefresh={onRefresh}
+                    onRefresh={onRefresh}
                     colors={[colors.themeIcon]}
                     tintColor={colors.themeIcon}
                   />

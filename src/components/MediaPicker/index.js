@@ -4,21 +4,13 @@ import useStyles from './style';
 import LinearGradient from 'react-native-linear-gradient';
 import {Styles, Text} from '../../styles';
 import {useTheme} from '@react-navigation/native';
-import {launchCamera} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const MediaPicker = () => {
   const styles = useStyles();
   const {colors} = useTheme();
 
   const pickMultiImage = async () => {
-    const options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
     // try {
     //   launchCamera(options, async response => {
     //     console.log(response, ' response start from here>>>>');
@@ -40,21 +32,13 @@ const MediaPicker = () => {
 
     try {
       console.log(' try start from here>>>>');
-
-      await launchCamera.showImagePicker(options, async response => {
-        console.log(response, ' response start from here>>>>');
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.error) {
-          console.log('ImagePicker Error: ', response.error);
-        } else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        } else {
-          const source = {uri: response.uri};
-          // Do something with the selected image
-        }
-      });
+      // ImagePicker.openPicker({
+      //   width: 300,
+      //   height: 400,
+      //   cropping: true,
+      // }).then(image => {
+      //   console.log(image);
+      // });
     } catch (e) {
       console.log(' start from here>>>>', e, 'error on catah >>>>>');
     }
