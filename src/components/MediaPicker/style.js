@@ -12,7 +12,7 @@ const useStyles = () => {
       borderRadius: 15,
       minHeight: 90,
       flex: 1,
-      marginVertical: 10,
+      marginVertical: 6,
       justifyContent: 'center',
       alignContent: 'center',
     },

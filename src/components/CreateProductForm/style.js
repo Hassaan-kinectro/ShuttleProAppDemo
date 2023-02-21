@@ -140,15 +140,15 @@ const useStyles = () => {
     InputTFStyle: {
       height: 40,
       margin: 0,
-      flex: 1,
-      justifyContent: 'space-around',
+      // flex: 1,
+      justifyContent: 'flex-start',
       padding: 0,
       fontFamily: FONT_FAMILY.LIGHT,
       borderBottomWidth: 1,
       borderLeftWidth: 0,
       borderRightWidth: 0,
       borderTopWidth: 0,
-      borderRadius: 20,
+      // borderRadius: 20,
       zIndex: 5000,
     },
     descriptionTFStyle: {
@@ -182,6 +182,7 @@ const useStyles = () => {
       // backgroundColor: 'red',
       marginHorizontal: 5,
       padding: 0,
+      marginVertical: 0,
     },
     mB90: {
       marginBottom: 90,

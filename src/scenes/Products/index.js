@@ -139,7 +139,7 @@ const Products = ({navigation}) => {
           <TouchableOpacity
             onPress={() => {
               addProduct ? setAddProduct(false) : setAddProduct(true);
-              // navigation.navigate(Routes.CREATEPRODUCTS);
+              navigation.navigate(Routes.CREATEPRODUCTS);
             }}>
             <LinearGradient
               colors={['#139A5C', '#3662A8']}

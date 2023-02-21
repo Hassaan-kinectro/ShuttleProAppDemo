@@ -4,6 +4,7 @@ import MaIcons from 'react-native-vector-icons/MaterialIcons';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/Feather';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 const AntIcon = ({
   name = 'warning',
@@ -90,6 +91,23 @@ const FontAwesome5Icons = ({
     />
   );
 };
+const OcticonsIcons = ({
+  name = 'sort-down',
+  color = '#000',
+  size = 22,
+  style = {},
+  onPress = null,
+}) => {
+  return (
+    <Octicons
+      name={name}
+      color={color}
+      size={size}
+      style={style}
+      onPress={onPress ? onPress : null}
+    />
+  );
+};
 export const WarningIcon = props => {
   return <AntIcon name="warning" {...props} />;
 };
@@ -145,5 +163,5 @@ export const LibraryAdd = props => {
   return <MaterialIcons name="library-add" {...props} />;
 };
 export const PlusIcon = props => {
-  return <MIcon name="plus" {...props} />;
+  return <OcticonsIcons name="plus" {...props} />;
 };
