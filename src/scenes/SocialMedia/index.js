@@ -15,6 +15,7 @@ import Loader from '../../components/Loader';
 import PublishedStories from './PublishedStories';
 
 const SocialMediaProfile = ({route, navigation}) => {
+  console.log(route.params, 'these are route.params');
   const styles = useStyles();
   const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);
@@ -30,7 +31,6 @@ const SocialMediaProfile = ({route, navigation}) => {
   const changeProfile = React.useCallback(profile => {
     setCurrentProfile(profile);
   }, []);
-  console.log(currentProfile, 'currentProfile');
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
@@ -50,7 +50,7 @@ const SocialMediaProfile = ({route, navigation}) => {
                 currentProfile={currentProfile}
                 changeProfile={changeProfile}
                 socialProfiles={
-                  (workspace.data && workspace.data.social_profiles) || []
+                  workspace && workspace.data && workspace.data.social_profiles
                 }
               />
             </View>

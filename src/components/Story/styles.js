@@ -3,6 +3,7 @@ import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
 import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
 import {GlobalStyle} from '../../styles';
+import {scaleSize} from '../../styles/mixins';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -16,11 +17,43 @@ const useStyles = () => {
       flexDirection: 'row',
       marginHorizontal: -10,
     },
+    headerText: {
+      paddingLeft: scaleSize(10),
+      color: '#fff',
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '500',
+      fontSize: 14,
+    },
+    headerText2: {
+      // paddingLeft: scaleSize(20),
+      color: '#fff',
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '400',
+      fontSize: 12,
+    },
     container2: {
       flex: 2,
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
+    },
+    publishicon: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 40,
+      color: colors.white,
+      borderColor: colors.boxBorderColor,
+    },
+    containerModal: {
+      flex: 1,
+      padding: 20,
+      position: 'absolute',
+      top: IS_IOS ? 80 : 40,
+      left: 0,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#5a5a5a',
     },
     container3: {
       flex: 3,
@@ -56,7 +89,7 @@ const useStyles = () => {
     slide: {
       flex: 1,
       position: 'relative',
-      backgroundColor: colors.background,
+      backgroundColor: '#464646',
     },
     image2: {
       width: '100%',
@@ -106,6 +139,7 @@ const useStyles = () => {
       flex: 1,
     },
     image: {
+      position: 'relative',
       justifyContent: 'center',
       alignItems: 'center',
       width: 35,
@@ -116,7 +150,7 @@ const useStyles = () => {
       borderColor: colors.boxBorderColor,
       borderWidth: 2,
     },
-    publishicon: {
+    publishicon2: {
       justifyContent: 'center',
       alignItems: 'center',
       width: 60,
@@ -217,6 +251,14 @@ const useStyles = () => {
       position: 'absolute',
       zIndex: 999,
     },
+    HeaderImage5: {
+      width: 55,
+      height: 55,
+      borderRadius: 100,
+      borderColor: 'transparent',
+      // borderWidth: 2,
+      // padding: 10,
+    },
     createStory: {
       height: 60,
       width: 60,
@@ -232,13 +274,13 @@ const useStyles = () => {
       alignItems: 'center',
       marginHorizontal: 10,
     },
-    imageContainer: {
-      width: 60,
-      height: 60,
-      borderRadius: 30,
-      overflow: 'hidden',
-      marginVertical: 10,
-    },
+    // imageContainer: {
+    //   width: 60,
+    //   height: 60,
+    //   borderRadius: 30,
+    //   overflow: 'hidden',
+    //   marginVertical: 10,
+    // },
     image3: {
       width: '100%',
       height: '100%',

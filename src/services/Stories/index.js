@@ -4,7 +4,7 @@ import {getAuthHeader} from '../../config/authSettings';
 
 export const FetchStories = async (
   workspaceId,
-  profileType = 'facebook',
+  profileType = '',
   page = 1,
   limit = 500,
 ) => {

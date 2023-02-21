@@ -83,7 +83,7 @@ const StoryModal = ({
             position: 'absolute',
             zIndex: 999,
             left: deviceWidth / 2.5,
-            bottom: IS_IOS ? deviceHeight - 750 : deviceHeight - 680,
+            bottom: deviceHeight / 7.5,
           }}
           onPress={() => {
             if (!loading) {

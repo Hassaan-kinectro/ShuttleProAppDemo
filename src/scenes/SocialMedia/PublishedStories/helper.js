@@ -7,7 +7,6 @@ export const getStories = async (
 ) => {
   setLoading(true);
   await FetchStories(workspaceId, profileType).then(res => {
-    console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);
@@ -21,13 +20,13 @@ export const getStories = async (
 
 export const onRefresh = async (
   setRefresh,
-
+  profileType,
   setPublishedStories,
   workspaceId,
 ) => {
   console.log(workspaceId);
   setRefresh(true);
-  await FetchStories(workspaceId).then(res => {
+  await FetchStories(workspaceId, profileType).then(res => {
     console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
