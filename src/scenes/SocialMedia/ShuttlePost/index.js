@@ -1,23 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import React, {useCallback} from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
 import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
-import AIcon from 'react-native-vector-icons/AntDesign';
-import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
 import PopupMenu from '../../../components/PopupMenu';
 import Swiper from 'react-native-swiper';
-
+import Video from 'react-native-video';
+import Loader from '../../../components/Loader';
 import FastImage from 'react-native-fast-image';
 import {GetMenuList} from '../helper';
+import {IS_IOS} from '../../../utils/orientation';
 const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
   const Styles = GlobalStyle();
+
   const getAction = useCallback(
     action => {
       if (action.onClick) {
@@ -26,6 +27,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
     },
     [post, profileType, setPosts],
   );
+
   return (
     <>
       <View style={styles.postCard}>
@@ -65,37 +67,34 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
           style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
-        <View>
-          {post.type === 'carousel' && profileType === 'instagram' && (
-            <Text numberOfLines={1} style={[styles.text]}>
-              {name}
-            </Text>
-          )}
-          {post.image && post.image.includes('video') ? (
+        <View style={[Styles.flexCenter]}>
+          {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              <AIcon
-                name="warning"
-                color={colors.textColorLight}
-                size={40}
-                style={styles.pB10}
+              <Video
+                source={{
+                  uri: post.image,
+                }}
+                rate={1}
+                // controls={true}
+                style={styles.imageStyle}
+                repeat={true}
               />
-              <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                Wait! Image is loading...
-              </Text>
             </View>
-          ) : post.carousel ? (
-            <Swiper style={{height: 340}} showsPagination={true}>
-              {post.carousel &&
-                post.carousel.length > 0 &&
+          ) : post && post.carousel && post.carousel.length > 0 ? (
+            <Swiper
+              style={{height: 340, marginLeft: IS_IOS ? 20 : 10}}
+              showsPagination={true}>
+              {post &&
+                post.carousel &&
                 post.carousel.map((image, index) => {
                   return (
-                    <View key={`${index}`}>
+                    <View key={`${index}`} style={styles.imageContainerStyle}>
                       <FastImage
                         style={styles.imageStyle}
                         source={{
                           uri: image,
                         }}
-                        resizeMode="contain"
+                        resizeMode={FastImage.resizeMode.contain}
                       />
                     </View>
                   );
@@ -108,7 +107,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                   uri: post.image,
                 }}
                 style={styles.imageStyle}
-                resizeMode="contain"
+                resizeMode={FastImage.resizeMode.cover}
               />
             </View>
           )}

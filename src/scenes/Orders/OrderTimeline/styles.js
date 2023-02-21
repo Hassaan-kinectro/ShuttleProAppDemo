@@ -19,6 +19,7 @@ const useStyles = () => {
       // paddingHorizontal: 10,
       // borderRadius: 20,
       // borderWidth: 1,
+      flex: 1,
       marginBottom: 100,
       marginLeft: 20,
       marginRight: 20,

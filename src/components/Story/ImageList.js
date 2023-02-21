@@ -19,8 +19,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../utils/constants';
 import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
 import Loader from '../Loader';
+
 const HEIGHT = deviceHeight;
-const PUBLISH_BACK = HEIGHT - 400;
+{
+  HEIGHT ? console.log(HEIGHT) : console.log('null');
+}
 
 const ImageList = ({values, setFieldValue, loading, save}) => {
   console.log(loading);
@@ -41,8 +44,9 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         }
         contentContainerStyle={{
           paddingHorizontal: 5,
-          paddingBottom: IS_IOS ? deviceHeight - 770 : deviceHeight - 670,
         }}
+        style={{height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350}}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => {
           return (
             <>
@@ -71,80 +75,6 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
             </>
           );
         }}
-        ListFooterComponent={() => {
-          return (
-            <>
-              <View
-                style={{
-                  flex: 2,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginVertical: 20,
-                }}>
-                <View style={styles.buttonWrapper}>
-                  <TouchableOpacity
-                    style={styles.buttonContainer}
-                    disabled={loading}
-                    onPress={() => {
-                      setFieldValue && setFieldValue('imagesArr', []);
-                    }}>
-                    <LinearGradient
-                      start={{x: 0, y: 0}}
-                      end={{x: 0, y: 0.9}}
-                      colors={['#139A5C', '#3662A8']}
-                      style={styles.linearGradient}>
-                      {values.imagesLoading ? (
-                        <ActivityIndicator
-                          type={'ThreeBounce'}
-                          size={30}
-                          color={colors.textColorLight}
-                        />
-                      ) : (
-                        <Text
-                          size={Mixins.scaleFont(16)}
-                          fontFamily={FONT_FAMILY.REGULAR}
-                          color={colors.white}
-                          style={[styles.buttonText]}>
-                          Back
-                        </Text>
-                      )}
-                    </LinearGradient>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.buttonWrapper}>
-                  <TouchableOpacity
-                    style={styles.buttonContainer}
-                    disabled={loading}
-                    onPress={() => {
-                      setModalVisible(true);
-                    }}>
-                    <LinearGradient
-                      start={{x: 0, y: 0}}
-                      end={{x: 0, y: 0.9}}
-                      colors={['#139A5C', '#3662A8']}
-                      style={styles.linearGradient}>
-                      {values.imagesLoading ? (
-                        <ActivityIndicator
-                          type={'ThreeBounce'}
-                          size={30}
-                          color={colors.textColorLight}
-                        />
-                      ) : (
-                        <Text
-                          size={Mixins.scaleFont(16)}
-                          fontFamily={FONT_FAMILY.REGULAR}
-                          color={colors.white}
-                          style={[styles.buttonText]}>
-                          Preview
-                        </Text>
-                      )}
-                    </LinearGradient>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </>
-          );
-        }}
         nestedScrollEnabled={true}
         numColumns={numColumns}
         keyExtractor={item => item.id.toString()}
@@ -160,6 +90,76 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
           );
         }}
       />
+      <>
+        <View
+          style={{
+            flex: 2,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginVertical: 20,
+          }}>
+          <View style={styles.buttonWrapper}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              disabled={loading}
+              onPress={() => {
+                setFieldValue && setFieldValue('imagesArr', []);
+              }}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 0.9}}
+                colors={['#139A5C', '#3662A8']}
+                style={styles.linearGradient}>
+                {values.imagesLoading ? (
+                  <ActivityIndicator
+                    type={'ThreeBounce'}
+                    size={30}
+                    color={colors.textColorLight}
+                  />
+                ) : (
+                  <Text
+                    size={Mixins.scaleFont(16)}
+                    fontFamily={FONT_FAMILY.REGULAR}
+                    color={colors.white}
+                    style={[styles.buttonText]}>
+                    Back
+                  </Text>
+                )}
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              disabled={loading}
+              onPress={() => {
+                setModalVisible(true);
+              }}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 0.9}}
+                colors={['#139A5C', '#3662A8']}
+                style={styles.linearGradient}>
+                {values.imagesLoading ? (
+                  <ActivityIndicator
+                    type={'ThreeBounce'}
+                    size={30}
+                    color={colors.textColorLight}
+                  />
+                ) : (
+                  <Text
+                    size={Mixins.scaleFont(16)}
+                    fontFamily={FONT_FAMILY.REGULAR}
+                    color={colors.white}
+                    style={[styles.buttonText]}>
+                    Preview
+                  </Text>
+                )}
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
       {modalVisible && (
         <StoryModal
           loading={loading}

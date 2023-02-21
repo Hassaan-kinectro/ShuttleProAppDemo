@@ -23,7 +23,7 @@ import {UpdateStoryById} from '../../services/Stories';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
-import {deviceWidth, IS_IOS} from '../../utils/orientation';
+import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../utils/constants';
 
@@ -325,7 +325,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    top: IS_IOS ? 700 : 600,
+                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
                   }}>
                   <LinearGradient
                     start={{x: 0, y: 0}}
@@ -364,7 +364,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    top: IS_IOS ? 700 : 600,
+                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
                   }}
                   onPress={() => {
                     if (!loading) {
@@ -408,7 +408,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    top: IS_IOS ? 700 : 600,
+                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
                   }}>
                   <LinearGradient
                     start={{x: 0, y: 0}}
@@ -447,7 +447,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    top: IS_IOS ? 700 : 600,
+                    bottom: IS_IOS ? deviceHeight - 700 : deviceHeight - 675,
                   }}
                   onPress={() => {
                     if (!loading) {

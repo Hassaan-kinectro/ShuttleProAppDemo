@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import MModal from 'react-native-modal';
 import {TouchableOpacity, View, ScrollView, StyleSheet} from 'react-native';
-import {Colors, Mixins, Button, Spinner, Text, GlobalStyle} from '../../styles';
-import {IS_IPHONEX, deviceHeight, deviceWidth} from '../../utils/orientation';
+import {Colors, Text, GlobalStyle} from '../../styles';
+import {deviceHeight} from '../../utils/orientation';
 import {isNull} from 'lodash';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,12 +33,14 @@ const FilterTag = filter => {
         <MIcon
           name={filter.icon}
           size={20}
-          color={colors.gradient1}
+          color="#fff"
           style={Styles.pR10}
           onPress={filter.onclick}
         />
       )}
-      <Text>{name}</Text>
+      <Text size={13} color="#fff">
+        {name}
+      </Text>
       <MIcon
         name="close-circle-outline"
         size={24}
@@ -204,10 +206,24 @@ const OrdersFilterModal = props => {
                         Styles.justifyContentCenter,
                         styles.button,
                       ]}>
-                      <Text>Apply Filter</Text>
+                      <Text size={13} color="#fff">
+                        Apply Filter
+                      </Text>
                     </TouchableOpacity>
                   </>
-                ) : null}
+                ) : (
+                  <View
+                    onPress={submitForm}
+                    style={[
+                      Styles.alignItemsCenter,
+                      Styles.justifyContentCenter,
+                      styles.button,
+                    ]}>
+                    <Text size={13} color="#fff">
+                      Apply Filter
+                    </Text>
+                  </View>
+                )}
 
                 <DateTimePicker
                   style={Styles.picker}
@@ -224,7 +240,7 @@ const OrdersFilterModal = props => {
                   iconComponent={
                     <AIcon
                       name="calendar"
-                      color={colors.icon}
+                      color={colors.button}
                       size={22}
                       style={[Styles.iconComponent]}
                     />
@@ -259,7 +275,7 @@ const OrdersFilterModal = props => {
                   iconComponent={
                     <AIcon
                       name="calendar"
-                      color={colors.icon}
+                      color={colors.button}
                       size={22}
                       style={[Styles.iconComponent]}
                     />

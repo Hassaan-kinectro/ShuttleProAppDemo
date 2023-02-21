@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
@@ -8,7 +8,11 @@ import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
+import Swiper from 'react-native-swiper';
 import CircularImage from '../../../components/CircularImage';
+import Video from 'react-native-video';
+import Loader from '../../../components/Loader';
+
 const SinglePost = ({post, name, pageIcon, profileType}) => {
   const styles = useStyles();
   const {colors} = useTheme();
@@ -49,37 +53,50 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
           style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
-        <View>
-          {post.type === 'carousel' && profileType === 'instagram' && (
-            <Text numberOfLines={1} style={[styles.text]}>
-              {name}
-            </Text>
+        <View style={[Styles.flexCenter]}>
+          {post.image && post.image.includes('video') ? (
+            <View style={styles.imageContainerStyle}>
+              <Video
+                source={{
+                  uri: post.image,
+                }}
+                rate={1}
+                // controls={true}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
+            </View>
+          ) : post && post.carousel && post.carousel.length > 0 ? (
+            <Swiper
+              style={{height: 340, marginLeft: 20}}
+              showsPagination={true}>
+              {post &&
+                post.carousel &&
+                post.carousel.map((image, index) => {
+                  return (
+                    <View key={`${index}`} style={styles.imageContainerStyle}>
+                      <FastImage
+                        style={styles.imageStyle}
+                        source={{
+                          uri: image,
+                        }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    </View>
+                  );
+                })}
+            </Swiper>
+          ) : (
+            <View style={styles.imageContainerStyle}>
+              <FastImage
+                source={{
+                  uri: post.image,
+                }}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
+            </View>
           )}
-          <View>
-            {post.image && post.image.includes('video') ? (
-              <View style={styles.imageContainerStyle}>
-                <AIcon
-                  name="warning"
-                  color={colors.textColorLight}
-                  size={40}
-                  style={styles.pB10}
-                />
-                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                  Wait! Image is loading...
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.imageContainerStyle}>
-                <FastImage
-                  source={{
-                    uri: post.image,
-                  }}
-                  style={styles.imageStyle}
-                  resizeMode="cover"
-                />
-              </View>
-            )}
-          </View>
         </View>
       </View>
     </>

@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import {
-  Text,
   View,
   Modal,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
@@ -12,10 +12,15 @@ import FastImage from 'react-native-fast-image';
 import Loader from '../../../components/Loader';
 import {useTheme} from '@react-navigation/native';
 import useStyles from '../styles';
-import {deviceWidth, IS_IOS} from '../../../utils/orientation';
+import {deviceHeight, deviceWidth, IS_IOS} from '../../../utils/orientation';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../../utils/constants';
-import {Mixins} from '../../../styles';
+import {Mixins, Text, GlobalStyle, Colors} from '../../../styles';
+import CircularImage from '../../../components/CircularImage';
+import {useSelector} from 'react-redux';
+import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import {CloseIcon} from '../../../icons';
+import {PUBLISH} from '../../../utils/imagesPath';
 
 const StoryModal = ({
   data,
@@ -27,13 +32,17 @@ const StoryModal = ({
   FormData,
 }) => {
   const {colors} = useTheme();
+  const theme = useSelector(state => state.themeChange.theme);
+  const Styles = GlobalStyle();
+
   const styles = useStyles();
+  console.log(values.pageName, values.pagelogo);
   return (
     <View style={{flex: 1}}>
       <Modal
         animationType="slide"
         transparent={false}
-        style={{backgroundColor: colors.background, position: 'relative'}}
+        style={{position: 'relative'}}
         visible={visible}>
         <Swiper loop={false} autoplay={true} showsPagination={true}>
           {data &&
@@ -70,13 +79,11 @@ const StoryModal = ({
 
         <TouchableOpacity
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            flex: 1,
             position: 'absolute',
             zIndex: 999,
-            left: deviceWidth / 3,
-            top: IS_IOS ? 700 : 600,
+            left: deviceWidth / 2.5,
+            bottom: IS_IOS ? deviceHeight - 750 : deviceHeight - 680,
           }}
           onPress={() => {
             if (!loading) {
@@ -87,27 +94,50 @@ const StoryModal = ({
           {loading ? (
             <ActivityIndicator style={styles.publishicon} />
           ) : (
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 0, y: 0.9}}
-              colors={['#139A5C', '#3662A8']}
-              style={styles.linearGradient}>
-              <Text
-                size={Mixins.scaleFont(16)}
-                fontFamily={FONT_FAMILY.REGULAR}
-                color={colors.white}
-                style={[styles.publishicon]}>
-                Publish
-              </Text>
-            </LinearGradient>
+            <Image
+              source={PUBLISH}
+              style={{
+                height: 60,
+                width: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            />
           )}
         </TouchableOpacity>
+        <View style={styles.containerModal}>
+          <View style={Styles.flexCenter}>
+            <CircularImage
+              img={
+                values && values.pagelogo ? values.pagelogo : values.pageicon
+              }
+              name={values.pageName}
+              style={styles.HeaderImage5}
+            />
+          </View>
 
-        <TouchableOpacity
-          style={styles.closeButton}
-          onPress={() => setModalVisible(false)}>
-          <Text style={styles.closeButtonText}>Close</Text>
-        </TouchableOpacity>
+          <View style={Styles.flex2Start}>
+            <View>
+              <Text
+                lines={1}
+                size={Mixins.scaleFont(16)}
+                style={[styles.headerText]}>
+                {values && values.pageName}
+              </Text>
+              <Text
+                lines={1}
+                size={Mixins.scaleFont(5)}
+                style={[styles.headerText2]}>
+                a few seconds ago
+              </Text>
+            </View>
+          </View>
+          <View style={Styles.flex3End}>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <CloseIcon size={30} color={Colors.WHISPER} />
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modal>
     </View>
   );

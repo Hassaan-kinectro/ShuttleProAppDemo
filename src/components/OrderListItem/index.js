@@ -57,7 +57,7 @@ const OrderListItem = props => {
         : null,
     date: '',
     orderId: props && props.item && props.item.id ? props.item.id : null,
-    message: 'Fake reason',
+    message: 'Call Dialed',
     customerName:
       props && props.item && props.item.customer && props.item.customer.name
         ? props.item.customer.name

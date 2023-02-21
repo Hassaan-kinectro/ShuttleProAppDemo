@@ -165,7 +165,7 @@ const ChangeOrderStatusModal = props => {
   };
   const {statuses, recipientGroups, emailTemplates, users, visible, order} =
     props;
-
+  console.log(obj, 'in the activity modal');
   return (
     <>
       <MModal
