@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
@@ -10,6 +10,9 @@ import AIcon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
 import Swiper from 'react-native-swiper';
 import CircularImage from '../../../components/CircularImage';
+import Video from 'react-native-video';
+import Loader from '../../../components/Loader';
+
 const SinglePost = ({post, name, pageIcon, profileType}) => {
   const styles = useStyles();
   const {colors} = useTheme();
@@ -53,33 +56,35 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
         <View style={[Styles.flexCenter]}>
           {post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              <View style={[Styles.flexCenter]}>
-                <AIcon
-                  name="warning"
-                  color={colors.textColorLight}
-                  size={40}
-                  style={styles.pB10}
-                />
-                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                  Wait! Image is loading...
-                </Text>
-              </View>
+              <Video
+                source={{
+                  uri: post.image,
+                }}
+                rate={1}
+                // controls={true}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
             </View>
           ) : post && post.carousel && post.carousel.length > 0 ? (
-            <Swiper style={{height: 340}} showsPagination={true}>
-              {post.carousel.map((image, index) => {
-                return (
-                  <View key={`${index}`}>
-                    <FastImage
-                      style={styles.imageStyle}
-                      source={{
-                        uri: image,
-                      }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                );
-              })}
+            <Swiper
+              style={{height: 340, marginLeft: 20}}
+              showsPagination={true}>
+              {post &&
+                post.carousel &&
+                post.carousel.map((image, index) => {
+                  return (
+                    <View key={`${index}`} style={styles.imageContainerStyle}>
+                      <FastImage
+                        style={styles.imageStyle}
+                        source={{
+                          uri: image,
+                        }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    </View>
+                  );
+                })}
             </Swiper>
           ) : (
             <View style={styles.imageContainerStyle}>

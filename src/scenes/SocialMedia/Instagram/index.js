@@ -26,6 +26,7 @@ const Instagram = ({currentProfile, users}) => {
   const {t} = useTranslation();
   const headerHeight = 32 * 2;
   const [posts, setPosts] = React.useState(defaultPosts);
+
   const [loadmore, setLoadmore] = React.useState(false);
   const {data, loading, refetch} = useQuery(GET_INSTAGRAM_ALL_POSTS, {
     fetchPolicy: 'no-cache',

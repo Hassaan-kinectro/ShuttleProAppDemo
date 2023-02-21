@@ -3,6 +3,8 @@ import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
 import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
 import {GlobalStyle} from '../../styles';
+import {scaleSize} from '../../styles/mixins';
+
 const useStyles = () => {
   const {colors} = useTheme();
   const Styles = GlobalStyle();
@@ -64,7 +66,6 @@ const useStyles = () => {
     publishicon: {
       justifyContent: 'center',
       alignItems: 'center',
-
       paddingHorizontal: 40,
       color: colors.white,
       borderColor: colors.boxBorderColor,
@@ -72,7 +73,7 @@ const useStyles = () => {
     slide: {
       flex: 1,
       position: 'relative',
-      backgroundColor: colors.background,
+      backgroundColor: '#464646',
     },
     image2: {
       width: '100%',
@@ -85,6 +86,39 @@ const useStyles = () => {
       backgroundColor: 'white',
       padding: 10,
       borderRadius: 20,
+    },
+    containerModal: {
+      flex: 1,
+      padding: 20,
+      position: 'absolute',
+      top: IS_IOS ? 80 : 40,
+      left: 0,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#5a5a5a',
+    },
+    HeaderImage: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
+    },
+    closeButton2: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      top: IS_IOS ? 80 : 50,
+      left: 20,
+      backgroundColor: 'transparent',
+      borderColor: colors.boxBorderColor,
+      borderWidth: 2,
+      padding: 5,
+      borderRadius: 20,
+      background: 'red',
     },
     closeButtonText: {
       fontWeight: 'bold',
@@ -205,17 +239,33 @@ const useStyles = () => {
       marginRight: 10,
       position: 'relative',
     },
-    HeaderImage: {
+    HeaderImage5: {
       width: 55,
       height: 55,
       borderRadius: 100,
-      // borderColor: 'transparent',
+      borderColor: 'transparent',
+      // borderWidth: 2,
+      // padding: 10,
     },
     HeaderIcon: {
       width: 32,
       height: 32,
       borderRadius: 100,
       // borderColor: 'transparent',
+    },
+    headerText: {
+      paddingLeft: scaleSize(10),
+      color: '#fff',
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '500',
+      fontSize: 14,
+    },
+    headerText2: {
+      paddingLeft: scaleSize(10),
+      color: '#fff',
+      fontFamily: FONT_FAMILY.SEMI_BOLD,
+      fontWeight: '400',
+      fontSize: 12,
     },
     active: {
       width: 15,
@@ -353,6 +403,8 @@ const useStyles = () => {
       flexDirection: 'column',
       height: 340,
       width: 340,
+      // justifyContent: 'center',
+      // alignItems: 'center',
     },
     buttonWrapper: {
       // ...Styles.w50,

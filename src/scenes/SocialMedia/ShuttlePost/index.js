@@ -6,20 +6,19 @@ import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
 import useStyles from '../styles';
 import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
-import AIcon from 'react-native-vector-icons/AntDesign';
-import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import CircularImage from '../../../components/CircularImage';
 import PopupMenu from '../../../components/PopupMenu';
 import Swiper from 'react-native-swiper';
-// import VideoPlayer from 'react-native-video-player';
-// import Video from 'react-native-video';
-// import VideoPlayer from 'react-native-video-controls';
+import Video from 'react-native-video';
+import Loader from '../../../components/Loader';
 import FastImage from 'react-native-fast-image';
 import {GetMenuList} from '../helper';
+import {IS_IOS} from '../../../utils/orientation';
 const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
   const Styles = GlobalStyle();
+
   const getAction = useCallback(
     action => {
       if (action.onClick) {
@@ -71,33 +70,35 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
         <View style={[Styles.flexCenter]}>
           {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              <View style={[Styles.flexCenter]}>
-                <AIcon
-                  name="warning"
-                  color={colors.textColorLight}
-                  size={40}
-                  style={styles.pB10}
-                />
-                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                  Wait! Image is loading...
-                </Text>
-              </View>
+              <Video
+                source={{
+                  uri: post.image,
+                }}
+                rate={1}
+                // controls={true}
+                style={styles.imageStyle}
+                repeat={true}
+              />
             </View>
           ) : post && post.carousel && post.carousel.length > 0 ? (
-            <Swiper style={{height: 340}} showsPagination={true}>
-              {post.carousel.map((image, index) => {
-                return (
-                  <View key={`${index}`}>
-                    <FastImage
-                      style={styles.imageStyle}
-                      source={{
-                        uri: image,
-                      }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                );
-              })}
+            <Swiper
+              style={{height: 340, marginLeft: IS_IOS ? 20 : 10}}
+              showsPagination={true}>
+              {post &&
+                post.carousel &&
+                post.carousel.map((image, index) => {
+                  return (
+                    <View key={`${index}`} style={styles.imageContainerStyle}>
+                      <FastImage
+                        style={styles.imageStyle}
+                        source={{
+                          uri: image,
+                        }}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    </View>
+                  );
+                })}
             </Swiper>
           ) : (
             <View style={styles.imageContainerStyle}>
@@ -106,7 +107,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                   uri: post.image,
                 }}
                 style={styles.imageStyle}
-                resizeMode="cover"
+                resizeMode={FastImage.resizeMode.cover}
               />
             </View>
           )}

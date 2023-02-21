@@ -170,7 +170,7 @@ const UniquePosts = (data, key = 'id') =>
     'desc',
   );
 
-export const setInstagramPosts = (data, setPosts) => {
+export const setInstagramPosts = (data, setPosts, setLoad) => {
   if (
     data &&
     data.instagram &&
