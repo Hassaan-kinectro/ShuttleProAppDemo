@@ -86,6 +86,8 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To upload product images</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
