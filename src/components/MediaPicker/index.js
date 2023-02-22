@@ -33,9 +33,7 @@ const MediaPicker = () => {
     try {
       console.log(' try start from here>>>>');
       ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        cropping: true,
+        multiple: true,
       }).then(image => {
         console.log(image);
       });
@@ -61,10 +59,10 @@ const MediaPicker = () => {
           useAngle={true}
           angle={89.91}
           style={styles.boxBack}>
-          <Text style={Styles.textCenter} color="#3D3D3D">
+          <Text style={Styles.textCenter} color={colors.TextColor}>
             Drag and drop Images(s) to upload, or
           </Text>
-          <Text style={styles.underLineBrowser} color="#3D3D3D">
+          <Text style={styles.underLineBrowser} color={colors.TextColor}>
             browse.
           </Text>
         </LinearGradient>
@@ -77,10 +75,10 @@ const MediaPicker = () => {
           useAngle={true}
           angle={89.91}
           style={styles.boxBack}>
-          <Text style={Styles.textCenter} color="#3D3D3D">
+          <Text style={Styles.textCenter} color={colors.TextColor}>
             Drag and drop Videos(s) to upload, or
           </Text>
-          <Text style={styles.underLineBrowser} color="#3D3D3D">
+          <Text style={styles.underLineBrowser} color={colors.TextColor}>
             browse.
           </Text>
         </LinearGradient>
@@ -93,10 +91,10 @@ const MediaPicker = () => {
           useAngle={true}
           angle={89.91}
           style={styles.boxBack}>
-          <Text style={Styles.textCenter} color="#3D3D3D">
+          <Text style={Styles.textCenter} color={colors.TextColor}>
             Drag and drop Audio(s) to upload, or
           </Text>
-          <Text style={styles.underLineBrowser} color="#3D3D3D">
+          <Text style={styles.underLineBrowser} color={colors.TextColor}>
             browse.
           </Text>
         </LinearGradient>
@@ -109,10 +107,10 @@ const MediaPicker = () => {
           useAngle={true}
           angle={89.91}
           style={styles.boxBack}>
-          <Text style={Styles.textCenter} color="#3D3D3D">
+          <Text style={Styles.textCenter} color={colors.TextColor}>
             Drag and drop Mobile Image(s) to upload, or
           </Text>
-          <Text style={styles.underLineBrowser} color="#3D3D3D">
+          <Text style={styles.underLineBrowser} color={colors.TextColor}>
             browse.
           </Text>
         </LinearGradient>

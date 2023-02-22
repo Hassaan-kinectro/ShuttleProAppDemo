@@ -138,6 +138,7 @@ const Products = ({navigation}) => {
           navigation={navigation}
           onSearchText={onSearchText}
         />
+
         <View style={[Styles.flex]}>
           {loading ? (
             <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
@@ -191,13 +192,17 @@ const Products = ({navigation}) => {
               />
             </View>
           )}
-          {loading2 && <Loader />}
         </View>
+        {loading2 && (
+          <View style={[Styles.flexCenter, {height: 200}]}>
+            <Loader />
+          </View>
+        )}
         {addProduct ? (
           <TouchableOpacity
             onPress={() => {
               addProduct ? setAddProduct(false) : setAddProduct(true);
-              navigation.navigate(Routes.CREATEPRODUCTS);
+              // navigation.navigate(Routes.CREATEPRODUCTS);
             }}>
             <LinearGradient
               colors={['#139A5C', '#3662A8']}
