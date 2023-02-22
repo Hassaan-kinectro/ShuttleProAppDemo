@@ -112,7 +112,6 @@ const StoryRow = ({
     }
   };
 
-  // console.log(loading, disabled, item);
   return (
     <>
       <View style={styles.container}>
@@ -227,8 +226,8 @@ const StoryRow = ({
           </Text>
           <Text numberOfLines={1} style={styles.text}>
             {item.createdAt
-              ? moment(item.createdAt).format('DD MMM YYYY | hh:mm')
-              : moment(item.created_at).format('YYYY-MM-DD hh:mm')}
+              ? moment(item.createdAt).format('DD MMM YYYY | hh:mm A')
+              : moment(item.created_at).format('YYYY-MM-DD hh:mm A')}
           </Text>
         </View>
         <View
@@ -337,7 +336,7 @@ const StoryRow = ({
           transparent={false}
           style={{backgroundColor: colors.background, position: 'relative'}}
           visible={modalVisible}>
-          <Swiper loop={false} autoplay={true} showsPagination={true}>
+          <Swiper showsPagination={true}>
             {item &&
               item.images &&
               item.images.length > 0 &&
@@ -410,7 +409,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: deviceHeight / 7.5,
+                    bottom: deviceHeight / 8,
                   }}
                   onPress={() => {
                     if (!loading) {
@@ -444,7 +443,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: deviceHeight / 7.5,
+                    bottom: deviceHeight / 8,
                   }}>
                   {loading ? (
                     <ActivityIndicator style={styles.publishicon2} />
@@ -473,7 +472,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: deviceHeight / 7.5,
+                    bottom: deviceHeight / 8,
                   }}
                   onPress={() => {
                     if (!loading) {
@@ -513,12 +512,12 @@ const StoryRow = ({
                   {item && item.pageName}
                 </Text>
                 <Text
-                  lines={1}
-                  size={Mixins.scaleFont(5)}
+                  lines={2}
+                  size={Mixins.scaleFont(15)}
                   style={[styles.headerText2]}>
                   {item.createdAt
-                    ? moment(item.createdAt).format('DD MMM YYYY | hh:mm')
-                    : moment(item.created_at).format('YYYY-MM-DD hh:mm')}
+                    ? moment(item.createdAt).format('YYYY-MM-DD hh:mm A')
+                    : moment(item.created_at).format('YYYY-MM-DD hh:mm A')}
                 </Text>
               </View>
             </View>

@@ -25,7 +25,7 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
           style={[
             Styles.flex,
             Styles.flexDirectionRow,
-            styles.mh5,
+
             Styles.justifyContentCenter,
             Styles.alignItemsCenter,
           ]}>
