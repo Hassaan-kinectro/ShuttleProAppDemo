@@ -113,7 +113,6 @@ const StoryRow = ({
   };
 
   // console.log(loading, disabled, item);
-  console.log(item.createdAt, 'this is ite4m');
   return (
     <>
       <View style={styles.container}>
