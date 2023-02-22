@@ -171,7 +171,6 @@ const CustomHeader = ({
                       label: 'Logout',
                       icon: <LogoutIcon size={18} color={colors.fontPrimary} />,
                       onClick: () => {
-                        console.log('The button');
                         AppLogout(navigation);
                       },
                     },

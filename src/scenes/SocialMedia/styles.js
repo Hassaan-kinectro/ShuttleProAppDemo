@@ -251,7 +251,6 @@ const useStyles = () => {
       width: 32,
       height: 32,
       borderRadius: 100,
-      // borderColor: 'transparent',
     },
     headerText: {
       paddingLeft: scaleSize(10),
@@ -329,19 +328,24 @@ const useStyles = () => {
       width: 15,
       height: 15,
     },
-    activePost: {
-      width: 15,
-      height: 15,
-      bottom: 0,
-      right: 10,
-      top: 18,
+    activePostfb: {
+      width: 10,
+      height: 10,
+      bottom: -10,
+      right: 15,
+    },
+    activePostinsta: {
+      width: 10,
+      height: 10,
+      bottom: -10,
+      right: 15,
     },
     active3: {
       width: 15,
       height: 15,
       bottom: 0,
       right: -45,
-      top: -15,
+      top: -35,
     },
     container4: {
       flex: 1,
@@ -355,7 +359,7 @@ const useStyles = () => {
       borderRadius: 16,
     },
     flex10Start: {
-      flex: 10,
+      flex: 7,
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
     },
@@ -386,6 +390,7 @@ const useStyles = () => {
     text: {
       fontFamily: FONT_FAMILY.REGULAR,
       fontWeight: '500',
+      fontSize: 12,
       color: colors.TextColor,
       marginTop: 5,
     },

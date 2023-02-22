@@ -61,7 +61,6 @@ const UpdateNotification = async (formdata, id) => {
     ...formdata,
   };
 
-  console.log(data, id, ' in the user update servie');
   return instance
     .put(`/mongodb/notification/${id}`, data, token)
     .then(async response => {

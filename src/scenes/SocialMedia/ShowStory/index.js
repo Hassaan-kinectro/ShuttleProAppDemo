@@ -95,8 +95,7 @@ const ShowStory = props => {
               nestedScrollEnabled={true}
               contentContainerStyle={{
                 paddingHorizontal: 10,
-                paddingBottom: IS_IOS ? 180 : 180,
-
+                paddingBottom: IS_IOS ? 180 : 120,
                 paddingTop: headerHeight - 40,
               }}
               removeClippedSubviews={true}
@@ -141,7 +140,7 @@ const ShowStory = props => {
                       color={colors.textColorLight}
                       style={styles.text}
                       size={16}>
-                      No Pending Stories
+                      No Stories Available
                     </Text>
                   </View>
                 ) : null

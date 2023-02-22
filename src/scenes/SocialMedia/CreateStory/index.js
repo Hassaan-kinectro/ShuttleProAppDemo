@@ -34,6 +34,7 @@ import {
   getAllTags,
   getAllCategories,
 } from '../helper';
+import {getUser} from '../../../config/authSettings';
 
 const CreateStory = props => {
   const {navigation, route, type} = props;
@@ -43,11 +44,19 @@ const CreateStory = props => {
   const Styles = GlobalStyle();
   const [products, setProducts] = React.useState(defaultProducts);
   const [tags, setTags] = React.useState(defaultTags);
+  const [userId, setUserId] = React.useState(null);
   const [categories, setCategories] = React.useState(defaultCategories);
   const workspaceId = useSelector(state => state.workspace.workspaceId);
   const theme = useSelector(state => state.themeChange.theme);
-  const userId = useSelector(state => state.user?.user?.id);
-  console.log(userId);
+
+  React.useEffect(() => {
+    getUser().then(async res => {
+      if (res) {
+        setUserId(res.id);
+      }
+    });
+  }, []);
+
   React.useEffect(() => {
     Promise.all([
       getAllProducts(setProducts, workspaceId),
@@ -57,7 +66,6 @@ const CreateStory = props => {
   }, []);
 
   const saveData = async (values, selectedImages = []) => {
-    console.log(values, selectedImages, 'aaaaaaassssssccccccc');
     const data = await saveStory(values, selectedImages, navigation);
     console.log(data, 'response');
   };
@@ -118,6 +126,7 @@ const CreateStory = props => {
                                 setFieldValue={setFieldValue}
                                 products={products}
                                 tags={tags}
+                                userId={userId && userId ? userId : null}
                                 categories={categories}
                                 currentProfile={
                                   route &&
@@ -127,52 +136,43 @@ const CreateStory = props => {
                                 type={type}
                               />
                             </View>
-                            <TouchableOpacity
-                              style={styles.buttonContainer}
-                              onPress={() => {
-                                console.log(values, values.date);
-                                if (values.date) {
-                                  onClickLoadMedia(
-                                    values,
-                                    setFieldValue,
-                                    workspaceId,
-                                  );
-                                }
-                              }}>
-                              {values.imagesLoading ? (
-                                <LinearGradient
-                                  start={{x: 0, y: 0}}
-                                  end={{x: 0, y: 0.9}}
-                                  colors={['#139A5C', '#3662A8']}
-                                  style={styles.linearGradient}>
-                                  <ActivityIndicator
-                                    type={'ThreeBounce'}
-                                    size={30}
-                                    color={colors.textColorLight}
-                                  />
-                                </LinearGradient>
-                              ) : (
-                                <LinearGradient
-                                  start={{x: 0, y: 0}}
-                                  end={{x: 0, y: 0.9}}
-                                  colors={['#139A5C', '#3662A8']}
-                                  style={styles.linearGradient}>
-                                  <Text
-                                    size={Mixins.scaleFont(16)}
-                                    fontFamily={FONT_FAMILY.REGULAR}
-                                    color={colors.white}
-                                    style={[styles.buttonText]}>
-                                    Load Media
-                                  </Text>
-                                </LinearGradient>
-                              )}
-                            </TouchableOpacity>
-
-                            {/* <View style={styles.buttonWrapper2}>
+                            {values.date === '' ? (
+                              <View style={styles.buttonContainer}>
+                                {values.imagesLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[styles.linearGradient]}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[
+                                      styles.linearGradient,
+                                      {opacity: 0.6},
+                                    ]}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </View>
+                            ) : (
                               <TouchableOpacity
                                 style={styles.buttonContainer}
                                 onPress={() => {
-                                  console.log(values, values.date);
                                   if (values.date) {
                                     onClickLoadMedia(
                                       values,
@@ -209,7 +209,7 @@ const CreateStory = props => {
                                   </LinearGradient>
                                 )}
                               </TouchableOpacity>
-                            </View> */}
+                            )}
                           </>
                         )}
                       </>

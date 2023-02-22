@@ -21,7 +21,6 @@ import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
 import Loader from '../Loader';
 
 const ImageList = ({values, setFieldValue, loading, save}) => {
-  console.log(loading);
   const {colors} = useTheme();
   const styles = useStyles();
   const Styles = GlobalStyle();
@@ -124,34 +123,60 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.buttonWrapper}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              disabled={loading}
-              onPress={() => {
-                setModalVisible(true);
-              }}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 0, y: 0.9}}
-                colors={['#139A5C', '#3662A8']}
-                style={styles.linearGradient}>
-                {values.imagesLoading ? (
-                  <ActivityIndicator
-                    type={'ThreeBounce'}
-                    size={30}
-                    color={colors.textColorLight}
-                  />
-                ) : (
-                  <Text
-                    size={Mixins.scaleFont(16)}
-                    fontFamily={FONT_FAMILY.REGULAR}
-                    color={colors.white}
-                    style={[styles.buttonText]}>
-                    Preview
-                  </Text>
-                )}
-              </LinearGradient>
-            </TouchableOpacity>
+            {selectedImages.length === 0 ? (
+              <View style={styles.buttonContainer}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 0, y: 0.9}}
+                  colors={['#139A5C', '#3662A8']}
+                  style={[styles.linearGradient, {opacity: 0.6}]}>
+                  {values.imagesLoading ? (
+                    <ActivityIndicator
+                      type={'ThreeBounce'}
+                      size={30}
+                      color={colors.textColorLight}
+                    />
+                  ) : (
+                    <Text
+                      size={Mixins.scaleFont(16)}
+                      fontFamily={FONT_FAMILY.REGULAR}
+                      color={colors.white}
+                      style={[styles.buttonText]}>
+                      Preview
+                    </Text>
+                  )}
+                </LinearGradient>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                disabled={loading}
+                onPress={() => {
+                  setModalVisible(true);
+                }}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 0, y: 0.9}}
+                  colors={['#139A5C', '#3662A8']}
+                  style={styles.linearGradient}>
+                  {values.imagesLoading ? (
+                    <ActivityIndicator
+                      type={'ThreeBounce'}
+                      size={30}
+                      color={colors.textColorLight}
+                    />
+                  ) : (
+                    <Text
+                      size={Mixins.scaleFont(16)}
+                      fontFamily={FONT_FAMILY.REGULAR}
+                      color={colors.white}
+                      style={[styles.buttonText]}>
+                      Preview
+                    </Text>
+                  )}
+                </LinearGradient>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </>

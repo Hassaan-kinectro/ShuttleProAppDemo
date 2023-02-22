@@ -8,7 +8,6 @@ import {useDispatch} from 'react-redux';
 import {SetWorkspace} from '../../modules/workspace';
 const SocialProfileShow = ({i, result, item, navigation}) => {
   const dispatch = useDispatch();
-  console.log(i, ' this is i');
 
   return (
     <>

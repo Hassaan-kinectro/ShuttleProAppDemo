@@ -148,7 +148,6 @@ export const fetchCriticalOrders = async (
   setLoading(true, Constants.CRITICAL, setData);
   const resp = await FetchCriticalOrdersByDate(workspaceId, startDate, endDate);
   if (resp.status === 200) {
-    console.log(resp);
     if (resp.data) {
       setData(prev => {
         return prev.map(p =>
@@ -166,7 +165,6 @@ export const fetchCriticalOrders = async (
 };
 const getReturnValues = (data, values, queriedCount) => {
   data.map(day => {
-    console.log(values[day.key]);
     if (values[day.key] && values[day.key].count) {
       day.value = values[day.key].count || 0;
     }
@@ -233,7 +231,6 @@ export const getChartOrders = async (
   });
   const resp = await FetchStaticsByDate(workspaceId, startDate, endDate);
   if (resp.status === 200) {
-    console.log(resp.data);
     if (resp.data) {
       setChartData(prev => {
         return {...prev, loading: false};

@@ -46,7 +46,6 @@ const OrderActivity = props => {
 
   const ActivityModelClose = React.useCallback(
     data => {
-      console.log(data);
       if (data && data.id) {
         getData(props, setOrderDetail, setLoading, workspace_id);
       }

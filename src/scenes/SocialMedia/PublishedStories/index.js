@@ -42,6 +42,7 @@ const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
   return (
     <StoryList
       publishedStories={publishedStories}
+      setPublishedStories={setPublishedStories}
       currentProfile={currentProfile}
       closeModal={closeStoryModal}
       open={postModals.facebookStory}

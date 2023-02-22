@@ -20,6 +20,7 @@ const Form = ({
   categories,
   currentProfile,
   type,
+  userId,
 }) => {
   const Styles = GlobalStyle();
   const {colors} = useTheme();
@@ -34,14 +35,12 @@ const Form = ({
     setCategoryVisible(false);
     setTagVisible(false);
   };
-  const userId = useSelector(state => state?.user?.user?.id);
 
   React.useEffect(() => {
     if (userId && userId && setFieldValue && setFieldValue) {
       setFieldValue('userId', userId || '');
     }
-  }, []);
-  console.log();
+  }, [userId]);
 
   React.useEffect(() => {
     if (currentProfile && setFieldValue && setFieldValue) {
@@ -106,7 +105,6 @@ const Form = ({
         searchablePlaceholderTextColor={colors.placeholder}
         searchableStyle={Styles.searchableStyle}
         onChangeItem={value => {
-          console.log(value, 'this is value type');
           setFieldValue(Constants.SELECTION_TYPE, value);
           setFieldValue(Constants.IMG_ARR, []);
           setFieldValue(Constants.SELECTED_IMG_ARR, []);

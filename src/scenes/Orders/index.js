@@ -111,7 +111,6 @@ const OrderScreen = ({navigation, route}) => {
     }
   };
   const handleLoadMore = () => {
-    console.log('Enter in handleLoadMore', page, orders.length);
     if (page !== 1 && orders.length > 0) {
       if (orders && allOrders && orders.length >= allOrders.length) {
         return false;
@@ -171,10 +170,9 @@ const OrderScreen = ({navigation, route}) => {
       </View>
     );
   };
-  console.log('statusTypes', filter, orders.length);
+
   const name = 'Orders';
   const onSearchText = text => {
-    console.log('hello');
     if (text.length > 0) {
       const result =
         allOrders &&

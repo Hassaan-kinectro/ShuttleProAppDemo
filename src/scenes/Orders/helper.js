@@ -48,7 +48,6 @@ export const getRecord = async (
 ) => {
   await FetchDescTemplates(workspaceId)
     .then(res => {
-      console.log(res, 'res');
       if (res.status === 200) {
         const arr = TransformForDropDown(res.data);
         setEmailTemplates(arr);

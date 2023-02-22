@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Modal,
   Text,
+  RefreshControl,
 } from 'react-native';
 import CircularImage from '../CircularImage';
 import {useTheme} from '@react-navigation/native';
@@ -20,8 +21,11 @@ import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../utils/constants';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Styles} from '../../styles';
+import {CloseIcon} from '../../icons';
+import {Colors} from '../../styles';
+import {onRefresh} from '../../scenes/SocialMedia/PublishedStories/helper';
 
-const StoryList = ({publishedStories, currentProfile}) => {
+const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,
@@ -30,6 +34,8 @@ const StoryList = ({publishedStories, currentProfile}) => {
 
   const {colors} = useTheme();
   const [tapped, setTapped] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(false);
+
   const styles = useStyles();
   const workspace = useSelector(state => state.workspace.workspace);
   const workspaceIcon =
@@ -40,6 +46,10 @@ const StoryList = ({publishedStories, currentProfile}) => {
     workspace && workspace.workspace && workspace.workspace.name
       ? workspace.workspace.name
       : null;
+  const workspaceId = useSelector(
+    state => state.workspace.workspace.workspace.id,
+  );
+  const profileType = currentProfile && currentProfile.profile_type;
 
   return (
     <>
@@ -49,6 +59,21 @@ const StoryList = ({publishedStories, currentProfile}) => {
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refresh}
+              onRefresh={() =>
+                onRefresh(
+                  setRefresh,
+                  setPublishedStories,
+                  profileType,
+                  workspaceId,
+                )
+              }
+              colors={[colors.background]}
+              tintColor={colors.themeIcon}
+            />
+          }
           contentContainerStyle={Styles.pL10}
           ListHeaderComponent={() => (
             <View style={[Styles.flexDirectionRow]}>
@@ -149,7 +174,7 @@ const StoryList = ({publishedStories, currentProfile}) => {
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setModalVisible({data: null, open: false})}>
-            <Text style={styles.closeButtonText}>Close</Text>
+            <CloseIcon size={30} color={Colors.WHISPER} />
           </TouchableOpacity>
         </Modal>
       </View>

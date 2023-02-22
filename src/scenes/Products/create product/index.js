@@ -88,9 +88,7 @@ const CreateProduct = ({navigation}) => {
         <View style={Styles.flex}>
           <Formik
             validationSchema={createProductSchema}
-            onSubmit={values => {
-              console.log(values, 'valueson submit');
-            }}
+            onSubmit={values => {}}
             initialValues={initialsVal}>
             {props => {
               return (

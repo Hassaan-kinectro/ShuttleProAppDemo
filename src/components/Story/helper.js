@@ -85,7 +85,6 @@ export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
     values.selectionType &&
     values.selectionType.id === Constants.PRODUCT
   ) {
-    console.log(values.productIds, 'start');
     setFieldValue(Constants.IMG_LOADING, true);
     const ids = values.productIds.map(product => product.id);
     const resp = await FetchProductImages(ids, workspaceId);
@@ -221,7 +220,7 @@ export const saveStory = async (values, handles, closeStoryModal) => {
       userId: values.userId || '',
       shareAt: dateFormat,
     };
-    console.log(formData);
+
     const resp = await SaveStories(formData);
     if (resp.status === 200) {
       showMessage({
@@ -240,7 +239,6 @@ export const saveStory = async (values, handles, closeStoryModal) => {
     }
     handles.setFieldValue('loading', false);
   } else {
-    console.log(values);
     handles.setFieldValue('loading', true);
     const stories = values.slots.map(s => {
       return {
@@ -256,7 +254,7 @@ export const saveStory = async (values, handles, closeStoryModal) => {
         shareAt: s.date,
       };
     });
-    console.log(stories);
+
     const resp = await SaveScheduleStories(stories);
     if (resp.status === 200) {
       showMessage({

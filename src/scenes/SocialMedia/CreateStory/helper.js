@@ -130,7 +130,6 @@ export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
     if (resp.status === 200) {
       setFieldValue(Constants.IMG_ARR, getImagesArr(resp.data));
     } else {
-      console.log('else return for category');
       setFieldValue(Constants.IMG_ARR, []);
     }
     setFieldValue(Constants.IMG_LOADING, false);
@@ -149,7 +148,6 @@ export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
     if (resp.status === 200) {
       setFieldValue(Constants.IMG_ARR, getImagesArr(resp.data));
     } else {
-      console.log('else return for');
       setFieldValue(Constants.IMG_ARR, []);
     }
     setFieldValue(Constants.IMG_LOADING, false);
@@ -215,7 +213,6 @@ const getImagesArr = respData => {
 };
 
 export const saveStory = async (values, selectedImages, navigation) => {
-  console.log(values, selectedImages, 'RAAAAAANNN CONSSSOLEEEE');
   if (values[Constants.FORM_TYPE] === Constants.CUSTOM) {
     let dateFormat = '';
     if (values.date) {
@@ -235,13 +232,12 @@ export const saveStory = async (values, selectedImages, navigation) => {
               return {productId: product.id};
             })
           : [],
-      userId: values.userId || '',
+      userId: values && values.userId ? values.userId : null,
       shareAt: dateFormat,
     };
     const resp = await SaveStories(formData);
-    console.log(resp, 'this is resp');
+
     if (resp.status === 200) {
-      console.log(resp.status, 'this is status');
       showMessage({
         message: resp.message,
         description: 'Story Saved Successfully',
@@ -259,7 +255,6 @@ export const saveStory = async (values, selectedImages, navigation) => {
     }
     // handles.setFieldValue('loading', false);
   } else {
-    console.log(values);
     // handles.setFieldValue('loading', true);
     const stories = values.slots.map(s => {
       return {
@@ -275,7 +270,7 @@ export const saveStory = async (values, selectedImages, navigation) => {
         shareAt: s.date,
       };
     });
-    console.log(stories);
+
     const resp = await SaveScheduleStories(stories);
     if (resp.status === 200) {
       showMessage({

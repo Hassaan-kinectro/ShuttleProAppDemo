@@ -28,7 +28,6 @@ const Notifications = ({navigation}) => {
     // pollInterval: 3000,
   });
   useEffect(() => {
-    console.log('data graphqllllllllllllll', data);
     if (
       data &&
       data.getAllNotificationUpdates &&
@@ -45,7 +44,7 @@ const Notifications = ({navigation}) => {
     }
   }, [data]);
   const onRefresh = setRefresh => {};
-  console.log(notifications, loading);
+
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={Styles.flex}>

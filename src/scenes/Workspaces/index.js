@@ -25,6 +25,7 @@ const Workspace = ({route, navigation}) => {
   });
   const [refresh, setRefresh] = useState(false);
   const theme = useSelector(state => state.themeChange.theme);
+
   useEffect(() => {
     getRecord(setWorkspaceList);
     return () => {

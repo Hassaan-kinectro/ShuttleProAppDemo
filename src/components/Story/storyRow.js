@@ -112,12 +112,10 @@ const StoryRow = ({
     }
   };
 
-  // console.log(loading, disabled, item);
-  console.log(item.createdAt, 'this is ite4m');
   return (
     <>
       <View style={styles.container}>
-        <View style={{flex: 0.8, top: 8}}>
+        <View style={{flex: 0.8, top: 3}}>
           <TouchableOpacity
             style={{flex: 1, top: 8}}
             disabled={disabled}
@@ -128,6 +126,26 @@ const StoryRow = ({
               }
             }}>
             {item && item.type === 'instagram' && item.status === 'ready' && (
+              <>
+                <CircularImage
+                  img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                  name={item.pageName}
+                  style={[styles.userImage]}
+                />
+                <Image source={INSTAGRAM} style={styles.active2} />
+              </>
+            )}
+            {item && item.type === 'instagram' && item.status === 'pending' && (
+              <>
+                <CircularImage
+                  img={item && item.pagelogo ? item.pagelogo : item.pageicon}
+                  name={item.pageName}
+                  style={[styles.userImage]}
+                />
+                <Image source={INSTAGRAM} style={styles.active2} />
+              </>
+            )}
+            {item && item.type === 'facebook' && item.status === 'pending' && (
               <>
                 <CircularImage
                   img={item && item.pagelogo ? item.pagelogo : item.pageicon}
@@ -155,7 +173,7 @@ const StoryRow = ({
                       width: 15,
                       height: 15,
                       bottom: 0,
-                      right: -35,
+                      right: -40,
                       top: -65,
                     }}
                   />
@@ -189,7 +207,7 @@ const StoryRow = ({
                       width: 15,
                       height: 15,
                       bottom: 0,
-                      right: -35,
+                      right: -40,
                       top: -65,
                     }}
                   />
@@ -264,7 +282,7 @@ const StoryRow = ({
           {item &&
             item.id &&
             item.type === 'instagram' &&
-            item.status === 'published' && (
+            (item.status === 'published' || item.status === 'pending') && (
               <>
                 <View style={{left: 13}} disabled={disabled}>
                   {loading && !disabled ? (
@@ -278,7 +296,7 @@ const StoryRow = ({
           {item &&
             item.id &&
             item.type === 'facebook' &&
-            item.status === 'published' && (
+            (item.status === 'published' || item.status === 'pending') && (
               <>
                 <View style={{left: 13}} disabled={disabled}>
                   {loading && !disabled ? (
@@ -323,7 +341,6 @@ const StoryRow = ({
               item.images &&
               item.images.length > 0 &&
               item.images.map((image, index) => {
-                console.log(item.type);
                 return (
                   <View key={index} style={styles.slide}>
                     {imageLoading && (
@@ -363,7 +380,7 @@ const StoryRow = ({
                     position: 'absolute',
                     zIndex: 999,
                     left: deviceWidth / 2.5,
-                    bottom: deviceHeight / 7.5,
+                    bottom: deviceHeight / 8,
                   }}>
                   {loading ? (
                     <ActivityIndicator style={styles.publishicon2} />

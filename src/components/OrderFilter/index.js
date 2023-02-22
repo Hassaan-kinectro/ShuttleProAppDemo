@@ -103,7 +103,7 @@ const OrdersFilterModal = props => {
     }
     props.getFilter(1, filter);
   };
-  console.log('The statys types==>>', props.statusTypes);
+
   return (
     <>
       <MModal

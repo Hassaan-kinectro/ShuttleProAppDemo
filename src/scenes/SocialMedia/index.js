@@ -15,7 +15,6 @@ import Loader from '../../components/Loader';
 import PublishedStories from './PublishedStories';
 
 const SocialMediaProfile = ({route, navigation}) => {
-  console.log(route.params, 'these are route.params');
   const styles = useStyles();
   const name = 'Social Profiles';
   const theme = useSelector(state => state.themeChange.theme);

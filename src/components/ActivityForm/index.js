@@ -12,7 +12,6 @@ import {descriptionTemplateParser} from '../../utils/Parser';
 const ActivityForm = props => {
   const {order} = props;
   const {obj} = props;
-  console.log(obj, 'this is obj');
 
   const [status, setStatus] = useState(null);
   const [communicationType, setCommunicationType] = useState(null);
@@ -157,11 +156,6 @@ const ActivityForm = props => {
     setTemplateVisibility(false);
   };
 
-  // {
-  //   props && props.ComType ? console.log(props.ComType) : console.log('aaaa');
-  // }
-  // console.log(communicationName, 'name');
-  console.log(props.emailTemplates, tempTemplates);
   return (
     <>
       {!hideField ? (

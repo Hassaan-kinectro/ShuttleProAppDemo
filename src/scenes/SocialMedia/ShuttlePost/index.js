@@ -14,6 +14,7 @@ import Loader from '../../../components/Loader';
 import FastImage from 'react-native-fast-image';
 import {GetMenuList} from '../helper';
 import {IS_IOS} from '../../../utils/orientation';
+import {FONT_FAMILY} from '../../../utils/constants';
 const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
@@ -28,29 +29,56 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
     [post, profileType, setPosts],
   );
 
+  console.log(post, 'this is post');
+
   return (
     <>
       <View style={styles.postCard}>
-        <View style={[Styles.flex, Styles.flexDirectionRow, styles.mh5]}>
+        <View
+          style={[
+            Styles.flex,
+            Styles.flexDirectionRow,
+            Styles.justifyContentCenter,
+            Styles.alignItemsCenter,
+            styles.mh5,
+          ]}>
           <CircularImage
             img={pageIcon && pageIcon}
             name={name}
             style={[styles.HeaderIcon, Styles.flex]}
           />
           {profileType === 'facebook' && (
-            <FastImage source={FACEBOOK} style={styles.activePost} />
+            <FastImage source={FACEBOOK} style={styles.activePostfb} />
           )}
           {profileType === 'instagram' && (
-            <FastImage source={INSTAGRAM} style={styles.activePost} />
+            <FastImage source={INSTAGRAM} style={styles.activePostinsta} />
           )}
           <View style={styles.flex10Start}>
-            <Text numberOfLines={1} style={[styles.text]}>
-              {name}
-            </Text>
-            <Text numberOfLines={1} style={[styles.text]}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text
+                size={14}
+                color={colors.TextColor}
+                fontWeight={400}
+                fontFamily={FONT_FAMILY.REGULAR}>
+                {name}
+              </Text>
+              <Text
+                size={14}
+                color="#727477"
+                fontWeight={400}
+                fontFamily={FONT_FAMILY.LIGHT}
+                style={{marginLeft: 10}}>
+                {post.status ? `(${post.status})` : null}
+              </Text>
+            </View>
+            <Text
+              size={10}
+              color="#727477"
+              fontWeight={400}
+              fontFamily={FONT_FAMILY.REGULAR}>
               {post.date
-                ? moment(post.date).format('DD MMM YYYY | hh:mm')
-                : moment(post.created_at).format('YYYY-MM-DD hh:mm')}
+                ? moment(post.date).fromNow()
+                : moment(post.created_at).fromNow()}
             </Text>
           </View>
           <PopupMenu
@@ -60,13 +88,17 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
         </View>
         <Text
           numberOfLines={5}
-          style={[styles.text, {marginVertical: 10, marginHorizontal: 5}]}>
+          style={[
+            styles.text,
+            {marginTop: 15, marginBottom: 10, marginHorizontal: 5},
+          ]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
 
         <View style={[Styles.flexCenter]}>
           {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
+              {console.log(post, 'aaaaaaasssssddffg')}
               <Video
                 source={{
                   uri: post.image,

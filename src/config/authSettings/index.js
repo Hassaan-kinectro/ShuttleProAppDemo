@@ -70,7 +70,6 @@ export const getUser = () =>
       .catch(err => reject(err));
   });
 export const setWorkspace = data => {
-  console.log(data);
   AsyncStorage.setItem('worksapce', JSON.stringify(data));
 };
 

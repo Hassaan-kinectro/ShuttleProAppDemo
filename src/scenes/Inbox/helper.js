@@ -26,10 +26,8 @@ export const onRefresh = async (
   setPublishedStories,
   workspaceId,
 ) => {
-  console.log(workspaceId);
   setRefresh(true);
   await FetchStories(workspaceId).then(res => {
-    console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);

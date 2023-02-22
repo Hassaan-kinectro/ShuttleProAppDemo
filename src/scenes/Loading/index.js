@@ -12,6 +12,7 @@ const LoadingScreen = ({navigation, route}) => {
   const {colors} = useTheme();
   const Styles = GlobalStyle();
   const workspace = useSelector(state => state.workspace.workspace);
+
   React.useEffect(() => {
     requestUserPermission();
     notificationListener();
@@ -20,7 +21,6 @@ const LoadingScreen = ({navigation, route}) => {
     isAuthExist().then(async res => {
       if (res) {
         setTimeout(() => {
-          console.log(workspace);
           if (workspace) {
             navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
           } else {
@@ -38,7 +38,7 @@ const LoadingScreen = ({navigation, route}) => {
         const images = notification.data.images
           ? JSON.parse(notification.data.images)
           : [];
-        console.log(images);
+
         navigation.dispatch(
           StackActions.replace(Routes.STORYLOADING, {
             images: images,

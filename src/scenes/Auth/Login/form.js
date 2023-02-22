@@ -23,7 +23,7 @@ const LoginForm = ({
   const styles = useStyles();
   const passwordField = React.useRef(null);
   const [hidePassword, setHidePassword] = React.useState(false);
-  console.log(values);
+
   return (
     <View style={[styles.container]}>
       <Text

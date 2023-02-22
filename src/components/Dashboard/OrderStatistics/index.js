@@ -48,7 +48,6 @@ const OrderStatistics = ({date, startDate, endDate}) => {
           .subtract(d.end, 'days')
           .format(DateFormat);
       }
-      console.log(params);
       navigation.navigate(Routes.ORDERS, {
         screen: Routes.ORDERSLIST,
         params: params,

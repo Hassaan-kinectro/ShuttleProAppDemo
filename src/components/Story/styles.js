@@ -99,7 +99,6 @@ const useStyles = () => {
       position: 'absolute',
       top: IS_IOS ? 80 : 50,
       right: 30,
-      backgroundColor: 'white',
       padding: 10,
       borderRadius: 20,
     },
