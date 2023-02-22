@@ -112,6 +112,7 @@ const StoryRow = ({
     }
   };
 
+  // console.log(loading, disabled, item);
   return (
     <>
       <View style={styles.container}>

@@ -20,6 +20,7 @@ import {GlobalStyle, Text} from '../../../styles';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
 import {DeleteStoryById} from '../../../services/Stories';
+import _ from 'lodash';
 
 const defaultValue = {id: null, loading: false};
 const headerHeight = 32 * 2;
@@ -79,6 +80,14 @@ const ShowStory = props => {
     });
   };
 
+  console.log('unPublishedStories before', unPublishedStories);
+  const ok = _.sortBy(unPublishedStories, function (dateObj) {
+    const date = new Date(dateObj.shareAt);
+    return date;
+  });
+
+  console.log('unPublishedStories', ok.reverse());
+
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -89,7 +98,16 @@ const ShowStory = props => {
             <View style={[Styles.Centered]}>{loading && <Loader />}</View>
           ) : (
             <FlatList
-              data={[...unPublishedStories, ...publishedStories]}
+              data={[
+                ..._.sortBy(unPublishedStories, function (dateObj) {
+                  const date = new Date(dateObj?.shareAt);
+                  return date;
+                })?.reverse(),
+                ..._.sortBy(publishedStories, function (dateObj) {
+                  const date = new Date(dateObj?.shareAt);
+                  return date;
+                })?.reverse(),
+              ]}
               extraData={loading}
               scrollEventThrottle={16}
               nestedScrollEnabled={true}

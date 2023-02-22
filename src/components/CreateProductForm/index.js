@@ -224,9 +224,6 @@ const CreateProductForm = props => {
             baseColor={colors.baseColor}
           />
         </View>
-        {/* <TouchableOpacity onPress={props.handleSubmit}>
-          <Text>Submit</Text>
-        </TouchableOpacity> */}
       </View>
       <View style={styles.BoxStyle}>
         <View style={styles.justifyContentSpaceBetween}>
@@ -239,7 +236,7 @@ const CreateProductForm = props => {
           <PlusIcon size={30} color={colors.TextColor} />
         </View>
         <View>
-          <MediaPicker />
+          <MediaPicker {...props} />
         </View>
       </View>
       <View style={styles.BoxStyle}>
@@ -274,6 +271,9 @@ const CreateProductForm = props => {
           </View>
           <PlusIcon size={30} color={colors.TextColor} />
         </View>
+        <TouchableOpacity onPress={props.handleSubmit}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

@@ -34,6 +34,7 @@ const Products = ({navigation}) => {
   const {t} = useTranslation();
   const offset = 10;
   const {colors} = useTheme();
+  const [loading2, setLoading2] = React.useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +98,7 @@ const Products = ({navigation}) => {
     fetchData().catch(e => {});
   };
   const handleLoadMore = () => {
+    setLoading2(true);
     if (offset * (page + 1) - count <= offset) {
       const fetchData = async () => {
         const productsData = await FetchAllProducts(workspaceId, 10, page + 1);
@@ -119,9 +121,11 @@ const Products = ({navigation}) => {
           setAllProducts([]);
           setProducts([]);
         }
-        setLoading(false);
+        setLoading2(false);
       };
       fetchData().catch(e => {});
+    } else {
+      setLoading2(false);
     }
   };
 
@@ -134,6 +138,7 @@ const Products = ({navigation}) => {
           navigation={navigation}
           onSearchText={onSearchText}
         />
+
         <View style={[Styles.flex]}>
           {loading ? (
             <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
@@ -188,11 +193,16 @@ const Products = ({navigation}) => {
             </View>
           )}
         </View>
+        {loading2 && (
+          <View style={[Styles.flexCenter, {height: 200}]}>
+            <Loader />
+          </View>
+        )}
         {addProduct ? (
           <TouchableOpacity
             onPress={() => {
               addProduct ? setAddProduct(false) : setAddProduct(true);
-              navigation.navigate(Routes.CREATEPRODUCTS);
+              // navigation.navigate(Routes.CREATEPRODUCTS);
             }}>
             <LinearGradient
               colors={['#139A5C', '#3662A8']}
