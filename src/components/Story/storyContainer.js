@@ -22,7 +22,8 @@ import {Routes} from '../../utils/constants';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Styles} from '../../styles';
 import {CloseIcon} from '../../icons';
-import {Colors} from '../../styles';
+import {Colors, Mixins} from '../../styles';
+import moment from 'moment';
 import {onRefresh} from '../../scenes/SocialMedia/PublishedStories/helper';
 
 const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
@@ -50,6 +51,8 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
     state => state.workspace.workspace.workspace.id,
   );
   const profileType = currentProfile && currentProfile.profile_type;
+
+  console.log(currentProfile, 'this is current profile');
 
   return (
     <>
@@ -153,7 +156,7 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
           transparent={false}
           style={{backgroundColor: colors.background}}
           visible={modalVisible.open}>
-          <Swiper autoplay={true} showsPagination={true}>
+          <Swiper showsPagination={true}>
             {modalVisible.data &&
               modalVisible.data.images &&
               modalVisible.data.images.length > 0 &&
@@ -171,11 +174,44 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
                 );
               })}
           </Swiper>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => setModalVisible({data: null, open: false})}>
-            <CloseIcon size={30} color={Colors.WHISPER} />
-          </TouchableOpacity>
+          <View style={styles.containerModal}>
+            <View style={Styles.flexCenter}>
+              <CircularImage
+                img={
+                  currentProfile &&
+                  currentProfile.page_icon &&
+                  currentProfile.page_icon.thumb &&
+                  currentProfile.page_icon.thumb.url
+                    ? currentProfile.page_icon.thumb.url
+                    : currentProfile.page_icon.url
+                }
+                name={currentProfile.name}
+                style={styles.HeaderImage5}
+              />
+            </View>
+            <View style={Styles.flex2Start}>
+              <View>
+                <Text
+                  lines={1}
+                  size={Mixins.scaleFont(16)}
+                  style={[styles.headerText]}>
+                  {currentProfile && currentProfile.name}
+                </Text>
+                <Text
+                  lines={1}
+                  size={Mixins.scaleFont(5)}
+                  style={[styles.headerText2, {marginLeft: 10, width: 250}]}>
+                  (Published)
+                </Text>
+              </View>
+            </View>
+            <View style={Styles.flex3End}>
+              <TouchableOpacity
+                onPress={() => setModalVisible({data: null, open: false})}>
+                <CloseIcon size={30} color={Colors.WHISPER} />
+              </TouchableOpacity>
+            </View>
+          </View>
         </Modal>
       </View>
     </>

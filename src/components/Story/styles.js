@@ -25,11 +25,11 @@ const useStyles = () => {
       fontSize: 14,
     },
     headerText2: {
-      // paddingLeft: scaleSize(20),
+      paddingLeft: scaleSize(10),
       color: '#fff',
       fontFamily: FONT_FAMILY.SEMI_BOLD,
       fontWeight: '400',
-      fontSize: 12,
+      fontSize: 10,
     },
     container2: {
       flex: 2,

@@ -40,7 +40,6 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
             Styles.flexDirectionRow,
             Styles.justifyContentCenter,
             Styles.alignItemsCenter,
-            styles.mh5,
           ]}>
           <CircularImage
             img={pageIcon && pageIcon}
@@ -98,7 +97,6 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
         <View style={[Styles.flexCenter]}>
           {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              {console.log(post, 'aaaaaaasssssddffg')}
               <Video
                 source={{
                   uri: post.image,
@@ -110,9 +108,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
               />
             </View>
           ) : post && post.carousel && post.carousel.length > 0 ? (
-            <Swiper
-              style={{height: 340, marginLeft: IS_IOS ? 20 : 10}}
-              showsPagination={true}>
+            <Swiper style={{height: 340}} showsPagination={true}>
               {post &&
                 post.carousel &&
                 post.carousel.map((image, index) => {

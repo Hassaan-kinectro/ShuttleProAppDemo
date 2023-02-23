@@ -380,7 +380,7 @@ const useStyles = () => {
       paddingHorizontal: 10,
       paddingVertical: 20,
       borderRadius: 10,
-      marginHorizontal: 5,
+      // marginHorizontal: 5,
       marginVertical: 5,
       height: 'auto',
     },
