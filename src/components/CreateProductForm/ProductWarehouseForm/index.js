@@ -53,7 +53,7 @@ const ProductWarehouse = props => {
           placeholder="Warehouse"
           containerStyle={{width: '90%'}}
           style={Styles.dropDownContainerStyle}
-          dropDownStyle={Styles.OKdropDownContainerStyle}
+          dropDownStyle={Styles.dropDownContainerStyle}
           itemStyle={Styles.itemStyle}
           arrowColor={colors.button}
           labelStyle={Styles.labelStyle}

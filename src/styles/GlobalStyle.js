@@ -124,16 +124,6 @@ const GlobalStyle = theme => {
       borderTopWidth: 0,
       zIndex: 5000,
     },
-    OKdropDownContainerStyle: {
-      backgroundColor: 'transparent',
-      borderRadius: 20,
-      borderWidth: 0,
-      borderBottomWidth: 1,
-      borderLeftWidth: 0,
-      borderRightWidth: 0,
-      borderTopWidth: 0,
-      zIndex: 5006,
-    },
     dropDownListContainerStyle: {
       backgroundColor: 'transparent',
       borderWidth: 1,
