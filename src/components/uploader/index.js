@@ -10,23 +10,34 @@ import {showMessage} from 'react-native-flash-message';
 const Uploader = props => {
   const styles = useStyles();
   const {colors} = useTheme();
-  console.log(props, 'props data uploader');
   const pickMultiImage = async () => {
     try {
-      console.log(' try start from here>>>>');
       ImagePicker.openPicker({
         multiple: true,
         mediaType: props?.type,
       }).then(image => {
-        if (image?.length > 3 || image?.length === 0) {
+        if (image?.length > 3) {
+          return showMessage({
+            message: '',
+            description: `Maximum 3 ${props?.text} are allowed.`,
+            type: 'DANGER',
+          });
+        } else if (image?.length === 0) {
+          return showMessage({
+            message: '',
+            description: `Atleast select 1 ${props?.text}`,
+            type: 'DANGER',
+          });
         } else {
           let test = false;
           test = image?.filter(file => {
             if (file.size > 1024 * 1024 * 5) {
               return true;
+            } else {
+              return false;
             }
           });
-          if (test) {
+          if (test.length !== 0) {
             return showMessage({
               message: '',
               description: `${props?.text} must less then 5mb.`,
@@ -36,7 +47,6 @@ const Uploader = props => {
             props?.setFieldValue(props?.name, image);
           }
         }
-        console.log(image);
       });
     } catch (e) {
       console.log(' start from here>>>>', e, 'error on catah >>>>>');

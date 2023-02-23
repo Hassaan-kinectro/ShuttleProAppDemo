@@ -9,13 +9,20 @@ import {useTranslation} from 'react-i18next';
 import {Formik} from 'formik';
 import CreateProductForm from '../../../components/CreateProductForm';
 import {VALID_NAME} from '../../../utils/Parser/helper';
-import {getAllCategories, getAllTags} from './helper';
+import {
+  defaultWarehouses,
+  getAllCategories,
+  getAllTags,
+  getAllWarehouses,
+  product_variants,
+} from './helper';
 import * as yup from 'yup';
 import useStyles from '../../../components/CreateProductForm/style';
 
 const CreateProduct = ({navigation}) => {
   const [tags, setTags] = React.useState({data: []});
   const [categories, setCategories] = React.useState({data: []});
+  const [warehouses, setWarehouses] = React.useState(defaultWarehouses);
   const theme = useSelector(state => state.themeChange.theme);
   const {t} = useTranslation();
   const styles = useStyles();
@@ -26,6 +33,11 @@ const CreateProduct = ({navigation}) => {
     categories: [],
     tags: [],
     description: '',
+    images: [],
+    audiofile: [],
+    mobileImages: [],
+    videofile: [],
+    product_variants: [product_variants],
   };
   const createProductSchema = yup.object().shape({
     productName: yup
@@ -52,6 +64,7 @@ const CreateProduct = ({navigation}) => {
     const fetchData = async () => {
       getAllCategories(setCategories, workspaceId);
       getAllTags(tags, setTags, workspaceId);
+      getAllWarehouses(setWarehouses, workspaceId);
     };
     fetchData().catch(e => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +101,9 @@ const CreateProduct = ({navigation}) => {
         <View style={Styles.flex}>
           <Formik
             validationSchema={createProductSchema}
-            onSubmit={values => {}}
+            onSubmit={values => {
+              console.log(values, 'values ');
+            }}
             initialValues={initialsVal}>
             {props => {
               return (
@@ -97,6 +112,7 @@ const CreateProduct = ({navigation}) => {
                     {...props}
                     tags={tags}
                     categories={categories}
+                    warehouses={warehouses}
                   />
                 </View>
               );
