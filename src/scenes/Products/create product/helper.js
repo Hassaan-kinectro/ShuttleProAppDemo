@@ -1,4 +1,5 @@
 import {FetchCategoryList} from '../../../services/Categories';
+import {CreateProduct} from '../../../services/CreateProduct';
 import {FetchTags} from '../../../services/Tags';
 import GetWarehouses from '../../../services/WareHouse';
 import {capitalize} from '../../../utils/Parser/helper';
@@ -100,4 +101,9 @@ export const getAllWarehouses = async (setWarehouses, workspaceId) => {
       return {...prev, data: [], loading: false};
     });
   }
+};
+
+export const addNewProduct = async (values, workspaceId) => {
+  const resp = await CreateProduct(values, workspaceId);
+  console.log(resp, 'rresp data fetch ok');
 };

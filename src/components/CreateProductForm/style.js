@@ -229,8 +229,8 @@ const useStyles = () => {
     },
     addProductVariant: {
       position: 'relative',
-      height: 22,
-      width: 22,
+      height: 27,
+      width: 27,
       marginLeft: 5,
       borderRadius: 30,
       flex: 1,

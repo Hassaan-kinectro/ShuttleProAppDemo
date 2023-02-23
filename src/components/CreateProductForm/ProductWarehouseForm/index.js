@@ -9,6 +9,10 @@ import {useTheme} from '@react-navigation/native';
 import {
   PRODUCT_VARIANT,
   VARIANT_QUANTITY,
+  _BOX_NO,
+  _QUANTITY,
+  _RACK_NO,
+  _SHELF_NO,
   _WAREHOUSE,
 } from '../../../utils/constants';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,14 +21,17 @@ import {
   onRemoveAdjustTotalQuantity,
   onRemoveVariantQuantity,
 } from '../helper';
+import TextField from '../../TextField';
 
 const ProductWarehouse = props => {
   const styles = useStyles();
   const Styles = GlobalStyle();
   const {colors} = useTheme();
 
-  const {warehouses, warehouse, setWarehouse} = props;
-  console.log(props.i, 'warehouses.', warehouse);
+  const [warehouse, setWarehouse] = React.useState(false);
+
+  const {warehouses, index} = props;
+  // console.log(props.i, 'warehouses');
 
   return (
     <View style={styles.BoxStyleWareHouse}>
@@ -41,22 +48,12 @@ const ProductWarehouse = props => {
           scrollViewProps={{
             keyboardShouldPersistTaps: 'always',
           }}
-          dropDownMaxHeight={200}
-          isVisible={() => {
-            console.log('value of ok');
-
-            const ok = warehouse.filter(e => {
-              if (e.index === props.i) {
-                return e.open;
-              }
-            });
-            console.log(ok, 'value of ok');
-            return ok[0];
-          }}
+          dropDownMaxHeight={100}
+          isVisible={warehouse}
           placeholder="Warehouse"
           containerStyle={{width: '90%'}}
           style={Styles.dropDownContainerStyle}
-          dropDownStyle={Styles.dropDownContainerStyle}
+          dropDownStyle={Styles.OKdropDownContainerStyle}
           itemStyle={Styles.itemStyle}
           arrowColor={colors.button}
           labelStyle={Styles.labelStyle}
@@ -73,33 +70,11 @@ const ProductWarehouse = props => {
             );
           }}
           onOpen={() => {
-            setWarehouse(prev => {
-              return prev.map(e => {
-                if (e.index === props.i) {
-                  return {
-                    index: e.index,
-                    open: true,
-                  };
-                } else {
-                  e;
-                }
-              });
-            });
+            setWarehouse(true);
           }}
-          zIndex={50006}
+          zIndex={50010}
           onClose={() => {
-            setWarehouse(prev => {
-              return prev.map(e => {
-                if (e.index === props.i) {
-                  return {
-                    index: e.index,
-                    open: false,
-                  };
-                } else {
-                  e;
-                }
-              });
-            });
+            setWarehouse(false);
           }}
         />
         <TouchableOpacity
@@ -118,8 +93,6 @@ const ProductWarehouse = props => {
                       VARIANT_QUANTITY
                     ],
                     props.setFieldValue,
-                    setWarehouse,
-                    props.i,
                   );
                 }
               : () => {
@@ -130,7 +103,6 @@ const ProductWarehouse = props => {
                       VARIANT_QUANTITY
                     ],
                     props.setFieldValue,
-                    setWarehouse,
                   );
                   onRemoveAdjustTotalQuantity(
                     props.values,
@@ -149,7 +121,7 @@ const ProductWarehouse = props => {
                 useAngle={true}
                 angle={199.18}
                 style={styles.addProductVariant}>
-                <PlusIcon size={15} color={WHITE} />
+                <PlusIcon size={14} color={WHITE} />
               </LinearGradient>
             </View>
           ) : (
@@ -162,11 +134,162 @@ const ProductWarehouse = props => {
                 useAngle={true}
                 angle={199.18}
                 style={styles.addProductVariant}>
-                <DeleteIcon size={15} color={WHITE} />
+                <DeleteIcon size={14} color={WHITE} />
               </LinearGradient>
             </View>
           )}
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-start',
+          flexDirection: 'row',
+          width: '50%',
+        }}>
+        <TextField
+          label="Quantity"
+          name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`}
+          // labelStyle={{fontSize: Mixins.scaleFont(15)}}
+          //   type="textArea"
+          returnKeyType="next"
+          autoCorrect={false}
+          onChangeText={rem => {
+            let regex = new RegExp('^[0-9]\\d*$');
+            if (
+              regex.test(rem) &&
+              rem &&
+              !rem.includes('e') &&
+              !rem.includes('E')
+            ) {
+              props.setFieldValue(
+                `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`,
+                rem,
+              );
+            } else {
+              if (rem === '') {
+                props.setFieldValue(
+                  `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`,
+                  '',
+                );
+              }
+            }
+          }}
+          onBlur={() =>
+            props.setFieldTouched(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`,
+            )
+          }
+          // error={props.touched.productName && props.errors.productName}
+          autoCapitalize="words"
+          reset={props.reset}
+          errorStyle={styles.errorStyle}
+          hideLabel={true}
+          inputStyle={styles.InputTFStyle50}
+          placeholderTextColor={colors.placeholder}
+          tintColor={colors.tintColor}
+          textColor={colors.TextColor}
+          fontSize={14}
+          baseColor={colors.baseColor}
+        />
+        <TextField
+          label="Shelf No."
+          name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_SHELF_NO}]`}
+          // labelStyle={{fontSize: Mixins.scaleFont(15)}}
+          //   type="textArea"
+          returnKeyType="next"
+          autoCorrect={false}
+          onChangeText={rem =>
+            props.setFieldValue(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_SHELF_NO}]`,
+              rem,
+            )
+          }
+          onBlur={() =>
+            props.setFieldTouched(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_SHELF_NO}]`,
+            )
+          }
+          // error={props.touched.productName && props.errors.productName}
+          autoCapitalize="words"
+          reset={props.reset}
+          errorStyle={styles.errorStyle}
+          hideLabel={true}
+          inputStyle={styles.InputTFStyle50}
+          placeholderTextColor={colors.placeholder}
+          tintColor={colors.tintColor}
+          textColor={colors.TextColor}
+          fontSize={14}
+          baseColor={colors.baseColor}
+        />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-start',
+          flexDirection: 'row',
+          width: '50%',
+        }}>
+        <TextField
+          label="Rack No."
+          name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_RACK_NO}]`}
+          // labelStyle={{fontSize: Mixins.scaleFont(15)}}
+          //   type="textArea"
+          returnKeyType="next"
+          autoCorrect={false}
+          onChangeText={rem =>
+            props.setFieldValue(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_RACK_NO}]`,
+              rem,
+            )
+          }
+          onBlur={() =>
+            props.setFieldTouched(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_RACK_NO}]`,
+            )
+          }
+          // error={props.touched.productName && props.errors.productName}
+          autoCapitalize="words"
+          reset={props.reset}
+          errorStyle={styles.errorStyle}
+          hideLabel={true}
+          inputStyle={styles.InputTFStyle50}
+          placeholderTextColor={colors.placeholder}
+          tintColor={colors.tintColor}
+          textColor={colors.TextColor}
+          fontSize={14}
+          baseColor={colors.baseColor}
+        />
+        <TextField
+          label="Box No."
+          name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_BOX_NO}]`}
+          // labelStyle={{fontSize: Mixins.scaleFont(15)}}
+          //   type="textArea"
+          returnKeyType="next"
+          autoCorrect={false}
+          onChangeText={rem =>
+            props.setFieldValue(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_BOX_NO}]`,
+              rem,
+            )
+          }
+          onBlur={() =>
+            props.setFieldTouched(
+              `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_BOX_NO}]`,
+            )
+          }
+          // error={props.touched.productName && props.errors.productName}
+          autoCapitalize="words"
+          reset={props.reset}
+          errorStyle={styles.errorStyle}
+          hideLabel={true}
+          inputStyle={styles.InputTFStyle50}
+          placeholderTextColor={colors.placeholder}
+          tintColor={colors.tintColor}
+          textColor={colors.TextColor}
+          fontSize={14}
+          baseColor={colors.baseColor}
+        />
       </View>
     </View>
   );

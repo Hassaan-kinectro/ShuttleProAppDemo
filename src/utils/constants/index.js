@@ -63,3 +63,6 @@ export const VARIANT_QUANTITY = 'variant_quantity';
 export const _WAREHOUSE = 'warehouse';
 export const _QUANTITY = 'quantity';
 export const TOTAL_QUANTITY = 'total_quantity';
+export const _SHELF_NO = 'shelf_no';
+export const _BOX_NO = 'box_no';
+export const _RACK_NO = 'rack_no';

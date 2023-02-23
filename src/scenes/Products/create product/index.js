@@ -10,6 +10,7 @@ import {Formik} from 'formik';
 import CreateProductForm from '../../../components/CreateProductForm';
 import {VALID_NAME} from '../../../utils/Parser/helper';
 import {
+  addNewProduct,
   defaultWarehouses,
   getAllCategories,
   getAllTags,
@@ -60,6 +61,11 @@ const CreateProduct = ({navigation}) => {
     state => state.workspace.workspace.workspace.id,
   );
 
+  const OnSubmit = values => {
+    console.log(values, 'values data');
+    addNewProduct(values, workspaceId);
+  };
+
   React.useEffect(() => {
     const fetchData = async () => {
       getAllCategories(setCategories, workspaceId);
@@ -101,9 +107,7 @@ const CreateProduct = ({navigation}) => {
         <View style={Styles.flex}>
           <Formik
             validationSchema={createProductSchema}
-            onSubmit={values => {
-              console.log(values, 'values ');
-            }}
+            onSubmit={OnSubmit}
             initialValues={initialsVal}>
             {props => {
               return (

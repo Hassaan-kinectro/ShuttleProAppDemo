@@ -21,7 +21,6 @@ const ProductVariantForm = props => {
   const Styles = GlobalStyle();
   const {colors} = useTheme();
   const {values, index} = props;
-  const [warehouse, setWarehouse] = React.useState([{index: 0, open: false}]);
 
   return (
     <View>
@@ -54,7 +53,7 @@ const ProductVariantForm = props => {
                   useAngle={true}
                   angle={199.18}
                   style={styles.addProductVariant}>
-                  <PlusIcon style={styles.opacity} size={15} color={WHITE} />
+                  <PlusIcon style={styles.opacity} size={14} color={WHITE} />
                 </LinearGradient>
               </TouchableOpacity>
             </View>
@@ -260,14 +259,7 @@ const ProductVariantForm = props => {
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY] &&
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY].length > 0 &&
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY].map((q, i) => {
-            return (
-              <ProductWarehouse
-                {...props}
-                i={i}
-                setWarehouse={setWarehouse}
-                warehouse={warehouse}
-              />
-            );
+            return <ProductWarehouse {...props} i={i} />;
           })}
       </View>
     </View>

@@ -32,8 +32,6 @@ export const onAddNewVariantQuantity = (
   index,
   variant_quantity_data,
   setFieldValue,
-  setWarehouse,
-  i,
 ) => {
   setFieldValue(`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}]`, [
     ...variant_quantity_data,
@@ -42,34 +40,17 @@ export const onAddNewVariantQuantity = (
       id: getRandomId(),
     },
   ]);
-  setWarehouse(prev => {
-    return [
-      ...prev,
-      {
-        index: i,
-        open: false,
-      },
-    ];
-  });
 };
 export const onRemoveVariantQuantity = (
   index,
   variant_quantity_index,
   variant_quantity_data,
   setFieldValue,
-  setWarehouse,
 ) => {
   setFieldValue(
     `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}]`,
     variant_quantity_data.filter((v, i) => i !== variant_quantity_index),
   );
-  setWarehouse(prev => {
-    return prev.filter(e => {
-      if (e.index !== variant_quantity_index) {
-        return e;
-      }
-    });
-  });
 };
 export const onRemoveAdjustTotalQuantity = (
   values,
