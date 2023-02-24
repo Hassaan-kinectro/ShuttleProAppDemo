@@ -1,4 +1,9 @@
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import useStyles from './style';
 import {Mixins, Text} from '../../styles';
@@ -248,9 +253,31 @@ const CreateProductForm = props => {
         values.product_variants.map((v, index) => {
           return <ProductVariantForm index={index} {...props} />;
         })}
-      <TouchableOpacity onPress={props.handleSubmit}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
+      <View style={styles.LoginBoxStyle}>
+        <TouchableOpacity onPress={props.handleSubmit}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.9}}
+            colors={['#139A5C', '#3662A8']}
+            style={styles.linearGradient}>
+            {!props.loading ? (
+              <Text
+                size={Mixins.scaleFont(16)}
+                fontFamily={FONT_FAMILY.REGULAR}
+                color={colors.white}
+                style={[styles.buttonText]}>
+                Create
+              </Text>
+            ) : (
+              <ActivityIndicator
+                type={'ThreeBounce'}
+                size={30}
+                color={colors.textColorLight}
+              />
+            )}
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };

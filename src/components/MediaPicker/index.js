@@ -7,6 +7,7 @@ import Uploader from '../uploader';
 import DocumentPicker from 'react-native-document-picker';
 import LinearGradient from 'react-native-linear-gradient';
 import {showMessage} from 'react-native-flash-message';
+import {MediaData} from '../uploader/helper';
 
 const MediaPicker = props => {
   const styles = useStyles();
@@ -48,6 +49,7 @@ const MediaPicker = props => {
             type: 'DANGER',
           });
         } else {
+          console.log(result, 'result data');
           props?.setFieldValue('audiofile', result);
         }
       }
@@ -62,14 +64,27 @@ const MediaPicker = props => {
 
   return (
     <View style={Styles.mT15}>
-      <Uploader type="image" name={'images'} text="Image" {...props} />
+      {MediaData &&
+        MediaData.map((data, index) => {
+          return (
+            <View key={index}>
+              <Uploader
+                type={data.type}
+                name={data.name}
+                text={data.text}
+                {...props}
+              />
+            </View>
+          );
+        })}
+      {/* <Uploader type="image" name={'images'} text="Image" {...props} />
       <Uploader type="video" name={'videofile'} text="Video" {...props} />
       <Uploader
         type="image"
         name={'mobileImages'}
         text="Mobile Image"
         {...props}
-      />
+      /> */}
       <TouchableOpacity onPress={pickAudio}>
         <LinearGradient
           colors={['rgba(134, 181, 237, 0.4)', 'rgba(134, 181, 237, 0.4)']}
@@ -79,10 +94,10 @@ const MediaPicker = props => {
           angle={89.91}
           style={styles.boxBack}>
           <Text style={Styles.textCenter} color={colors.TextColor}>
-            Drag and drop Audio(s) to upload, or
-          </Text>
-          <Text style={styles.underLineBrowser} color={colors.TextColor}>
-            browse.
+            Drag and drop Audio(s) to upload, or{' '}
+            <Text style={styles.underLineBrowser} color={colors.TextColor}>
+              browse.
+            </Text>
           </Text>
         </LinearGradient>
       </TouchableOpacity>

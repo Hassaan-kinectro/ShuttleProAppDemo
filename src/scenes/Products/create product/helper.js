@@ -103,7 +103,7 @@ export const getAllWarehouses = async (setWarehouses, workspaceId) => {
   }
 };
 
-export const addNewProduct = async (values, workspaceId) => {
-  const resp = await CreateProduct(values, workspaceId);
+export const addNewProduct = async (values, workspaceId, setLoading) => {
+  const resp = await CreateProduct(values, workspaceId, setLoading);
   console.log(resp, 'rresp data fetch ok');
 };

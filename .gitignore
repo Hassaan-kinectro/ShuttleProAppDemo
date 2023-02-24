@@ -63,3 +63,4 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+react-native+0.70.6.patch

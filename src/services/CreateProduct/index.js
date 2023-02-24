@@ -1,9 +1,11 @@
-import {handleConvert} from '../../components/Story/helper';
-import {getAuthHeader} from '../../config/authSettings';
+import RNFetchBlob from 'rn-fetch-blob';
 import instance from '../../config/axios';
 import {ParseError} from '../../utils/Parser';
+import {getExtension} from '../../utils/Parser/helper';
+import FormData from 'form-data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CreateProduct = async (values, workspaceId) => {
+const CreateProduct = async (values, workspaceId, setLoading) => {
   const responseData = {
     loading: false,
     status: 210,
@@ -14,7 +16,14 @@ const CreateProduct = async (values, workspaceId) => {
   if (values.images && values.images.length > 0) {
     Object.keys(values.images).map((key, index) => {
       if (values.images[key]) {
-        data.append('avatar_new', JSON.stringify(values.images[key]));
+        data.append('avatar_new', {
+          uri: values.images[key].path, // your file path string
+          name: values.images[key].filename
+            ? values.images[key].filename
+            : Math.random().toString(36).slice(2) +
+              getExtension(values.images[key].mime),
+          type: values.images[key].mime,
+        });
       }
       return null;
     });
@@ -22,23 +31,44 @@ const CreateProduct = async (values, workspaceId) => {
   if (values.mobileImages && values.mobileImages.length > 0) {
     Object.keys(values.mobileImages).map((key, index) => {
       if (values.mobileImages[key]) {
-        data.append('mobile_view', values.mobileImages[key]);
+        data.append('mobile_view', {
+          uri: values.mobileImages[key].path, // your file path string
+          name: values.mobileImages[key].filename
+            ? values.mobileImages[key].filename
+            : Math.random().toString(36).slice(2) +
+              getExtension(values.mobileImages[key].mime),
+          type: values.mobileImages[key].mime,
+        });
       }
       return null;
     });
   }
-  if (values.audioFile && values.audioFile.length > 0) {
-    Object.keys(values.audioFile).map((key, index) => {
-      if (values.audioFile[key]) {
-        data.append('audio_file', values.audioFile[key]);
+  if (values.audiofile && values.audiofile.length > 0) {
+    Object.keys(values.audiofile).map((key, index) => {
+      if (values.audiofile[key]) {
+        data.append('audio_file', {
+          uri: values.audiofile[key].path, // your file path string
+          name: values.audiofile[key].filename
+            ? values.audiofile[key].filename
+            : Math.random().toString(36).slice(2) +
+              getExtension(values.audiofile[key].type),
+          type: values.audiofile[key].type,
+        });
       }
       return null;
     });
   }
-  if (values.videoFile && values.videoFile.length > 0) {
-    Object.keys(values.videoFile).map((key, index) => {
-      if (values.videoFile[key]) {
-        data.append('video_file', values.videoFile[key]);
+  if (values.videofile && values.videofile.length > 0) {
+    Object.keys(values.videofile).map((key, index) => {
+      if (values.videofile[key]) {
+        data.append('video_file', {
+          uri: values.videofile[key].path, // your file path string
+          name: values.videofile[key].filename
+            ? values.videofile[key].filename
+            : Math.random().toString(36).slice(2) +
+              getExtension(values.videofile[key].mime),
+          type: values.videofile[key].mime,
+        });
       }
       return null;
     });
@@ -73,62 +103,12 @@ const CreateProduct = async (values, workspaceId) => {
   );
   data.append('product_variants', JSON.stringify(Variants));
 
-  let ok = {workspace_id: workspaceId.toString()};
-  ok = {...ok, category_ids: JSON.stringify(categories)};
-  ok = {...ok, name: values.productName};
-  ok = {...ok, description: values.description};
-  ok = {...ok, code: values.productCode};
-  ok = {...ok, price: values.price};
-  ok = {...ok, tag_ids: JSON.stringify(tags)};
-  ok = {...ok, preference: values.preference && values.preference.id};
-  ok = {...ok, product_variants: JSON.stringify(Variants)};
-  if (values.videoFile && values.videoFile.length > 0) {
-    Object.keys(values.videoFile).map((key, index) => {
-      if (values.videoFile[key]) {
-        ok = {...ok, video_file: values.videoFile[key]};
-      }
-      return null;
-    });
-  }
-  if (values.audioFile && values.audioFile.length > 0) {
-    Object.keys(values.audioFile).map((key, index) => {
-      if (values.audioFile[key]) {
-        ok = {...ok, audio_file: values.audioFile[key]};
-      }
-      return null;
-    });
-  }
-  if (values.images && values.images.length > 0) {
-    Object.keys(values.images).map(async (key, index) => {
-      if (values.images[key]) {
-        console.log('before convert', values.images[key].path);
-
-        // const resp = await handleConvert(values.images[key].path);
-        console.log(
-          `data:${values.images[key].mime};base64,${values.images[key].data}`,
-          'resp',
-          // typeof resp,
-        );
-        ok = {
-          ...ok,
-          avatar_new: `data:${values.images[key].mime};base64,${values.images[key].data}`,
-        };
-      }
-      return null;
-    });
-  }
-  if (values.mobileImages && values.mobileImages.length > 0) {
-    Object.keys(values.mobileImages).map((key, index) => {
-      if (values.mobileImages[key]) {
-        ok = {...ok, mobile_view: values.mobileImages[key]};
-      }
-      return null;
-    });
-  }
-  console.log(values, ' before request data ', data);
+  console.log(' before request data ', data);
   return instance
     .post('/products', data, token)
     .then(response => {
+      setLoading(false);
+
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
@@ -154,6 +134,8 @@ const CreateProduct = async (values, workspaceId) => {
     })
     .catch(err => {
       console.log(err, 'errrrrror');
+      setLoading(false);
+
       return {
         ...responseData,
         message: ParseError(
@@ -164,3 +146,23 @@ const CreateProduct = async (values, workspaceId) => {
 };
 
 export {CreateProduct};
+
+const getAuthHeader = () =>
+  new Promise((resolve, reject) => {
+    AsyncStorage.getItem('token')
+      .then(res => {
+        if (res !== null) {
+          const bearerToken = {
+            headers: {
+              Authorization: 'Bearer ' + res,
+              'Content-type': 'multipart/form-data',
+              Accept: 'application/json',
+            },
+          };
+          resolve(bearerToken);
+        } else {
+          resolve(null);
+        }
+      })
+      .catch(err => reject(err));
+  });

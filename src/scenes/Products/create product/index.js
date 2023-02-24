@@ -22,6 +22,7 @@ import useStyles from '../../../components/CreateProductForm/style';
 
 const CreateProduct = ({navigation}) => {
   const [tags, setTags] = React.useState({data: []});
+  const [loading, setLoading] = React.useState(false);
   const [categories, setCategories] = React.useState({data: []});
   const [warehouses, setWarehouses] = React.useState(defaultWarehouses);
   const theme = useSelector(state => state.themeChange.theme);
@@ -63,7 +64,7 @@ const CreateProduct = ({navigation}) => {
 
   const OnSubmit = values => {
     console.log(values, 'values data');
-    addNewProduct(values, workspaceId);
+    addNewProduct(values, workspaceId, setLoading);
   };
 
   React.useEffect(() => {
@@ -107,12 +108,18 @@ const CreateProduct = ({navigation}) => {
         <View style={Styles.flex}>
           <Formik
             validationSchema={createProductSchema}
-            onSubmit={OnSubmit}
+            onSubmit={() => {
+              setLoading(true);
+
+              OnSubmit;
+            }}
             initialValues={initialsVal}>
             {props => {
               return (
                 <View style={!isKeyboardOpen ? styles.mB90 : Styles.flex}>
                   <CreateProductForm
+                    setLoading={setLoading}
+                    loading={loading}
                     {...props}
                     tags={tags}
                     categories={categories}

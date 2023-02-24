@@ -13,12 +13,17 @@ const useStyles = () => {
       minHeight: 90,
       flex: 1,
       marginVertical: 6,
-      justifyContent: 'center',
+      paddingHorizontal: 10,
+      justifyContent: 'space-evenly',
       alignContent: 'center',
     },
     underLineBrowser: {
       textAlign: 'center',
       textDecorationLine: 'underline',
+    },
+    textCenterError: {
+      textAlign: 'center',
+      color: colors.errorColor,
     },
   });
 };

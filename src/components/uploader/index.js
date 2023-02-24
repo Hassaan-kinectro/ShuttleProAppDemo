@@ -10,44 +10,61 @@ import {showMessage} from 'react-native-flash-message';
 const Uploader = props => {
   const styles = useStyles();
   const {colors} = useTheme();
+  const [validationCheck, setValidationCheck] = React.useState({
+    msg: '',
+    state: false,
+  });
+  const [imageNotSelectCheck, setImageNotSelectCheck] = React.useState(false);
   const pickMultiImage = async () => {
     try {
       ImagePicker.openPicker({
         multiple: true,
         mediaType: props?.type,
-      }).then(image => {
-        if (image?.length > 3) {
-          return showMessage({
-            message: '',
-            description: `Maximum 3 ${props?.text} are allowed.`,
-            type: 'DANGER',
-          });
-        } else if (image?.length === 0) {
-          return showMessage({
-            message: '',
-            description: `Atleast select 1 ${props?.text}`,
-            type: 'DANGER',
-          });
-        } else {
-          let test = false;
-          test = image?.filter(file => {
-            if (file.size > 1024 * 1024 * 5) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-          if (test.length !== 0) {
+      })
+        .then(image => {
+          if (image?.length > 3) {
             return showMessage({
               message: '',
-              description: `${props?.text} must less then 5mb.`,
+              description: `Maximum 3 ${props?.text} are allowed.`,
+              type: 'DANGER',
+            });
+          } else if (image?.length === 0) {
+            return showMessage({
+              message: '',
+              description: `Atleast select 1 ${props?.text}`,
               type: 'DANGER',
             });
           } else {
-            props?.setFieldValue(props?.name, image);
+            let test = false;
+            test = image?.filter(file => {
+              if (file.size > 1024 * 1024 * 5) {
+                return true;
+              } else {
+                return false;
+              }
+            });
+            if (test.length !== 0) {
+              return showMessage({
+                message: '',
+                description: `${props?.text} must less then 5mb.`,
+                type: 'DANGER',
+              });
+            } else {
+              console.log('image or video check', image);
+              props?.setFieldValue(props?.name, image);
+              setImageNotSelectCheck(false);
+              setValidationCheck({state: true, msg: `${image.length}`});
+            }
           }
-        }
-      });
+        })
+        .catch(e => {
+          setValidationCheck({
+            state: false,
+            msg: '',
+          });
+          setImageNotSelectCheck(true);
+          console.log(' start from here>>>>', e, 'error on catah >>>>>');
+        });
     } catch (e) {
       console.log(' start from here>>>>', e, 'error on catah >>>>>');
     }
@@ -63,11 +80,30 @@ const Uploader = props => {
           angle={89.91}
           style={styles.boxBack}>
           <Text style={Styles.textCenter} color={colors.TextColor}>
-            Drag and drop {props?.text}(s) to upload, or
+            Drag and drop {props?.text}(s) to upload, or{' '}
+            <Text style={styles.underLineBrowser} color={colors.TextColor}>
+              browse.
+            </Text>
           </Text>
-          <Text style={styles.underLineBrowser} color={colors.TextColor}>
-            browse.
-          </Text>
+
+          {validationCheck?.state ? (
+            <View>
+              <Text style={Styles.textCenter}>
+                {validationCheck.msg} {props?.text} selected.
+              </Text>
+            </View>
+          ) : (
+            <></>
+          )}
+          {props.name === 'images' && imageNotSelectCheck ? (
+            <View>
+              <Text style={styles.textCenterError}>
+                At least select 1 image
+              </Text>
+            </View>
+          ) : (
+            <></>
+          )}
         </LinearGradient>
       </TouchableOpacity>
     </View>

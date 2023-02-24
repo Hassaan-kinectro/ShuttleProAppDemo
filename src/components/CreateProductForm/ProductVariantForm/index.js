@@ -259,7 +259,11 @@ const ProductVariantForm = props => {
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY] &&
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY].length > 0 &&
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY].map((q, i) => {
-            return <ProductWarehouse {...props} i={i} />;
+            return (
+              <View key={i}>
+                <ProductWarehouse {...props} i={i} />
+              </View>
+            );
           })}
       </View>
     </View>

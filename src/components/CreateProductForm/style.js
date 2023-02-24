@@ -3,8 +3,10 @@ import {deviceWidth, IS_IOS, IS_PAD} from '../../utils/orientation';
 import {scaleSize} from '../../styles/mixins';
 import {useTheme} from '@react-navigation/native';
 import {FONT_FAMILY} from '../../utils/constants';
-import {Mixins} from '../../styles';
+import {GlobalStyle, Mixins} from '../../styles';
 const useStyles = () => {
+  const Styles = GlobalStyle();
+
   const {colors} = useTheme();
   return StyleSheet.create({
     BoxStyle: {
@@ -185,7 +187,7 @@ const useStyles = () => {
       zIndex: 5000,
     },
     descriptionTFStyle: {
-      height: 55,
+      height: 65,
       margin: 0,
       flex: 1,
       justifyContent: 'space-around',
@@ -193,6 +195,7 @@ const useStyles = () => {
       fontFamily: FONT_FAMILY.LIGHT,
       borderBottomWidth: 1,
       borderLeftWidth: 1,
+      borderColor: colors.borderColor,
       borderRightWidth: 1,
       borderTopWidth: 1,
       borderRadius: 5,
@@ -202,10 +205,12 @@ const useStyles = () => {
       fontSize: Mixins.scaleFont(14),
       fontFamily: FONT_FAMILY.LIGHT,
       marginTop: 10,
+      color: colors.TextColor,
       marginBottom: 0,
     },
     dropDownSTyle: {
       height: 40,
+      marginVertical: 5,
     },
     placeholderStyle: {
       color: colors.placeholder,
@@ -215,7 +220,7 @@ const useStyles = () => {
       // backgroundColor: 'red',
       marginHorizontal: 5,
       padding: 0,
-      marginVertical: 0,
+      marginVertical: 5,
     },
     mB90: {
       marginBottom: 90,
@@ -238,6 +243,33 @@ const useStyles = () => {
       alignItems: 'center',
       order: 1,
       flexGrow: 0,
+    },
+    linearGradient: {
+      width: '100%',
+      borderRadius: 7,
+      ...Styles.justifyContentCenter,
+      height: 48,
+    },
+    buttonText: {
+      textAlign: 'center',
+      lineHeight: 19,
+    },
+    LoginBoxStyle: {
+      height: 'auto',
+      width: IS_IOS ? deviceWidth - 40 : deviceWidth - 40,
+      borderWidth: 0,
+      // borderRadius: 20,
+      // borderColor: colors.boxBorderColor,
+      marginBottom: 15,
+      backgroundColor: colors.boxColor,
+      marginHorizontal: 20,
+      //   paddingVertical: 10,
+      // shadowOffset: {width: 0, height: 0.2},
+      // shadowOpacity: 0.1,
+      // shadowRadius: 5,
+      // elevation: 3,
+      // paddingHorizontal: scaleSize(15),
+      // paddingVertical: scaleSize(15),
     },
   });
 };
