@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import instance from '../../config/axios';
-import {isArray, isObject} from 'lodash';
+import {isArray} from 'lodash';
 import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 const FetchAllProducts = async (workspaceId, limit = 100000, page = 1) => {
@@ -93,7 +93,6 @@ const FetchProducts = async (workspaceId, limit = 100000, page = 1) => {
     });
 };
 const FetchFilterProducts = async (values, limit = 100000, page = 1) => {
-  console.log(values.tag, 'workspaceiD');
   const responseData = {
     loading: false,
     status: 210,
@@ -118,11 +117,9 @@ const FetchFilterProducts = async (values, limit = 100000, page = 1) => {
   return instance
     .post('/products/filter', formData, token)
     .then(response => {
-      console.log(response.data, 'response');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log(response.data, 'this is response.data');
           return {
             ...responseData,
             status: 200,

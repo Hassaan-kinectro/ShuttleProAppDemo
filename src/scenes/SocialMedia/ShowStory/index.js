@@ -86,8 +86,6 @@ const ShowStory = props => {
     return date;
   });
 
-  console.log('unPublishedStories', ok.reverse());
-
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>

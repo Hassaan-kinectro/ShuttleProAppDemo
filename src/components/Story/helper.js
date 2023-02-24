@@ -1,14 +1,13 @@
 import {convertImageTobase64} from '../../utils/urlParser';
 import moment from 'moment';
 import * as Yup from 'yup';
-// import {DATE, POST_DATE_TIME} from '../../util';
 import {SaveStories, SaveScheduleStories} from '../../services/SocialProfiles';
 import {showMessage} from 'react-native-flash-message';
 import * as Constants from '../../scenes/SocialMedia/Constants';
 import {POST_DATE_TIME, DATE} from '../../scenes/SocialMedia/Constants';
 import {FetchProductImages} from '../../services/Instagram';
 import {FetchFilterProducts} from '../../services/Products';
-import {flattenDeep, min, uniqBy} from 'lodash';
+import {flattenDeep} from 'lodash';
 
 let base64Images;
 export const handleConvert = async imageUrl => {
@@ -72,6 +71,173 @@ export const initialValues = {
   noOfPosts: null,
   criteria: null,
   loading: false,
+};
+
+export const FacebookPostTimes = [
+  {
+    id: 1,
+    count: 1,
+    name: '1 Story in a day',
+    label: '1 Story in a day',
+    value: '1 Story in a day',
+    day: 1,
+  },
+  {
+    id: 2,
+    count: 2,
+    name: '2 Stories in a day',
+    label: '2 Stories in a day',
+    value: '2 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 3,
+    count: 5,
+    name: '5 Stories in a day',
+    label: '5 Stories in a day',
+    value: '5 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 4,
+    count: 10,
+    name: '10 Stories in a day',
+    label: '10 Stories in a day',
+    value: '10 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 5,
+    count: 1,
+    name: '7 Stories in a week',
+    label: '7 Stories in a week',
+    value: '7 Stories in a week',
+    day: 7,
+  },
+  {
+    id: 6,
+    count: 2,
+    name: '14 Stories in a week',
+    label: '14 Stories in a week',
+    value: '14 Stories in a week',
+    day: 7,
+  },
+  {
+    id: 7,
+    count: 4,
+    name: '28 Stories in a week',
+    label: '28 Stories in a week',
+    value: '28 Stories in a week',
+    day: 7,
+  },
+  {
+    id: 8,
+    count: 1,
+    name: '30 Stories in a month',
+    label: '30 Stories in a month',
+    value: '30 Stories in a month',
+    day: 30,
+  },
+  {
+    id: 9,
+    count: 2,
+    name: '60 Stories in a month',
+    label: '60 Stories in a month',
+    value: '60 Stories in a month',
+    day: 30,
+  },
+];
+export const InstagramPostTimes = [
+  {
+    id: 1,
+    count: 1,
+    name: '1 Story in a day',
+    label: '1 Story in a day',
+    value: '1 Story in a day',
+    day: 1,
+  },
+  {
+    id: 2,
+    count: 3,
+    name: '3 Stories in a day',
+    label: '3 Stories in a day',
+    value: '3 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 3,
+    count: 6,
+    name: '6 Stories in a day',
+    label: '6 Stories in a day',
+    value: '6 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 4,
+    count: 9,
+    name: '9 Stories in a day',
+    label: '9 Stories in a day',
+    value: '9 Stories in a day',
+    day: 1,
+  },
+  {
+    id: 5,
+    count: 3,
+    name: '15 Stories in a week',
+    label: '15 Stories in a week',
+    value: '15 Stories in a week',
+    day: 7,
+  },
+  {
+    id: 6,
+    count: 6,
+    name: '30 Stories in a week',
+    value: '30 Stories in a week',
+    label: '30 Stories in a week',
+    day: 7,
+  },
+  {
+    id: 7,
+    count: 3,
+    name: '90 Stories in a month',
+    label: '90 Stories in a month',
+    value: '90 Stories in a month',
+    day: 30,
+  },
+  {
+    id: 8,
+    count: 6,
+    name: '150 Stories in a month',
+    label: '150 Stories in a month',
+    value: '150 Stories in a month',
+    day: 30,
+  },
+];
+
+export const createDate = value => {
+  return moment(value).format(DATE);
+};
+
+export const Criterias = [
+  {
+    id: 'preference',
+    name: 'Preference',
+    label: 'Preference',
+    value: 'Preference',
+  },
+  {id: 'quantity', name: 'Quantity', label: 'Quantity', value: 'Quantity'},
+];
+
+export const createEndDate = (start, day) => {
+  return moment(start)
+    .add(day - 1, 'days')
+    .format(Constants.DATE);
+};
+
+export const getPostTimes = profileType => {
+  return profileType === Constants.FACEBOOK
+    ? FacebookPostTimes
+    : InstagramPostTimes;
 };
 
 export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
@@ -224,7 +390,7 @@ export const saveStory = async (values, handles, closeStoryModal) => {
     const resp = await SaveStories(formData);
     if (resp.status === 200) {
       showMessage({
-        message: resp.message,
+        // message: resp.message,
         description: 'Story Saved Successfully',
         type: 'success',
       });
@@ -232,7 +398,7 @@ export const saveStory = async (values, handles, closeStoryModal) => {
       closeStoryModal();
     } else {
       showMessage({
-        message: resp.message,
+        // message: resp.message,
         description: ' Story Not Saved',
         type: 'DANGER',
       });

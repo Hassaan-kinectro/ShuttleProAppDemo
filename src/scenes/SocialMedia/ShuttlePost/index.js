@@ -29,8 +29,6 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
     [post, profileType, setPosts],
   );
 
-  console.log(post, 'this is post');
-
   return (
     <>
       <View style={styles.postCard}>

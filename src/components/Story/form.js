@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-sparse-arrays */
 import React from 'react';
@@ -6,8 +7,6 @@ import {Text, GlobalStyle, Mixins, Colors} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import DropDownPicker from '../DropDown';
 import * as Constants from '../../scenes/SocialMedia/Constants';
-import {useSelector} from 'react-redux';
-import moment from 'moment';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import DatePickerField from '../DateTimePicker';
 import {selectionTypes} from '../../scenes/SocialMedia/helper';
@@ -76,9 +75,6 @@ const Form = ({
 
   return (
     <>
-      <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-        Product
-      </Text>
       <DropDownPicker
         items={selectionTypes}
         defaultValue={values.selectionTypes}
@@ -121,9 +117,6 @@ const Form = ({
         values.selectionType.id &&
         values.selectionType.id === Constants.PRODUCT && (
           <>
-            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-              Products
-            </Text>
             <DropDownPicker
               items={products.data}
               defaultValue={[]}
@@ -171,9 +164,6 @@ const Form = ({
         values.selectionType.id &&
         values.selectionType.id === Constants.CATEGORY && (
           <>
-            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-              Category
-            </Text>
             <DropDownPicker
               items={categories.data}
               defaultValue={[]}
@@ -221,9 +211,6 @@ const Form = ({
         values.selectionType.id &&
         values.selectionType.id === Constants.TAG && (
           <>
-            <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-              Tags
-            </Text>
             <DropDownPicker
               items={tags.data}
               defaultValue={[]}
@@ -268,9 +255,6 @@ const Form = ({
           </>
         )}
       <View>
-        <Text size={Mixins.scaleFont(12)} style={[Styles.mB15]}>
-          Notification
-        </Text>
         <DatePickerField
           style={Styles.picker}
           date={values.date}

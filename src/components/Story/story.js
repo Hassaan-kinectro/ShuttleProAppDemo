@@ -1,14 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-sparse-arrays */
 import React, {useEffect, useRef} from 'react';
 import MModal from 'react-native-modal';
-import {
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
+import {TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import {
   defaultProducts,
   defaultTags,
@@ -17,7 +12,7 @@ import {
   getAllTags,
   getAllCategories,
 } from '../../scenes/SocialMedia/helper';
-import * as Constants from '../../scenes/SocialMedia/Constants';
+
 import Form from './form';
 import {Colors, Mixins, Text, GlobalStyle} from '../../styles';
 import {deviceHeight, IS_IOS} from '../../utils/orientation';
@@ -32,7 +27,7 @@ import {CloseIcon} from '../../icons';
 import {useSelector} from 'react-redux';
 import {Dark, Light} from '../../utils/imagesPath';
 import {scaleSize} from '../../styles/mixins';
-import {showMessage} from 'react-native-flash-message';
+
 import {
   StorySchema,
   initialValues,

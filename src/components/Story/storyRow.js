@@ -82,6 +82,7 @@ const StoryRow = ({
     }
   };
   const shareFacebookImage = async (urls, id) => {
+    console.log(urls, 'aaaaaaaaaaa');
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
     await UpdateStoryById(id).then(res => {
@@ -225,9 +226,9 @@ const StoryRow = ({
             {item.pageName}
           </Text>
           <Text numberOfLines={1} style={styles.text}>
-            {item.createdAt
-              ? moment(item.createdAt).format('DD MMM YYYY | hh:mm A')
-              : moment(item.created_at).format('YYYY-MM-DD hh:mm A')}
+            {item.shareAt
+              ? moment(item.shareAt).format('DD MMM YYYY | hh:mm A')
+              : moment(item.createdAt).format('YYYY-MM-DD hh:mm A')}
           </Text>
         </View>
         <View

@@ -86,7 +86,7 @@ export const UpdateStoryById = async id => {
   };
 
   const token = await getAuthHeader();
-  console.log(token, 'this is token');
+
   return instance
     .put(`/stories/${id}`, {data: {}}, token)
     .then(response => {

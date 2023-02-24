@@ -36,7 +36,6 @@ const FetchDaysOrderByDate = async (workspaceId, startDate, endDate) => {
           };
         }
       } else {
-        // console.log(response);
         return {
           ...responseData,
           message: ParseError(response.data),
@@ -85,7 +84,6 @@ const FetchCriticalOrdersByDate = async (workspaceId, startDate, endDate) => {
           };
         }
       } else {
-        // console.log(response);
         return {
           ...responseData,
           message: ParseError(response.data),
@@ -134,7 +132,6 @@ const FetchReturnOrdersByDate = async (workspaceId, startDate, endDate) => {
           };
         }
       } else {
-        // console.log(response);
         return {
           ...responseData,
           message: ParseError(response.data),

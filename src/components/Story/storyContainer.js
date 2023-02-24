@@ -52,8 +52,6 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
   );
   const profileType = currentProfile && currentProfile.profile_type;
 
-  console.log(currentProfile, 'this is current profile');
-
   return (
     <>
       <View>
