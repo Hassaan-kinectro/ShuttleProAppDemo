@@ -220,7 +220,6 @@ export const setFacebookPosts = (data, setPosts) => {
     data.facebook.data.length > 0
   ) {
     setPosts(prev => {
-      console.log(prev.data.concat());
       return {
         ...prev,
         data:
@@ -285,7 +284,6 @@ export const getWorkspace = async (
   });
   const resp = await GetWorkSpace(id);
   if (resp.status === 200 && resp.data) {
-    console.log(resp.data, 'this is resp');
     const profiles =
       resp.data.social_profiles && resp.data.social_profiles.length > 0
         ? resp.data.social_profiles
@@ -337,7 +335,6 @@ const getLabel = (row, profileType, t) => {
 };
 
 const onClickPublish = async (row, profileType, setPosts, t) => {
-  console.log('onClickPublish');
   if (profileType === Constants.FACEBOOK) {
     const resp = await updateFacebookPostStatus({
       id: row.id,
@@ -404,7 +401,6 @@ const onClickPublish = async (row, profileType, setPosts, t) => {
   }
 };
 const UpdateStatus = async (row, status, setPosts) => {
-  console.log('UpdateStatus');
   // const resp = await UpdateInstagramPostStatus({
   //   id: row.id,
   //   status: status,
@@ -436,8 +432,6 @@ const UpdateStatus = async (row, status, setPosts) => {
 };
 
 const onClickReject = async (row, profileType, setPosts, t) => {
-  console.log('onClickReject', row);
-  console.log(row);
   if (profileType === Constants.FACEBOOK) {
     const resp = await updateFacebookPostStatus({
       id: row.id,
@@ -516,7 +510,6 @@ const onClickDelete = async (row, profileType, setPosts, t) => {
 };
 
 const onClickShow = (row, profileType, setPosts) => {
-  console.log(row, 'onClickShow');
   // const type =
   //   row.instagramPostId || row.instagramPostId === ''
   //     ? 'instagram'
@@ -656,7 +649,6 @@ export const saveStory = async (values, handles, closeStoryModal) => {
     }
     handles.setFieldValue('loading', false);
   } else {
-    console.log(values);
     handles.setFieldValue('loading', true);
     const stories = values.slots.map(s => {
       return {
@@ -672,7 +664,7 @@ export const saveStory = async (values, handles, closeStoryModal) => {
         shareAt: s.date,
       };
     });
-    console.log(stories);
+
     const resp = await SaveScheduleStories(stories);
     if (resp.status === 200) {
       showMessage({

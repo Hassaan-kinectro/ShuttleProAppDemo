@@ -11,7 +11,10 @@ const SocialTabs = ({socialProfiles, changeProfile, currentProfile}) => {
   const styles = useStyles();
   const {colors} = useTheme();
   return (
-    <ScrollView horizontal={true} style={Styles.pL5}>
+    <ScrollView
+      horizontal={true}
+      style={Styles.pL5}
+      showsHorizontalScrollIndicator={false}>
       {socialProfiles && socialProfiles.length > 0
         ? socialProfiles.slice(0, 8).map((s, i) => {
             console.log(s);
@@ -21,7 +24,6 @@ const SocialTabs = ({socialProfiles, changeProfile, currentProfile}) => {
               <TouchableOpacity
                 key={i}
                 onPress={() => {
-                  console.log('Press here', s);
                   changeProfile(s);
                 }}
                 style={[styles.topHeader]}>

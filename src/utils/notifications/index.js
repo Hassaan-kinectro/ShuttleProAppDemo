@@ -16,7 +16,6 @@ export async function requestUserPermission() {
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
-    // console.log('Authorization status:', authStatus);
     getFcmToken();
   }
 }
@@ -24,16 +23,10 @@ export async function requestUserPermission() {
 const getFcmToken = async () => {
   try {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
-    // console.log('This is the FcmToken:', fcmToken, 'This is the FcmToken:');
+
     if (!fcmToken) {
-      // await messaging().registerDeviceForRemoteMessages();
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
-        // console.log(
-        //   'New Generated FcmToken:',
-        //   fcmToken,
-        //   'New Generated FcmToken:',
-        // );
         await AsyncStorage.setItem('fcmToken', fcmToken);
       }
     }
@@ -70,10 +63,8 @@ const getFcmToken = async () => {
               });
           }
         });
-        // console.log('tttttt', res.id);
       }
     });
-    // console.log('FCM Token created:', fcmToken);
   } catch (error) {
     console.log(error, 'error');
   }

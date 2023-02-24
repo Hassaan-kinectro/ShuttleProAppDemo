@@ -36,7 +36,7 @@ const GetStatusTypes = async () => {
       }
     })
     .catch(err => {
-      console.log(err, 'asaddsa');
+      console.log(err);
       return {
         ...responseData,
         message: ParseError(

@@ -30,9 +30,8 @@ const StoryLoading = message => {
   }, [images]);
 
   const shareImage = async localImages => {
-    console.log(images, 'in the images');
     const resp = await handleConvert(localImages);
-    console.log(resp, 'this is resp');
+
     let list = [];
     resp.forEach(async image => {
       list.push(image.image);
@@ -67,7 +66,7 @@ const StoryLoading = message => {
         }, 500);
       }
     } catch (error) {
-      console.log(error, 'this is error');
+      console.log(error);
     }
   };
   const styles = useStyles();

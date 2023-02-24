@@ -8,6 +8,7 @@ export const LAYOUT_POST = 'layoutPost';
 export const INSTA_STORY = 'instaStory';
 export const AUTO_SCHEDULER = 'autoScheduler';
 export const FACEBOOK = 'facebook';
+export const DATE = 'YYYY-MM-DD';
 export const INSTAGRAM = 'instagram';
 export const CAROUSEL = 'carousel';
 export const POST_LIMIT = '25';

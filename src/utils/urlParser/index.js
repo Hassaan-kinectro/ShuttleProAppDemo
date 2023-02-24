@@ -7,7 +7,6 @@ export const ResolvePostImage = product => {
   let image = ImageNotFound;
   if (product) {
     if (product.product_attachments[0].image.thumb) {
-      console.log('thumImages', product.product_attachments[0].image.thumb.url);
       image = product.product_attachments[0].image.thumb.url;
     } else if (product.product_attachments[0].image) {
       image = product.product_attachments[0].image;
@@ -36,7 +35,6 @@ export const ResolveImages = product => {
     product.product_attachments.length > 0
   ) {
     if (product.product_attachments[0].image.thumb) {
-      console.log('thumImages', product.product_attachments[0].image.thumb.url);
       image = product.product_attachments[0].image.thumb.url;
     } else if (product.product_attachments[0].image) {
       image = product.product_attachments[0].image.url;
@@ -69,7 +67,6 @@ const ExtractExtension = name => {
 };
 
 export const convertImageTobase64 = image => {
-  console.log(image);
   return new Promise(async (resolve, reject) => {
     const fileName = image.split('/').pop();
     const ext = ExtractExtension(fileName);
@@ -85,13 +82,13 @@ export const convertImageTobase64 = image => {
         }
         imagePath = resp.path();
         const t = resp.readFile('base64');
-        console.log(t, 'this is t');
+
         return t;
       })
       .then(async base64Data => {
         fs.unlink(imagePath);
         const d = base64Data;
-        console.log(d, 'this is d');
+
         return resolve({
           status: status,
           image: d && 'data:' + ext + ';base64,' + d,
@@ -111,7 +108,7 @@ export const ResolveStoryImageList = async (imageArray, base64) => {
         imageArray.map(async i => {
           if (base64) {
             let resp = await convertImageTobase64(i);
-            console.log('The response', resp.image, '<<---');
+
             if (resp.status === 200) {
               image = resp.image;
 

@@ -19,12 +19,16 @@ import {Formik} from 'formik';
 import {GlobalStyle, Mixins, Colors, Text} from '../../../styles';
 import {useTheme} from '@react-navigation/native';
 import Form from '../../../components/Story/form';
+import AutoScheduleForm from '../../../components/Story/AutoScheduleForm';
+import Radio from '../../../components/RadioButtons';
 import ImageList from '../../../components/Story/ImageList';
+import AutoSchedularPreview from './autoSchedularPreview';
 import {
   StorySchema,
   initialValues,
   saveStory,
   onClickLoadMedia,
+  getPostAllSlots,
 } from './helper';
 import {
   defaultProducts,
@@ -38,6 +42,7 @@ import {getUser} from '../../../config/authSettings';
 
 const CreateStory = props => {
   const {navigation, route, type} = props;
+  const currentProfile = route && route.params && route.params.currentProfile;
   const styles = useStyles();
   const {colors} = useTheme();
   const name = 'Create Stories';
@@ -45,6 +50,8 @@ const CreateStory = props => {
   const [products, setProducts] = React.useState(defaultProducts);
   const [tags, setTags] = React.useState(defaultTags);
   const [userId, setUserId] = React.useState(null);
+  const [selectedValue, setSelectedValue] = React.useState('Custom');
+
   const [categories, setCategories] = React.useState(defaultCategories);
   const workspaceId = useSelector(state => state.workspace.workspaceId);
   const theme = useSelector(state => state.themeChange.theme);
@@ -68,6 +75,10 @@ const CreateStory = props => {
   const saveData = async (values, selectedImages = []) => {
     const data = await saveStory(values, selectedImages, navigation);
     console.log(data, 'response');
+  };
+
+  const handleRadioChange = value => {
+    setSelectedValue(value);
   };
 
   return (
@@ -100,15 +111,52 @@ const CreateStory = props => {
                               save={saveData}
                             />
                           </>
-                        ) : (
+                        ) : values &&
+                          values.slots &&
+                          values.slots.length > 0 ? (
+                          <AutoSchedularPreview
+                            values={values}
+                            setFieldValue={setFieldValue}
+                          />
+                        ) : selectedValue === 'Custom' ? (
                           <>
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginTop: 20,
+                              }}>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() => handleRadioChange('Custom')}>
+                                  <Radio
+                                    value="Custom"
+                                    selected={selectedValue === 'Custom'}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    handleRadioChange('Auto Scheduler')
+                                  }>
+                                  <Radio
+                                    value="Auto Scheduler"
+                                    selected={
+                                      selectedValue === 'Auto Scheduler'
+                                    }
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </View>
                             <View style={styles.BoxStyle}>
                               <View
                                 style={{
                                   flex: 1,
                                   justifyContent: 'flex-start',
                                   alignItems: 'flex-start',
-                                  marginVertical: 20,
+                                  marginBottom: 10,
+                                  marginTop: 5,
                                 }}>
                                 <Text
                                   size={20}
@@ -128,11 +176,7 @@ const CreateStory = props => {
                                 tags={tags}
                                 userId={userId && userId ? userId : null}
                                 categories={categories}
-                                currentProfile={
-                                  route &&
-                                  route.params &&
-                                  route.params.currentProfile
-                                }
+                                currentProfile={currentProfile}
                                 type={type}
                               />
                             </View>
@@ -211,8 +255,435 @@ const CreateStory = props => {
                               </TouchableOpacity>
                             )}
                           </>
+                        ) : (
+                          <>
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginTop: 20,
+                              }}>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() => handleRadioChange('Custom')}>
+                                  <Radio
+                                    value="Custom"
+                                    selected={selectedValue === 'Custom'}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    handleRadioChange('Auto Scheduler')
+                                  }>
+                                  <Radio
+                                    value="Auto Scheduler"
+                                    selected={
+                                      selectedValue === 'Auto Scheduler'
+                                    }
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                            <View style={styles.BoxStyle}>
+                              <View
+                                style={{
+                                  flex: 1,
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  marginBottom: 10,
+                                  marginTop: 5,
+                                }}>
+                                <Text
+                                  size={20}
+                                  color={colors.TextColor}
+                                  fontFamily={FONT_FAMILY.SEMI_BOLD}
+                                  lines={1}>
+                                  Instagram Story
+                                </Text>
+                              </View>
+                              <AutoScheduleForm
+                                touched={touched}
+                                values={values}
+                                errors={errors}
+                                handleChange={handleChange}
+                                setFieldValue={setFieldValue}
+                                products={products}
+                                tags={tags}
+                                userId={userId && userId ? userId : null}
+                                categories={categories}
+                                currentProfile={currentProfile}
+                                type={type}
+                              />
+                            </View>
+                            {values.criteria === '' ? (
+                              <View style={styles.buttonContainer}>
+                                {values.slotsLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[styles.linearGradient]}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[
+                                      styles.linearGradient,
+                                      {opacity: 0.6},
+                                    ]}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </View>
+                            ) : (
+                              <TouchableOpacity
+                                style={styles.buttonContainer}
+                                onPress={() => {
+                                  if (values.criteria) {
+                                    getPostAllSlots(
+                                      values,
+                                      currentProfile,
+                                      setFieldValue,
+                                      workspaceId,
+                                    );
+                                  }
+                                }}>
+                                {values.slotsLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </TouchableOpacity>
+                            )}
+                          </>
                         )}
                       </>
+                      {/* <>
+                        {values &&
+                        !values.isPreview &&
+                        values.imagesArr &&
+                        values.imagesArr.length > 0 ? (
+                          <>
+                            <ImageList
+                              values={values}
+                              setFieldValue={setFieldValue}
+                              save={saveData}
+                            />
+                          </>
+                        ) : selectedValue === 'Custom' ? (
+                          <>
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginTop: 20,
+                              }}>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() => handleRadioChange('Custom')}>
+                                  <Radio
+                                    value="Custom"
+                                    selected={selectedValue === 'Custom'}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    handleRadioChange('Auto Scheduler')
+                                  }>
+                                  <Radio
+                                    value="Auto Scheduler"
+                                    selected={
+                                      selectedValue === 'Auto Scheduler'
+                                    }
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                            <View style={styles.BoxStyle}>
+                              <View
+                                style={{
+                                  flex: 1,
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  marginBottom: 10,
+                                  marginTop: 5,
+                                }}>
+                                <Text
+                                  size={20}
+                                  color={colors.TextColor}
+                                  fontFamily={FONT_FAMILY.SEMI_BOLD}
+                                  lines={1}>
+                                  Instagram Story
+                                </Text>
+                              </View>
+                              <Form
+                                touched={touched}
+                                values={values}
+                                errors={errors}
+                                handleChange={handleChange}
+                                setFieldValue={setFieldValue}
+                                products={products}
+                                tags={tags}
+                                userId={userId && userId ? userId : null}
+                                categories={categories}
+                                currentProfile={currentProfile}
+                                type={type}
+                              />
+                            </View>
+                            {values.date === '' ? (
+                              <View style={styles.buttonContainer}>
+                                {values.imagesLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[styles.linearGradient]}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[
+                                      styles.linearGradient,
+                                      {opacity: 0.6},
+                                    ]}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </View>
+                            ) : (
+                              <TouchableOpacity
+                                style={styles.buttonContainer}
+                                onPress={() => {
+                                  if (values.date) {
+                                    onClickLoadMedia(
+                                      values,
+                                      setFieldValue,
+                                      workspaceId,
+                                    );
+                                  }
+                                }}>
+                                {values.imagesLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </TouchableOpacity>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginTop: 20,
+                              }}>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() => handleRadioChange('Custom')}>
+                                  <Radio
+                                    value="Custom"
+                                    selected={selectedValue === 'Custom'}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                              <View style={styles.radioContainer}>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    handleRadioChange('Auto Scheduler')
+                                  }>
+                                  <Radio
+                                    value="Auto Scheduler"
+                                    selected={
+                                      selectedValue === 'Auto Scheduler'
+                                    }
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                            <View style={styles.BoxStyle}>
+                              <View
+                                style={{
+                                  flex: 1,
+                                  justifyContent: 'flex-start',
+                                  alignItems: 'flex-start',
+                                  marginBottom: 10,
+                                  marginTop: 5,
+                                }}>
+                                <Text
+                                  size={20}
+                                  color={colors.TextColor}
+                                  fontFamily={FONT_FAMILY.SEMI_BOLD}
+                                  lines={1}>
+                                  Instagram Story
+                                </Text>
+                              </View>
+                              <AutoScheduleForm
+                                touched={touched}
+                                values={values}
+                                errors={errors}
+                                handleChange={handleChange}
+                                setFieldValue={setFieldValue}
+                                products={products}
+                                tags={tags}
+                                userId={userId && userId ? userId : null}
+                                categories={categories}
+                                currentProfile={currentProfile}
+                                type={type}
+                              />
+                            </View>
+                            {values.criteria === '' ? (
+                              <View style={styles.buttonContainer}>
+                                {values.slotsLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[styles.linearGradient]}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={[
+                                      styles.linearGradient,
+                                      {opacity: 0.6},
+                                    ]}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </View>
+                            ) : (
+                              <TouchableOpacity
+                                style={styles.buttonContainer}
+                                onPress={() => {
+                                  if (values.criteria) {
+                                    getPostAllSlots(
+                                      values,
+                                      currentProfile,
+                                      setFieldValue,
+                                      workspaceId,
+                                    );
+                                  }
+                                }}>
+                                {values.slotsLoading ? (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <ActivityIndicator
+                                      type={'ThreeBounce'}
+                                      size={30}
+                                      color={colors.textColorLight}
+                                    />
+                                  </LinearGradient>
+                                ) : (
+                                  <LinearGradient
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 0, y: 0.9}}
+                                    colors={['#139A5C', '#3662A8']}
+                                    style={styles.linearGradient}>
+                                    <Text
+                                      size={Mixins.scaleFont(16)}
+                                      fontFamily={FONT_FAMILY.REGULAR}
+                                      color={colors.white}
+                                      style={[styles.buttonText]}>
+                                      Load Media
+                                    </Text>
+                                  </LinearGradient>
+                                )}
+                              </TouchableOpacity>
+                            )}
+                          </>
+                        )}
+                      </> */}
                     </View>
                   </>
                 );

@@ -4,7 +4,6 @@ import {getAuthHeader} from '../../config/authSettings';
 import {isObject} from 'lodash';
 
 const AddNotification = async data => {
-  console.log(data);
   const responseData = {
     loading: false,
     status: 210,
@@ -14,7 +13,6 @@ const AddNotification = async data => {
   return instance
     .post('/mongodb/notification', data, token)
     .then(async response => {
-      console.log(response.data, 'this is response');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {

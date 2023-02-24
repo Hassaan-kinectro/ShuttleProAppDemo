@@ -10,10 +10,9 @@ import {showMessage} from 'react-native-flash-message';
 const Uploader = props => {
   const styles = useStyles();
   const {colors} = useTheme();
-  console.log(props, 'props data uploader');
+
   const pickMultiImage = async () => {
     try {
-      console.log(' try start from here>>>>');
       ImagePicker.openPicker({
         multiple: true,
         mediaType: props?.type,
@@ -36,7 +35,6 @@ const Uploader = props => {
             props?.setFieldValue(props?.name, image);
           }
         }
-        console.log(image);
       });
     } catch (e) {
       console.log(' start from here>>>>', e, 'error on catah >>>>>');

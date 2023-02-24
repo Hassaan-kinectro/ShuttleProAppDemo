@@ -36,7 +36,7 @@ const StoryModal = ({
   const Styles = GlobalStyle();
 
   const styles = useStyles();
-  console.log(values.pageName, values.pagelogo);
+
   return (
     <View style={{flex: 1}}>
       <Modal

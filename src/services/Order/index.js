@@ -210,7 +210,6 @@ const getOrderStatus = async (workspace_id, order_id) => {
       message: 'Something went wrong, Please try again.',
     };
     const token = await getAuthHeader();
-    console.log('enter', token);
     return instance
       .get(
         '/orders/order_status?workspace_id=' +
@@ -246,7 +245,7 @@ const getOrderStatus = async (workspace_id, order_id) => {
         }
       })
       .catch(err => {
-        console.log(err, err.response.data);
+        console.log(err);
         return {
           ...responseData,
           message: ParseError(

@@ -8,16 +8,14 @@ const SaveStories = async data => {
     status: 210,
     message: 'Something went wrong, Please try again.',
   };
-  console.log(data, 'this is data');
+
   const token = await getAuthHeader();
   return instance
     .post('/stories/', data, token)
     .then(response => {
-      console.log(response, 'aaaaaaaaa');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {
-          console.log(response, 'this is response');
           return {
             ...responseData,
             status: 200,
@@ -38,7 +36,7 @@ const SaveStories = async data => {
       }
     })
     .catch(err => {
-      console.log(err, 'erroeerrr');
+      console.log(err);
       return {
         ...responseData,
         message: ParseError(

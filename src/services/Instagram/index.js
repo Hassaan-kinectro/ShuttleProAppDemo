@@ -37,7 +37,6 @@ const fetchNextInstagramPosts = async (workspaceId, pageId, next) => {
           message: response.message,
         };
       } else {
-        console.log(response, 'else ran');
         return {
           ...responseData,
           message: ParseError(response.data),
@@ -141,7 +140,6 @@ const deletInstaPost = async id => {
     });
 };
 const FetchProductImages = async (ids = 1, workspaceId) => {
-  console.log(ids, workspaceId, ' in the service');
   const responseData = {
     loading: false,
     status: 210,

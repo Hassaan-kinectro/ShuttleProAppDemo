@@ -85,7 +85,6 @@ const updateFacebookPostStatus = async data => {
           message: response.message,
         };
       } else {
-        console.log(response, 'else ran');
         return {
           ...responseData,
           message: ParseError(response.data),
@@ -140,4 +139,58 @@ const deletFbPost = async id => {
     });
 };
 
-export {fetchNextFacebookPosts, updateFacebookPostStatus, deletFbPost};
+const getPostSlots = async (data, workspaceId) => {
+  console.log(data, workspaceId);
+  const responseData = {
+    loading: false,
+    status: 210,
+    message: 'Something went wrong, Please try again.',
+  };
+  const token = await getAuthHeader();
+  return instance
+    .post(
+      '/socialProfiles/facebook/getSchedulePostSlots',
+      {...data, workspaceId},
+      token,
+    )
+    .then(response => {
+      if (response.status === 200) {
+        response = response.data;
+        if (response.code === 200) {
+          const data = response.data;
+          return {
+            ...responseData,
+            status: 200,
+            message: response.message,
+            data,
+          };
+        }
+        return {
+          ...responseData,
+          message: response.message,
+        };
+      } else {
+        console.log(response, 'else ran');
+        return {
+          ...responseData,
+          message: ParseError(response.data),
+        };
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      return {
+        ...responseData,
+        message: ParseError(
+          err.response && err.response.data ? err.response.data : err.message,
+        ),
+      };
+    });
+};
+
+export {
+  fetchNextFacebookPosts,
+  updateFacebookPostStatus,
+  deletFbPost,
+  getPostSlots,
+};

@@ -13,6 +13,7 @@ import {FetchProductImages} from '../../../services/Instagram';
 import {FetchFilterProducts} from '../../../services/Products';
 import {flattenDeep, min, uniqBy} from 'lodash';
 import {Routes} from '../../../utils/constants';
+import {getPostSlots} from '../../../services/Facebook';
 
 let base64Images;
 export const handleConvert = async imageUrl => {
@@ -70,12 +71,76 @@ export const initialValues = {
   isPreview: false,
   isPreviewLoading: false,
   slotsLoading: false,
-  startDate: moment().format(DATE),
-  endDate: moment().format(DATE),
+  startDate: moment(new Date()).format(DATE),
+  endDate: moment(new Date()).format(DATE),
   slots: [],
   noOfPosts: null,
   criteria: null,
   loading: false,
+};
+
+const modifyValues = (values, currentProfile) => {
+  return {
+    pageId: currentProfile.page_id,
+    noOfPosts: values.noOfPosts.count,
+    type: Constants.MULTIPLE,
+    criteria: values.criteria.id,
+    desTemplateId: '',
+    startDate: values.startDate,
+    endDate: values.endDate,
+  };
+};
+
+const modifySlotsValues = (values, data) => {
+  const rec = data.map(d => {
+    const ids = [];
+    const images = d.products.map(p => {
+      ids.push({productId: p.id});
+      return {
+        url:
+          p.product_attachments &&
+          p.product_attachments[0] &&
+          p.product_attachments[0].image &&
+          p.product_attachments[0].image.url
+            ? p.product_attachments[0].image.url
+            : '',
+        header: {
+          heading: (values && values.pageName) || '',
+          subheading: moment().fromNow(),
+          profileImage: (values && values.pagelogo) || '',
+        },
+      };
+    });
+    return {
+      date: d.postTime,
+      images: images,
+      products: ids,
+    };
+  });
+  return rec;
+};
+export const getPostAllSlots = async (
+  values,
+  currentProfile,
+  setFieldValue,
+  workspaceId,
+) => {
+  setFieldValue(Constants.SLOT_LOADING, true);
+  const resp = await getPostSlots(
+    modifyValues(values, currentProfile),
+    workspaceId,
+  );
+  if (resp.status === 200 && resp.data && resp.data.length > 0) {
+    console.log(resp.data, 'this is response');
+    setFieldValue(Constants.SLOT_LOADING, false);
+    setFieldValue(Constants._IS_PREVIEW, true);
+    setFieldValue(
+      Constants.SLOTS,
+      modifySlotsValues(values, resp.data, setFieldValue),
+    );
+  } else {
+    setFieldValue(Constants.SLOT_LOADING, false);
+  }
 };
 
 export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
