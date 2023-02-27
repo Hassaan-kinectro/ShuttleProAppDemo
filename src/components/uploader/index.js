@@ -10,6 +10,7 @@ import {showMessage} from 'react-native-flash-message';
 const Uploader = props => {
   const styles = useStyles();
   const {colors} = useTheme();
+  const {name} = props;
   const [validationCheck, setValidationCheck] = React.useState({
     msg: '',
     state: false,
@@ -51,7 +52,7 @@ const Uploader = props => {
               });
             } else {
               console.log('image or video check', image);
-              props?.setFieldValue(props?.name, image);
+              props?.setFieldValue(name, image);
               setImageNotSelectCheck(false);
               setValidationCheck({state: true, msg: `${image.length}`});
             }
@@ -62,13 +63,15 @@ const Uploader = props => {
             state: false,
             msg: '',
           });
+          props?.setFieldValue(name, []);
           setImageNotSelectCheck(true);
           console.log(' start from here>>>>', e, 'error on catah >>>>>');
         });
     } catch (e) {
-      console.log(' start from here>>>>', e, 'error on catah >>>>>');
+      console.log(' start from here>>>>', e.message, 'error on catah >>>>>');
     }
   };
+  // error={props.touched.productName && props.errors.productName}
   return (
     <View>
       <TouchableOpacity onPress={pickMultiImage}>
@@ -95,15 +98,19 @@ const Uploader = props => {
           ) : (
             <></>
           )}
-          {props.name === 'images' && imageNotSelectCheck ? (
-            <View>
-              <Text style={styles.textCenterError}>
-                At least select 1 image
-              </Text>
-            </View>
-          ) : (
-            <></>
-          )}
+          {
+            ((props?.required && imageNotSelectCheck) ||
+              props.errors[props?.name]) && (
+              <View>
+                <Text style={styles.textCenterError}>
+                  {props.errors[props.name]}
+                </Text>
+              </View>
+            )
+            // ) : (
+            //   <></>
+            // )
+          }
         </LinearGradient>
       </TouchableOpacity>
     </View>

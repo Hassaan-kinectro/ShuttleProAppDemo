@@ -1,4 +1,4 @@
-import {TouchableOpacity, View} from 'react-native';
+import {Platform, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import useStyles from '../style';
@@ -17,6 +17,7 @@ import {
 } from '../../../utils/constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {
+  getVariantQuantityErrors,
   onAddNewVariantQuantity,
   onRemoveAdjustTotalQuantity,
   onRemoveVariantQuantity,
@@ -30,20 +31,14 @@ const ProductWarehouse = props => {
 
   const [warehouse, setWarehouse] = React.useState(false);
 
-  const {warehouses, index} = props;
+  const {warehouses, index, keyboardType} = props;
   // console.log(props.i, 'warehouses');
 
   return (
     <View style={styles.BoxStyleWareHouse}>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
+      <View style={styles.warehouseBox}>
         <DropDownPicker
-          items={warehouses.data}
+          items={warehouses?.data}
           defaultValue={''}
           scrollViewProps={{
             keyboardShouldPersistTaps: 'always',
@@ -140,13 +135,7 @@ const ProductWarehouse = props => {
           )}
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-start',
-          flexDirection: 'row',
-          width: '50%',
-        }}>
+      <View style={styles.fieldStyle50}>
         <TextField
           label="Quantity"
           name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`}
@@ -154,6 +143,15 @@ const ProductWarehouse = props => {
           //   type="textArea"
           returnKeyType="next"
           autoCorrect={false}
+          error={getVariantQuantityErrors(
+            props.touched,
+            props.errors,
+            PRODUCT_VARIANT,
+            index,
+            VARIANT_QUANTITY,
+            props.i,
+            _QUANTITY,
+          )}
           onChangeText={rem => {
             let regex = new RegExp('^[0-9]\\d*$');
             if (
@@ -180,7 +178,6 @@ const ProductWarehouse = props => {
               `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_QUANTITY}]`,
             )
           }
-          // error={props.touched.productName && props.errors.productName}
           autoCapitalize="words"
           reset={props.reset}
           errorStyle={styles.errorStyle}
@@ -190,6 +187,7 @@ const ProductWarehouse = props => {
           tintColor={colors.tintColor}
           textColor={colors.TextColor}
           fontSize={14}
+          keyboardType={keyboardType}
           baseColor={colors.baseColor}
         />
         <TextField
@@ -210,7 +208,15 @@ const ProductWarehouse = props => {
               `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_SHELF_NO}]`,
             )
           }
-          // error={props.touched.productName && props.errors.productName}
+          error={getVariantQuantityErrors(
+            props.touched,
+            props.errors,
+            PRODUCT_VARIANT,
+            index,
+            VARIANT_QUANTITY,
+            props.i,
+            _SHELF_NO,
+          )}
           autoCapitalize="words"
           reset={props.reset}
           errorStyle={styles.errorStyle}
@@ -223,13 +229,7 @@ const ProductWarehouse = props => {
           baseColor={colors.baseColor}
         />
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-start',
-          flexDirection: 'row',
-          width: '50%',
-        }}>
+      <View style={styles.fieldStyle50}>
         <TextField
           label="Rack No."
           name={`${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_RACK_NO}]`}
@@ -248,7 +248,15 @@ const ProductWarehouse = props => {
               `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_RACK_NO}]`,
             )
           }
-          // error={props.touched.productName && props.errors.productName}
+          error={getVariantQuantityErrors(
+            props.touched,
+            props.errors,
+            PRODUCT_VARIANT,
+            index,
+            VARIANT_QUANTITY,
+            props.i,
+            _RACK_NO,
+          )}
           autoCapitalize="words"
           reset={props.reset}
           errorStyle={styles.errorStyle}
@@ -278,7 +286,15 @@ const ProductWarehouse = props => {
               `${PRODUCT_VARIANT}[${index}][${VARIANT_QUANTITY}][${props.i}][${_BOX_NO}]`,
             )
           }
-          // error={props.touched.productName && props.errors.productName}
+          error={getVariantQuantityErrors(
+            props.touched,
+            props.errors,
+            PRODUCT_VARIANT,
+            index,
+            VARIANT_QUANTITY,
+            props.i,
+            _BOX_NO,
+          )}
           autoCapitalize="words"
           reset={props.reset}
           errorStyle={styles.errorStyle}

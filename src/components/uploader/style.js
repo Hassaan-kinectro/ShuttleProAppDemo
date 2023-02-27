@@ -13,7 +13,7 @@ const useStyles = () => {
       minHeight: 90,
       flex: 1,
       marginVertical: 6,
-      paddingHorizontal: 10,
+      paddingHorizontal: 20,
       justifyContent: 'space-evenly',
       alignContent: 'center',
     },

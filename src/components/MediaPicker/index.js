@@ -72,6 +72,7 @@ const MediaPicker = props => {
                 type={data.type}
                 name={data.name}
                 text={data.text}
+                required={data.required || false}
                 {...props}
               />
             </View>

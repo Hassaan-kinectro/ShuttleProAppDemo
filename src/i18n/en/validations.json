@@ -3,8 +3,20 @@
   "password.required": "Password",
   "validation.product.name.required": "Product name is required!",
   "validation.product.code.required": "Product code is required!",
-  "validation.onlyLetter.required": "Only letters, numbers, dashes, and underscore are allowed!",
-  "validation.maxLength.required": "Only 50 characters are allowed!",
   "validation.description_status.required": "Description is required",
-  "validation.product.category.required": "Category is required!"
+  "validation.product.category.required": "Category is required!",
+  "validation.maxLength.required": "Only 50 characters are allowed!",
+  "validation.product.variant.warehouse.quantity.greaterThenZero": "Variant quantity should be greater than zero!",
+  "validation.product.variant.warehouse.quantity.required": "Quantity is required!",
+  "validation.product.variant.warehouse.required": "Warehouse is required!",
+  "validation.product.variant.quantity.id.required": "Quantity variant id is required!",
+  "validation.product.variant.salePrice.greaterThenZero": "Sale Price should be greater than zero!",
+  "validation.product.variant.salePrice.required": "Variant sale price is required!",
+  "validation.product.variant.price.greaterThenZero": "Price should be greater than zero!",
+  "validation.product.variant.price.required": "Variant price is required!",
+  "validation.onlyLetter.required": "Only letters, numbers,dashes and underscore are allowed!",
+  "validation.product.variant.sku.required": "Variant sku is required!",
+  "validation.product.image.required": "Product image(s) is required!",
+  "validation.product.variant.variant.required": "Variant is required!",
+  "validation.product.variant.index.required": "Variant index is required!"
 }

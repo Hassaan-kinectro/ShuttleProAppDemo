@@ -19,6 +19,7 @@ import {
 } from './helper';
 import * as yup from 'yup';
 import useStyles from '../../../components/CreateProductForm/style';
+import {IS_POSITIVE} from '../../../utils/constants';
 
 const CreateProduct = ({navigation}) => {
   const [tags, setTags] = React.useState({data: []});
@@ -54,16 +55,93 @@ const CreateProduct = ({navigation}) => {
       .max(50, t('validation.maxLength.required')),
     preference: yup.object().nullable().required('Field required.'),
     categories: yup.array().min(1, t('validation.product.category.required')),
+    images: yup.array().min(1, t('validation.product.image.required')),
     description: yup
       .string()
       .required(t('validation.description_status.required')),
+    product_variants: yup.array().of(
+      yup.object().shape({
+        index: yup
+          .string()
+          .required(t('validation.product.variant.index.required')),
+        variant: yup
+          .string()
+          .nullable()
+          .required(t('validation.product.variant.variant.required'))
+          .matches(VALID_NAME, t('validation.onlyLetter.required'))
+          .max(50, t('validation.maxLength.required')),
+        sku: yup
+          .string()
+          .nullable()
+          .required(t('validation.product.variant.sku.required'))
+          .matches(VALID_NAME, t('validation.onlyLetter.required'))
+          .max(50, t('validation.maxLength.required')),
+        price: yup
+          .string()
+          .nullable()
+          .required(t('validation.product.variant.price.required'))
+          .test(
+            IS_POSITIVE,
+            t('validation.product.variant.price.greaterThenZero'),
+            value => value > 0,
+          ),
+        sale_price: yup
+          .string()
+          .nullable()
+          .required(t('validation.product.variant.salePrice.required'))
+          .test(
+            IS_POSITIVE,
+            t('validation.product.variant.salePrice.greaterThenZero'),
+            value => value > 0,
+          ),
+        variant_quantity: yup.array().of(
+          yup.object().shape({
+            id: yup
+              .string()
+              .required(t('validation.product.variant.quantity.id.required')),
+            warehouse: yup
+              .object()
+              .nullable()
+              .required(t('validation.product.variant.warehouse.required')),
+            quantity: yup
+              .number()
+              .nullable()
+              .required(
+                t('validation.product.variant.warehouse.quantity.required'),
+              )
+              .test(
+                IS_POSITIVE,
+                t(
+                  'validation.product.variant.warehouse.quantity.greaterThenZero',
+                ),
+                value => value >= 0,
+              ),
+            box_no: yup
+              .string()
+              .nullable()
+              .max(50, t('validation.maxLength.required')),
+            rack_no: yup
+              .string()
+              .nullable()
+              .max(50, t('validation.maxLength.required')),
+            shelf_no: yup
+              .string()
+              .nullable()
+              .max(50, t('validation.maxLength.required')),
+          }),
+        ),
+      }),
+    ),
   });
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
   );
 
   const OnSubmit = values => {
+    setLoading(true);
+
     console.log(values, 'values data');
+    // setLoading(false);
     addNewProduct(values, workspaceId, setLoading);
   };
 
@@ -108,11 +186,7 @@ const CreateProduct = ({navigation}) => {
         <View style={Styles.flex}>
           <Formik
             validationSchema={createProductSchema}
-            onSubmit={() => {
-              setLoading(true);
-
-              OnSubmit;
-            }}
+            onSubmit={OnSubmit}
             initialValues={initialsVal}>
             {props => {
               return (

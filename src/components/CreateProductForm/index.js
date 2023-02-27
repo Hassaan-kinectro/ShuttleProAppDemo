@@ -1,5 +1,7 @@
 import {
   ActivityIndicator,
+  Keyboard,
+  Platform,
   ScrollView,
   TouchableOpacity,
   View,
@@ -29,6 +31,7 @@ const CreateProductForm = props => {
 
   const {t} = useTranslation();
   const values = props.values;
+  const keyboardType = Platform.OS === 'ios' ? 'numeric' : 'number-pad';
 
   const preferenceArr = [
     {id: 1, label: '1', name: '1'},
@@ -123,6 +126,7 @@ const CreateProductForm = props => {
               props.setFieldValue('preference', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setCategoryVisibility(false);
               setTagVisibility(false);
               setTemplateVisibility(true);
@@ -161,6 +165,7 @@ const CreateProductForm = props => {
               props.setFieldValue('tags', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setTemplateVisibility(false);
               setCategoryVisibility(false);
               setTagVisibility(true);
@@ -199,6 +204,7 @@ const CreateProductForm = props => {
               props.setFieldValue('categories', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setTemplateVisibility(false);
               setTagVisibility(false);
               setCategoryVisibility(true);
@@ -251,10 +257,22 @@ const CreateProductForm = props => {
         values.product_variants &&
         values.product_variants.length > 0 &&
         values.product_variants.map((v, index) => {
-          return <ProductVariantForm index={index} {...props} />;
+          return (
+            <ProductVariantForm
+              index={index}
+              {...props}
+              keyboardType={keyboardType}
+            />
+          );
         })}
+      <TouchableOpacity
+        onPress={() => {
+          console.log(values, 'values check');
+        }}>
+        <Text>okokokok</Text>
+      </TouchableOpacity>
       <View style={styles.LoginBoxStyle}>
-        <TouchableOpacity onPress={props.handleSubmit}>
+        <TouchableOpacity disabled={props.loading} onPress={props.handleSubmit}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 0, y: 0.9}}

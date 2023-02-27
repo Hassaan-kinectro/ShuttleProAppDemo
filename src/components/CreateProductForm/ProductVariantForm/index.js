@@ -1,6 +1,6 @@
-import {TouchableOpacity, View} from 'react-native';
+import {Platform, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {Colors, GlobalStyle, Text} from '../../../styles';
+import {GlobalStyle, Text} from '../../../styles';
 import useStyles from '../style';
 import {useTheme} from '@react-navigation/native';
 import TextField from '../../TextField';
@@ -8,11 +8,15 @@ import {
   FONT_FAMILY,
   PRODUCT_VARIANT,
   VARIANT_QUANTITY,
+  _COST_PRICE,
+  _PRICE,
   _PRODUCT_VARIANT,
+  _SALE_PRICE,
+  _SKU,
 } from '../../../utils/constants';
-import {CrossIcon, DeleteIcon, PlusIcon} from '../../../icons';
+import {CrossIcon, PlusIcon} from '../../../icons';
 import LinearGradient from 'react-native-linear-gradient';
-import {onAddNewVariant, onRemoveVariant} from '../helper';
+import {getVariantErrors, onAddNewVariant, onRemoveVariant} from '../helper';
 import {WHITE} from '../../../styles/colors';
 import ProductWarehouse from '../ProductWarehouseForm';
 
@@ -20,7 +24,7 @@ const ProductVariantForm = props => {
   const styles = useStyles();
   const Styles = GlobalStyle();
   const {colors} = useTheme();
-  const {values, index} = props;
+  const {values, index, keyboardType} = props;
 
   return (
     <View>
@@ -58,12 +62,12 @@ const ProductVariantForm = props => {
               </TouchableOpacity>
             </View>
           </View>
-          {props && props.index > 0 ? (
+          {props && index > 0 ? (
             <TouchableOpacity
               onPress={() => {
                 onRemoveVariant(
                   props.values[PRODUCT_VARIANT],
-                  props.index,
+                  index,
                   props.setFieldValue,
                 );
               }}>
@@ -77,27 +81,33 @@ const ProductVariantForm = props => {
         <View>
           <TextField
             label="Product Variant"
-            name={`${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`}
+            name={`${PRODUCT_VARIANT}[${index}][${_PRODUCT_VARIANT}]`}
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
             //   type="textArea"
             returnKeyType="next"
             autoCorrect={false}
             onChangeText={rem =>
               props.setFieldValue(
-                `${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`,
+                `${PRODUCT_VARIANT}[${index}][${_PRODUCT_VARIANT}]`,
                 rem,
               )
             }
             onBlur={() =>
               props.setFieldTouched(
-                `${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`,
+                `${PRODUCT_VARIANT}[${index}][${_PRODUCT_VARIANT}]`,
               )
             }
-            // error={props.touched.productName && props.errors.productName}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
             hideLabel={true}
+            error={getVariantErrors(
+              props.touched,
+              props.errors,
+              PRODUCT_VARIANT,
+              index,
+              _PRODUCT_VARIANT,
+            )}
             inputStyle={styles.InputTFStyle}
             placeholderTextColor={colors.placeholder}
             tintColor={colors.tintColor}
@@ -106,30 +116,27 @@ const ProductVariantForm = props => {
             baseColor={colors.baseColor}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            flexDirection: 'row',
-            width: '50%',
-          }}>
+        <View style={styles.fieldStyle50}>
           <TextField
             label="SKU"
-            name={`${PRODUCT_VARIANT}[${props.index}][sku]`}
+            name={`${PRODUCT_VARIANT}[${index}][${_SKU}]`}
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
             //   type="textArea"
             returnKeyType="next"
             autoCorrect={false}
             onChangeText={rem =>
-              props.setFieldValue(
-                `${PRODUCT_VARIANT}[${props.index}][sku]`,
-                rem,
-              )
+              props.setFieldValue(`${PRODUCT_VARIANT}[${index}][${_SKU}]`, rem)
             }
             onBlur={() =>
-              props.setFieldTouched(`${PRODUCT_VARIANT}[${props.index}][sku]`)
+              props.setFieldTouched(`${PRODUCT_VARIANT}[${index}][${_SKU}]`)
             }
-            // error={props.touched.productName && props.errors.productName}
+            error={getVariantErrors(
+              props.touched,
+              props.errors,
+              PRODUCT_VARIANT,
+              index,
+              _SKU,
+            )}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
@@ -143,23 +150,28 @@ const ProductVariantForm = props => {
           />
           <TextField
             label="Price"
-            name={`${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`}
+            name={`${PRODUCT_VARIANT}[${index}][${_PRICE}]`}
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
             //   type="textArea"
+            keyboardType={keyboardType}
             returnKeyType="next"
             autoCorrect={false}
             onChangeText={rem =>
               props.setFieldValue(
-                `${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`,
+                `${PRODUCT_VARIANT}[${index}][${_PRICE}]`,
                 rem,
               )
             }
             onBlur={() =>
-              props.setFieldTouched(
-                `${PRODUCT_VARIANT}[${props.index}][${_PRODUCT_VARIANT}]`,
-              )
+              props.setFieldTouched(`${PRODUCT_VARIANT}[${index}][${_PRICE}]`)
             }
-            // error={props.touched.productName && props.errors.productName}
+            error={getVariantErrors(
+              props.touched,
+              props.errors,
+              PRODUCT_VARIANT,
+              index,
+              _PRICE,
+            )}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
@@ -172,47 +184,33 @@ const ProductVariantForm = props => {
             baseColor={colors.baseColor}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-start',
-            flexDirection: 'row',
-            width: '50%',
-          }}>
+        <View style={styles.fieldStyle50}>
           <TextField
-            label="Cost Price"
-            name={`${PRODUCT_VARIANT}[${props.index}][cost_price]`}
+            label="Sale Price"
+            name={`${PRODUCT_VARIANT}[${index}][${_SALE_PRICE}]`}
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
             //   type="textArea"
+            keyboardType={keyboardType}
             returnKeyType="next"
             autoCorrect={false}
-            onChangeText={rem => {
-              let regex = new RegExp('^[0-9]\\d*$');
-              if (
-                regex.test(rem) &&
-                rem &&
-                !rem.includes('e') &&
-                !rem.includes('E')
-              ) {
-                props.setFieldValue(
-                  `${PRODUCT_VARIANT}[${props.index}][cost_price]`,
-                  rem,
-                );
-              } else {
-                if (rem === '') {
-                  props.setFieldValue(
-                    `${PRODUCT_VARIANT}[${props.index}][cost_price]`,
-                    '',
-                  );
-                }
-              }
-            }}
-            onBlur={() =>
-              props.setFieldTouched(
-                `${PRODUCT_VARIANT}[${props.index}][cost_price]`,
+            onChangeText={rem =>
+              props.setFieldValue(
+                `${PRODUCT_VARIANT}[${index}][${_SALE_PRICE}]`,
+                rem,
               )
             }
-            // error={props.touched.productName && props.errors.productName}
+            onBlur={() =>
+              props.setFieldTouched(
+                `${PRODUCT_VARIANT}[${index}][${_SALE_PRICE}]`,
+              )
+            }
+            error={getVariantErrors(
+              props.touched,
+              props.errors,
+              PRODUCT_VARIANT,
+              index,
+              _SALE_PRICE,
+            )}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
@@ -225,24 +223,56 @@ const ProductVariantForm = props => {
             baseColor={colors.baseColor}
           />
           <TextField
-            label="Sale Price"
-            name={`${PRODUCT_VARIANT}[${props.index}][sale_price]`}
+            label="Cost Price"
+            name={`${PRODUCT_VARIANT}[${index}][${_COST_PRICE}]`}
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
             //   type="textArea"
+            keyboardType={keyboardType}
             returnKeyType="next"
             autoCorrect={false}
-            onChangeText={rem =>
-              props.setFieldValue(
-                `${PRODUCT_VARIANT}[${props.index}][sale_price]`,
-                rem,
-              )
-            }
+            onChangeText={rem => {
+              let regex = new RegExp('^[0-9]\\d*$');
+              console.log(
+                regex.test(rem) &&
+                  rem &&
+                  !rem.includes('e') &&
+                  !rem.includes('E'),
+                'rem value data check ',
+                regex.test(rem),
+              );
+              if (
+                regex.test(rem) &&
+                rem &&
+                !rem.includes('e') &&
+                !rem.includes('E')
+              ) {
+                props.setFieldValue(
+                  `${PRODUCT_VARIANT}[${index}][${_COST_PRICE}]`,
+                  rem,
+                );
+              } else {
+                console.log('test data ');
+                if (rem === '') {
+                  console.log('test data 2');
+                  props.setFieldValue(
+                    `${PRODUCT_VARIANT}[${index}][${_COST_PRICE}]`,
+                    '',
+                  );
+                }
+              }
+            }}
             onBlur={() =>
               props.setFieldTouched(
-                `${PRODUCT_VARIANT}[${props.index}][sale_price]`,
+                `${PRODUCT_VARIANT}[${index}][${_COST_PRICE}]`,
               )
             }
-            // error={props.touched.productName && props.errors.productName}
+            error={getVariantErrors(
+              props.touched,
+              props.errors,
+              PRODUCT_VARIANT,
+              index,
+              _COST_PRICE,
+            )}
             autoCapitalize="words"
             reset={props.reset}
             errorStyle={styles.errorStyle}
@@ -261,7 +291,11 @@ const ProductVariantForm = props => {
           values[PRODUCT_VARIANT][index][VARIANT_QUANTITY].map((q, i) => {
             return (
               <View key={i}>
-                <ProductWarehouse {...props} i={i} />
+                <ProductWarehouse
+                  {...props}
+                  i={i}
+                  keyboardType={keyboardType}
+                />
               </View>
             );
           })}

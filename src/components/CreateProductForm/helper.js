@@ -78,3 +78,40 @@ export const onRemoveAdjustTotalQuantity = (
     });
   }
 };
+export const getVariantErrors = (touched, errors, key, index, column) => {
+  return (
+    touched &&
+    errors &&
+    touched[key] &&
+    errors[key] &&
+    touched[key][index] &&
+    errors[key][index] &&
+    touched[key][index][column] &&
+    errors[key][index][column]
+  );
+};
+
+export const getVariantQuantityErrors = (
+  touched,
+  errors,
+  key,
+  index,
+  column,
+  columnIndex,
+  subColumn,
+) => {
+  return (
+    touched &&
+    errors &&
+    touched[key] &&
+    errors[key] &&
+    touched[key][index] &&
+    errors[key][index] &&
+    touched[key][index][column] &&
+    errors[key][index][column] &&
+    touched[key][index][column][columnIndex] &&
+    touched[key][index][column][columnIndex][subColumn] &&
+    errors[key][index][column][columnIndex] &&
+    errors[key][index][column][columnIndex][subColumn]
+  );
+};
