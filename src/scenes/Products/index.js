@@ -35,6 +35,7 @@ const Products = ({navigation}) => {
   const offset = 10;
   const {colors} = useTheme();
   const [loading2, setLoading2] = React.useState(false);
+  const [refetch, setRefetch] = React.useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -81,9 +82,9 @@ const Products = ({navigation}) => {
   };
   const onRefresh = () => {
     const fetchData = async () => {
-      const productsData = await FetchAllProducts(workspaceId, 10, page);
+      changePage(1);
+      const productsData = await FetchAllProducts(workspaceId, 10, 1);
       if (productsData.status === 200) {
-        changePage(1);
         setAllProducts(
           productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
         );
@@ -101,11 +102,23 @@ const Products = ({navigation}) => {
   };
   const handleLoadMore = () => {
     setLoading2(true);
-    if (offset * (page + 1) - count <= offset) {
+    console.log(
+      offset * (page + 1) - count <= offset,
+      'offset * (page + 1) - count <= offset',
+      offset * (page + 1),
+      count,
+      offset,
+      loading2,
+    );
+    if (!refetch && offset * (page + 1) - count <= offset) {
+      (() => {
+        setRefetch(true);
+      })();
       const fetchData = async () => {
         const productsData = await FetchAllProducts(workspaceId, 10, page + 1);
         if (productsData.status === 200) {
           setCount(productsData.count);
+          console.log(productsData, 'products data fetch');
           changePage(page + 1);
           setAllProducts(prev => {
             return [
@@ -123,6 +136,7 @@ const Products = ({navigation}) => {
           setAllProducts([]);
           setProducts([]);
         }
+        setRefetch(false);
         setLoading2(false);
       };
       fetchData().catch(e => {});
@@ -190,7 +204,11 @@ const Products = ({navigation}) => {
                 }
                 onEndReachedThreshold={0.5}
                 onEndReached={handleLoadMore}
-                renderItem={({item, index}) => <ProductListItem item={item} />}
+                renderItem={({item, index}) => (
+                  <View key={index}>
+                    <ProductListItem item={item} />
+                  </View>
+                )}
               />
             </View>
           )}
