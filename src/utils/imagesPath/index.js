@@ -10,6 +10,7 @@ export const DrawerLogo =
 export const DarkBG = require('../../assets/images/signup.png');
 export const Dark = require('../../assets/images/Dark.png');
 export const LightBG = require('../../assets/images/Light.png');
+export const NoPreviewImg = require('../../assets/images/noPreview.png');
 export const Light = require('../../assets/images/BGLight.png');
 export const LogoIcon = require('../../assets/images/shuttle.png');
 export const UpIcon = require('../../assets/images/VectorUp.png');

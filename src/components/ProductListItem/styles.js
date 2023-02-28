@@ -110,6 +110,14 @@ const useStyles = () => {
       borderRadius: 10,
       //   marginRight: IS_PAD ? deviceWidth / 5 : 20,
     },
+    NoproductImageSty: {
+      width: 100,
+      height: 100,
+      resizeMode: 'cover',
+      borderRadius: 10,
+      // backgroundColor: 'white',
+      //   marginRight: IS_PAD ? deviceWidth / 5 : 20,
+    },
     widthDash: {
       width: '5%',
     },

@@ -1,9 +1,16 @@
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Keyboard,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import useStyles from './style';
 import {Mixins, Text} from '../../styles';
 import TextField from '../TextField';
-import {FONT_FAMILY} from '../../utils/constants';
+import {FONT_FAMILY, PRODUCT_VARIANT} from '../../utils/constants';
 import {PlusIcon} from '../../icons';
 import {GlobalStyle} from '../../styles';
 import {useTheme} from '@react-navigation/native';
@@ -12,6 +19,7 @@ import {useTranslation} from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import {WHITE} from '../../styles/colors';
 import MediaPicker from '../MediaPicker';
+import ProductVariantForm from './ProductVariantForm';
 
 const CreateProductForm = props => {
   const {colors} = useTheme();
@@ -20,7 +28,10 @@ const CreateProductForm = props => {
   const [templateVisible, setTemplateVisibility] = React.useState(false);
   const [tagVisibility, setTagVisibility] = React.useState(false);
   const [categoryVisibility, setCategoryVisibility] = React.useState(false);
+
   const {t} = useTranslation();
+  const values = props.values;
+  const keyboardType = Platform.OS === 'ios' ? 'numeric' : 'number-pad';
 
   const preferenceArr = [
     {id: 1, label: '1', name: '1'},
@@ -52,7 +63,7 @@ const CreateProductForm = props => {
             label="Product Name"
             name="productName"
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
-            type="textArea"
+            // type="textArea"
             returnKeyType="next"
             autoCorrect={false}
             onChangeText={rem => props.setFieldValue('productName', rem)}
@@ -73,7 +84,7 @@ const CreateProductForm = props => {
             label="Product Code"
             name="productCode"
             // labelStyle={{fontSize: Mixins.scaleFont(15)}}
-            type="textArea"
+            // type="textArea"
             returnKeyType="next"
             autoCorrect={false}
             onChangeText={rem => props.setFieldValue('productCode', rem)}
@@ -115,6 +126,7 @@ const CreateProductForm = props => {
               props.setFieldValue('preference', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setCategoryVisibility(false);
               setTagVisibility(false);
               setTemplateVisibility(true);
@@ -153,6 +165,7 @@ const CreateProductForm = props => {
               props.setFieldValue('tags', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setTemplateVisibility(false);
               setCategoryVisibility(false);
               setTagVisibility(true);
@@ -191,6 +204,7 @@ const CreateProductForm = props => {
               props.setFieldValue('categories', item);
             }}
             onOpen={() => {
+              Keyboard.dismiss();
               setTemplateVisibility(false);
               setTagVisibility(false);
               setCategoryVisibility(true);
@@ -239,40 +253,47 @@ const CreateProductForm = props => {
           <MediaPicker {...props} />
         </View>
       </View>
-      <View style={styles.BoxStyle}>
-        <View style={styles.justifyContentSpaceBetween}>
-          <View style={styles.addProductVariantStyle}>
-            <View>
+      {values &&
+        values.product_variants &&
+        values.product_variants.length > 0 &&
+        values.product_variants.map((v, index) => {
+          return (
+            <ProductVariantForm
+              index={index}
+              {...props}
+              keyboardType={keyboardType}
+            />
+          );
+        })}
+      <TouchableOpacity
+        onPress={() => {
+          console.log(values, 'values check');
+        }}>
+        <Text>okokokok</Text>
+      </TouchableOpacity>
+      <View style={styles.LoginBoxStyle}>
+        <TouchableOpacity disabled={props.loading} onPress={props.handleSubmit}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.9}}
+            colors={['#139A5C', '#3662A8']}
+            style={styles.linearGradient}>
+            {!props.loading ? (
               <Text
-                size={18}
-                color={colors.TextColor}
-                fontFamily={FONT_FAMILY.BOLD}
-                style={Styles.flexCenter}>
-                Product Varients
+                size={Mixins.scaleFont(16)}
+                fontFamily={FONT_FAMILY.REGULAR}
+                color={colors.white}
+                style={[styles.buttonText]}>
+                Create
               </Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => {
-                  // addProduct ? setAddProduct(false) : setAddProduct(true);
-                }}>
-                <LinearGradient
-                  colors={['#139A5C', '#3662A8']}
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 1}}
-                  locations={[0.0, 1.0]}
-                  useAngle={true}
-                  angle={199.18}
-                  style={styles.addProductVariant}>
-                  <PlusIcon style={styles.opacity} size={15} color={WHITE} />
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <PlusIcon size={30} color={colors.TextColor} />
-        </View>
-        <TouchableOpacity onPress={props.handleSubmit}>
-          <Text>Submit</Text>
+            ) : (
+              <ActivityIndicator
+                type={'ThreeBounce'}
+                size={30}
+                color={colors.textColorLight}
+              />
+            )}
+          </LinearGradient>
         </TouchableOpacity>
       </View>
     </ScrollView>

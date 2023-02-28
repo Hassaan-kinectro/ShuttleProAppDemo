@@ -8,12 +8,12 @@ const useStyles = () => {
   const {colors} = useTheme();
   return StyleSheet.create({
     boxBack: {
-      // backgroundColor:''
       borderRadius: 15,
       minHeight: 90,
       flex: 1,
       marginVertical: 6,
-      justifyContent: 'center',
+      paddingHorizontal: 15,
+      justifyContent: 'space-evenly',
       alignContent: 'center',
     },
     underLineBrowser: {

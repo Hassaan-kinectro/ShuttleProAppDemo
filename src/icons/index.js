@@ -165,3 +165,9 @@ export const LibraryAdd = props => {
 export const PlusIcon = props => {
   return <OcticonsIcons name="plus" {...props} />;
 };
+export const DeleteIcon = props => {
+  return <MaterialIcons name="delete-outline" {...props} />;
+};
+export const CrossIcon = props => {
+  return <MIcon name="close" {...props} />;
+};
