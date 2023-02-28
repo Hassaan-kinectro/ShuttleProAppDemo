@@ -5,6 +5,8 @@ import MIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FIcon from 'react-native-vector-icons/Feather';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
+import IIcons from 'react-native-vector-icons/Ionicons';
+import EnIcons from 'react-native-vector-icons/Entypo';
 
 const AntIcon = ({
   name = 'warning',
@@ -91,6 +93,23 @@ const FontAwesome5Icons = ({
     />
   );
 };
+const IonIcons = ({
+  name = 'ios-arrow-back-circle',
+  color = '#000',
+  size = 22,
+  style = {},
+  onPress = null,
+}) => {
+  return (
+    <IIcons
+      name={name}
+      color={color}
+      size={size}
+      style={style}
+      onPress={onPress ? onPress : null}
+    />
+  );
+};
 const OcticonsIcons = ({
   name = 'sort-down',
   color = '#000',
@@ -114,6 +133,12 @@ export const WarningIcon = props => {
 export const LogoutIcon = props => {
   return <AntIcon name="logout" {...props} />;
 };
+export const BackIcon = props => {
+  return <IIcons name="md-arrow-back-circle" {...props} />;
+};
+export const PublishIcon = props => {
+  return <EnIcons name="paper-plane" {...props} />;
+};
 export const SettingIcon = props => {
   return <AntIcon name="setting" {...props} />;
 };
@@ -123,6 +148,7 @@ export const SocialIcon = props => {
 export const FilterIcon = props => {
   return <AntIcon name="filter" {...props} />;
 };
+
 export const RocketIcon = props => {
   return <AntIcon name="rocket" {...props} />;
 };

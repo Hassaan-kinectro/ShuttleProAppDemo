@@ -10,6 +10,8 @@ import {useTheme} from '@react-navigation/native';
 import InstaStory from 'react-native-insta-story';
 import {previewHelper} from './helper';
 import {deviceHeight, IS_IOS} from '../../../utils/orientation';
+import {FilterIcon, BackIcon, BackArrowIcon, PublishIcon} from '../../../icons';
+
 const AutoSchedularPreview = ({
   userId,
   values,
@@ -25,34 +27,39 @@ const AutoSchedularPreview = ({
 
   return (
     <>
-      <InstaStory
-        data={ok}
-        duration={10}
-        onStart={item => console.log(item)}
-        unPressedBorderColor={'#54788c'}
-        pressedBorderColor={'transparent'}
-        onClose={item => console.log('close: ', item)}
-        customSwipeUpComponent={
-          <View>
-            <Text />
-          </View>
-        }
-        style={{
-          marginTop: 30,
-          height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350,
-        }}
-        showAvatarText={true}
-        // textStyle={styles.textStyle}
-      />
       <View
         style={{
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginVertical: 20,
+          // marginVertical: 20,
         }}>
-        <TouchableOpacity
+        <View style={styles.filterContainer}>
+          <TouchableOpacity
+            style={styles.filterStyle}
+            onPress={() => {
+              setFieldValue && setFieldValue('slots', []);
+            }}>
+            <BackArrowIcon
+              size={20}
+              color={colors.searchIcon}
+              style={styles.filterIcon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.filterContainer}>
+          <TouchableOpacity
+            style={styles.filterStyle}
+            onPress={() => save(values)}>
+            <PublishIcon
+              size={20}
+              color={colors.searchIcon}
+              style={styles.filterIcon}
+            />
+          </TouchableOpacity>
+        </View>
+        {/* <TouchableOpacity
           style={styles.buttonContainer2}
           onPress={() => {
             setFieldValue && setFieldValue('slots', []);
@@ -87,8 +94,27 @@ const AutoSchedularPreview = ({
               Publish
             </Text>
           </LinearGradient>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
+      <InstaStory
+        data={ok}
+        duration={10}
+        onStart={item => console.log(item)}
+        unPressedBorderColor={'#54788c'}
+        pressedBorderColor={'transparent'}
+        onClose={item => console.log('close: ', item)}
+        customSwipeUpComponent={
+          <View>
+            <Text />
+          </View>
+        }
+        style={{
+          marginTop: 30,
+          height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350,
+        }}
+        showAvatarText={true}
+        // textStyle={styles.textStyle}
+      />
     </>
   );
 };

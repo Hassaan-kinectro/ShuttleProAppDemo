@@ -491,6 +491,19 @@ const useStyles = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    filterContainer: {
+      alignItems: 'flex-end',
+      paddingHorizontal: 10,
+      paddingTop: 10,
+    },
+    filterStyle: {
+      width: 32,
+      height: 32,
+      borderRadius: 32 / 2,
+      backgroundColor: colors.searchIconBackground,
+      ...Styles.justifyContentCenter,
+      ...Styles.alignItemsCenter,
+    },
     radioButtonIcon: {
       height: 14,
       width: 14,
