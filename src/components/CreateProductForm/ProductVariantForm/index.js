@@ -62,20 +62,23 @@ const ProductVariantForm = props => {
               </TouchableOpacity>
             </View>
           </View>
-          {props && index > 0 ? (
-            <TouchableOpacity
-              onPress={() => {
-                onRemoveVariant(
-                  props.values[PRODUCT_VARIANT],
-                  index,
-                  props.setFieldValue,
-                );
-              }}>
-              <CrossIcon size={30} color={colors.TextColor} />
-            </TouchableOpacity>
-          ) : (
-            <></>
-          )}
+          {
+            props && index > 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  onRemoveVariant(
+                    props.values[PRODUCT_VARIANT],
+                    index,
+                    props.setFieldValue,
+                  );
+                }}>
+                <CrossIcon size={30} color={colors.TextColor} />
+              </TouchableOpacity>
+            )
+            // ) : (
+            //   <></>
+            // )
+          }
         </View>
 
         <View>

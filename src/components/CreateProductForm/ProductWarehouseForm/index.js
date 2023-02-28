@@ -184,7 +184,7 @@ const ProductWarehouse = props => {
           hideLabel={true}
           inputStyle={styles.InputTFStyle50}
           placeholderTextColor={colors.placeholder}
-          tintColor={colors.tintColor}
+          tintColor={colors.button}
           textColor={colors.TextColor}
           fontSize={14}
           keyboardType={keyboardType}
@@ -223,7 +223,7 @@ const ProductWarehouse = props => {
           hideLabel={true}
           inputStyle={styles.InputTFStyle50}
           placeholderTextColor={colors.placeholder}
-          tintColor={colors.tintColor}
+          tintColor={colors.button}
           textColor={colors.TextColor}
           fontSize={14}
           baseColor={colors.baseColor}
@@ -263,7 +263,7 @@ const ProductWarehouse = props => {
           hideLabel={true}
           inputStyle={styles.InputTFStyle50}
           placeholderTextColor={colors.placeholder}
-          tintColor={colors.tintColor}
+          tintColor={colors.button}
           textColor={colors.TextColor}
           fontSize={14}
           baseColor={colors.baseColor}
@@ -301,7 +301,7 @@ const ProductWarehouse = props => {
           hideLabel={true}
           inputStyle={styles.InputTFStyle50}
           placeholderTextColor={colors.placeholder}
-          tintColor={colors.tintColor}
+          tintColor={colors.button}
           textColor={colors.TextColor}
           fontSize={14}
           baseColor={colors.baseColor}
