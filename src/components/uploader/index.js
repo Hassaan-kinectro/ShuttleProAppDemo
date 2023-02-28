@@ -51,7 +51,6 @@ const Uploader = props => {
                 type: 'DANGER',
               });
             } else {
-              console.log('image or video check', image);
               props?.setFieldValue(name, image);
               setImageNotSelectCheck(false);
               setValidationCheck({state: true, msg: `${image.length}`});
@@ -65,11 +64,8 @@ const Uploader = props => {
           });
           props?.setFieldValue(name, []);
           setImageNotSelectCheck(true);
-          console.log(' start from here>>>>', e, 'error on catah >>>>>');
         });
-    } catch (e) {
-      console.log(' start from here>>>>', e.message, 'error on catah >>>>>');
-    }
+    } catch (e) {}
   };
   // error={props.touched.productName && props.errors.productName}
   return (

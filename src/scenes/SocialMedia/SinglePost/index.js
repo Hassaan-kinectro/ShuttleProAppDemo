@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Linking} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
 import {FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
@@ -29,21 +29,29 @@ const SinglePost = ({post, name, pageIcon, profileType}) => {
             Styles.justifyContentCenter,
             Styles.alignItemsCenter,
           ]}>
-          <CircularImage
-            img={
-              pageIcon && pageIcon.thumb && pageIcon.thumb.url
-                ? pageIcon.thumb.url
-                : pageIcon.url
-            }
-            name={name}
-            style={[styles.HeaderIcon, Styles.flex]}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              if (post && post.permalink && post.permalink !== null) {
+                Linking.openURL(`${post.permalink}`);
+              }
+            }}>
+            <CircularImage
+              img={
+                pageIcon && pageIcon.thumb && pageIcon.thumb.url
+                  ? pageIcon.thumb.url
+                  : pageIcon.url
+              }
+              name={name}
+              style={[styles.HeaderIcon, Styles.flex]}
+            />
+          </TouchableOpacity>
           {profileType === 'facebook' && (
             <FastImage source={FACEBOOK} style={styles.activePostfb} />
           )}
           {profileType === 'instagram' && (
             <FastImage source={INSTAGRAM} style={styles.activePostinsta} />
           )}
+
           <View style={styles.flex10Start}>
             <View style={{flex: 1, flexDirection: 'row'}}>
               <Text

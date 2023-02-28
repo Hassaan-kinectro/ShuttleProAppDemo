@@ -19,7 +19,8 @@ import {
 } from './helper';
 import * as yup from 'yup';
 import useStyles from '../../../components/CreateProductForm/style';
-import {IS_POSITIVE} from '../../../utils/constants';
+import {IS_POSITIVE, Routes} from '../../../utils/constants';
+import {showMessage} from 'react-native-flash-message';
 
 const CreateProduct = ({navigation}) => {
   const [tags, setTags] = React.useState({data: []});
@@ -137,12 +138,23 @@ const CreateProduct = ({navigation}) => {
     state => state.workspace.workspace.workspace.id,
   );
 
-  const OnSubmit = values => {
+  const OnSubmit = async values => {
     setLoading(true);
-
-    console.log(values, 'values data');
-    // setLoading(false);
-    addNewProduct(values, workspaceId, setLoading);
+    const resp = await addNewProduct(values, workspaceId, setLoading);
+    if (resp.status === 200) {
+      navigation.navigate(Routes.PRODUCTSLIST);
+      showMessage({
+        message: '',
+        description: resp.message,
+        type: 'success',
+      });
+    } else {
+      showMessage({
+        message: '',
+        description: resp.message,
+        type: 'warning',
+      });
+    }
   };
 
   React.useEffect(() => {

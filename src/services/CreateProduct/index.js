@@ -103,7 +103,6 @@ const CreateProduct = async (values, workspaceId, setLoading) => {
   );
   data.append('product_variants', JSON.stringify(Variants));
 
-  console.log(' before request data ', data);
   return instance
     .post('/products', data, token)
     .then(response => {
@@ -125,7 +124,6 @@ const CreateProduct = async (values, workspaceId, setLoading) => {
           message: response.message,
         };
       } else {
-        console.log(response);
         return {
           ...responseData,
           message: ParseError(response.data),
@@ -133,7 +131,6 @@ const CreateProduct = async (values, workspaceId, setLoading) => {
       }
     })
     .catch(err => {
-      console.log(err, 'errrrrror');
       setLoading(false);
 
       return {
