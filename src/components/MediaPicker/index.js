@@ -12,16 +12,12 @@ import {MediaData} from '../uploader/helper';
 const MediaPicker = props => {
   const styles = useStyles();
   const {colors} = useTheme();
-  // console.log(props, 'props data uploader');
 
   const pickAudio = async () => {
     try {
-      console.log('User cancelled the picker');
-
       const result = await DocumentPicker.pickMultiple({
         type: [DocumentPicker.types.audio],
       });
-      console.log('\n', result);
       if (result?.length > 3) {
         return showMessage({
           message: '',
@@ -41,7 +37,6 @@ const MediaPicker = props => {
             return file;
           }
         });
-        console.log(test, 'test for audio');
         if (test?.length !== 0) {
           return showMessage({
             message: '',
@@ -49,15 +44,12 @@ const MediaPicker = props => {
             type: 'DANGER',
           });
         } else {
-          console.log(result, 'result data');
           props?.setFieldValue('audiofile', result);
         }
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the picker');
       } else {
-        console.log('Error while picking audio', err);
       }
     }
   };

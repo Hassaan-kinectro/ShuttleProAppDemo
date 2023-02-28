@@ -141,7 +141,6 @@ const CreateProduct = ({navigation}) => {
   const OnSubmit = async values => {
     setLoading(true);
     const resp = await addNewProduct(values, workspaceId, setLoading);
-    console.log(resp, 'resp1122');
     if (resp.status === 200) {
       navigation.navigate(Routes.PRODUCTS);
       showMessage({

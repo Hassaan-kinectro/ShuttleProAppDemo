@@ -232,14 +232,6 @@ const ProductVariantForm = props => {
             autoCorrect={false}
             onChangeText={rem => {
               let regex = new RegExp('^[0-9]\\d*$');
-              console.log(
-                regex.test(rem) &&
-                  rem &&
-                  !rem.includes('e') &&
-                  !rem.includes('E'),
-                'rem value data check ',
-                regex.test(rem),
-              );
               if (
                 regex.test(rem) &&
                 rem &&
@@ -251,9 +243,7 @@ const ProductVariantForm = props => {
                   rem,
                 );
               } else {
-                console.log('test data ');
                 if (rem === '') {
-                  console.log('test data 2');
                   props.setFieldValue(
                     `${PRODUCT_VARIANT}[${index}][${_COST_PRICE}]`,
                     '',
