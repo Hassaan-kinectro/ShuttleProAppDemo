@@ -110,7 +110,7 @@ const ProductVariantForm = props => {
             )}
             inputStyle={styles.InputTFStyle}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -143,7 +143,7 @@ const ProductVariantForm = props => {
             hideLabel={true}
             inputStyle={styles.InputTFStyle50}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -178,7 +178,7 @@ const ProductVariantForm = props => {
             hideLabel={true}
             inputStyle={styles.InputTFStyle50}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -217,7 +217,7 @@ const ProductVariantForm = props => {
             hideLabel={true}
             inputStyle={styles.InputTFStyle50}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -279,7 +279,7 @@ const ProductVariantForm = props => {
             hideLabel={true}
             inputStyle={styles.InputTFStyle50}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}

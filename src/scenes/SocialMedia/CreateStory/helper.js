@@ -365,6 +365,7 @@ export const saveStory = async (
 
 export const previewHelper = (values, currentProfile, userId) => {
   const ok = values.map(i => {
+    console.log(moment(i && i.date).format('YYYY-MM-DD hh:mm A'), 'this is i');
     return {
       user_id: userId,
       user_image:
@@ -378,6 +379,7 @@ export const previewHelper = (values, currentProfile, userId) => {
         currentProfile && currentProfile.name
           ? currentProfile.name
           : currentProfile.username,
+      date: moment(i && i.date).format('YYYY-MM-DD hh:mm A'),
       stories:
         i &&
         i.images &&

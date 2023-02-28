@@ -30,39 +30,20 @@ const AutoSchedularPreview = ({
         duration={10}
         onStart={item => console.log(item)}
         unPressedBorderColor={'#54788c'}
+        pressedBorderColor={'transparent'}
         onClose={item => console.log('close: ', item)}
         customSwipeUpComponent={
           <View>
-            <Text>Swipe</Text>
+            <Text />
           </View>
         }
         style={{
           marginTop: 30,
           height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350,
         }}
+        showAvatarText={true}
+        // textStyle={styles.textStyle}
       />
-      {/* <ScrollView>
-        <FlatList
-          data={
-            values && values.slots && values.slots.length > 0
-              ? values.slots
-              : []
-          }
-          contentContainerStyle={{
-            paddingHorizontal: 5,
-          }}
-          style={{height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350}}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.toString()}
-          renderItem={({item, index}) => {
-            return (
-              <>
-                <AutoSchedularList item={item} index={index} />
-              </>
-            );
-          }}
-        />
-      </ScrollView> */}
       <View
         style={{
           flex: 1,
