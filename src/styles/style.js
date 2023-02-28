@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   h20: {height: 20},
   h50: {height: '50%'},
   w50: {width: '50%'},
+  w40: {width: '40%'},
   pV5: {paddingVertical: 5},
   pB10: {paddingBottom: 10},
   pB5: {paddingBottom: 5},

@@ -29,7 +29,9 @@ const RowItem = ({item, contact}) => {
   const {colors} = useTheme();
   const styles = useStyles(colors);
   const Parser = description => {
-    if (!description) return '';
+    if (!description) {
+      return '';
+    }
     const regex = /(<([^>]+)>)/gi;
     const parsedescription = description
       .replace(/&amp;/g, '&')
@@ -68,7 +70,6 @@ const RowItem = ({item, contact}) => {
           {item.message && (
             <View style={[styles.fieldWidth]}>
               <Text lines={10} style={[styles.mB5, styles.status]}>
-                {/* <HTMLView value={item.message} stylesheet={styles} /> */}
                 {Parser(item.message)}
               </Text>
             </View>

@@ -11,9 +11,11 @@ import * as Constants from '../Constants';
 import {POST_DATE_TIME, DATE} from '../Constants';
 import {FetchProductImages} from '../../../services/Instagram';
 import {FetchFilterProducts} from '../../../services/Products';
-import {flattenDeep, min, uniqBy} from 'lodash';
+import {flattenDeep} from 'lodash';
 import {Routes} from '../../../utils/constants';
 import {getPostSlots} from '../../../services/Facebook';
+import {StackActions} from '@react-navigation/native';
+import {getUser} from '../../../config/authSettings';
 
 let base64Images;
 export const handleConvert = async imageUrl => {
@@ -277,8 +279,13 @@ const getImagesArr = respData => {
   return result;
 };
 
-export const saveStory = async (values, selectedImages, navigation) => {
-  if (values[Constants.FORM_TYPE] === Constants.CUSTOM) {
+export const saveStory = async (
+  values,
+  selectedImages,
+  navigation,
+  selectedValue,
+) => {
+  if (selectedValue === Constants.CUSTOM) {
     let dateFormat = '';
     if (values.date) {
       dateFormat = moment(values.date).format(POST_DATE_TIME);
@@ -305,22 +312,21 @@ export const saveStory = async (values, selectedImages, navigation) => {
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        description: 'Story Saved Successfully',
+        // description: 'Story Saved Successfully',
         type: 'success',
       });
-      navigation.navigate(Routes.SHOWSTORY);
+      navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
       // handles.resetForm();
       // closeStoryModal();
     } else {
       showMessage({
         message: resp.message,
-        description: ' Story Not Saved',
+        // description: ' Story Not Saved',
         type: 'DANGER',
       });
     }
     // handles.setFieldValue('loading', false);
   } else {
-    // handles.setFieldValue('loading', true);
     const stories = values.slots.map(s => {
       return {
         type: values.type || '',
@@ -340,18 +346,54 @@ export const saveStory = async (values, selectedImages, navigation) => {
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        description: 'Story Schedule Saved Successfully',
+        // description: 'Story Schedule Saved Successfully',
         type: 'success',
       });
+      navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
       // handles.resetForm();
       // closeStoryModal();
     } else {
       showMessage({
         message: resp.message,
-        description: ' Story Not Scheduled ',
+        // description: ' Story Not Scheduled ',
         type: 'DANGER',
       });
     }
     // handles.setFieldValue('loading', false);
   }
+};
+
+export const previewHelper = (values, currentProfile, userId) => {
+  const ok = values.map(i => {
+    return {
+      user_id: userId,
+      user_image:
+        currentProfile &&
+        currentProfile.page_icon &&
+        currentProfile.page_icon.thumb &&
+        currentProfile.page_icon.thumb.url
+          ? currentProfile.page_icon.thumb.url
+          : currentProfile.page_icon.url,
+      user_name:
+        currentProfile && currentProfile.name
+          ? currentProfile.name
+          : currentProfile.username,
+      stories:
+        i &&
+        i.images &&
+        i.images.length > 0 &&
+        i.images.map((url, index) => {
+          return {
+            story_id: index,
+            story_image:
+              url && url.url
+                ? url.url
+                : 'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+            swipeText: 'Custom swipe text for this story',
+            onPress: () => console.log('story 1 swiped'),
+          };
+        }),
+    };
+  });
+  return ok;
 };

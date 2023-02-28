@@ -76,7 +76,6 @@ const StoryModal = ({
               );
             })}
         </Swiper>
-
         <TouchableOpacity
           style={{
             flex: 1,

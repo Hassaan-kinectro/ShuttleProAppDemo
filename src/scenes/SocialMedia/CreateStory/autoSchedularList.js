@@ -1,84 +1,58 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useRef} from 'react';
-import {useNavigation, useTheme} from '@react-navigation/native';
-import useStyles, {getCardStyle} from '../styles';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {deviceWidth} from '../../../utils/orientation';
-import {FONT_FAMILY} from '../../../utils/constants';
+import {View, TouchableOpacity} from 'react-native';
+import React from 'react';
+import useStyles from '../styles';
 import FastImage from 'react-native-fast-image';
+import {Text} from '../../../styles';
+import StoryPreview from './storyPreview';
+import moment from 'moment';
 
-const AutoSchedularList = ({item}) => {
+const AutoSchedularList = ({item, index}) => {
   const styles = useStyles();
-  const navigation = useNavigation;
-  const {colors} = useTheme();
-  const isCarousel = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [selectedImageIndex, setSelectedImageIndex] = React.useState(index);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
-  const _renderItem = ({item, index}) => {
-    console.log(item.url, 'this is itemaaaaaa');
-    return (
-      <View style={[styles.cardStyle, getCardStyle(colors, item.color)]}>
-        <>
-          <FastImage
-            source={{uri: item.url}}
-            // resizeMode={FastImage.resizeMode.contain}
-            style={styles.image}
-          />
-          {/* <View style={styles.cardHeader}>
-            <Text fontFamily={FONT_FAMILY.SEMI_BOLD} size={16}>
-              {item.date}
-            </Text>
-          </View>
-          <View style={styles.cardContainer}>
-            <Text fontFamily={FONT_FAMILY.SEMI_BOLD} size={16}>
-              abc
-            </Text>
-            {item &&
-              item.images &&
-              item.images.length > 0 &&
-              item.images.map(d => {
-                console.log(d, 'this is d');
-                return (
-                  <Image
-                    source={{uri: item.url}}
-                    style={{width: 50, height: 50}}
-                  />
-                );
-              })}
-          </View> */}
-        </>
-      </View>
-    );
+  const handleImagePress = index => {
+    setSelectedImageIndex(index);
+    setModalVisible(true);
   };
+
   return (
-    <View style={styles.carHeight}>
-      <Text>{item.date}</Text>
-      <Carousel
-        layout={'default'}
-        ref={isCarousel}
-        data={item && item.images}
-        firstItem={currentIndex}
-        renderItem={_renderItem}
-        sliderWidth={deviceWidth}
-        sliderHeight={deviceWidth / 1.2}
-        itemHeight={deviceWidth / 1.2}
-        itemWidth={deviceWidth - 80}
-        onSnapToItem={index => setCurrentIndex(index)}
-        // autoplay
-        loop
-      />
-      <Pagination
-        dotsLength={item && item.images && item.images.length}
-        activeDotIndex={currentIndex}
-        carouselRef={isCarousel}
-        dotStyle={styles.dotStyle}
-        containerStyle={styles.paginationStyle}
-        tappableDots={true}
-        inactiveDotStyle={styles.inactiveDotStyle}
-        inactiveDotOpacity={0.9}
-        inactiveDotScale={0.6}
-      />
-    </View>
+    <>
+      <View
+        style={{
+          // flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: 20,
+        }}>
+        <Text style={{marginBottom: 10}}>
+          {item.date
+            ? moment(item.date).format('DD MMM YYYY | hh:mm A')
+            : moment(item.created_at).format('YYYY-MM-DD hh:mm A')}
+        </Text>
+        <TouchableOpacity onPress={() => handleImagePress(index)}>
+          <FastImage
+            source={{uri: item && item.images[0].url}}
+            style={{
+              height: 300,
+              width: 300,
+              borderRadius: 10,
+              borderColor: 'lightblue',
+              borderWidth: 2,
+            }}
+          />
+        </TouchableOpacity>
+        {modalVisible && (
+          <StoryPreview
+            visible={modalVisible}
+            setModalVisible={setModalVisible}
+            values={
+              item && item.images && item.images.length > 0 ? item.images : []
+            }
+          />
+        )}
+      </View>
+    </>
   );
 };
 
