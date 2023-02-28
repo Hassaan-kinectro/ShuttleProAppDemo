@@ -1,7 +1,7 @@
 const enviroment = {
   url: 'https://app.shuttlepro.io/api',
-  // url: 'http://localhost:4006/api',
-  // url: 'https://4fed-123-108-92-123.eu.ngrok.io/api',
+  // url: 'http://localhost:4000/api',
+  // url: 'https://4572-39-55-192-64.in.ngrok.io/api',
 };
 
 export default enviroment;

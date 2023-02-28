@@ -86,100 +86,98 @@ const ShowStory = props => {
   });
 
   return (
-    <>
-      <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-        <View style={styles.Wrapper}>
-          <CustomHeader name={name} navigation={navigation} />
+    <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
+      <View style={styles.Wrapper}>
+        <CustomHeader name={name} navigation={navigation} />
 
-          {loading ? (
-            <View style={[Styles.Centered]}>{loading && <Loader />}</View>
-          ) : (
-            <FlatList
-              data={[
-                ..._.sortBy(unPublishedStories, function (dateObj) {
-                  const date = new Date(dateObj?.shareAt);
-                  return date;
-                })?.reverse(),
-                ..._.sortBy(publishedStories, function (dateObj) {
-                  const date = new Date(dateObj?.shareAt);
-                  return date;
-                })?.reverse(),
-              ]}
-              extraData={loading}
-              scrollEventThrottle={16}
-              nestedScrollEnabled={true}
-              contentContainerStyle={{
-                paddingHorizontal: 10,
-                paddingBottom: IS_IOS ? 180 : 120,
-                paddingTop: headerHeight - 40,
-              }}
-              removeClippedSubviews={true}
-              maxToRenderPerBatch={40}
-              initialNumToRender={40}
-              keyExtractor={(item, index) => `${index}`}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refresh}
-                  onRefresh={() =>
-                    onRefresh(
-                      setRefresh,
-                      setUnPublishedStories,
-                      setPublishedStories,
-                      workspaceId,
-                    )
-                  }
-                  colors={[colors.background]}
-                  tintColor={colors.themeIcon}
-                />
-              }
-              onEndReachedThreshold={0.5}
-              ListEmptyComponent={() =>
-                !loading && unPublishedStories.length === 0 ? (
-                  <View
-                    style={[
-                      {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height:
-                          (deviceHeight - getFixedHeaderHeight() - 10) / 1.4,
-                      },
-                    ]}>
-                    <AIcon
-                      name="warning"
-                      color={colors.textColorLight}
-                      size={40}
-                    />
-                    <Text
-                      numberOfLines={1}
-                      color={colors.textColorLight}
-                      style={styles.text}
-                      size={16}>
-                      No Stories Available
-                    </Text>
-                  </View>
-                ) : null
-              }
-              renderItem={({item}) => {
-                return (
-                  <React.Fragment key={item.id}>
-                    <StoryRow
-                      handleDelete={handleDelete}
-                      item={item}
-                      loading={loadingImages.loading}
-                      setLoadingImages={setLoadingImages}
-                      disabled={
-                        loadingImages.id ? loadingImages.id !== item.id : false
-                      }
-                    />
-                  </React.Fragment>
-                );
-              }}
-            />
-          )}
-        </View>
-      </Wrapper>
-    </>
+        {loading ? (
+          <View style={[Styles.Centered]}>{loading && <Loader />}</View>
+        ) : (
+          <FlatList
+            data={[
+              ..._.sortBy(unPublishedStories, function (dateObj) {
+                const date = new Date(dateObj?.shareAt);
+                return date;
+              })?.reverse(),
+              ..._.sortBy(publishedStories, function (dateObj) {
+                const date = new Date(dateObj?.shareAt);
+                return date;
+              })?.reverse(),
+            ]}
+            extraData={loading}
+            scrollEventThrottle={16}
+            nestedScrollEnabled={true}
+            contentContainerStyle={{
+              paddingHorizontal: 10,
+              paddingBottom: IS_IOS ? 180 : 120,
+              paddingTop: headerHeight - 40,
+            }}
+            removeClippedSubviews={true}
+            maxToRenderPerBatch={40}
+            initialNumToRender={40}
+            keyExtractor={(item, index) => `${index}`}
+            refreshControl={
+              <RefreshControl
+                refreshing={refresh}
+                onRefresh={() =>
+                  onRefresh(
+                    setRefresh,
+                    setUnPublishedStories,
+                    setPublishedStories,
+                    workspaceId,
+                  )
+                }
+                colors={[colors.background]}
+                tintColor={colors.themeIcon}
+              />
+            }
+            onEndReachedThreshold={0.5}
+            ListEmptyComponent={() =>
+              !loading && unPublishedStories.length === 0 ? (
+                <View
+                  style={[
+                    {
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height:
+                        (deviceHeight - getFixedHeaderHeight() - 10) / 1.4,
+                    },
+                  ]}>
+                  <AIcon
+                    name="warning"
+                    color={colors.textColorLight}
+                    size={40}
+                  />
+                  <Text
+                    numberOfLines={1}
+                    color={colors.textColorLight}
+                    style={styles.text}
+                    size={16}>
+                    No Stories Available
+                  </Text>
+                </View>
+              ) : null
+            }
+            renderItem={({item}) => {
+              return (
+                <React.Fragment key={item.id}>
+                  <StoryRow
+                    handleDelete={handleDelete}
+                    item={item}
+                    loading={loadingImages.loading}
+                    setLoadingImages={setLoadingImages}
+                    disabled={
+                      loadingImages.id ? loadingImages.id !== item.id : false
+                    }
+                  />
+                </React.Fragment>
+              );
+            }}
+          />
+        )}
+      </View>
+    </Wrapper>
   );
 };
 

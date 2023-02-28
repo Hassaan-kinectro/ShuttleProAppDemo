@@ -1,6 +1,6 @@
 export const PRIMARY = '#2D3038';
 export const PRIMARY_3 = '#4A3A61';
-export const PRIMARY_1 = '#9B7DC7';
+export const PRIMARY_1 = '#2B7C84';
 export const PRIMARY_SHADE = '#3A2F47';
 export const BACKGROUND = '#23313E';
 export const PRIMARY_LIGHT = '#4B3A60';

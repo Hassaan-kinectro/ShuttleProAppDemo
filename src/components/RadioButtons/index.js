@@ -5,12 +5,14 @@ import useStyles from './styles';
 const Radio = props => {
   const styles = useStyles();
   return (
-    <View style={styles.radio}>
-      <View
-        style={[styles.radioIcon, props.selected && styles.radioIconSelected]}
-      />
-      <Text>{props.value}</Text>
-    </View>
+    <>
+      <View style={styles.radio}>
+        <View
+          style={[styles.radioIcon, props.selected && styles.radioIconSelected]}
+        />
+        <Text style={styles.text}>{props.value}</Text>
+      </View>
+    </>
   );
 };
 

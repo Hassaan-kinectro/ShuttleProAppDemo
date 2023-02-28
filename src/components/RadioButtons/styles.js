@@ -11,15 +11,18 @@ const useStyles = () => {
       marginRight: 10,
     },
     radioIcon: {
-      width: 20,
-      height: 20,
-      borderRadius: 10,
+      width: 15,
+      height: 15,
+      borderRadius: 15 / 2,
       borderWidth: 2,
-      borderColor: theme === 'DARK' ? '#fff' : 'lightblue',
+      borderColor: theme === 'DARK' ? '#fff' : '#000',
       marginRight: 5,
     },
     radioIconSelected: {
-      backgroundColor: theme === 'DARK' ? '#fff' : 'lightblue',
+      backgroundColor: theme === 'DARK' ? '#fff' : '#000',
+    },
+    text: {
+      color: theme === 'DARK' ? '#fff' : '#000',
     },
   });
 };

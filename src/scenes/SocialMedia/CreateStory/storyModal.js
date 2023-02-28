@@ -76,14 +76,13 @@ const StoryModal = ({
               );
             })}
         </Swiper>
-
         <TouchableOpacity
           style={{
             flex: 1,
             position: 'absolute',
             zIndex: 999,
             left: deviceWidth / 2.5,
-            bottom: deviceHeight / 7.5,
+            bottom: deviceHeight / 8.5,
           }}
           onPress={() => {
             if (!loading) {

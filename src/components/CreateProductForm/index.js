@@ -74,7 +74,7 @@ const CreateProductForm = props => {
             hideLabel={true}
             inputStyle={styles.InputTFStyle}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -95,7 +95,7 @@ const CreateProductForm = props => {
             errorStyle={styles.errorStyle}
             inputStyle={styles.InputTFStyle}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             baseColor={colors.baseColor}
@@ -108,8 +108,12 @@ const CreateProductForm = props => {
             }}
             dropDownMaxHeight={200}
             isVisible={templateVisible}
+            multiple={true}
             placeholder="Preferences"
             containerStyle={styles.dropDownSTyle}
+            min={0}
+            max={10}
+            multipleText="%d Preferences selected."
             style={Styles.dropDownContainerStyle}
             dropDownStyle={Styles.dropDownContainerStyle}
             itemStyle={Styles.itemStyle}
@@ -130,7 +134,7 @@ const CreateProductForm = props => {
               setTagVisibility(false);
               setTemplateVisibility(true);
             }}
-            zIndex={50010}
+            zIndex={50200}
             onClose={() => {
               setTemplateVisibility(false);
             }}
@@ -145,10 +149,10 @@ const CreateProductForm = props => {
             isVisible={tagVisibility}
             multiple={true}
             placeholder="Tags"
+            containerStyle={styles.dropDownSTyle}
             min={0}
             max={10}
             multipleText="%d Tags selected."
-            containerStyle={styles.dropDownSTyle}
             style={Styles.dropDownContainerStyle}
             dropDownStyle={Styles.dropDownContainerStyle}
             itemStyle={Styles.itemStyle}
@@ -169,7 +173,7 @@ const CreateProductForm = props => {
               setCategoryVisibility(false);
               setTagVisibility(true);
             }}
-            zIndex={50010}
+            zIndex={50050}
             onClose={() => {
               setTagVisibility(false);
             }}
@@ -230,7 +234,7 @@ const CreateProductForm = props => {
             errorStyle={styles.errorStyle}
             inputStyle={styles.descriptionTFStyle}
             placeholderTextColor={colors.placeholder}
-            tintColor={colors.tintColor}
+            tintColor={colors.button}
             textColor={colors.TextColor}
             fontSize={14}
             multiline={true}
