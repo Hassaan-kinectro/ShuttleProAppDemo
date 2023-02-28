@@ -267,12 +267,6 @@ const CreateProductForm = props => {
             </View>
           );
         })}
-      <TouchableOpacity
-        onPress={() => {
-          console.log(values, 'values check');
-        }}>
-        <Text>okokokok</Text>
-      </TouchableOpacity>
       <View style={styles.LoginBoxStyle}>
         <TouchableOpacity disabled={props.loading} onPress={props.handleSubmit}>
           <LinearGradient
