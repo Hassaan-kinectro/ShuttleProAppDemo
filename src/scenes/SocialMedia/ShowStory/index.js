@@ -80,7 +80,6 @@ const ShowStory = props => {
     });
   };
 
-  console.log('unPublishedStories before', unPublishedStories);
   const ok = _.sortBy(unPublishedStories, function (dateObj) {
     const date = new Date(dateObj.shareAt);
     return date;

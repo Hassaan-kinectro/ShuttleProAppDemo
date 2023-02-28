@@ -62,11 +62,20 @@ export const product_variants = {
   cost_price: '',
   sale_price: '',
   total_quantity: 0,
-  variant_quantity: [variant_quantity],
+  variant_quantity: [
+    {
+      id: getRandomId(),
+      warehouse: null,
+      quantity: '',
+      box_no: '',
+      shelf_no: '',
+      rack_no: '',
+    },
+  ],
 };
 
 export const variant_quantity = {
-  id: getRandomId(),
+  id: getRandomId() || 'varint',
   warehouse: null,
   quantity: '',
   box_no: '',
@@ -106,4 +115,5 @@ export const getAllWarehouses = async (setWarehouses, workspaceId) => {
 export const addNewProduct = async (values, workspaceId, setLoading) => {
   const resp = await CreateProduct(values, workspaceId, setLoading);
   console.log(resp, 'rresp data fetch ok');
+  return resp;
 };

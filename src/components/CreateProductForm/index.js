@@ -194,7 +194,7 @@ const CreateProductForm = props => {
             itemStyle={Styles.itemStyle}
             arrowColor={colors.button}
             labelStyle={Styles.labelStyle}
-            activeLabelStyle={Styles.activeLabelStyle}
+            // activeLabelStyle={Styles.activeLabelStyle}
             selectedLabelStyle={Styles.activeLabelStyle}
             placeholderStyle={styles.placeholderStyle}
             searchablePlaceholderTextColor={colors.placeholder}
@@ -209,7 +209,7 @@ const CreateProductForm = props => {
               setTagVisibility(false);
               setCategoryVisibility(true);
             }}
-            zIndex={50010}
+            zIndex={50008}
             onClose={() => {
               setCategoryVisibility(false);
             }}
@@ -258,11 +258,13 @@ const CreateProductForm = props => {
         values.product_variants.length > 0 &&
         values.product_variants.map((v, index) => {
           return (
-            <ProductVariantForm
-              index={index}
-              {...props}
-              keyboardType={keyboardType}
-            />
+            <View key={index}>
+              <ProductVariantForm
+                index={index}
+                {...props}
+                keyboardType={keyboardType}
+              />
+            </View>
           );
         })}
       <TouchableOpacity
