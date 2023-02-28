@@ -17,7 +17,6 @@ import {useTheme} from '@react-navigation/native';
 import DropDownPicker from '../DropDown';
 import {useTranslation} from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
-import {WHITE} from '../../styles/colors';
 import MediaPicker from '../MediaPicker';
 import ProductVariantForm from './ProductVariantForm';
 

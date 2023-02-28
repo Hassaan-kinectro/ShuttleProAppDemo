@@ -173,7 +173,7 @@ const useStyles = () => {
       zIndex: 5000,
     },
     InputTFStyle50: {
-      height: 40,
+      minHeight: 40,
       // marginVertical: 0,
       marginHorizontal: 0,
       paddingBottom: 10,
