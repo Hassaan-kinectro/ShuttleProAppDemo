@@ -83,6 +83,7 @@ const Products = ({navigation}) => {
     const fetchData = async () => {
       const productsData = await FetchAllProducts(workspaceId, 10, page);
       if (productsData.status === 200) {
+        changePage(1);
         setAllProducts(
           productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
         );
@@ -90,6 +91,7 @@ const Products = ({navigation}) => {
           productsData.data.sort((a, b) => a.name.localeCompare(b.name)),
         );
       } else {
+        changePage(1);
         setAllProducts([]);
         setProducts([]);
       }

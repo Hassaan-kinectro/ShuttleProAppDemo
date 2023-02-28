@@ -142,7 +142,7 @@ const CreateProduct = ({navigation}) => {
     setLoading(true);
     const resp = await addNewProduct(values, workspaceId, setLoading);
     if (resp.status === 200) {
-      navigation.navigate(Routes.PRODUCTS);
+      navigation.navigate(Routes.PRODUCTSLIST);
       showMessage({
         message: '',
         description: resp.message,
