@@ -38,7 +38,7 @@ const ProductWarehouse = props => {
     <View style={styles.BoxStyleWareHouse}>
       <View style={styles.warehouseBox}>
         <DropDownPicker
-          items={warehouses?.data}
+          items={warehouses?.data || []}
           defaultValue={''}
           scrollViewProps={{
             keyboardShouldPersistTaps: 'always',

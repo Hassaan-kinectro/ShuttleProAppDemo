@@ -140,7 +140,7 @@ const CreateProductForm = props => {
           />
           <DropDownPicker
             items={props.tags.data}
-            defaultValue={''}
+            defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
             }}
@@ -179,7 +179,7 @@ const CreateProductForm = props => {
           />
           <DropDownPicker
             items={props.categories.data}
-            defaultValue={''}
+            defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
             }}
