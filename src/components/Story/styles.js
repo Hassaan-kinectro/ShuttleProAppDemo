@@ -24,6 +24,20 @@ const useStyles = () => {
       fontWeight: '500',
       fontSize: 14,
     },
+    filterContainer: {
+      alignItems: 'flex-start',
+      paddingHorizontal: 10,
+      paddingTop: 10,
+      flexDirection: 'row',
+    },
+    filterStyle: {
+      width: 32,
+      height: 32,
+      borderRadius: 32 / 2,
+      // backgroundColor: colors.searchIconBackground,
+      // ...Styles.justifyContentCenter,
+      // ...Styles.alignItemsCenter,
+    },
     headerText2: {
       paddingLeft: scaleSize(10),
       color: '#fff',
@@ -161,10 +175,10 @@ const useStyles = () => {
       borderWidth: 2,
     },
     buttonWrapper: {
-      // ...Styles.w50,
+      ...Styles.w100,
       height: 48,
       marginTop: 30,
-      width: '40%',
+      // width: '40%',
       // marginRight: 10,
     },
     buttonWrapper2: {

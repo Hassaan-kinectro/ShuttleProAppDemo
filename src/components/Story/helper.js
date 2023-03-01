@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {convertImageTobase64} from '../../utils/urlParser';
 import moment from 'moment';
 import * as Yup from 'yup';
@@ -39,6 +40,53 @@ export const StorySchema = Yup.object().shape({
     otherwise: Yup.string().optional(),
   }),
 });
+const ActionMenuList = [
+  // {
+  //   label: 'edit',
+  //   action: Constants.EDIT,
+  //   // icon: <EditIcon className="text-xl text-fontPrimary" />,
+  //   onClick: onClickEdit,
+  // },
+  {
+    label: 'publish',
+    action: Constants.APPROVE,
+    // icon: <PublishIcon className="text-xl text-fontPrimary" />,
+    onClick: onClickPublish,
+  },
+  {
+    label: 'edit',
+    action: Constants.REJECT,
+    // icon: <ClearIcon className="text-xl text-fontPrimary" />,
+    onClick: onClickEdit,
+  },
+  // ...CommonActions,
+  {
+    label: 'delete',
+    action: Constants.DELETE,
+    // icon: <TrashIcon className="text-xl text-fontPrimary" />,
+    onClick: onClickDelete,
+  },
+];
+const onClickPublish = () => {
+  console.log('onClickPublish');
+};
+const onClickEdit = () => {
+  console.log('onClickEdit');
+};
+const onClickDelete = () => {
+  console.log('onClickDelete');
+};
+
+export const GetMenuList = data => {
+  let result = ActionMenuList.find(d => d.label === data.Publish);
+  console.log(result, 'this is result');
+  if (result) {
+    // if (scheduleId) {
+    //   return result.list.filter((k) => k.label !== "publish") || [];
+    // }
+    return result.list || [];
+  }
+};
 
 export const initialValues = {
   userId: '',

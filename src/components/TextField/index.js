@@ -1,3 +1,7 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {Mixins, Colors, Text} from '../../styles';

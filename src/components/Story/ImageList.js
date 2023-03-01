@@ -18,7 +18,7 @@ import {deviceHeight, IS_IOS} from '../../utils/orientation';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../utils/constants';
 import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
-import Loader from '../Loader';
+import {BackArrowIcon} from '../../icons';
 
 const ImageList = ({values, setFieldValue, loading, save}) => {
   const {colors} = useTheme();
@@ -44,27 +44,41 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         ListHeaderComponent={() => {
           return (
             <>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  marginVertical: 10,
-                }}>
-                <Text
-                  size={20}
-                  color={colors.TextColor}
-                  fontFamily={FONT_FAMILY.SEMI_BOLD}
-                  lines={1}>
-                  Select Story Media
-                </Text>
-                <Text
-                  size={10}
-                  color={colors.TextColor}
-                  fontFamily={FONT_FAMILY.LIGHT}
-                  lines={1}>
-                  (Select Only 10 Images)
-                </Text>
+              <View style={styles.filterContainer}>
+                <TouchableOpacity
+                  style={styles.filterStyle}
+                  onPress={() => {
+                    setFieldValue && setFieldValue('imagesArr', []);
+                  }}>
+                  <BackArrowIcon
+                    size={22}
+                    color={colors.searchIcon}
+                    style={styles.filterIcon}
+                  />
+                </TouchableOpacity>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    flexDirection: 'row',
+                  }}>
+                  <Text
+                    size={20}
+                    color={colors.TextColor}
+                    fontFamily={FONT_FAMILY.SEMI_BOLD}
+                    lines={1}>
+                    Select Story Media
+                  </Text>
+                  <Text
+                    size={10}
+                    color={colors.TextColor}
+                    fontFamily={FONT_FAMILY.LIGHT}
+                    lines={1}
+                    style={{top: 5, left: 5}}>
+                    (Select Only 10 Images)
+                  </Text>
+                </View>
               </View>
             </>
           );
@@ -90,38 +104,7 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
             flex: 2,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginVertical: 20,
           }}>
-          <View style={styles.buttonWrapper}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              disabled={loading}
-              onPress={() => {
-                setFieldValue && setFieldValue('imagesArr', []);
-              }}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 0, y: 0.9}}
-                colors={['#139A5C', '#3662A8']}
-                style={styles.linearGradient}>
-                {values.imagesLoading ? (
-                  <ActivityIndicator
-                    type={'ThreeBounce'}
-                    size={30}
-                    color={colors.textColorLight}
-                  />
-                ) : (
-                  <Text
-                    size={Mixins.scaleFont(16)}
-                    fontFamily={FONT_FAMILY.REGULAR}
-                    color={colors.white}
-                    style={[styles.buttonText]}>
-                    Back
-                  </Text>
-                )}
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
           <View style={styles.buttonWrapper}>
             {selectedImages.length === 0 ? (
               <View style={styles.buttonContainer}>

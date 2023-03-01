@@ -10,11 +10,12 @@ import CircularImage from '../../../components/CircularImage';
 import PopupMenu from '../../../components/PopupMenu';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
-import Loader from '../../../components/Loader';
 import FastImage from 'react-native-fast-image';
 import {GetMenuList} from '../helper';
 import {IS_IOS} from '../../../utils/orientation';
 import {FONT_FAMILY} from '../../../utils/constants';
+import F5Icon from 'react-native-vector-icons/FontAwesome5';
+
 const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
   const styles = useStyles();
   const {colors} = useTheme();
@@ -85,10 +86,14 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                 : moment(post.created_at).fromNow()}
             </Text>
           </View>
-          <PopupMenu
-            options={GetMenuList(post.postStatus, post.scheduleId)}
-            onClick={getAction}
-          />
+          {post.status === 'published' ? (
+            ''
+          ) : (
+            <PopupMenu
+              options={GetMenuList(post.postStatus, post.scheduleId)}
+              onClick={getAction}
+            />
+          )}
         </View>
         <Text
           numberOfLines={5}
@@ -98,19 +103,39 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
           ]}>
           {post.message ? post.message : post.caption ? post.caption : ''}
         </Text>
-
         <View style={[Styles.flexCenter]}>
           {post && post.image && post.image.includes('video') ? (
             <View style={styles.imageContainerStyle}>
-              <Video
+              {IS_IOS ? (
+                <Video
+                  source={{
+                    uri: post.image,
+                  }}
+                  rate={1}
+                  controls={true}
+                  style={styles.imageStyle}
+                  repeat={true}
+                />
+              ) : (
+                <Video
+                  source={{
+                    uri: post.image,
+                  }}
+                  rate={1}
+                  // controls={true}
+                  style={styles.imageStyle}
+                  repeat={true}
+                />
+              )}
+              {/* <Video
                 source={{
                   uri: post.image,
                 }}
                 rate={1}
-                // controls={true}
+                controls={true}
                 style={styles.imageStyle}
                 repeat={true}
-              />
+              /> */}
             </View>
           ) : post && post.carousel && post.carousel.length > 0 ? (
             <Swiper style={{height: 340}} showsPagination={true}>
@@ -118,7 +143,7 @@ const ShuttlePost = ({post, name, pageIcon, profileType, setPosts}) => {
                 post.carousel &&
                 post.carousel.map((image, index) => {
                   return (
-                    <View key={`${index}`} style={styles.imageContainerStyle}>
+                    <View key={`${index}`} style={styles.imageContainerStyle2}>
                       <FastImage
                         style={styles.imageStyle}
                         source={{

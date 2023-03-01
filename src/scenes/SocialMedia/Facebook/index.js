@@ -80,16 +80,6 @@ const Facebook = ({currentProfile, users}) => {
             paddingBottom: IS_IOS ? 180 : 120,
           }}
           keyExtractor={(item, index) => `${index}`}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={refresh}
-          //     onRefresh={() =>
-          //       onRefresh(setRefresh, GetWorkSpaceUser, setWorkspaceList)
-          //     }
-          //     colors={[colors.background]}
-          //     tintColor={colors.themeIcon}
-          //   />
-          // }
           onEndReachedThreshold={0.5}
           onEndReached={fetchMoreData}
           ListFooterComponent={renderFooter}

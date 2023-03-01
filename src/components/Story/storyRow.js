@@ -6,6 +6,7 @@ import React from 'react';
 import useStyles from './styles';
 import {PUBLISH, DELETE, INSTAGRAM, FACEBOOK} from '../../utils/imagesPath';
 import {Text, Mixins} from '../../styles';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   Modal,
   View,
@@ -27,8 +28,11 @@ import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
 import {CloseIcon} from '../../icons';
 import {GlobalStyle, Colors} from '../../styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import PopupMenu from '../PopupMenu';
+import {GetMenuList} from './helper';
 
 const defaultValue = {id: null, loading: false};
+
 const StoryRow = ({
   item,
   setLoadingImages,
@@ -82,7 +86,6 @@ const StoryRow = ({
     }
   };
   const shareFacebookImage = async (urls, id) => {
-    console.log(urls, 'aaaaaaaaaaa');
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
     await UpdateStoryById(id).then(res => {
@@ -112,6 +115,22 @@ const StoryRow = ({
       setLoadingImages(defaultValue);
     }
   };
+
+  const getAction = React.useCallback(action => {
+    console.log('action');
+  }, []);
+
+  const data = [
+    {
+      label: 'Publish',
+    },
+    {
+      label: 'Delete',
+    },
+    {
+      label: 'Edit',
+    },
+  ];
 
   return (
     <>
@@ -231,7 +250,28 @@ const StoryRow = ({
               : moment(item.createdAt).format('YYYY-MM-DD hh:mm A')}
           </Text>
         </View>
-        <View
+        {/* <TouchableOpacity onPress={() => {}}>
+          <LinearGradient
+            colors={['#139A5C', '#3662A8']}
+            start={{x: 0.5, y: 0.0}}
+            end={{x: 0.5, y: 1.0}}
+            locations={[0.2794, 0.9161]}
+            style={{
+              position: 'absolute',
+              height: 32,
+              width: 32,
+              right: 50,
+              borderRadius: 32 / 2,
+              flex: 3,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}>
+            <PopupMenu options={data} onClick={getAction} />
+          </LinearGradient>
+        </TouchableOpacity> */}
+
+        {/* <View
           style={{
             flex: 3,
             flexDirection: 'row',
@@ -328,7 +368,7 @@ const StoryRow = ({
               <Image style={styles.image} source={DELETE} />
             </TouchableOpacity>
           )}
-        </View>
+        </View> */}
       </View>
       <View style={styles.hairline} />
       <View style={{flex: 1}}>
