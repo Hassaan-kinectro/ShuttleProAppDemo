@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Image, Platform} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Mixins, Text} from '../../../styles';
 import AutoSchedularList from './autoSchedularList';
@@ -10,7 +10,13 @@ import {useTheme} from '@react-navigation/native';
 import InstaStory from 'react-native-insta-story';
 import {previewHelper} from './helper';
 import {deviceHeight, IS_IOS} from '../../../utils/orientation';
-import {FilterIcon, BackIcon, BackArrowIcon, PublishIcon} from '../../../icons';
+import {
+  FilterIcon,
+  BackIcon,
+  BackArrowIcon,
+  PublishIcon,
+  CloseIcon,
+} from '../../../icons';
 
 const AutoSchedularPreview = ({
   userId,
@@ -24,7 +30,6 @@ const AutoSchedularPreview = ({
   const {colors} = useTheme();
 
   const ok = previewHelper(values.slots, currentProfile, userId);
-
   return (
     <>
       <View
@@ -98,7 +103,7 @@ const AutoSchedularPreview = ({
       </View>
       <InstaStory
         data={ok}
-        duration={10}
+        duration={5}
         onStart={item => console.log(item)}
         unPressedBorderColor={'#54788c'}
         pressedBorderColor={'transparent'}
@@ -108,12 +113,69 @@ const AutoSchedularPreview = ({
             <Text />
           </View>
         }
+        customCloseComponent={<CloseIcon size={24} color={colors.TextColor} />}
         style={{
           marginTop: 30,
-          height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350,
+          height: IS_IOS ? deviceHeight - 300 : deviceHeight - 270,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          flexDirection: 'column',
         }}
         showAvatarText={true}
-        // textStyle={styles.textStyle}
+        horizontal={false}
+        resizeMode="contain"
+        avatarTextStyle={{color: '#fff'}}
+        customItemComponent={(item, index, handleStoryItemPress) => {
+          console.log(item);
+          return (
+            <>
+              <View style={styles.avatarContainer}>
+                <TouchableOpacity
+                  onPress={() => handleStoryItemPress(item)}
+                  style={[styles.avatarWrapper]}>
+                  <Image
+                    style={styles.avatar}
+                    source={{uri: item.user_image}}
+                    defaultSource={
+                      Platform.OS === 'ios'
+                        ? './assets/images/no_avatar.png'
+                        : null
+                    }
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={{marginLeft: 10}}>
+                  <>
+                    <Text
+                      size={12}
+                      color={colors.TextColor}
+                      fontFamily={FONT_FAMILY.REGULAR}
+                      numberOfLines={1}
+                      ellipsizeMode={'tail'}>
+                      {item.user_name}
+                    </Text>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode={'tail'}
+                      size={12}
+                      color={colors.TextColor}
+                      style={{marginTop: 10}}
+                      fontFamily={FONT_FAMILY.REGULAR}>
+                      {item.date}
+                    </Text>
+                  </>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderColor: colors.boxBorderColor,
+                  borderWidth: 1,
+                  marginVertical: 5,
+                }}
+              />
+            </>
+          );
+        }}
       />
     </>
   );
