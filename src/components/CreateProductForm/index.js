@@ -108,7 +108,7 @@ const CreateProductForm = props => {
             }}
             dropDownMaxHeight={200}
             isVisible={templateVisible}
-            multiple={true}
+            // multiple={true}
             placeholder="Preferences"
             containerStyle={styles.dropDownSTyle}
             min={0}
@@ -141,7 +141,7 @@ const CreateProductForm = props => {
           />
           <DropDownPicker
             items={props.tags.data}
-            defaultValue={''}
+            defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
             }}
@@ -180,7 +180,7 @@ const CreateProductForm = props => {
           />
           <DropDownPicker
             items={props.categories.data}
-            defaultValue={''}
+            defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
             }}

@@ -12,6 +12,7 @@ import {GET_NOTIFICATION_UPDATES} from '../../graphql';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
 import {WarningIcon} from '../../icons';
 import NotitficationListItem from '../../components/NotificationListItem';
+import Loader from '../../components/Loader';
 const Notifications = ({navigation}) => {
   const {t} = useTranslation();
   const {colors} = useTheme();
@@ -54,53 +55,62 @@ const Notifications = ({navigation}) => {
           backIcon={true}
           drawer={false}
         />
-        <FlatList
-          data={notifications.data}
-          nestedScrollEnabled={true}
-          removeClippedSubviews={true}
-          maxToRenderPerBatch={40}
-          initialNumToRender={40}
-          contentContainerStyle={Styles.pT10}
-          keyExtractor={item => item._id.toString()}
-          //   ListHeaderComponent={() => (
-          //     <Tabs
-          //       filterValues={filterValues}
-          //       setFilterValues={setFilterValues}
-          //     />
-          //   )}
-          refreshControl={
-            <RefreshControl
-              refreshing={refresh}
-              onRefresh={() => onRefresh(setRefresh)}
-              colors={[colors.background]}
-              tintColor={colors.themeIcon}
-            />
-          }
-          onEndReachedThreshold={0.5}
-          ListEmptyComponent={() =>
-            !loading && notifications.data.length === 0 ? (
-              <View
-                style={[
-                  Styles.flexCenter,
-                  {
-                    height: (deviceHeight - getFixedHeaderHeight() - 40) / 2,
-                  },
-                ]}>
-                <WarningIcon
-                  color={colors.textColorLight}
-                  size={40}
-                  style={Styles.pB10}
-                />
-                <Text numberOfLines={1} color={colors.textColorLight} size={16}>
-                  {t('notifications.not.available')}
-                </Text>
-              </View>
-            ) : null
-          }
-          renderItem={({item, index}) => {
-            return <NotitficationListItem key={item._id} item={item} />;
-          }}
-        />
+        {loading ? (
+          <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+            {loading && <Loader />}
+          </View>
+        ) : (
+          <FlatList
+            data={notifications.data}
+            nestedScrollEnabled={true}
+            removeClippedSubviews={true}
+            maxToRenderPerBatch={40}
+            initialNumToRender={40}
+            contentContainerStyle={Styles.pT10}
+            keyExtractor={item => item._id.toString()}
+            //   ListHeaderComponent={() => (
+            //     <Tabs
+            //       filterValues={filterValues}
+            //       setFilterValues={setFilterValues}
+            //     />
+            //   )}
+            refreshControl={
+              <RefreshControl
+                refreshing={refresh}
+                onRefresh={() => onRefresh(setRefresh)}
+                colors={[colors.background]}
+                tintColor={colors.themeIcon}
+              />
+            }
+            onEndReachedThreshold={0.5}
+            ListEmptyComponent={() =>
+              !loading && notifications.data.length === 0 ? (
+                <View
+                  style={[
+                    Styles.flexCenter,
+                    {
+                      height: (deviceHeight - getFixedHeaderHeight() - 40) / 2,
+                    },
+                  ]}>
+                  <WarningIcon
+                    color={colors.textColorLight}
+                    size={40}
+                    style={Styles.pB10}
+                  />
+                  <Text
+                    numberOfLines={1}
+                    color={colors.textColorLight}
+                    size={16}>
+                    {t('notifications.not.available')}
+                  </Text>
+                </View>
+              ) : null
+            }
+            renderItem={({item, index}) => {
+              return <NotitficationListItem key={item._id} item={item} />;
+            }}
+          />
+        )}
       </View>
     </Wrapper>
   );

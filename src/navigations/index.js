@@ -157,7 +157,7 @@ const Orders = colors => {
         options={({navigation}) => ({
           headerShown: false,
           title: 'Orders Screen',
-          ...StackCommonHeaderOptions(navigation),
+          ...StackCommonHeaderOptions(navigation, false, true, colors),
         })}
         name={Routes.ORDERSLIST}
         component={OrderScreen}
@@ -167,7 +167,7 @@ const Orders = colors => {
         options={({navigation}) => ({
           headerShown: false,
           title: 'Show Orders',
-          ...StackCommonHeaderOptions(navigation),
+          ...StackCommonHeaderOptions(navigation, false, true, colors),
         })}
         name={Routes.SHOWORDER}
         component={ShowOrder}
@@ -185,7 +185,7 @@ const Product = colors => {
         options={({navigation}) => ({
           headerShown: false,
           title: 'Product Screen',
-          ...StackCommonHeaderOptions(navigation),
+          ...StackCommonHeaderOptions(navigation, false, true, colors),
         })}
         name={Routes.PRODUCTSLIST}
         component={Products}
@@ -195,7 +195,7 @@ const Product = colors => {
         options={({navigation}) => ({
           headerShown: false,
           title: 'Create Product Screen',
-          ...StackCommonHeaderOptions(navigation),
+          ...StackCommonHeaderOptions(navigation, false, true, colors),
         })}
         name={Routes.CREATEPRODUCTS}
         component={CreateProduct}
