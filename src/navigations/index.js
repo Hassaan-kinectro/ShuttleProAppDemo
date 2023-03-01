@@ -50,6 +50,7 @@ import StoryLoading from '../scenes/StoryLoading';
 import ShowStory from '../scenes/SocialMedia/ShowStory';
 import CreateStory from '../scenes/SocialMedia/CreateStory';
 import CreateProduct from '../scenes/Products/create product';
+import CreateOrders from '../scenes/Orders/CreateOrders';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -171,6 +172,16 @@ const Orders = colors => {
         })}
         name={Routes.SHOWORDER}
         component={ShowOrder}
+      />
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Show Orders',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.CREATEORDERS}
+        component={CreateOrders}
       />
     </Stack.Navigator>
   );

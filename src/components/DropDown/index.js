@@ -684,7 +684,6 @@ DropDownPicker.defaultProps = {
   onClose: () => {},
   onChangeItem: () => {},
   onChangeList: () => {},
-  errorRequired: false,
 };
 
 DropDownPicker.propTypes = {
@@ -730,7 +729,6 @@ DropDownPicker.propTypes = {
   onClose: PropTypes.func,
   onChangeItem: PropTypes.func,
   onChangeList: PropTypes.func,
-  errorRequired: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

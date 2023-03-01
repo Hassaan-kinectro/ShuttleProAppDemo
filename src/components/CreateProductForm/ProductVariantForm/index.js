@@ -1,7 +1,7 @@
 import {Platform, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
-import useStyles from '../style';
+import useStyles from './style';
 import {useTheme} from '@react-navigation/native';
 import TextField from '../../TextField';
 import {
@@ -47,7 +47,6 @@ const ProductVariantForm = props => {
                     props.values[PRODUCT_VARIANT],
                     props.setFieldValue,
                   );
-                  // addProduct ? setAddProduct(false) : setAddProduct(true);
                 }}>
                 <LinearGradient
                   colors={['#139A5C', '#3662A8']}
@@ -81,7 +80,7 @@ const ProductVariantForm = props => {
           }
         </View>
 
-        <View>
+        <View style={Styles.mT15}>
           <TextField
             label="Product Variant"
             name={`${PRODUCT_VARIANT}[${index}][${_PRODUCT_VARIANT}]`}

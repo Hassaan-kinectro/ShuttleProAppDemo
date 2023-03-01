@@ -15,7 +15,7 @@ import {useTheme} from '@react-navigation/native';
 import {deviceHeight, getFixedHeaderHeight} from '../../utils/orientation';
 import ProductListItem from '../../components/ProductListItem';
 import LinearGradient from 'react-native-linear-gradient';
-import {LibraryAdd, PlusIcon} from '../../icons';
+import {LibraryAdd, PlusIcon, ThreeDotsIcon} from '../../icons';
 import {Routes} from '../../utils/constants';
 
 const Products = ({navigation}) => {
@@ -251,7 +251,11 @@ const Products = ({navigation}) => {
             end={{x: 0.5, y: 1.0}}
             locations={[0.2794, 0.9161]}
             style={styles.addProductIcon}>
-            <PlusIcon style={styles.opacity} size={30} color={Colors.WHITE} />
+            <ThreeDotsIcon
+              style={styles.opacity}
+              size={26}
+              color={Colors.WHITE}
+            />
           </LinearGradient>
         </TouchableOpacity>
       </View>
