@@ -1,7 +1,7 @@
 import {Platform, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
-import useStyles from '../style';
+import useStyles from './style';
 import {DeleteIcon, PlusIcon} from '../../../icons';
 import {WHITE} from '../../../styles/colors';
 import DropDownPicker from '../../DropDown';

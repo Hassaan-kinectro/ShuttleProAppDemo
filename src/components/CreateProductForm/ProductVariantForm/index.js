@@ -1,7 +1,7 @@
 import {Platform, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {GlobalStyle, Text} from '../../../styles';
-import useStyles from '../style';
+import useStyles from './style';
 import {useTheme} from '@react-navigation/native';
 import TextField from '../../TextField';
 import {

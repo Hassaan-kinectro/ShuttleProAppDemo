@@ -108,7 +108,6 @@ const CreateProductForm = props => {
             }}
             dropDownMaxHeight={200}
             isVisible={templateVisible}
-            multiple={true}
             placeholder="Preferences"
             containerStyle={styles.dropDownSTyle}
             min={0}

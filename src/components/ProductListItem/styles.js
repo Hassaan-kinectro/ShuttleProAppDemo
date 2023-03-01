@@ -87,7 +87,7 @@ const useStyles = () => {
       textTransform: 'capitalize',
       color: colors.TextColor,
       fontSize: 12,
-      width: '55%',
+      width: '50%',
     },
     shopifyColor: {
       color: '#55932C',
@@ -115,7 +115,10 @@ const useStyles = () => {
       height: 100,
       resizeMode: 'cover',
       borderRadius: 10,
-      // backgroundColor: 'white',
+      boxShadow: '0px 2px 14px rgba(0, 0, 0, 0.15)',
+      order: 0,
+      flexGrow: 0,
+      backgroundColor: colors.LightBackground,
       //   marginRight: IS_PAD ? deviceWidth / 5 : 20,
     },
     widthDash: {

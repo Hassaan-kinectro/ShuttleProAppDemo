@@ -191,7 +191,7 @@ const useStyles = () => {
       zIndex: 5000,
     },
     descriptionTFStyle: {
-      height: 65,
+      height: 55,
       margin: 0,
       flex: 1,
       justifyContent: 'space-around',
@@ -224,12 +224,12 @@ const useStyles = () => {
     },
     errorStyle: {
       // backgroundColor: 'red',
-      marginHorizontal: 5,
+      // marginHorizontal: 5,
       // padding: 0,
       // height: 80,
-      minHeight: 40,
-      paddingTop: 10,
-      marginTop: 10,
+      // minHeight: 40,
+      // paddingTop: 10,
+      // marginTop: 10,
     },
     mB90: {
       marginBottom: 90,
