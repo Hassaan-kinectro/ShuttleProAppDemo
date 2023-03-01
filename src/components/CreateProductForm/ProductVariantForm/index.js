@@ -47,7 +47,6 @@ const ProductVariantForm = props => {
                     props.values[PRODUCT_VARIANT],
                     props.setFieldValue,
                   );
-                  // addProduct ? setAddProduct(false) : setAddProduct(true);
                 }}>
                 <LinearGradient
                   colors={['#139A5C', '#3662A8']}

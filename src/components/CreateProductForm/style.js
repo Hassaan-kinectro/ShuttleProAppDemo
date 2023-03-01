@@ -25,6 +25,7 @@ const useStyles = () => {
       elevation: 3,
       paddingHorizontal: scaleSize(15),
       paddingVertical: scaleSize(15),
+      // zIndex: 500,
     },
     BoxStyleWareHouse: {
       height: 'auto',
@@ -191,7 +192,7 @@ const useStyles = () => {
       zIndex: 5000,
     },
     descriptionTFStyle: {
-      height: 55,
+      height: 65,
       margin: 0,
       flex: 1,
       justifyContent: 'space-around',
@@ -296,6 +297,38 @@ const useStyles = () => {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 10,
+    },
+    dropDownContainerStyle: {
+      backgroundColor: 'transparent',
+      borderRadius: 20,
+      borderWidth: 0,
+      borderBottomWidth: 1,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 0,
+      marginTop: 5,
+      zIndex: 5000,
+    },
+    itemStyle: {
+      justifyContent: 'flex-start',
+      borderBottomWidth: 1,
+      backgroundColor: colors.boxColor,
+      borderBottomColor: colors.boxBorderColor,
+      paddingLeft: 10,
+      borderRadius: 0,
+      zIndex: 5000,
+    },
+    labelStyle: {
+      paddingLeft: 5,
+      color: colors.TextColor,
+    },
+    activeLabelStyle: {
+      color: colors.TextColor,
+    },
+    searchableStyle: {
+      height: 40,
+      marginBottom: 0,
+      borderBottomWidth: 0,
     },
   });
 };
