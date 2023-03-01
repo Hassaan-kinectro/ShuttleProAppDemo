@@ -98,13 +98,17 @@ const modifySlotsValues = (values, data) => {
     const ids = [];
     const images = d.products.map(p => {
       ids.push({productId: p.id});
+      const attachments =
+        (p.product_attachments &&
+          p.product_attachments.filter(a => a.image_type === 'default')) ||
+        [];
       return {
         url:
-          p.product_attachments &&
-          p.product_attachments[0] &&
-          p.product_attachments[0].image &&
-          p.product_attachments[0].image.url
-            ? p.product_attachments[0].image.url
+          attachments &&
+          attachments[0] &&
+          attachments[0].image &&
+          attachments[0].image.url
+            ? attachments[0].image.url
             : '',
         header: {
           heading: (values && values.pageName) || '',
@@ -365,6 +369,11 @@ export const saveStory = async (
 
 export const previewHelper = (values, currentProfile, userId) => {
   const ok = values.map(i => {
+    console.log(
+      moment(i && i.date).format('YYYY-MM-DD hh:mm A'),
+      'this is i',
+      i,
+    );
     return {
       user_id: userId,
       user_image:

@@ -127,7 +127,6 @@ const CreateStory = props => {
                           <>
                             <View
                               style={{
-                                display: 'flex',
                                 flexDirection: 'row',
                                 marginTop: 20,
                               }}>

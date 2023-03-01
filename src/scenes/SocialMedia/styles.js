@@ -550,6 +550,34 @@ const useStyles = () => {
       marginHorizontal: -2,
       backgroundColor: colors.fontPrimary,
     },
+    avatarContainer: {
+      marginVertical: 5,
+      flexDirection: 'row',
+      width: deviceWidth - 60,
+      // justifyContent: 'center',
+      alignItems: 'center',
+    },
+    avatarWrapper: {
+      borderWidth: 2,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      borderColor: '#54788c',
+      borderRadius: 100,
+      height: 50,
+      width: 50,
+    },
+    avatar: {
+      height: 48,
+      width: 48,
+      borderRadius: 100,
+    },
+    text1: {
+      marginTop: 3,
+      textAlign: 'center',
+      alignItems: 'center',
+      fontSize: 11,
+    },
   });
 };
 
