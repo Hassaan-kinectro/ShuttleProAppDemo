@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {ViewPropTypes} from 'deprecated-react-native-prop-types';
+import {ViewPropTypes, TextPropTypes} from 'deprecated-react-native-prop-types';
 
 // Icon
 import Feather from 'react-native-vector-icons/Feather';
@@ -696,11 +696,11 @@ DropDownPicker.propTypes = {
   dropDownStyle: ViewPropTypes.style,
   containerStyle: ViewPropTypes.style,
   itemStyle: ViewPropTypes.style,
-  labelStyle: ViewPropTypes.style,
-  selectedLabelStyle: ViewPropTypes.style,
-  placeholderStyle: ViewPropTypes.style,
+  labelStyle: TextPropTypes.style,
+  selectedLabelStyle: TextPropTypes.style,
+  placeholderStyle: TextPropTypes.style,
   activeItemStyle: ViewPropTypes.style,
-  activeLabelStyle: ViewPropTypes.style,
+  activeLabelStyle: TextPropTypes.style,
   showArrow: PropTypes.bool,
   arrowStyle: ViewPropTypes.style,
   arrowColor: PropTypes.string,

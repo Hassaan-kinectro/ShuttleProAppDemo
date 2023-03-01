@@ -13,7 +13,6 @@ const tabStyles = StyleSheet.create({
     },
     shadowOpacity: 1,
     shadowRadius: 11.14,
-
     elevation: 17,
   },
   button: {

@@ -229,7 +229,7 @@ const useStyles = () => {
       // height: 80,
       minHeight: 40,
       paddingTop: 10,
-      // marginVertical: 5,
+      marginTop: 10,
     },
     mB90: {
       marginBottom: 90,
@@ -284,7 +284,7 @@ const useStyles = () => {
       flex: 1,
       justifyContent: 'flex-start',
       flexDirection: 'row',
-      alignItems: 'baseline',
+      // alignItems: 'baseline',
       width: '50%',
       paddingBottom: 0,
       minHeight: 80,
