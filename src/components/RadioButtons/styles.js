@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@react-navigation/native';
 
 const useStyles = () => {
   const theme = useSelector(state => state.themeChange.theme);
-
+  const {colors} = useTheme();
   return StyleSheet.create({
     radio: {
       flexDirection: 'row',
@@ -15,11 +16,11 @@ const useStyles = () => {
       height: 15,
       borderRadius: 15 / 2,
       borderWidth: 2,
-      borderColor: theme === 'DARK' ? '#fff' : '#000',
+      borderColor: colors.button,
       marginRight: 5,
     },
     radioIconSelected: {
-      backgroundColor: theme === 'DARK' ? '#fff' : '#000',
+      backgroundColor: colors.button,
     },
     text: {
       color: theme === 'DARK' ? '#fff' : '#000',

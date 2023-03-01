@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {convertImageTobase64} from '../../utils/urlParser';
 import moment from 'moment';
 import * as Yup from 'yup';

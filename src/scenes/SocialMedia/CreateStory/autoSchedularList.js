@@ -1,13 +1,14 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import useStyles from '../styles';
 import FastImage from 'react-native-fast-image';
 import {Text} from '../../../styles';
 import StoryPreview from './storyPreview';
 import moment from 'moment';
 
 const AutoSchedularList = ({item, index}) => {
-  const styles = useStyles();
   const [selectedImageIndex, setSelectedImageIndex] = React.useState(index);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -20,7 +21,6 @@ const AutoSchedularList = ({item, index}) => {
     <>
       <View
         style={{
-          // flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
           marginVertical: 20,

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
@@ -23,7 +23,6 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Styles} from '../../styles';
 import {CloseIcon} from '../../icons';
 import {Colors, Mixins} from '../../styles';
-import moment from 'moment';
 import {onRefresh} from '../../scenes/SocialMedia/PublishedStories/helper';
 
 const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {

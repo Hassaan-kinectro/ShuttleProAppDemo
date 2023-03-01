@@ -33,42 +33,44 @@ const PopUpMenu = ({HeaderAnchor, options = [], onClick = null}) => {
       onRequestClose={hideMenu}>
       <ScrollView style={styles.menuHeight}>
         {options && options.length > 0
-          ? options.map((op, i) => (
-              <View key={op.label}>
-                <TouchableOpacity
-                  style={[
-                    styles.menuItemStyle,
-                    op.selected && op.selected === true
-                      ? styles.menuItemSelected
-                      : {},
-                    options.length - 1 === i && styles.lastItemStyle,
-                    i === 0 && styles.firstItemStyle,
-                    op.disabled && styles.menuItemDisabled,
-                  ]}
-                  onPress={() => {
-                    hideMenu();
-                    if (onClick) {
-                      onClick(op);
-                    } else {
-                      op.onClick();
-                    }
-                  }}>
-                  {op.icon ? op.icon : null}
-                  <Text
+          ? options.map((op, i) => {
+              return (
+                <View key={i}>
+                  <TouchableOpacity
                     style={[
-                      styles.menuItemTextStyle,
+                      styles.menuItemStyle,
                       op.selected && op.selected === true
-                        ? styles.menuItemTextSelected
+                        ? styles.menuItemSelected
                         : {},
-                      op.disabled && styles.menuItemTextDisabled,
-                      op.icon ? Styles.pL10 : null,
-                    ]}>
-                    {op.label}
-                  </Text>
-                </TouchableOpacity>
-                {options.length - 1 !== i && <View style={styles.divider} />}
-              </View>
-            ))
+                      options.length - 1 === i && styles.lastItemStyle,
+                      i === 0 && styles.firstItemStyle,
+                      op.disabled && styles.menuItemDisabled,
+                    ]}
+                    onPress={() => {
+                      hideMenu();
+                      if (onClick) {
+                        onClick(op);
+                      } else {
+                        op.onClick();
+                      }
+                    }}>
+                    {op.icon ? op.icon : null}
+                    <Text
+                      style={[
+                        styles.menuItemTextStyle,
+                        op.selected && op.selected === true
+                          ? styles.menuItemTextSelected
+                          : {},
+                        op.disabled && styles.menuItemTextDisabled,
+                        op.icon ? Styles.pL10 : null,
+                      ]}>
+                      {op.label}
+                    </Text>
+                  </TouchableOpacity>
+                  {options.length - 1 !== i && <View style={styles.divider} />}
+                </View>
+              );
+            })
           : null}
       </ScrollView>
     </Menu>

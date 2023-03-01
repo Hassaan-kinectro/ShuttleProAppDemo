@@ -79,7 +79,6 @@ const CreateStory = props => {
       navigation,
       selectedValue,
     );
-    console.log(data, 'this is data');
   };
 
   const handleRadioChange = value => {

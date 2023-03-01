@@ -316,7 +316,7 @@ export const saveStory = async (
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        // description: 'Story Saved Successfully',
+        description: 'Story Saved Successfully',
         type: 'success',
       });
       navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
@@ -325,7 +325,7 @@ export const saveStory = async (
     } else {
       showMessage({
         message: resp.message,
-        // description: ' Story Not Saved',
+        description: ' Story Not Saved',
         type: 'DANGER',
       });
     }
@@ -350,7 +350,7 @@ export const saveStory = async (
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        // description: 'Story Schedule Saved Successfully',
+        description: 'Story Schedule Saved Successfully',
         type: 'success',
       });
       navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
@@ -359,7 +359,7 @@ export const saveStory = async (
     } else {
       showMessage({
         message: resp.message,
-        // description: ' Story Not Scheduled ',
+        description: ' Story Not Scheduled ',
         type: 'DANGER',
       });
     }
