@@ -35,7 +35,7 @@ const PopUpMenu = ({HeaderAnchor, options = [], onClick = null}) => {
         {options && options.length > 0
           ? options.map((op, i) => {
               return (
-                <View key={op}>
+                <View key={i}>
                   <TouchableOpacity
                     style={[
                       styles.menuItemStyle,

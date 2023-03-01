@@ -24,12 +24,11 @@ import {UpdateStoryById} from '../../services/Stories';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
-import {deviceHeight, deviceWidth, IS_IOS} from '../../utils/orientation';
+import {deviceHeight, deviceWidth} from '../../utils/orientation';
 import {CloseIcon} from '../../icons';
 import {GlobalStyle, Colors} from '../../styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import PopupMenu from '../PopupMenu';
-import {GetMenuList} from './helper';
 
 const defaultValue = {id: null, loading: false};
 
@@ -86,6 +85,7 @@ const StoryRow = ({
     }
   };
   const shareFacebookImage = async (urls, id) => {
+    console.log(urls, id, 'enter');
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
     await UpdateStoryById(id).then(res => {
@@ -116,19 +116,38 @@ const StoryRow = ({
     }
   };
 
-  const getAction = React.useCallback(action => {
-    console.log('action');
-  }, []);
+  const onClickPublish = type => {
+    if (type === 'instagram') {
+      console.log('ran for insta');
+      shareInstagramImage(imageUrl, item.id);
+    } else {
+      console.log('ran for fb');
+      shareFacebookImage(imageUrl, item.id);
+    }
+  };
+  const onClickDelete = () => {
+    console.log('enter in delete');
+    handleDelete(item.id, setIsDeleting);
+  };
+  const onClickEdit = () => {
+    console.log('onclick Edit ran');
+  };
 
   const data = [
     {
       label: 'Publish',
+      action: 'publish',
+      onClick: () => onClickPublish(item && item.type),
     },
     {
       label: 'Delete',
+      action: 'delete',
+      onClick: onClickDelete,
     },
     {
       label: 'Edit',
+      action: 'edit',
+      onClick: onClickEdit,
     },
   ];
 
@@ -172,7 +191,7 @@ const StoryRow = ({
                   name={item.pageName}
                   style={[styles.userImage]}
                 />
-                <Image source={INSTAGRAM} style={styles.active2} />
+                <Image source={FACEBOOK} style={styles.active2} />
               </>
             )}
             {item &&
@@ -237,7 +256,7 @@ const StoryRow = ({
         </View>
         <View
           style={{
-            flex: 4,
+            flex: 6,
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
           }}>
@@ -250,35 +269,29 @@ const StoryRow = ({
               : moment(item.createdAt).format('YYYY-MM-DD hh:mm A')}
           </Text>
         </View>
-        {/* <TouchableOpacity onPress={() => {}}>
-          <LinearGradient
-            colors={['#139A5C', '#3662A8']}
-            start={{x: 0.5, y: 0.0}}
-            end={{x: 0.5, y: 1.0}}
-            locations={[0.2794, 0.9161]}
-            style={{
-              position: 'absolute',
-              height: 32,
-              width: 32,
-              right: 50,
-              borderRadius: 32 / 2,
-              flex: 3,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}>
-            <PopupMenu options={data} onClick={getAction} />
-          </LinearGradient>
-        </TouchableOpacity> */}
 
-        {/* <View
+        <View
           style={{
-            flex: 3,
+            flex: 2,
             flexDirection: 'row',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
           {item &&
+          item.id &&
+          (item.type === 'instagram' || item.type === 'facebook') &&
+          item.status === 'published' ? (
+            ''
+          ) : item &&
+            item.id &&
+            (item.type === 'instagram' || item.type === 'facebook') &&
+            item.status === 'pending' ? (
+            ''
+          ) : (
+            <PopupMenu options={data} />
+          )}
+
+          {/* {item &&
             item.id &&
             item.type === 'instagram' &&
             item.status === 'ready' && (
@@ -347,8 +360,8 @@ const StoryRow = ({
                   )}
                 </View>
               </>
-            )}
-          {item && isDeleting ? (
+            )} */}
+          {/* {item && isDeleting ? (
             <ActivityIndicator style={styles.image} />
           ) : (
             <TouchableOpacity
@@ -367,8 +380,8 @@ const StoryRow = ({
               }>
               <Image style={styles.image} source={DELETE} />
             </TouchableOpacity>
-          )}
-        </View> */}
+          )} */}
+        </View>
       </View>
       <View style={styles.hairline} />
       <View style={{flex: 1}}>

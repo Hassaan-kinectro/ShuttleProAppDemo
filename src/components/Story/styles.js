@@ -30,7 +30,7 @@ const useStyles = () => {
       paddingTop: 10,
       flexDirection: 'row',
     },
-    filterStyle: {
+    BackStyle: {
       width: 32,
       height: 32,
       borderRadius: 32 / 2,

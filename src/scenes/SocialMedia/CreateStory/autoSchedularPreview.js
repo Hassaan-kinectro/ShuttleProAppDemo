@@ -25,25 +25,34 @@ const AutoSchedularPreview = ({
 
   return (
     <>
-      <View style={styles.filterContainer}>
+      <View style={[styles.filterContainer, {marginBottom: 20}]}>
         <TouchableOpacity
-          style={styles.filterStyle}
+          style={styles.BackStyle}
           onPress={() => {
             setFieldValue && setFieldValue('slots', []);
           }}>
           <BackArrowIcon
-            size={22}
+            size={28}
             color={colors.searchIcon}
-            style={styles.filterIcon}
+            style={{left: -10}}
           />
         </TouchableOpacity>
-        <Text
-          style={{top: 3}}
-          size={Mixins.scaleFont(16)}
-          fontFamily={FONT_FAMILY.BOLD}>
-          Scheduled Stories
-        </Text>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}>
+          <Text
+            size={16}
+            color={colors.TextColor}
+            fontFamily={FONT_FAMILY.SEMI_BOLD}
+            lines={1}>
+            Scheduled Stories
+          </Text>
+        </View>
       </View>
+
       <InstaStory
         data={ok}
         duration={10}

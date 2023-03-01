@@ -3,7 +3,6 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
 import {
-  ScrollView,
   FlatList,
   View,
   TouchableOpacity,
@@ -30,6 +29,42 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
 
   return (
     <React.Fragment>
+      <View style={[styles.filterContainer, {marginBottom: 20}]}>
+        <TouchableOpacity
+          style={styles.BackStyle}
+          onPress={() => {
+            setFieldValue && setFieldValue('imagesArr', []);
+          }}>
+          <BackArrowIcon
+            size={28}
+            color={colors.searchIcon}
+            style={{left: -10}}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            flexDirection: 'row',
+          }}>
+          <Text
+            size={16}
+            color={colors.TextColor}
+            fontFamily={FONT_FAMILY.SEMI_BOLD}
+            lines={1}>
+            Select Story Media
+          </Text>
+          <Text
+            size={10}
+            color={colors.TextColor}
+            fontFamily={FONT_FAMILY.LIGHT}
+            lines={1}
+            style={{top: 5, left: 5}}>
+            (Select Only 10 Images)
+          </Text>
+        </View>
+      </View>
       <FlatList
         data={
           values && values.imagesArr && values.imagesArr.length > 0
@@ -39,50 +74,8 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
         contentContainerStyle={{
           paddingHorizontal: 5,
         }}
-        style={{height: IS_IOS ? deviceHeight - 380 : deviceHeight - 350}}
+        style={{height: IS_IOS ? deviceHeight - 380 : deviceHeight - 380}}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={() => {
-          return (
-            <>
-              <View style={styles.filterContainer}>
-                <TouchableOpacity
-                  style={styles.filterStyle}
-                  onPress={() => {
-                    setFieldValue && setFieldValue('imagesArr', []);
-                  }}>
-                  <BackArrowIcon
-                    size={22}
-                    color={colors.searchIcon}
-                    style={styles.filterIcon}
-                  />
-                </TouchableOpacity>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    size={20}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.SEMI_BOLD}
-                    lines={1}>
-                    Select Story Media
-                  </Text>
-                  <Text
-                    size={10}
-                    color={colors.TextColor}
-                    fontFamily={FONT_FAMILY.LIGHT}
-                    lines={1}
-                    style={{top: 5, left: 5}}>
-                    (Select Only 10 Images)
-                  </Text>
-                </View>
-              </View>
-            </>
-          );
-        }}
         nestedScrollEnabled={true}
         numColumns={numColumns}
         keyExtractor={item => item.id.toString()}
