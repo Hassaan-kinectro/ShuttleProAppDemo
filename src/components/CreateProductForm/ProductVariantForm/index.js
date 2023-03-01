@@ -81,7 +81,7 @@ const ProductVariantForm = props => {
           }
         </View>
 
-        <View>
+        <View style={Styles.mT10}>
           <TextField
             label="Product Variant"
             name={`${PRODUCT_VARIANT}[${index}][${_PRODUCT_VARIANT}]`}

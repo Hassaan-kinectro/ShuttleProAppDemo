@@ -122,6 +122,7 @@ const GlobalStyle = theme => {
       borderLeftWidth: 0,
       borderRightWidth: 0,
       borderTopWidth: 0,
+      marginTop: 5,
       // zIndex: 5000,
     },
     dropDownListContainerStyle: {
