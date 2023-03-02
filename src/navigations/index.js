@@ -218,7 +218,7 @@ const SOCIALMEDIA = () => {
   return (
     <Stack.Navigator
       screenOptions={StackCommonOptions}
-      initialRouteName={Routes.SOCIALMEDIA}>
+      initialRouteName={Routes.SOCIALPROFILELIST}>
       <Stack.Screen
         headerMode="screen"
         options={({navigation}) => ({
@@ -226,7 +226,7 @@ const SOCIALMEDIA = () => {
           title: 'Social Media',
           ...StackCommonHeaderOptions(navigation),
         })}
-        name={Routes.SOCIALMEDIA}
+        name={Routes.SOCIALPROFILELIST}
         component={SocialMediaProfile}
       />
       <Stack.Screen
@@ -561,7 +561,7 @@ const BottomTabNavigator = ({colors}) => {
         {props => <Product {...props} />}
       </Tab.Screen>
       <Tab.Screen
-        name={Routes.SOCIALMEDIA}
+        name={Routes.SOCIALPROFILE}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) =>
