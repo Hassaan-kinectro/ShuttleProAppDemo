@@ -31,6 +31,27 @@ const useStyles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    justifyContentStart: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+    addProductVariant: {
+      position: 'relative',
+      height: 27,
+      width: 27,
+      marginLeft: 5,
+      borderRadius: 30,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      order: 1,
+      flexGrow: 0,
+    },
+    opacity: {
+      opacity: 1,
+    },
   });
 };
 

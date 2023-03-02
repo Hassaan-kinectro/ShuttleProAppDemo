@@ -1,6 +1,9 @@
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
+import {addProduct} from '../../../components/CreateOrderForm/helper';
+import {FetchCities} from '../../../services/Cities';
 import {GetShippers} from '../../../services/Shippers';
+import {capitalize} from '../../../utils';
 import {CONTACT_REGEX, VALID_NAME_ALPHABET} from '../../../utils/constants';
 
 export const initialValues = {
@@ -38,22 +41,7 @@ export const initialValues = {
   delivery_cost: 0,
   city_name: '',
   discount_amount: 0,
-  addProduct: [
-    {
-      index: uuid.v4(),
-      No: '',
-      name: '',
-      product_id: null,
-      product_variant_id: null,
-      warehouse_product_id: null,
-      quantity: 0,
-      max_quantity: 0,
-      price: 0,
-      discount: 0,
-      isPercent: true,
-      total_amount: 0,
-    },
-  ],
+  addProduct: [addProduct],
   courier_details: {
     fragile: null,
     service_type: null,
@@ -128,6 +116,17 @@ const OrderBasicSchema = {
   ),
 };
 
+// fix cities
+const getCitiesData = data => {
+  return data
+    ? data.map(row => ({
+        id: row.id,
+        name: row.city_name ? capitalize(row.city_name) : '',
+        label: row.city_name ? capitalize(row.city_name) : '',
+      }))
+    : data;
+};
+
 // default values pass to state
 export const defaultHelpersData = {
   statusOptions: [],
@@ -146,7 +145,7 @@ const getRespData = res => {
 export const getHelpersData = async (setHelpersData, workspaceId) => {
   setHelpersData(prev => ({...prev, loading: true}));
   if (workspaceId && workspaceId) {
-    // const citiesResp = await FetchCities();
+    const citiesResp = await FetchCities();
     // const statusResp = await FetchStatus();
     // const sconst workspaceId = await getWorkspaceId();tatusTypeResp = await FetchStatusTypes();
     // console.log('statusTypeResp>>>', statusTypeResp);
@@ -171,7 +170,7 @@ export const getHelpersData = async (setHelpersData, workspaceId) => {
       shipperOptions: getRespData(shipperResp) || [],
       // statusOptions: getStatusData(getRespData(statusResp) || []),
       // statusTypeOptions: handleCapitalize(getRespData(statusTypeResp) || []),
-      // citiesOptions: getCitiesData(getRespData(citiesResp) || []),
+      citiesOptions: getCitiesData(getRespData(citiesResp) || []),
       // productOptions: productResp,
       // shipperSettings: getRespData(shipperSettingResp) || null,
       loading: false,

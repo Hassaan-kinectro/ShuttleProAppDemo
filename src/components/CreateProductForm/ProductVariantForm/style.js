@@ -63,7 +63,7 @@ const useStyles = () => {
       flex: 1,
       justifyContent: 'flex-start',
       flexDirection: 'row',
-      alignItems: 'baseline',
+      alignItems: 'flex-start',
       width: '50%',
       paddingBottom: 0,
       minHeight: 80,

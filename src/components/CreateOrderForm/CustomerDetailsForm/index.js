@@ -10,9 +10,19 @@ import TextField from '../../TextField';
 const CustomerDetailForm = props => {
   const styles = useStyles();
   const {colors} = useTheme();
-  const {publishOptions, shipperOptions, numericKeyboard} = props;
-  const [publishVisible, setPublishVisibility] = React.useState(false);
-  const [shipperVisible, setShipperVisibility] = React.useState(false);
+  const {
+    publishOptions,
+    shipperOptions,
+    numericKeyboard,
+    citiesOptions,
+    publishVisible,
+    shipperVisible,
+    dropDownHandler,
+    citiesVisible,
+    setPublishVisibility,
+    setShipperVisibility,
+    setCitiesVisibility,
+  } = props;
 
   return (
     <View style={styles.BoxStyle}>
@@ -21,7 +31,7 @@ const CustomerDetailForm = props => {
           Customers Details
         </Text>
       </View>
-      <View style={styles.mB50}>
+      <View>
         <DropDownPicker
           items={publishOptions}
           defaultValue={''}
@@ -50,13 +60,12 @@ const CustomerDetailForm = props => {
             props.setFieldValue('published', item);
           }}
           onOpen={() => {
-            Keyboard.dismiss();
-            setShipperVisibility(false);
+            dropDownHandler();
             setPublishVisibility(true);
           }}
           zIndex={50200}
           onClose={() => {
-            setPublishVisibility(false);
+            dropDownHandler();
           }}
         />
         <DropDownPicker
@@ -87,12 +96,12 @@ const CustomerDetailForm = props => {
             props.setFieldValue('shipperType', item);
           }}
           onOpen={() => {
-            Keyboard.dismiss();
+            dropDownHandler();
             setShipperVisibility(true);
           }}
           zIndex={50200}
           onClose={() => {
-            setShipperVisibility(false);
+            dropDownHandler();
           }}
         />
         <TextField
@@ -173,18 +182,20 @@ const CustomerDetailForm = props => {
 
         {/* pick city dopdown here  */}
 
-        {/* <DropDownPicker
-          items={shipperOptions}
+        <DropDownPicker
+          items={citiesOptions}
           defaultValue={''}
           scrollViewProps={{
             keyboardShouldPersistTaps: 'always',
           }}
           dropDownMaxHeight={200}
-          isVisible={shipperVisible}
-          placeholder="Shipper"
+          isVisible={citiesVisible}
+          placeholder="City"
           min={0}
+          searchable={true}
+          searchablePlaceholder="Search City"
           max={10}
-          multipleText="%d Shipper selected."
+          multipleText="%d City selected."
           itemStyle={styles.itemStyle}
           labelStyle={styles.labelStyle}
           style={styles.dropDownContainerStyle}
@@ -198,32 +209,54 @@ const CustomerDetailForm = props => {
           arrowColor={colors.button}
           autoScrollToDefaultValue={false}
           onChangeItem={item => {
-            props.setFieldValue('shipperType', item);
+            props.setFieldValue('city_id', item);
+            props.setFieldValue('courier_details.city_id', item);
+            props.setFieldValue('new_customer_city', item);
           }}
           onOpen={() => {
-            Keyboard.dismiss();
-            setShipperVisibility(true);
+            dropDownHandler();
+            setCitiesVisibility(true);
           }}
           zIndex={50200}
           onClose={() => {
-            setShipperVisibility(false);
+            dropDownHandler();
           }}
-        /> */}
+        />
 
         {/* add address here  */}
 
-        {/* <TextField
-          label="Email"
-          name={'email'}
-          // labelStyle={{fontSize: Mixins.scaleFont(15)}}
-          // type="textArea"
+        <TextField
+          label="Address"
+          placeholder="Address"
+          name="address"
+          labelStyle={styles.addressLabelSty}
+          type="textArea"
+          returnKeyType="next"
+          autoCorrect={false}
+          onChangeText={rem => props.setFieldValue('address', rem)}
+          onBlur={() => props.setFieldTouched('address')}
+          error={props.touched.address && props.errors.address}
+          autoCapitalize="words"
+          reset={props.reset}
+          errorStyle={styles.errorStyle}
+          inputStyle={styles.addressTFStyle}
+          placeholderTextColor={colors.placeholder}
+          tintColor={colors.button}
+          textColor={colors.TextColor}
+          fontSize={14}
+          // multiline={true}
+          baseColor={colors.baseColor}
+        />
+        <TextField
+          label="Pin location"
+          name="pin_location"
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('email', rem);
+            props.setFieldValue('pin_location', rem);
           }}
-          onBlur={() => props.setFieldTouched('email')}
-          error={props.touched.email && props.errors.email}
+          onBlur={() => props.setFieldTouched('pin_location')}
+          error={props.touched.pin_location && props.errors.pin_location}
           autoCapitalize="words"
           reset={props.reset}
           errorStyle={styles.errorStyle}
@@ -234,7 +267,7 @@ const CustomerDetailForm = props => {
           textColor={colors.TextColor}
           fontSize={14}
           baseColor={colors.baseColor}
-        /> */}
+        />
       </View>
     </View>
   );

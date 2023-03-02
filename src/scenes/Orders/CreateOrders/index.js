@@ -56,8 +56,6 @@ const CreateOrders = ({navigation, route}) => {
     console.log(values, 'values data onsubmit ');
   };
 
-  console.log(helpersData, 'helpersData for fetch');
-
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={Styles.flex}>
