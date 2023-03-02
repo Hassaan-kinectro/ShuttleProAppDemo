@@ -98,13 +98,17 @@ const modifySlotsValues = (values, data) => {
     const ids = [];
     const images = d.products.map(p => {
       ids.push({productId: p.id});
+      const attachments =
+        (p.product_attachments &&
+          p.product_attachments.filter(a => a.image_type === 'default')) ||
+        [];
       return {
         url:
-          p.product_attachments &&
-          p.product_attachments[0] &&
-          p.product_attachments[0].image &&
-          p.product_attachments[0].image.url
-            ? p.product_attachments[0].image.url
+          attachments &&
+          attachments[0] &&
+          attachments[0].image &&
+          attachments[0].image.url
+            ? attachments[0].image.url
             : '',
         header: {
           heading: (values && values.pageName) || '',
@@ -312,7 +316,7 @@ export const saveStory = async (
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        // description: 'Story Saved Successfully',
+        description: 'Story Saved Successfully',
         type: 'success',
       });
       navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
@@ -321,7 +325,7 @@ export const saveStory = async (
     } else {
       showMessage({
         message: resp.message,
-        // description: ' Story Not Saved',
+        description: ' Story Not Saved',
         type: 'DANGER',
       });
     }
@@ -346,7 +350,7 @@ export const saveStory = async (
     if (resp.status === 200) {
       showMessage({
         message: resp.message,
-        // description: 'Story Schedule Saved Successfully',
+        description: 'Story Schedule Saved Successfully',
         type: 'success',
       });
       navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
@@ -355,7 +359,7 @@ export const saveStory = async (
     } else {
       showMessage({
         message: resp.message,
-        // description: ' Story Not Scheduled ',
+        description: ' Story Not Scheduled ',
         type: 'DANGER',
       });
     }
@@ -365,7 +369,11 @@ export const saveStory = async (
 
 export const previewHelper = (values, currentProfile, userId) => {
   const ok = values.map(i => {
-    console.log(moment(i && i.date).format('YYYY-MM-DD hh:mm A'), 'this is i');
+    console.log(
+      moment(i && i.date).format('YYYY-MM-DD hh:mm A'),
+      'this is i',
+      i,
+    );
     return {
       user_id: userId,
       user_image:

@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-sparse-arrays */
 import React from 'react';
-import {View} from 'react-native';
 import {Text, GlobalStyle, Mixins, Colors} from '../../styles';
 import {useTheme} from '@react-navigation/native';
 import DropDownPicker from '../DropDown';
@@ -11,6 +9,7 @@ import AIcon from 'react-native-vector-icons/AntDesign';
 import DatePickerField from '../DateTimePicker';
 import {getPostTimes, createEndDate, Criterias, createDate} from './helper';
 import {FONT_FAMILY} from '../../utils/constants';
+
 const dropDownMaxHeight = 150;
 const AutoScheduleForm = ({values, setFieldValue, currentProfile, userId}) => {
   const Styles = GlobalStyle();

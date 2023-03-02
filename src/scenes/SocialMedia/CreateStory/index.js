@@ -79,7 +79,6 @@ const CreateStory = props => {
       navigation,
       selectedValue,
     );
-    console.log(data, 'this is data');
   };
 
   const handleRadioChange = value => {
@@ -128,7 +127,6 @@ const CreateStory = props => {
                           <>
                             <View
                               style={{
-                                display: 'flex',
                                 flexDirection: 'row',
                                 marginTop: 20,
                               }}>

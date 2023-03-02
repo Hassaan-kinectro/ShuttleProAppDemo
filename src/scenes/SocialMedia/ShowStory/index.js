@@ -80,7 +80,7 @@ const ShowStory = props => {
     });
   };
 
-  const ok = _.sortBy(unPublishedStories, function (dateObj) {
+  const sorted = _.sortBy(unPublishedStories, function (dateObj) {
     const date = new Date(dateObj.shareAt);
     return date;
   });
@@ -89,7 +89,6 @@ const ShowStory = props => {
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
         <CustomHeader name={name} navigation={navigation} />
-
         {loading ? (
           <View style={[Styles.Centered]}>{loading && <Loader />}</View>
         ) : (

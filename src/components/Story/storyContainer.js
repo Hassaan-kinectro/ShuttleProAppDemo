@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
@@ -23,7 +23,6 @@ import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Styles} from '../../styles';
 import {CloseIcon} from '../../icons';
 import {Colors, Mixins} from '../../styles';
-import moment from 'moment';
 import {onRefresh} from '../../scenes/SocialMedia/PublishedStories/helper';
 
 const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
@@ -60,21 +59,21 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
           keyExtractor={item => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl
-              refreshing={refresh}
-              onRefresh={() =>
-                onRefresh(
-                  setRefresh,
-                  setPublishedStories,
-                  profileType,
-                  workspaceId,
-                )
-              }
-              colors={[colors.background]}
-              tintColor={colors.themeIcon}
-            />
-          }
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={refresh}
+          //     onRefresh={() =>
+          //       onRefresh(
+          //         setRefresh,
+          //         setPublishedStories,
+          //         profileType,
+          //         workspaceId,
+          //       )
+          //     }
+          //     colors={[colors.background]}
+          //     tintColor={colors.themeIcon}
+          //   />
+          // }
           contentContainerStyle={Styles.pL10}
           ListHeaderComponent={() => (
             <View style={[Styles.flexDirectionRow]}>
@@ -148,70 +147,70 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
         />
       </View>
       <View style={styles.hairline2} />
-      <View style={{flex: 1}}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          style={{backgroundColor: colors.background}}
-          visible={modalVisible.open}>
-          <Swiper showsPagination={true}>
-            {modalVisible.data &&
-              modalVisible.data.images &&
-              modalVisible.data.images.length > 0 &&
-              modalVisible.data.images.map((image, index) => {
-                return (
-                  <View key={index} style={styles.slide}>
-                    <FastImage
-                      style={styles.image2}
-                      source={{
-                        uri: image,
-                      }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                );
-              })}
-          </Swiper>
-          <View style={styles.containerModal}>
-            <View style={Styles.flexCenter}>
-              <CircularImage
-                img={
-                  currentProfile &&
-                  currentProfile.page_icon &&
-                  currentProfile.page_icon.thumb &&
-                  currentProfile.page_icon.thumb.url
-                    ? currentProfile.page_icon.thumb.url
-                    : currentProfile.page_icon.url
-                }
-                name={currentProfile.name}
-                style={styles.HeaderImage5}
-              />
-            </View>
-            <View style={Styles.flex2Start}>
-              <View>
-                <Text
-                  lines={1}
-                  size={Mixins.scaleFont(16)}
-                  style={[styles.headerText]}>
-                  {currentProfile && currentProfile.name}
-                </Text>
-                <Text
-                  lines={1}
-                  size={Mixins.scaleFont(5)}
-                  style={[styles.headerText2, {marginLeft: 10, width: 250}]}>
-                  (Published)
-                </Text>
-              </View>
-            </View>
-            <View style={Styles.flex3End}>
-              <TouchableOpacity
-                onPress={() => setModalVisible({data: null, open: false})}>
-                <CloseIcon size={30} color={Colors.WHISPER} />
-              </TouchableOpacity>
+      {/* <View style={{flex: 1}}> */}
+      <Modal
+        animationType="slide"
+        transparent={false}
+        style={{backgroundColor: colors.background}}
+        visible={modalVisible.open}>
+        <Swiper showsPagination={true}>
+          {modalVisible.data &&
+            modalVisible.data.images &&
+            modalVisible.data.images.length > 0 &&
+            modalVisible.data.images.map((image, index) => {
+              return (
+                <View key={index} style={styles.slide}>
+                  <FastImage
+                    style={styles.image2}
+                    source={{
+                      uri: image,
+                    }}
+                    resizeMode="contain"
+                  />
+                </View>
+              );
+            })}
+        </Swiper>
+        <View style={styles.containerModal}>
+          <View style={Styles.flexCenter}>
+            <CircularImage
+              img={
+                currentProfile &&
+                currentProfile.page_icon &&
+                currentProfile.page_icon.thumb &&
+                currentProfile.page_icon.thumb.url
+                  ? currentProfile.page_icon.thumb.url
+                  : currentProfile.page_icon.url
+              }
+              name={currentProfile.name}
+              style={styles.HeaderImage5}
+            />
+          </View>
+          <View style={Styles.flex2Start}>
+            <View>
+              <Text
+                lines={1}
+                size={Mixins.scaleFont(16)}
+                style={[styles.headerText]}>
+                {currentProfile && currentProfile.name}
+              </Text>
+              <Text
+                lines={1}
+                size={Mixins.scaleFont(5)}
+                style={[styles.headerText2, {marginLeft: 10, width: 250}]}>
+                (Published)
+              </Text>
             </View>
           </View>
-        </Modal>
-      </View>
+          <View style={Styles.flex3End}>
+            <TouchableOpacity
+              onPress={() => setModalVisible({data: null, open: false})}>
+              <CloseIcon size={30} color={Colors.WHISPER} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      {/* </View> */}
     </>
   );
 };

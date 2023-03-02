@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import {View} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {getStories} from './helper';
@@ -11,7 +10,6 @@ const defaultValue = {id: null, loading: false};
 
 const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
   const workspaceId = useSelector(state => state.workspace.workspaceId);
-
   const [loading, setLoading] = React.useState(false);
   const [loadingImages, setLoadingImages] = React.useState(defaultValue);
   const [publishedStories, setPublishedStories] = React.useState([]);

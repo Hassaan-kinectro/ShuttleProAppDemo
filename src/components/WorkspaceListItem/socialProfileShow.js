@@ -19,9 +19,9 @@ const SocialProfileShow = ({i, result, item, navigation}) => {
               navigation.navigate(Routes.WORKSPACE, {
                 screen: Routes.BOTTOMTAB,
                 params: {
-                  screen: Routes.SOCIALMEDIA,
+                  screen: Routes.SOCIALPROFILE,
                   params: {
-                    screen: Routes.SOCIALMEDIA,
+                    screen: Routes.SOCIALPROFILELIST,
                     params: {
                       workspaceId: item.workspace.id,
                       socialProfile: i,
@@ -53,9 +53,9 @@ const SocialProfileShow = ({i, result, item, navigation}) => {
                 navigation.navigate(Routes.WORKSPACE, {
                   screen: Routes.BOTTOMTAB,
                   params: {
-                    screen: Routes.SOCIALMEDIA,
+                    screen: Routes.SOCIALPROFILE,
                     params: {
-                      screen: Routes.SOCIALMEDIA,
+                      screen: Routes.SOCIALPROFILELIST,
                       params: {
                         workspaceId: item.workspace.id,
                         socialProfile: i,
