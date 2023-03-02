@@ -42,6 +42,7 @@ import {getUser} from '../../../config/authSettings';
 
 const CreateStory = props => {
   const {navigation, route, type} = props;
+  console.log(route.params.params.data, 'this is route.params');
   const currentProfile = route && route.params && route.params.currentProfile;
   const styles = useStyles();
   const {colors} = useTheme();
@@ -51,7 +52,6 @@ const CreateStory = props => {
   const [tags, setTags] = React.useState(defaultTags);
   const [userId, setUserId] = React.useState(null);
   const [selectedValue, setSelectedValue] = React.useState('Custom');
-
   const [categories, setCategories] = React.useState(defaultCategories);
   const workspaceId = useSelector(state => state.workspace.workspaceId);
   const theme = useSelector(state => state.themeChange.theme);

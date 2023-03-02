@@ -162,6 +162,7 @@ const ShowStory = props => {
               return (
                 <React.Fragment key={item.id}>
                   <StoryRow
+                    navigation={navigation}
                     handleDelete={handleDelete}
                     item={item}
                     loading={loadingImages.loading}

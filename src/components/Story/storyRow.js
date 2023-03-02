@@ -29,6 +29,7 @@ import {CloseIcon} from '../../icons';
 import {GlobalStyle, Colors} from '../../styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import PopupMenu from '../PopupMenu';
+import {Routes} from '../../utils/constants';
 
 const defaultValue = {id: null, loading: false};
 
@@ -38,6 +39,7 @@ const StoryRow = ({
   loading,
   disabled,
   handleDelete,
+  navigation,
 }) => {
   const styles = useStyles();
   const [imageUrl, setImageUrl] = React.useState([]);
@@ -116,6 +118,40 @@ const StoryRow = ({
     }
   };
 
+  const obj = {
+    option: '',
+    images: [
+      'https://s3-shuttlepro-bucket.s3.amazonaws.com/workspaces/Banobazar/product_attachment/11038/default/36494/S228A.jpg',
+      'https://s3-shuttlepro-bucket.s3.amazonaws.com/workspaces/Banobazar/product_attachment/11038/template/40825/1674752166536-S228A.png',
+      'https://s3-shuttlepro-bucket.s3.amazonaws.com/workspaces/Banobazar/product_attachment/11038/template/40958/1674791974923-S228A.png',
+    ],
+    shareAt: '2023-02-09T10:01',
+    userId: '153',
+    delay: '',
+    status: 'published',
+    workspaceId: '247',
+    timeZone: '',
+    pageId: '17841450274161433',
+    pageName: 'Demo TestCases',
+    pagelogo:
+      'https://s3-shuttlepro-bucket.s3.amazonaws.com/workspaces/Banobazar/social_profile/instagram/544/252142891_576229963596438_7921441500022743708_n.jpg',
+    accessToken:
+      'EAAM1CO6zp98BAMmWoZAiSpVBWOkoYHBV7jnGaaX90hm38qyMJ37G96q3LZALUemHudHBy5A4ZARSTA7khTiIuGJR41f98MTDuzEuWLPf0IRa5FVNuYSIoAAZAZBZAji4gYm6AZC10QX6SQuLLs1LIJGNba2Wvv2mqM4TtKMiX9lPTGQMS97qF2f',
+    type: 'instagram',
+    isDeleted: false,
+    _id: '63e4c433dadf8e8db6005be2',
+    productIds: [
+      {
+        productId: '11038',
+        _id: '63e4c433dadf8e8db6005be3',
+      },
+    ],
+    createdAt: '2023-02-09T10:00:19.190Z',
+    updatedAt: '2023-03-01T12:26:05.348Z',
+    __v: 0,
+    id: '63e4c433dadf8e8db6005be2',
+  };
+
   const onClickPublish = type => {
     if (type === 'instagram') {
       console.log('ran for insta');
@@ -130,7 +166,11 @@ const StoryRow = ({
     handleDelete(item.id, setIsDeleting);
   };
   const onClickEdit = () => {
-    console.log('onclick Edit ran');
+    navigation.navigate(Routes.CREATESTORY, {
+      params: {
+        data: obj,
+      },
+    });
   };
 
   const data = [
