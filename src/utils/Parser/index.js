@@ -141,3 +141,9 @@ export const descriptionTemplateParser = (data, order = null) => {
   }
   return description;
 };
+
+export const responseData = {
+  loading: false,
+  status: 210,
+  message: 'something.went.wrong',
+};
