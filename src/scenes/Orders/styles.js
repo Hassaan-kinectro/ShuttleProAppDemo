@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Styles} from '../../styles';
+import {IS_IOS} from '../../utils/orientation';
 
 const useStyles = () => {
   const {colors} = useTheme();
@@ -50,6 +51,35 @@ const useStyles = () => {
       ...Styles.alignItemsCenter,
     },
     filterIcon: {},
+    addOrderIcon: {
+      position: 'absolute',
+      height: 60,
+      width: 60,
+      right: 20,
+      // bottom: 85,
+      bottom: IS_IOS ? 100 : 95,
+      borderRadius: 30,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    opacity: {
+      opacity: 1,
+    },
+    addOrderIconLibrary: {
+      position: 'absolute',
+      height: 42,
+      width: 42,
+      right: 30,
+      bottom: IS_IOS ? 170 : 160,
+      borderRadius: 30,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    addOrderIconLibraryTransfor: {
+      transform: [{scaleX: -1}],
+    },
   });
 };
 export default useStyles;

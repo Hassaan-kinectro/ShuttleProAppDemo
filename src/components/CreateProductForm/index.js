@@ -108,7 +108,6 @@ const CreateProductForm = props => {
             }}
             dropDownMaxHeight={200}
             isVisible={templateVisible}
-            // multiple={true}
             placeholder="Preferences"
             containerStyle={styles.dropDownSTyle}
             min={0}
@@ -140,7 +139,7 @@ const CreateProductForm = props => {
             }}
           />
           <DropDownPicker
-            items={props.tags.data}
+            items={props?.tags?.data}
             defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
@@ -179,12 +178,12 @@ const CreateProductForm = props => {
             }}
           />
           <DropDownPicker
-            items={props.categories.data}
+            items={props?.categories?.data}
             defaultValue={[]}
             scrollViewProps={{
               keyboardShouldPersistTaps: 'always',
             }}
-            dropDownMaxHeight={200}
+            dropDownMaxHeight={140}
             isVisible={categoryVisibility}
             multiple={true}
             placeholder="Category"
@@ -192,16 +191,15 @@ const CreateProductForm = props => {
             min={0}
             max={10}
             multipleText="%d Categories selected."
-            style={Styles.dropDownContainerStyle}
-            dropDownStyle={Styles.dropDownContainerStyle}
-            itemStyle={Styles.itemStyle}
+            style={styles.dropDownContainerStyle}
+            dropDownStyle={styles.dropDownContainerStyle}
+            itemStyle={styles.itemStyle}
             arrowColor={colors.button}
-            labelStyle={Styles.labelStyle}
-            // activeLabelStyle={Styles.activeLabelStyle}
-            selectedLabelStyle={Styles.activeLabelStyle}
+            labelStyle={styles.labelStyle}
+            selectedLabelStyle={styles.activeLabelStyle}
             placeholderStyle={styles.placeholderStyle}
             searchablePlaceholderTextColor={colors.placeholder}
-            searchableStyle={Styles.searchableStyle}
+            searchableStyle={styles.searchableStyle}
             autoScrollToDefaultValue={false}
             onChangeItem={item => {
               props.setFieldValue('categories', item);
@@ -212,13 +210,12 @@ const CreateProductForm = props => {
               setTagVisibility(false);
               setCategoryVisibility(true);
             }}
-            zIndex={50008}
+            zIndex={50050}
             onClose={() => {
               setCategoryVisibility(false);
             }}
           />
           <TextField
-            // hideLabel={true}
             label={t('product.details.label.description')}
             placeholder={t('product.details.placeholder.description')}
             name="description"

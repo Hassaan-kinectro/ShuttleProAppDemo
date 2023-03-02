@@ -18,7 +18,9 @@ import CustomHeader from '../../components/CustomHeader';
 import Loader from '../../components/Loader';
 import Wrapper from '../../components/Wrapper';
 import OrderFilter from '../../components/OrderFilter';
-import {FilterIcon} from '../../icons';
+import {FilterIcon, LibraryAdd, PlusIcon, ThreeDotsIcon} from '../../icons';
+import LinearGradient from 'react-native-linear-gradient';
+import {Routes} from '../../utils/constants';
 
 const OrderScreen = ({navigation, route}) => {
   const theme = useSelector(state => state.themeChange.theme);
@@ -46,6 +48,7 @@ const OrderScreen = ({navigation, route}) => {
   const styles = useStyles(colors);
   const offset = 20;
   const totalFetch = 1000;
+  const [addOrder, setAddOrder] = React.useState(false);
 
   React.useEffect(() => {
     getRecord(
@@ -200,91 +203,135 @@ const OrderScreen = ({navigation, route}) => {
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
-        <CustomHeader
-          name={name}
-          searchIcon={true}
-          navigation={navigation}
-          onSearchText={onSearchText}
-        />
-        <View style={styles.filterContainer}>
-          <TouchableOpacity
-            style={styles.filterStyle}
-            onPress={() => setVisibility(true)}>
-            <FilterIcon
-              size={18}
-              color={colors.searchIcon}
-              style={styles.filterIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={[Styles.flex]}>
-          {loading ? (
-            <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
-              {loading && <Loader />}
-            </View>
-          ) : (
-            <FlatList
-              contentContainerStyle={styles.listContainer}
-              data={orders}
-              extraData={loading}
-              removeClippedSubviews={true}
-              maxToRenderPerBatch={20}
-              initialNumToRender={20}
-              windowSize={100}
-              keyExtractor={(item, index) => `${index}`}
-              refreshControl={
-                <RefreshControl
-                  refreshing={isRefreshing}
-                  onRefresh={onRefresh}
-                  colors={[colors.themeIcon]}
-                  tintColor={colors.themeIcon}
-                />
-              }
-              ListEmptyComponent={() =>
-                !loading && orders.length === 0 ? (
-                  <View
-                    style={[
-                      Styles.flexCenter,
-                      {
-                        height:
-                          (deviceHeight - getFixedHeaderHeight() - 40) / 2,
-                      },
-                    ]}>
-                    <AIcon
-                      name="warning"
-                      color={Colors.GRAY}
-                      size={40}
-                      style={Styles.pB10}
-                    />
-                    <Text size={16} color={Colors.GRAY}>
-                      {t('orders.not.available')}
-                    </Text>
-                  </View>
-                ) : null
-              }
-              ListFooterComponent={renderFooter}
-              onEndReachedThreshold={0.5}
-              onEndReached={handleLoadMore}
-              renderItem={({item, index}) => (
-                <OrderListItem
-                  item={item}
-                  key={item.id}
-                  emailTemplates={emailTemplates}
-                  recipientGroup={recipientGroup}
-                />
-              )}
+        <View style={Styles.flex}>
+          <CustomHeader
+            name={name}
+            searchIcon={true}
+            navigation={navigation}
+            onSearchText={onSearchText}
+          />
+          <View style={styles.filterContainer}>
+            <TouchableOpacity
+              style={styles.filterStyle}
+              onPress={() => setVisibility(true)}>
+              <FilterIcon
+                size={18}
+                color={colors.searchIcon}
+                style={styles.filterIcon}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={[Styles.flex]}>
+            {loading ? (
+              <View style={[Styles.w100, Styles.h100, Styles.Centered]}>
+                {loading && <Loader />}
+              </View>
+            ) : (
+              <FlatList
+                contentContainerStyle={styles.listContainer}
+                data={orders}
+                extraData={loading}
+                removeClippedSubviews={true}
+                maxToRenderPerBatch={20}
+                initialNumToRender={20}
+                windowSize={100}
+                keyExtractor={(item, index) => `${index}`}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                    colors={[colors.themeIcon]}
+                    tintColor={colors.themeIcon}
+                  />
+                }
+                ListEmptyComponent={() =>
+                  !loading && orders.length === 0 ? (
+                    <View
+                      style={[
+                        Styles.flexCenter,
+                        {
+                          height:
+                            (deviceHeight - getFixedHeaderHeight() - 40) / 2,
+                        },
+                      ]}>
+                      <AIcon
+                        name="warning"
+                        color={Colors.GRAY}
+                        size={40}
+                        style={Styles.pB10}
+                      />
+                      <Text size={16} color={Colors.GRAY}>
+                        {t('orders.not.available')}
+                      </Text>
+                    </View>
+                  ) : null
+                }
+                ListFooterComponent={renderFooter}
+                onEndReachedThreshold={0.5}
+                onEndReached={handleLoadMore}
+                renderItem={({item, index}) => (
+                  <OrderListItem
+                    item={item}
+                    key={item.id}
+                    emailTemplates={emailTemplates}
+                    recipientGroup={recipientGroup}
+                  />
+                )}
+              />
+            )}
+          </View>
+          {visible && (
+            <OrderFilter
+              statusTypes={statusTypes}
+              visible={visible}
+              filter={filter}
+              getFilter={getOrdersList}
+              setVisibility={setVisibility}
             />
           )}
+          {
+            addOrder && (
+              <TouchableOpacity
+                onPress={() => {
+                  addOrder ? setAddOrder(false) : setAddOrder(true);
+                  navigation.navigate(Routes.CREATEORDERS);
+                }}>
+                <LinearGradient
+                  colors={['#139A5C', '#3662A8']}
+                  start={{x: 0.5, y: 0.0}}
+                  end={{x: 0.5, y: 1.0}}
+                  locations={[0.2794, 0.9161]}
+                  style={styles.addOrderIconLibrary}>
+                  <LibraryAdd
+                    size={25}
+                    color={Colors.WHITE}
+                    style={styles.addOrderIconLibraryTransfor}
+                  />
+                </LinearGradient>
+              </TouchableOpacity>
+            )
+            // : (
+            //   <></>
+            // )
+          }
+          <TouchableOpacity
+            onPress={() => {
+              addOrder ? setAddOrder(false) : setAddOrder(true);
+            }}>
+            <LinearGradient
+              colors={['#139A5C', '#3662A8']}
+              start={{x: 0.5, y: 0.0}}
+              end={{x: 0.5, y: 1.0}}
+              locations={[0.2794, 0.9161]}
+              style={styles.addOrderIcon}>
+              <ThreeDotsIcon
+                style={styles.opacity}
+                size={26}
+                color={Colors.WHITE}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
-        {visible && (
-          <OrderFilter
-            statusTypes={statusTypes}
-            visible={visible}
-            filter={filter}
-            getFilter={getOrdersList}
-            setVisibility={setVisibility}
-          />
-        )}
       </Wrapper>
     </>
   );

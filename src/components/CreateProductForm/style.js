@@ -25,6 +25,7 @@ const useStyles = () => {
       elevation: 3,
       paddingHorizontal: scaleSize(15),
       paddingVertical: scaleSize(15),
+      // zIndex: 500,
     },
     BoxStyleWareHouse: {
       height: 'auto',
@@ -195,8 +196,8 @@ const useStyles = () => {
       margin: 0,
       flex: 1,
       justifyContent: 'space-around',
-      paddingTop: 5,
-      paddingBottom: 0,
+      paddingVertical: 5,
+      // paddingBottom: 0,
       paddingHorizontal: 0,
       fontFamily: FONT_FAMILY.LIGHT,
       borderBottomWidth: 1,
@@ -216,7 +217,7 @@ const useStyles = () => {
     },
     dropDownSTyle: {
       height: 40,
-      marginVertical: 5,
+      marginVertical: 10,
     },
     placeholderStyle: {
       color: colors.placeholder,
@@ -224,12 +225,12 @@ const useStyles = () => {
     },
     errorStyle: {
       // backgroundColor: 'red',
-      marginHorizontal: 5,
+      // marginHorizontal: 5,
       // padding: 0,
-      // height: 80,
-      minHeight: 40,
+      minHeight: 15,
+      // minHeight: 40,
       paddingTop: 10,
-      marginTop: 10,
+      // marginTop: 10,
     },
     mB90: {
       marginBottom: 90,
@@ -284,7 +285,7 @@ const useStyles = () => {
       flex: 1,
       justifyContent: 'flex-start',
       flexDirection: 'row',
-      // alignItems: 'baseline',
+      alignItems: 'flex-start',
       width: '50%',
       paddingBottom: 0,
       minHeight: 80,
@@ -296,6 +297,38 @@ const useStyles = () => {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 10,
+    },
+    dropDownContainerStyle: {
+      backgroundColor: 'transparent',
+      borderRadius: 20,
+      borderWidth: 0,
+      borderBottomWidth: 1,
+      borderLeftWidth: 0,
+      borderRightWidth: 0,
+      borderTopWidth: 0,
+      marginTop: 5,
+      zIndex: 5000,
+    },
+    itemStyle: {
+      justifyContent: 'flex-start',
+      borderBottomWidth: 1,
+      backgroundColor: colors.boxColor,
+      borderBottomColor: colors.boxBorderColor,
+      paddingLeft: 10,
+      borderRadius: 0,
+      zIndex: 5000,
+    },
+    labelStyle: {
+      paddingLeft: 5,
+      color: colors.TextColor,
+    },
+    activeLabelStyle: {
+      color: colors.TextColor,
+    },
+    searchableStyle: {
+      height: 40,
+      marginBottom: 0,
+      borderBottomWidth: 0,
     },
   });
 };

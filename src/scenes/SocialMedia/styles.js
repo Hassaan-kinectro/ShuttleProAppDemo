@@ -497,9 +497,10 @@ const useStyles = () => {
       justifyContent: 'center',
     },
     filterContainer: {
-      alignItems: 'flex-start',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
       paddingHorizontal: 10,
-      paddingTop: 10,
+      marginTop: 10,
       flexDirection: 'row',
     },
     filterStyle: {

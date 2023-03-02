@@ -50,6 +50,7 @@ import StoryLoading from '../scenes/StoryLoading';
 import ShowStory from '../scenes/SocialMedia/ShowStory';
 import CreateStory from '../scenes/SocialMedia/CreateStory';
 import CreateProduct from '../scenes/Products/create product';
+import CreateOrders from '../scenes/Orders/CreateOrders';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -172,6 +173,16 @@ const Orders = colors => {
         name={Routes.SHOWORDER}
         component={ShowOrder}
       />
+      <Stack.Screen
+        headerMode="screen"
+        options={({navigation}) => ({
+          headerShown: false,
+          title: 'Show Orders',
+          ...StackCommonHeaderOptions(navigation),
+        })}
+        name={Routes.CREATEORDERS}
+        component={CreateOrders}
+      />
     </Stack.Navigator>
   );
 };
@@ -207,7 +218,7 @@ const SOCIALMEDIA = () => {
   return (
     <Stack.Navigator
       screenOptions={StackCommonOptions}
-      initialRouteName={Routes.SOCIALMEDIA}>
+      initialRouteName={Routes.SOCIALPROFILELIST}>
       <Stack.Screen
         headerMode="screen"
         options={({navigation}) => ({
@@ -215,7 +226,7 @@ const SOCIALMEDIA = () => {
           title: 'Social Media',
           ...StackCommonHeaderOptions(navigation),
         })}
-        name={Routes.SOCIALMEDIA}
+        name={Routes.SOCIALPROFILELIST}
         component={SocialMediaProfile}
       />
       <Stack.Screen
@@ -550,7 +561,7 @@ const BottomTabNavigator = ({colors}) => {
         {props => <Product {...props} />}
       </Tab.Screen>
       <Tab.Screen
-        name={Routes.SOCIALMEDIA}
+        name={Routes.SOCIALPROFILE}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) =>
