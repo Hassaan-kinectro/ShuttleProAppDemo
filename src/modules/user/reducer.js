@@ -3,6 +3,7 @@ import {isObject} from 'lodash';
 const UserReducer = (
   state = {
     user: null,
+    userId: '',
   },
   action,
 ) => {
@@ -11,11 +12,13 @@ const UserReducer = (
       state = {
         ...state,
         user: action.payload,
+        userId: (action.payload && action.payload.id) || '',
       };
       break;
     default:
       state = {
         user: !isObject(state.user) ? ParseValue(state.user) : state.user,
+        userId: state.userId,
       };
       break;
   }

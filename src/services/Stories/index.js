@@ -122,7 +122,7 @@ export const UpdateStoryById = async id => {
   const token = await getAuthHeader();
 
   return instance
-    .put(`/stories/${id}`, {data: {}}, token)
+    .put(`/stories/${id}/status`, {data: {}}, token)
     .then(response => {
       if (response && response.data && response.data.code === 200) {
         response = {
