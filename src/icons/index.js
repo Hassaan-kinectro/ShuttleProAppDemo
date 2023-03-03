@@ -164,6 +164,14 @@ export const CloseIcon = props => {
 export const ThreeDotsIcon = props => {
   return <MaterialCommunityIcons name="dots-vertical" {...props} />;
 };
+export const CircleCheckIcon = props => {
+  return <MaterialCommunityIcons name="checkbox-marked-circle" {...props} />;
+};
+export const CircleBlankIcon = props => {
+  return (
+    <MaterialCommunityIcons name="checkbox-blank-circle-outline" {...props} />
+  );
+};
 export const BackArrowIcon = props => {
   return <MaterialIcons name="arrow-back" {...props} />;
 };

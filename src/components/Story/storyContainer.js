@@ -61,46 +61,18 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
   );
   const profileType = currentProfile && currentProfile.profile_type;
 
-  const ok = previewHelper(currentProfile, publishedStories, userId);
-  console.log(ok, 'this is ok for published stories');
+  const stories = [...previewHelper(currentProfile, publishedStories, userId)];
+  console.log(stories, 'this is ok for published stories');
   return (
     <View>
       <View style={[Styles.flexDirectionRow]}>
-        <TouchableOpacity
-          style={styles.CreateprofileIcon}
-          onPress={() => {
-            navigation.navigate(Routes.SHOWSTORY, {
-              currentProfile: currentProfile,
-            });
-          }}>
-          <View style={styles.HeaderImage}>
-            <F5Icon
-              name="th-list"
-              size={16}
-              color={colors.fontPrimary}
-              style={Styles.textCenter}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.CreateprofileIcon}
-          onPress={() => {
-            navigation.navigate(Routes.CREATESTORY, {
-              currentProfile: currentProfile,
-            });
-          }}>
-          <CircularImage
-            img={workspaceIcon}
-            name={workspaceName}
-            style={styles.HeaderImage}
-          />
-          <Image source={ADDSTORY} style={styles.active3} />
-        </TouchableOpacity>
-        <View style={{width: deviceWidth - 130}}>
+        <View
+          style={{width: deviceWidth}}
+          key={Math.random().toString(36).slice(2)}>
           <InstaStory
-            data={ok && ok.length > 0 ? ok : []}
-            duration={5}
-            onStart={item => console.log(item)}
+            data={stories && stories.length > 0 ? stories : []}
+            duration={20}
+            // onStart={item => console.log(item)}
             unPressedBorderColor={'#54788c'}
             pressedBorderColor={'transparent'}
             onClose={item => console.log('close: ', item)}
@@ -109,13 +81,76 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
                 <Text />
               </View>
             }
+            customCloseComponent={
+              <CloseIcon size={24} color={colors.TextColor} />
+            }
             showAvatarText={false}
             horizontal={true}
             resizeMode="contain"
             avatarSize={48}
             style={{
-              // bottom: 7,
-              backgroundColor: 'red',
+              marginBottom: 10,
+            }}
+            customItemComponent={(item, index, handleStoryItemPress) => {
+              console.log(item);
+              if (item.user_id === 'list') {
+                return (
+                  <TouchableOpacity
+                    style={styles.CreateprofileIcon}
+                    onPress={() => {
+                      navigation.navigate(Routes.SHOWSTORY, {
+                        currentProfile: currentProfile,
+                      });
+                    }}>
+                    <View style={styles.HeaderImage}>
+                      <F5Icon
+                        name="th-list"
+                        size={16}
+                        color={colors.fontPrimary}
+                        style={Styles.textCenter}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                );
+              } else if (item.user_id === 'create') {
+                return (
+                  <TouchableOpacity
+                    style={styles.CreateprofileIcon}
+                    onPress={() => {
+                      navigation.navigate(Routes.CREATESTORY, {
+                        currentProfile: currentProfile,
+                      });
+                    }}>
+                    <CircularImage
+                      img={workspaceIcon}
+                      name={workspaceName}
+                      style={[styles.HeaderImage]}
+                    />
+                    <Image source={ADDSTORY} style={styles.active3} />
+                  </TouchableOpacity>
+                );
+              } else {
+                return (
+                  // <>
+                  <TouchableOpacity
+                    onPress={() => {
+                      console.log(item.stories);
+                      handleStoryItemPress(item, index);
+                    }}
+                    style={[styles.avatarWrapper]}>
+                    <FastImage
+                      style={styles.avatar}
+                      source={{uri: item.user_image}}
+                      defaultSource={
+                        Platform.OS === 'ios'
+                          ? './assets/images/no_avatar.png'
+                          : null
+                      }
+                    />
+                  </TouchableOpacity>
+                  // </>
+                );
+              }
             }}
           />
         </View>
