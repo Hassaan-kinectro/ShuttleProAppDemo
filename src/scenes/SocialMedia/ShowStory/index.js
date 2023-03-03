@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import {View, FlatList, RefreshControl} from 'react-native';
+import {
+  View,
+  FlatList,
+  RefreshControl,
+  TouchableOpacity,
+  Image,
+  Platform,
+} from 'react-native';
 import React, {useRef} from 'react';
 import CustomHeader from '../../../components/CustomHeader';
 import {useSelector} from 'react-redux';
@@ -9,18 +16,18 @@ import {Dark, Light} from '../../../utils/imagesPath';
 import Wrapper from '../../../components/Wrapper';
 import useStyles from '../styles';
 import StoryRow from '../../../components/Story/storyRow';
-import {
-  deviceHeight,
-  getFixedHeaderHeight,
-  IS_IOS,
-} from '../../../utils/orientation';
+import {IS_IOS} from '../../../utils/orientation';
 import {getStories, onRefresh} from './helper';
 import Loader from '../../../components/Loader';
 import {GlobalStyle, Text} from '../../../styles';
-import AIcon from 'react-native-vector-icons/AntDesign';
 import {useTheme} from '@react-navigation/native';
 import {DeleteStoryById} from '../../../services/Stories';
 import _ from 'lodash';
+import {previewHelper2} from '../../../components/Story/helper';
+import InstaStory from 'react-native-insta-story';
+import {FONT_FAMILY} from '../../../utils/constants';
+import {CloseIcon} from '../../../icons';
+import {showMessage} from 'react-native-flash-message';
 
 const defaultValue = {id: null, loading: false};
 const headerHeight = 32 * 2;
@@ -36,6 +43,20 @@ const ShowStory = props => {
   const theme = useSelector(state => state.themeChange.theme);
   const workspaceId = useSelector(
     state => state.workspace.workspace.workspace.id,
+  );
+  const workspaceIcon = useSelector(
+    state =>
+      state &&
+      state.workspace &&
+      state.workspace.workspace &&
+      state.workspace.workspace.workspace &&
+      state.workspace.workspace.workspace.icon &&
+      state.workspace.workspace.workspace.icon.thumb &&
+      state.workspace.workspace.workspace.icon.thumb.url,
+  );
+  console.log(workspaceIcon, 'this is workspace icons');
+  const userId = useSelector(
+    state => state && state.user && state.user.user && state.user.user.id,
   );
   const [refresh, setRefresh] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -58,12 +79,12 @@ const ShowStory = props => {
     };
   }, []);
 
-  React.useEffect(() => {
-    if (route.params && route.params.refresh) {
-      setRefresh(route.params.refresh);
-      onRefresh();
-    }
-  }, [route.params]);
+  // React.useEffect(() => {
+  //   if (route.params && route.params.refresh) {
+  //     setRefresh(route.params.refresh);
+  //     onRefresh();
+  //   }
+  // }, [route.params]);
 
   const handleDelete = async (id, setIsDeleting) => {
     setIsDeleting(true);
@@ -76,7 +97,17 @@ const ShowStory = props => {
           publishedStories.filter(record => record.id !== id),
         );
         setIsDeleting(false);
+        showMessage({
+          message: res.message,
+          description: 'Publish Rejected Successfully',
+          type: 'success',
+        });
       } else {
+        showMessage({
+          message: res.message,
+          description: 'Not Rejected',
+          type: 'DANGER',
+        });
         setIsDeleting(false);
       }
     });
@@ -87,6 +118,23 @@ const ShowStory = props => {
     return date;
   });
 
+  const Stories = [
+    ..._.sortBy(unPublishedStories, function (dateObj) {
+      const date = new Date(dateObj?.shareAt);
+      return date;
+    })?.reverse(),
+    ..._.sortBy(publishedStories, function (dateObj) {
+      const date = new Date(dateObj?.shareAt);
+      return date;
+    })?.reverse(),
+  ];
+
+  const ok = previewHelper2(
+    Stories,
+    currentProfile ? currentProfile : Profile,
+    userId,
+    workspaceIcon,
+  );
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
@@ -94,90 +142,107 @@ const ShowStory = props => {
         {loading ? (
           <View style={[Styles.Centered]}>{loading && <Loader />}</View>
         ) : (
-          <FlatList
-            data={[
-              ..._.sortBy(unPublishedStories, function (dateObj) {
-                const date = new Date(dateObj?.shareAt);
-                return date;
-              })?.reverse(),
-              ..._.sortBy(publishedStories, function (dateObj) {
-                const date = new Date(dateObj?.shareAt);
-                return date;
-              })?.reverse(),
-            ]}
-            extraData={loading}
-            scrollEventThrottle={16}
-            nestedScrollEnabled={true}
-            contentContainerStyle={{
-              paddingHorizontal: 10,
-              paddingBottom: IS_IOS ? 180 : 120,
-              paddingTop: headerHeight - 40,
-            }}
-            removeClippedSubviews={true}
-            maxToRenderPerBatch={40}
-            initialNumToRender={40}
-            keyExtractor={(item, index) => `${index}`}
-            refreshControl={
-              <RefreshControl
-                refreshing={refresh}
-                onRefresh={() =>
-                  onRefresh(
-                    setRefresh,
-                    setUnPublishedStories,
-                    setPublishedStories,
-                    workspaceId,
-                  )
-                }
-                colors={[colors.background]}
-                tintColor={colors.themeIcon}
-              />
-            }
-            onEndReachedThreshold={0.5}
-            ListEmptyComponent={() =>
-              !loading && unPublishedStories.length === 0 ? (
-                <View
-                  style={[
-                    {
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height:
-                        (deviceHeight - getFixedHeaderHeight() - 10) / 1.4,
-                    },
-                  ]}>
-                  <AIcon
-                    name="warning"
-                    color={colors.textColorLight}
-                    size={40}
-                  />
-                  <Text
-                    numberOfLines={1}
-                    color={colors.textColorLight}
-                    style={styles.text}
-                    size={16}>
-                    No Stories Available
-                  </Text>
+          <>
+            <InstaStory
+              data={ok}
+              duration={5}
+              onStart={item => console.log(item)}
+              unPressedBorderColor={'#54788c'}
+              pressedBorderColor={'transparent'}
+              onClose={item => console.log('close: ', item)}
+              customSwipeUpComponent={
+                <View>
+                  <Text />
                 </View>
-              ) : null
-            }
-            renderItem={({item}) => {
-              return (
-                <React.Fragment key={item.id}>
-                  <StoryRow
-                    currentProfile={currentProfile ? currentProfile : Profile}
-                    navigation={navigation}
-                    handleDelete={handleDelete}
-                    item={item}
-                    loading={loadingImages.loading}
-                    setLoadingImages={setLoadingImages}
-                    disabled={
-                      loadingImages.id ? loadingImages.id !== item.id : false
-                    }
-                  />
-                </React.Fragment>
-              );
-            }}
-          />
+              }
+              customCloseComponent={
+                <CloseIcon size={24} color={colors.TextColor} />
+              }
+              style={{
+                flex: 1,
+                marginBottom: IS_IOS ? 100 : 150,
+                marginTop: 20,
+                marginHorizontal: 10,
+              }}
+              showAvatarText={true}
+              horizontal={false}
+              resizeMode="contain"
+              avatarTextStyle={{color: '#fff'}}
+              customItemComponent={(i, index, handleStoryItemPress) => {
+                console.log(i, 'this is i');
+                return (
+                  <>
+                    <View
+                      style={{
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        marginVertical: 10,
+                      }}>
+                      <TouchableOpacity
+                        onPress={() => handleStoryItemPress(i)}
+                        style={{flex: 1}}>
+                        <Image
+                          style={styles.avatar}
+                          source={{uri: i.user_image}}
+                          defaultSource={
+                            Platform.OS === 'ios'
+                              ? './assets/images/no_avatar.png'
+                              : null
+                          }
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{flex: 4}}>
+                        <>
+                          <Text
+                            size={12}
+                            color={colors.TextColor}
+                            fontFamily={FONT_FAMILY.REGULAR}
+                            numberOfLines={1}
+                            ellipsizeMode={'tail'}>
+                            {i.user_name}
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            ellipsizeMode={'tail'}
+                            size={12}
+                            color={colors.TextColor}
+                            style={{marginTop: 10}}
+                            fontFamily={FONT_FAMILY.REGULAR}>
+                            {i.date}
+                          </Text>
+                        </>
+                      </TouchableOpacity>
+                      <View style={{}}>
+                        <StoryRow
+                          currentProfile={
+                            currentProfile ? currentProfile : Profile
+                          }
+                          navigation={navigation}
+                          handleDelete={handleDelete}
+                          item={i && i.item}
+                          loading={loadingImages.loading}
+                          setLoadingImages={setLoadingImages}
+                          disabled={
+                            loadingImages.id
+                              ? loadingImages.id !== i && i.item && i.item.id
+                              : false
+                          }
+                        />
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        borderColor: colors.boxBorderColor,
+                        borderWidth: 1,
+                        marginHorizontal: 10,
+                      }}
+                    />
+                  </>
+                );
+              }}
+            />
+          </>
         )}
       </View>
     </Wrapper>

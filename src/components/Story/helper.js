@@ -398,37 +398,44 @@ export const previewHelper = (currentProfile, publishedStories, userId) => {
   });
   return ok;
 };
-export const previewHelper2 = (item, currentProfile, userId) => {
-  console.log(item, ' =============== item', currentProfile, userId);
-  // const ok = {
-  //   user_id: userId,
-  //   user_image:
-  //     currentProfile &&
-  //     currentProfile.page_icon &&
-  //     currentProfile.page_icon.thumb &&
-  //     currentProfile.page_icon.thumb.url
-  //       ? currentProfile.page_icon.thumb.url
-  //       : currentProfile.page_icon.url,
-  //   user_name:
-  //     currentProfile && currentProfile.name
-  //       ? currentProfile.name
-  //       : currentProfile.username,
-  //   date: moment(item && item.shareAt).format('YYYY-MM-DD hh:mm A'),
-  //   stories:
-  //     item &&
-  //     item.images &&
-  //     item.images.length > 0 &&
-  //     item.images.map((url, index) => {
-  //       return {
-  //         story_id: index,
-  //         story_image: url
-  //           ? url
-  //           : 'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
-  //         swipeText: 'Custom swipe text for this story',
-  //         onPress: () => console.log('story 1 swiped'),
-  //       };
-  //     }),
-  // };
-
-  // return ok;
+export const previewHelper2 = (
+  Stories,
+  currentProfile,
+  userId,
+  workspaceIcon,
+) => {
+  console.log(currentProfile, 'THIS IS CURRENTpROFILE');
+  const ok = Stories.map(i => {
+    return {
+      item: i,
+      user_id: userId,
+      user_image:
+        currentProfile &&
+        currentProfile.page_icon &&
+        currentProfile.page_icon.thumb &&
+        currentProfile.page_icon.thumb.url
+          ? currentProfile.page_icon.thumb.url
+          : workspaceIcon,
+      user_name:
+        currentProfile && currentProfile.name
+          ? currentProfile.name
+          : currentProfile.username,
+      date: moment(i && i.shareAt).format('YYYY-MM-DD hh:mm A'),
+      stories:
+        i &&
+        i.images &&
+        i.images.length > 0 &&
+        i.images.map((url, index) => {
+          return {
+            story_id: index,
+            story_image: url
+              ? url
+              : 'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+            swipeText: 'Custom swipe text for this story',
+            onPress: () => console.log('story 1 swiped'),
+          };
+        }),
+    };
+  });
+  return ok;
 };

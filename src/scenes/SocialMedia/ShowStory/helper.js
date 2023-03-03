@@ -13,6 +13,7 @@ export const getStories = async (
         setUnPublishedStories(res.unPublished);
         setLoading(false);
       }
+      setLoading(false);
     } else {
       setLoading(false);
     }

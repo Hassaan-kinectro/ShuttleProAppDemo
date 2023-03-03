@@ -555,8 +555,9 @@ const useStyles = () => {
       marginVertical: 5,
       flexDirection: 'row',
       width: deviceWidth - 60,
-      // justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      backgroundColor: 'red',
     },
     avatarWrapper: {
       borderWidth: 2,

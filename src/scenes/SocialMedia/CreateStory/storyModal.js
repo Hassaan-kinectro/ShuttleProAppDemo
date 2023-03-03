@@ -79,8 +79,8 @@ const StoryModal = ({
             bottom: deviceHeight / 8.5,
           }}
           onPress={() => {
-            FormData(values, selectedImages, profile, Id, setModalVisible);
-            // setModalVisible(false);
+            FormData(values, selectedImages, profile, Id);
+            setModalVisible(false);
           }}>
           {loading ? (
             <ActivityIndicator style={styles.publishicon} />

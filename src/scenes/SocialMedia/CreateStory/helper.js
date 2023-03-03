@@ -331,12 +331,14 @@ export const updateStory = async (
 };
 
 export const saveStory = async (
-  profile,
   values,
   selectedImages,
+  profile,
+  Id,
   navigation,
   selectedValue,
 ) => {
+  console.log(profile, 'this is profile');
   if (selectedValue === Constants.CUSTOM) {
     let dateFormat = '';
     if (values.date) {

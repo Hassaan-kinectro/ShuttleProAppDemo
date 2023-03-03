@@ -73,8 +73,15 @@ const CreateStory = props => {
     ]);
   }, []);
 
-  const saveData = async (values, selectedImages = [], profile) => {
-    await saveStory(profile, values, selectedImages, navigation, selectedValue);
+  const saveData = async (values, selectedImages = [], profile, Id) => {
+    await saveStory(
+      values,
+      selectedImages,
+      profile,
+      Id,
+      navigation,
+      selectedValue,
+    );
   };
   const updateData = async (values, selectedImages = [], profile, Id) => {
     await updateStory(values, selectedImages, profile, Id, navigation);
