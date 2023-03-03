@@ -22,6 +22,11 @@ const CustomerDetailForm = props => {
     setPublishVisibility,
     setShipperVisibility,
     setCitiesVisibility,
+    setFieldTouched,
+    setFieldValue,
+    touched,
+    errors,
+    reset,
   } = props;
 
   return (
@@ -57,7 +62,7 @@ const CustomerDetailForm = props => {
           arrowColor={colors.button}
           autoScrollToDefaultValue={false}
           onChangeItem={item => {
-            props.setFieldValue('published', item);
+            setFieldValue('published', item);
           }}
           onOpen={() => {
             dropDownHandler();
@@ -93,7 +98,7 @@ const CustomerDetailForm = props => {
           arrowColor={colors.button}
           autoScrollToDefaultValue={false}
           onChangeItem={item => {
-            props.setFieldValue('shipperType', item);
+            setFieldValue('shipperType', item);
           }}
           onOpen={() => {
             dropDownHandler();
@@ -114,15 +119,14 @@ const CustomerDetailForm = props => {
           onChangeText={rem => {
             const regex = /^[0-9\b +]+$/;
             if (rem === '' || regex.test(rem)) {
-              console.log(regex.test(rem), 'regex.test(rem)');
-              props.setFieldValue(_CONTACT_NO, rem);
+              setFieldValue(_CONTACT_NO, rem);
             }
           }}
           numberOnly={true}
-          onBlur={() => props.setFieldTouched(_CONTACT_NO)}
-          error={props.touched[_CONTACT_NO] && props.errors[_CONTACT_NO]}
+          onBlur={() => setFieldTouched(_CONTACT_NO)}
+          error={touched[_CONTACT_NO] && errors[_CONTACT_NO]}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           keyboardType={numericKeyboard}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
@@ -141,12 +145,12 @@ const CustomerDetailForm = props => {
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('name', rem);
+            setFieldValue('name', rem);
           }}
-          // onBlur={() => props.setFieldTouched("name")}
-          error={props.touched.name && props.errors.name}
+          // onBlur={() => setFieldTouched("name")}
+          error={touched.name && errors.name}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
           hideLabel={true}
@@ -164,12 +168,12 @@ const CustomerDetailForm = props => {
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('email', rem);
+            setFieldValue('email', rem);
           }}
-          onBlur={() => props.setFieldTouched('email')}
-          error={props.touched.email && props.errors.email}
+          onBlur={() => setFieldTouched('email')}
+          error={touched.email && errors.email}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
           hideLabel={true}
@@ -209,9 +213,9 @@ const CustomerDetailForm = props => {
           arrowColor={colors.button}
           autoScrollToDefaultValue={false}
           onChangeItem={item => {
-            props.setFieldValue('city_id', item);
-            props.setFieldValue('courier_details.city_id', item);
-            props.setFieldValue('new_customer_city', item);
+            setFieldValue('city_id', item);
+            setFieldValue('courier_details.city_id', item);
+            setFieldValue('new_customer_city', item);
           }}
           onOpen={() => {
             dropDownHandler();
@@ -224,7 +228,6 @@ const CustomerDetailForm = props => {
         />
 
         {/* add address here  */}
-
         <TextField
           label="Address"
           placeholder="Address"
@@ -233,11 +236,11 @@ const CustomerDetailForm = props => {
           type="textArea"
           returnKeyType="next"
           autoCorrect={false}
-          onChangeText={rem => props.setFieldValue('address', rem)}
-          onBlur={() => props.setFieldTouched('address')}
-          error={props.touched.address && props.errors.address}
+          onChangeText={rem => setFieldValue('address', rem)}
+          onBlur={() => setFieldTouched('address')}
+          error={touched.address && errors.address}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.addressTFStyle}
           placeholderTextColor={colors.placeholder}
@@ -253,12 +256,12 @@ const CustomerDetailForm = props => {
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('pin_location', rem);
+            setFieldValue('pin_location', rem);
           }}
-          onBlur={() => props.setFieldTouched('pin_location')}
-          error={props.touched.pin_location && props.errors.pin_location}
+          onBlur={() => setFieldTouched('pin_location')}
+          error={touched.pin_location && errors.pin_location}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
           hideLabel={true}

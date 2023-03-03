@@ -20,6 +20,11 @@ const PackageDetailsForm = props => {
     setFragileVisibility,
     setServiceVisibility,
     citiesOption,
+    setFieldValue,
+    touched,
+    errors,
+    reset,
+    setFieldTouched,
   } = props;
 
   return (
@@ -38,17 +43,17 @@ const PackageDetailsForm = props => {
             //   type="textArea"
             returnKeyType="next"
             autoCorrect={false}
-            onChangeText={rem => props.setFieldValue('weight', rem)}
-            onBlur={() => props.setFieldTouched('weight')}
+            onChangeText={rem => setFieldValue('weight', rem)}
+            onBlur={() => setFieldTouched('weight')}
             // error={getVariantErrors(
-            //   props.touched,
-            //   props.errors,
+            //   touched,
+            //   errors,
             //   PRODUCT_VARIANT,
             //   index,
             //   _SKU,
             // )}
             autoCapitalize="words"
-            reset={props.reset}
+            reset={reset}
             keyboardType={numericKeyboard}
             errorStyle={styles.errorStyle}
             inputStyle={styles.InputTFStyle50}
@@ -86,7 +91,7 @@ const PackageDetailsForm = props => {
             arrowColor={colors.button}
             autoScrollToDefaultValue={false}
             onChangeItem={item => {
-              props.setFieldValue('courier_details.fragile', item);
+              setFieldValue('courier_details.fragile', item);
             }}
             onOpen={() => {
               dropDownHandler();
@@ -127,7 +132,7 @@ const PackageDetailsForm = props => {
             arrowColor={colors.button}
             autoScrollToDefaultValue={false}
             onChangeItem={item => {
-              props.setFieldValue('courier_details.service_type', item);
+              setFieldValue('courier_details.service_type', item);
             }}
             onOpen={() => {
               dropDownHandler();
@@ -147,19 +152,17 @@ const PackageDetailsForm = props => {
             //   type="textArea"
             returnKeyType="next"
             autoCorrect={false}
-            onChangeText={rem =>
-              props.setFieldValue('courier_details.pieces', rem)
-            }
-            onBlur={() => props.setFieldTouched('courier_details.pieces')}
+            onChangeText={rem => setFieldValue('courier_details.pieces', rem)}
+            onBlur={() => setFieldTouched('courier_details.pieces')}
             // error={getVariantErrors(
-            //   props.touched,
-            //   props.errors,
+            //   touched,
+            //   errors,
             //   PRODUCT_VARIANT,
             //   index,
             //   _SKU,
             // )}
             autoCapitalize="words"
-            reset={props.reset}
+            reset={reset}
             numberOnly={true}
             keyboardType={numericKeyboard}
             errorStyle={styles.errorStyle}
@@ -200,7 +203,7 @@ const PackageDetailsForm = props => {
           arrowColor={colors.placeholder}
           autoScrollToDefaultValue={false}
           onChangeItem={item => {
-            props.setFieldValue('courier_details.city_id', item);
+            setFieldValue('courier_details.city_id', item);
           }}
           onOpen={() => {
             dropDownHandler();
@@ -217,12 +220,12 @@ const PackageDetailsForm = props => {
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('courier_details.remarks', rem);
+            setFieldValue('courier_details.remarks', rem);
           }}
-          // onBlur={() => props.setFieldTouched('pin_location')}
-          // error={props.touched.pin_location && props.errors.pin_location}
+          // onBlur={() => setFieldTouched('pin_location')}
+          // error={touched.pin_location && errors.pin_location}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
           hideLabel={true}
@@ -240,12 +243,12 @@ const PackageDetailsForm = props => {
           returnKeyType="next"
           autoCorrect={false}
           onChangeText={rem => {
-            props.setFieldValue('product_detail', rem);
+            setFieldValue('product_detail', rem);
           }}
-          // onBlur={() => props.setFieldTouched('pin_location')}
-          // error={props.touched.pin_location && props.errors.pin_location}
+          // onBlur={() => setFieldTouched('pin_location')}
+          // error={touched.pin_location && errors.pin_location}
           autoCapitalize="words"
-          reset={props.reset}
+          reset={reset}
           errorStyle={styles.errorStyle}
           inputStyle={styles.InputTFStyle}
           hideLabel={true}
@@ -263,12 +266,12 @@ const PackageDetailsForm = props => {
               returnKeyType="next"
               autoCorrect={false}
               onChangeText={rem => {
-                props.setFieldValue('delivery_charges', rem);
+                setFieldValue('delivery_charges', rem);
               }}
-              // onBlur={() => props.setFieldTouched('pin_location')}
-              // error={props.touched.pin_location && props.errors.pin_location}
+              // onBlur={() => setFieldTouched('pin_location')}
+              // error={touched.pin_location && errors.pin_location}
               autoCapitalize="words"
-              reset={props.reset}
+              reset={reset}
               numberOnly={true}
               errorStyle={styles.errorStyle}
               inputStyle={styles.InputTFStyle}
@@ -288,12 +291,12 @@ const PackageDetailsForm = props => {
               autoCorrect={false}
               numberOnly={true}
               onChangeText={rem => {
-                props.setFieldValue('cod_amount', rem);
+                setFieldValue('cod_amount', rem);
               }}
-              // onBlur={() => props.setFieldTouched('pin_location')}
-              // error={props.touched.pin_location && props.errors.pin_location}
+              // onBlur={() => setFieldTouched('pin_location')}
+              // error={touched.pin_location && errors.pin_location}
               autoCapitalize="words"
-              reset={props.reset}
+              reset={reset}
               errorStyle={styles.errorStyle}
               inputStyle={styles.InputTFStyle}
               hideLabel={true}

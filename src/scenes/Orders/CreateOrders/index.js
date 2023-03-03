@@ -49,6 +49,7 @@ const CreateOrders = ({navigation, route}) => {
 
   // fetch orders data
   React.useEffect(() => {
+    console.log('okokok');
     getHelpersData(setHelpersData, workspaceId);
   }, [workspaceId]);
 
@@ -69,11 +70,25 @@ const CreateOrders = ({navigation, route}) => {
             onSubmit={OnSubmit}
             validationSchema={OrderSchemas}
             initialValues={initialValues}>
-            {props => {
+            {({
+              setFieldTouched,
+              setFieldValue,
+              handleSubmit,
+              touched,
+              errors,
+              reset,
+              values,
+            }) => {
               return (
                 <View style={!isKeyboardOpen ? styles.mB90 : Styles.flex}>
                   <CreateOrderForm
-                    {...props}
+                    setFieldTouched={setFieldTouched}
+                    setFieldValue={setFieldValue}
+                    touched={touched}
+                    errors={errors}
+                    reset={reset}
+                    values={values}
+                    handleSubmit={handleSubmit}
                     helpersData={helpersData}
                     numericKeyboard={numericKeyboard}
                   />

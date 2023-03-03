@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {Styles, Text} from '../../styles';
+import {Mixins, Styles, Text} from '../../styles';
 import useStyles from './style';
 import {FONT_FAMILY} from '../../utils/constants';
 import {useTheme} from '@react-navigation/native';
@@ -14,6 +14,7 @@ import CustomerDetailForm from './CustomerDetailsForm';
 import PackageDetailsForm from './PackageDetailsForm';
 import ProductVarientForm from './ProductVarientForm';
 import {fragileOptions, publishOptions} from './helper';
+import LinearGradient from 'react-native-linear-gradient';
 
 const CreateOrderForm = props => {
   const [publishVisible, setPublishVisibility] = React.useState(false);
@@ -23,9 +24,17 @@ const CreateOrderForm = props => {
   const [serviceVisible, setServiceVisibility] = React.useState(false);
   const styles = useStyles();
   const {colors} = useTheme();
-  const {helpersData, values} = props;
-  console.log(values, 'values data fetch ok');
+  const {
+    helpersData,
+    values,
+    setFieldTouched,
+    setFieldValue,
+    touched,
+    errors,
+    reset,
+  } = props;
   const dropDownHandler = () => {
+    console.log('drop down handler');
     Keyboard.dismiss();
     setPublishVisibility(false);
     setShipperVisibility(false);
@@ -36,7 +45,11 @@ const CreateOrderForm = props => {
   return (
     <ScrollView style={Styles.mB30}>
       <CustomerDetailForm
-        {...props}
+        setFieldTouched={setFieldTouched}
+        setFieldValue={setFieldValue}
+        touched={touched}
+        errors={errors}
+        reset={reset}
         citiesVisible={citiesVisible}
         publishOptions={publishOptions}
         shipperVisible={shipperVisible}
@@ -49,7 +62,11 @@ const CreateOrderForm = props => {
         setCitiesVisibility={setCitiesVisibility}
       />
       <PackageDetailsForm
-        {...props}
+        setFieldValue={setFieldValue}
+        touched={touched}
+        errors={errors}
+        reset={reset}
+        setFieldTouched={setFieldTouched}
         fragileOptions={fragileOptions}
         fragileVisible={fragileVisible}
         serviceVisible={serviceVisible}
@@ -64,13 +81,47 @@ const CreateOrderForm = props => {
         values.addProduct.map((v, idx) => {
           return (
             <View key={idx}>
-              <ProductVarientForm {...props} idx={idx} />
+              <ProductVarientForm
+                setFieldValue={setFieldValue}
+                touched={touched}
+                errors={errors}
+                reset={reset}
+                setFieldTouched={setFieldTouched}
+                values={values}
+                idx={idx}
+                v={v}
+                productOptions={helpersData.productOptions}
+                dropDownHandler={dropDownHandler}
+              />
             </View>
           );
         })}
-      <TouchableOpacity onPress={props.handleSubmit}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
+
+      <View style={styles.LoginBoxStyle}>
+        <TouchableOpacity disabled={props.loading} onPress={props.handleSubmit}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 0.9}}
+            colors={['#139A5C', '#3662A8']}
+            style={styles.linearGradient}>
+            {/* {!props.loading ? ( */}
+            <Text
+              size={Mixins.scaleFont(16)}
+              fontFamily={FONT_FAMILY.REGULAR}
+              color={colors.white}
+              style={[styles.buttonText]}>
+              Create
+            </Text>
+            {/* // ) : (
+            //   <ActivityIndicator
+            //     type={'ThreeBounce'}
+            //     size={30}
+            //     color={colors.textColorLight}
+            //   />
+            // )} */}
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
       <View style={Styles.mB30} />
       <View style={Styles.mB30} />
       <View style={Styles.mB30} />

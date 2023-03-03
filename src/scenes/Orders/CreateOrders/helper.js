@@ -1,7 +1,7 @@
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
-import {addProduct} from '../../../components/CreateOrderForm/helper';
 import {FetchCities} from '../../../services/Cities';
+import {FetchAllProductsCreateOrder} from '../../../services/Products';
 import {GetShippers} from '../../../services/Shippers';
 import {capitalize} from '../../../utils';
 import {CONTACT_REGEX, VALID_NAME_ALPHABET} from '../../../utils/constants';
@@ -41,7 +41,23 @@ export const initialValues = {
   delivery_cost: 0,
   city_name: '',
   discount_amount: 0,
-  addProduct: [addProduct],
+  addProduct: [
+    {
+      index: uuid.v4(),
+      No: '',
+      name: '',
+      label: '',
+      product_id: null,
+      product_variant_id: null,
+      warehouse_product_id: null,
+      quantity: 0,
+      max_quantity: 0,
+      price: 0,
+      discount: 0,
+      isPercent: true,
+      total_amount: 0,
+    },
+  ],
   courier_details: {
     fragile: null,
     service_type: null,
@@ -149,29 +165,32 @@ export const getHelpersData = async (setHelpersData, workspaceId) => {
     // const statusResp = await FetchStatus();
     // const sconst workspaceId = await getWorkspaceId();tatusTypeResp = await FetchStatusTypes();
     // console.log('statusTypeResp>>>', statusTypeResp);
-    // let productResp = await FetchAllProducts();
+    let productResp = await FetchAllProductsCreateOrder(workspaceId);
     const shipperResp = await GetShippers(workspaceId);
-    console.log(shipperResp, 'shipperRespwww');
     // const shipperSettingResp = await FetchShipperSettings();
 
-    // productResp = getRespData(productResp);
-    // productResp =
-    //   productResp && productResp.length > 0
-    //     ? productResp.map(p => ({
-    //         ...p,
-    //         name_code: capitalize(
-    //           p.name && p.code ? p.name + ' (' + p.code + ')' : p.name,
-    //         ),
-    //       }))
-    //     : [];
+    productResp = getRespData(productResp);
+    productResp =
+      productResp && productResp.length > 0
+        ? productResp.map(p => ({
+            ...p,
+            name_code: capitalize(
+              p.name && p.code ? p.name + ' (' + p.code + ')' : p.name,
+            ),
+            label: capitalize(
+              p.name && p.code ? p.name + ' (' + p.code + ')' : p.name,
+            ),
+          }))
+        : [];
 
+    console.log(productResp, 'productResp');
     setHelpersData(prev => ({
       ...prev,
       shipperOptions: getRespData(shipperResp) || [],
       // statusOptions: getStatusData(getRespData(statusResp) || []),
       // statusTypeOptions: handleCapitalize(getRespData(statusTypeResp) || []),
       citiesOptions: getCitiesData(getRespData(citiesResp) || []),
-      // productOptions: productResp,
+      productOptions: productResp,
       // shipperSettings: getRespData(shipperSettingResp) || null,
       loading: false,
     }));

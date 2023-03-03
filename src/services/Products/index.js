@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import instance from '../../config/axios';
 import {isArray} from 'lodash';
-import {ParseError} from '../../utils/Parser';
+import {ParseError, responseData} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 const FetchAllProducts = async (workspaceId, limit = 100000, page = 1) => {
   const responseData = {
@@ -149,5 +149,45 @@ const FetchFilterProducts = async (values, limit = 100000, page = 1) => {
       };
     });
 };
-
-export {FetchAllProducts, FetchProducts, FetchFilterProducts};
+const FetchAllProductsCreateOrder = async workspaceId => {
+  const token = await getAuthHeader();
+  return instance
+    .get(`/products/all?workspaceId=${workspaceId}`, token)
+    .then(response => {
+      if (response.status === 200) {
+        response = response.data;
+        if (response.code === 200) {
+          return {
+            ...responseData,
+            status: 200,
+            message: response.message,
+            data: response.data,
+          };
+        }
+        return {
+          ...responseData,
+          message: response.message,
+        };
+      } else {
+        return {
+          ...responseData,
+          message: ParseError(response.data),
+        };
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      return {
+        ...responseData,
+        message: ParseError(
+          err.response && err.response.data ? err.response.data : err.message,
+        ),
+      };
+    });
+};
+export {
+  FetchAllProducts,
+  FetchProducts,
+  FetchFilterProducts,
+  FetchAllProductsCreateOrder,
+};
