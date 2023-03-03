@@ -45,6 +45,51 @@ const SaveStories = async data => {
       };
     });
 };
+const UpdateStories = async (Id, data) => {
+  console.log(Id, data, 'in the service');
+  const responseData = {
+    loading: false,
+    status: 210,
+    message: 'Something went wrong, Please try again.',
+  };
+
+  const token = await getAuthHeader();
+  return instance
+    .put(`/stories/${Id}`, data, token)
+    .then(response => {
+      console.log(response, 'this is response===============>');
+      if (response.status === 200) {
+        response = response.data;
+        if (response.code === 200) {
+          return {
+            ...responseData,
+            status: 200,
+            data: response.data,
+            message: response.message,
+          };
+        } else {
+          return {
+            ...responseData,
+            message: response.message,
+          };
+        }
+      } else {
+        return {
+          ...responseData,
+          message: ParseError(response.data),
+        };
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      return {
+        ...responseData,
+        message: ParseError(
+          err.response && err.response.data ? err.response.data : err.message,
+        ),
+      };
+    });
+};
 
 const SaveScheduleStories = async data => {
   const responseData = {
@@ -89,4 +134,4 @@ const SaveScheduleStories = async data => {
     });
 };
 
-export {SaveScheduleStories, SaveStories};
+export {SaveScheduleStories, SaveStories, UpdateStories};

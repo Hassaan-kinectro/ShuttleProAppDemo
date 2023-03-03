@@ -120,7 +120,6 @@ const AutoScheduleForm = ({values, setFieldValue, currentProfile, userId}) => {
         searchablePlaceholderTextColor={colors.placeholder}
         searchableStyle={Styles.searchableStyle}
         onChangeItem={value => {
-          console.log(value, 'this is the selected Critera');
           setFieldValue(Constants.CRITERIA, value);
         }}
         zIndex={50008}
@@ -140,7 +139,6 @@ const AutoScheduleForm = ({values, setFieldValue, currentProfile, userId}) => {
         cancelBtnText="CANCEL"
         format="YYYY-MM-DD"
         onDateChange={newValue => {
-          console.log(newValue, 'this is new value start');
           setFieldValue(
             Constants.ENDDATE,
             values[Constants.NO_OF_POSTS] && values[Constants.NO_OF_POSTS].day
@@ -192,7 +190,6 @@ const AutoScheduleForm = ({values, setFieldValue, currentProfile, userId}) => {
             cancelBtnText="CANCEL"
             format="YYYY-MM-DD"
             onDateChange={newValue => {
-              console.log(newValue, 'this is new value end');
               setFieldValue(Constants.ENDDATE, createDate(newValue));
             }}
             iconComponent={

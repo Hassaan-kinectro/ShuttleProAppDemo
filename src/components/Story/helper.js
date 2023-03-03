@@ -2,8 +2,6 @@
 import {convertImageTobase64} from '../../utils/urlParser';
 import moment from 'moment';
 import * as Yup from 'yup';
-import {SaveStories, SaveScheduleStories} from '../../services/SocialProfiles';
-import {showMessage} from 'react-native-flash-message';
 import * as Constants from '../../scenes/SocialMedia/Constants';
 import {POST_DATE_TIME, DATE} from '../../scenes/SocialMedia/Constants';
 import {FetchProductImages} from '../../services/Instagram';
@@ -242,7 +240,6 @@ export const getPostTimes = profileType => {
 };
 
 export const onClickLoadMedia = async (values, setFieldValue, workspaceId) => {
-  console.log(values, setFieldValue, workspaceId);
   setFieldValue(Constants.IMG_ARR, []);
   setFieldValue(Constants.SELECTED_IMG_ARR, []);
   setFieldValue(Constants.DELETED_NUM_ARR, []);
@@ -367,77 +364,71 @@ const getImagesArr = respData => {
   return result;
 };
 
-export const saveStory = async (values, handles, closeStoryModal) => {
-  if (values[Constants.FORM_TYPE] === Constants.CUSTOM) {
-    let dateFormat = '';
-    if (values.date) {
-      dateFormat = moment(values.date).format(POST_DATE_TIME);
-    }
-
-    handles.setFieldValue('loading', true);
-    let formData = {
-      type: values.type || '',
-      pageName: values.pageName || '',
-      pagelogo: values.pagelogo || '',
-      workspaceId: values.workspaceId.toString() || '',
-      pageId: values.pageId || '',
-      accessToken: values.accessToken || '',
-      carousel: values.carousel || '',
-      productIds: values.products || [],
-      userId: values.userId || '',
-      shareAt: dateFormat,
+export const previewHelper = (currentProfile, publishedStories, userId) => {
+  const ok = publishedStories.map(i => {
+    return {
+      user_id: userId,
+      user_image:
+        currentProfile &&
+        currentProfile.page_icon &&
+        currentProfile.page_icon.thumb &&
+        currentProfile.page_icon.thumb.url
+          ? currentProfile.page_icon.thumb.url
+          : currentProfile.page_icon.url,
+      user_name:
+        currentProfile && currentProfile.name
+          ? currentProfile.name
+          : currentProfile.username,
+      date: moment(i && i.shareAt).format('YYYY-MM-DD hh:mm A'),
+      stories:
+        i &&
+        i.images &&
+        i.images.length > 0 &&
+        i.images.map((url, index) => {
+          return {
+            story_id: index,
+            story_image: url
+              ? url
+              : 'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+            swipeText: 'Custom swipe text for this story',
+            onPress: () => console.log('story 1 swiped'),
+          };
+        }),
     };
+  });
+  return ok;
+};
+export const previewHelper2 = (item, currentProfile, userId) => {
+  console.log(item, ' =============== item', currentProfile, userId);
+  // const ok = {
+  //   user_id: userId,
+  //   user_image:
+  //     currentProfile &&
+  //     currentProfile.page_icon &&
+  //     currentProfile.page_icon.thumb &&
+  //     currentProfile.page_icon.thumb.url
+  //       ? currentProfile.page_icon.thumb.url
+  //       : currentProfile.page_icon.url,
+  //   user_name:
+  //     currentProfile && currentProfile.name
+  //       ? currentProfile.name
+  //       : currentProfile.username,
+  //   date: moment(item && item.shareAt).format('YYYY-MM-DD hh:mm A'),
+  //   stories:
+  //     item &&
+  //     item.images &&
+  //     item.images.length > 0 &&
+  //     item.images.map((url, index) => {
+  //       return {
+  //         story_id: index,
+  //         story_image: url
+  //           ? url
+  //           : 'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+  //         swipeText: 'Custom swipe text for this story',
+  //         onPress: () => console.log('story 1 swiped'),
+  //       };
+  //     }),
+  // };
 
-    const resp = await SaveStories(formData);
-    if (resp.status === 200) {
-      showMessage({
-        // message: resp.message,
-        description: 'Story Saved Successfully',
-        type: 'success',
-      });
-      handles.resetForm();
-      closeStoryModal();
-    } else {
-      showMessage({
-        // message: resp.message,
-        description: ' Story Not Saved',
-        type: 'DANGER',
-      });
-    }
-    handles.setFieldValue('loading', false);
-  } else {
-    handles.setFieldValue('loading', true);
-    const stories = values.slots.map(s => {
-      return {
-        type: values.type || '',
-        pageName: values.pageName || '',
-        pagelogo: values.pagelogo || '',
-        workspaceId: values.workspaceId.toString() || '',
-        pageId: values.pageId || '',
-        accessToken: values.accessToken || '',
-        userId: values.userId || '',
-        images: s.images.map(i => i.url) || [],
-        productIds: s.products || [],
-        shareAt: s.date,
-      };
-    });
-
-    const resp = await SaveScheduleStories(stories);
-    if (resp.status === 200) {
-      showMessage({
-        message: resp.message,
-        description: 'Story Schedule Saved Successfully',
-        type: 'success',
-      });
-      handles.resetForm();
-      closeStoryModal();
-    } else {
-      showMessage({
-        message: resp.message,
-        description: ' Story Not Scheduled ',
-        type: 'DANGER',
-      });
-    }
-    handles.setFieldValue('loading', false);
-  }
+  // return ok;
 };

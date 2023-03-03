@@ -9,6 +9,7 @@ import {
   Modal,
   Text,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import CircularImage from '../CircularImage';
 import {useTheme} from '@react-navigation/native';
@@ -24,12 +25,17 @@ import {Styles} from '../../styles';
 import {CloseIcon} from '../../icons';
 import {Colors, Mixins} from '../../styles';
 import {onRefresh} from '../../scenes/SocialMedia/PublishedStories/helper';
+import {previewHelper} from './helper';
+import InstaStory from 'react-native-insta-story';
+import {FONT_FAMILY} from '../../utils/constants';
+import {IS_IOS, deviceHeight, deviceWidth} from '../../utils/orientation';
 
 const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
   const [modalVisible, setModalVisible] = React.useState({
     data: null,
     open: false,
   });
+  const [data, setData] = React.useState([]);
   const navigation = useNavigation();
 
   const {colors} = useTheme();
@@ -38,6 +44,10 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
 
   const styles = useStyles();
   const workspace = useSelector(state => state.workspace.workspace);
+  const userId = useSelector(
+    state => state && state.user && state.user.user && state.user.user.id,
+  );
+
   const workspaceIcon =
     workspace && workspace.workspace && workspace.workspace.icon
       ? workspace.workspace.icon.thumb.url
@@ -51,167 +61,67 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
   );
   const profileType = currentProfile && currentProfile.profile_type;
 
+  const ok = previewHelper(currentProfile, publishedStories, userId);
+  console.log(ok, 'this is ok for published stories');
   return (
-    <>
-      <View>
-        <FlatList
-          data={publishedStories && publishedStories}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={refresh}
-          //     onRefresh={() =>
-          //       onRefresh(
-          //         setRefresh,
-          //         setPublishedStories,
-          //         profileType,
-          //         workspaceId,
-          //       )
-          //     }
-          //     colors={[colors.background]}
-          //     tintColor={colors.themeIcon}
-          //   />
-          // }
-          contentContainerStyle={Styles.pL10}
-          ListHeaderComponent={() => (
-            <View style={[Styles.flexDirectionRow]}>
-              <TouchableOpacity
-                style={styles.CreateprofileIcon}
-                onPress={() => {
-                  navigation.navigate(Routes.SHOWSTORY);
-                }}>
-                <View style={styles.HeaderImage}>
-                  <F5Icon
-                    name="th-list"
-                    size={16}
-                    color={colors.fontPrimary}
-                    style={Styles.textCenter}
-                  />
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.CreateprofileIcon}
-                onPress={() => {
-                  navigation.navigate(Routes.CREATESTORY, {
-                    currentProfile: currentProfile,
-                  });
-                }}>
-                <CircularImage
-                  img={workspaceIcon}
-                  name={workspaceName}
-                  style={styles.HeaderImage}
-                />
-                <Image source={ADDSTORY} style={styles.active3} />
-              </TouchableOpacity>
-            </View>
-          )}
-          renderItem={({item}) => {
-            return (
-              <React.Fragment key={item.id}>
-                <TouchableOpacity
-                  style={styles.profileIcon2}
-                  onPress={() => {
-                    setModalVisible({data: item, open: true});
-                    setTapped(true);
-                  }}>
-                  {item && item.type === 'instagram' && (
-                    <>
-                      <CircularImage
-                        img={
-                          item && item.pagelogo ? item.pagelogo : item.pageicon
-                        }
-                        name={item.pageName}
-                        style={[styles.userImage]}
-                      />
-                      <Image source={INSTAGRAM} style={styles.active2} />
-                    </>
-                  )}
-                  {item && item.type === 'facebook' && (
-                    <>
-                      <CircularImage
-                        img={
-                          item && item.pagelogo ? item.pagelogo : item.pageicon
-                        }
-                        name={item.pageName}
-                        style={[styles.userImage]}
-                      />
-                      <Image source={FACEBOOK} style={styles.active2} />
-                    </>
-                  )}
-                </TouchableOpacity>
-              </React.Fragment>
-            );
-          }}
-        />
-      </View>
-      <View style={styles.hairline2} />
-      {/* <View style={{flex: 1}}> */}
-      <Modal
-        animationType="slide"
-        transparent={false}
-        style={{backgroundColor: colors.background}}
-        visible={modalVisible.open}>
-        <Swiper showsPagination={true}>
-          {modalVisible.data &&
-            modalVisible.data.images &&
-            modalVisible.data.images.length > 0 &&
-            modalVisible.data.images.map((image, index) => {
-              return (
-                <View key={index} style={styles.slide}>
-                  <FastImage
-                    style={styles.image2}
-                    source={{
-                      uri: image,
-                    }}
-                    resizeMode="contain"
-                  />
-                </View>
-              );
-            })}
-        </Swiper>
-        <View style={styles.containerModal}>
-          <View style={Styles.flexCenter}>
-            <CircularImage
-              img={
-                currentProfile &&
-                currentProfile.page_icon &&
-                currentProfile.page_icon.thumb &&
-                currentProfile.page_icon.thumb.url
-                  ? currentProfile.page_icon.thumb.url
-                  : currentProfile.page_icon.url
-              }
-              name={currentProfile.name}
-              style={styles.HeaderImage5}
+    <View>
+      <View style={[Styles.flexDirectionRow]}>
+        <TouchableOpacity
+          style={styles.CreateprofileIcon}
+          onPress={() => {
+            navigation.navigate(Routes.SHOWSTORY, {
+              currentProfile: currentProfile,
+            });
+          }}>
+          <View style={styles.HeaderImage}>
+            <F5Icon
+              name="th-list"
+              size={16}
+              color={colors.fontPrimary}
+              style={Styles.textCenter}
             />
           </View>
-          <View style={Styles.flex2Start}>
-            <View>
-              <Text
-                lines={1}
-                size={Mixins.scaleFont(16)}
-                style={[styles.headerText]}>
-                {currentProfile && currentProfile.name}
-              </Text>
-              <Text
-                lines={1}
-                size={Mixins.scaleFont(5)}
-                style={[styles.headerText2, {marginLeft: 10, width: 250}]}>
-                (Published)
-              </Text>
-            </View>
-          </View>
-          <View style={Styles.flex3End}>
-            <TouchableOpacity
-              onPress={() => setModalVisible({data: null, open: false})}>
-              <CloseIcon size={30} color={Colors.WHISPER} />
-            </TouchableOpacity>
-          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.CreateprofileIcon}
+          onPress={() => {
+            navigation.navigate(Routes.CREATESTORY, {
+              currentProfile: currentProfile,
+            });
+          }}>
+          <CircularImage
+            img={workspaceIcon}
+            name={workspaceName}
+            style={styles.HeaderImage}
+          />
+          <Image source={ADDSTORY} style={styles.active3} />
+        </TouchableOpacity>
+        <View style={{width: deviceWidth - 130}}>
+          <InstaStory
+            data={ok && ok.length > 0 ? ok : []}
+            duration={5}
+            onStart={item => console.log(item)}
+            unPressedBorderColor={'#54788c'}
+            pressedBorderColor={'transparent'}
+            onClose={item => console.log('close: ', item)}
+            customSwipeUpComponent={
+              <View>
+                <Text />
+              </View>
+            }
+            showAvatarText={false}
+            horizontal={true}
+            resizeMode="contain"
+            avatarSize={48}
+            style={{
+              // bottom: 7,
+              backgroundColor: 'red',
+            }}
+          />
         </View>
-      </Modal>
-      {/* </View> */}
-    </>
+      </View>
+      <View style={styles.hairline2} />
+    </View>
   );
 };
 

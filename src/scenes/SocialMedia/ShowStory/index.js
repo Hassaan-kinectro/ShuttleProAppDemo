@@ -27,6 +27,8 @@ const headerHeight = 32 * 2;
 
 const ShowStory = props => {
   const {navigation, route} = props;
+  const Profile = route && route.params && route.params.profile;
+  const currentProfile = route && route.params && route.params.currentProfile;
   const styles = useStyles();
   const {colors} = useTheme();
   const name = 'Stories';
@@ -162,6 +164,7 @@ const ShowStory = props => {
               return (
                 <React.Fragment key={item.id}>
                   <StoryRow
+                    currentProfile={currentProfile ? currentProfile : Profile}
                     navigation={navigation}
                     handleDelete={handleDelete}
                     item={item}

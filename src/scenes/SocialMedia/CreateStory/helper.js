@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import {
   SaveStories,
   SaveScheduleStories,
+  UpdateStories,
 } from '../../../services/SocialProfiles';
 import {showMessage} from 'react-native-flash-message';
 import * as Constants from '../Constants';
@@ -283,7 +284,54 @@ const getImagesArr = respData => {
   return result;
 };
 
+export const updateStory = async (
+  values,
+  selectedImages,
+  profile,
+  Id,
+  navigation,
+) => {
+  let dateFormat = '';
+  if (values.date) {
+    dateFormat = moment(values.date).format(POST_DATE_TIME);
+  }
+  let formData = {
+    carousel: selectedImages || [],
+    productIds:
+      values && values.productIds && values.productIds.length > 0
+        ? values.productIds.map(product => {
+            return {productId: product.id};
+          })
+        : [],
+    shareAt: dateFormat,
+  };
+
+  const resp = await UpdateStories(Id, formData);
+  if (resp.status === 200) {
+    showMessage({
+      message: resp.message,
+      description: 'Story Updated Successfully',
+      type: 'success',
+    });
+    navigation.dispatch(
+      StackActions.replace(Routes.SHOWSTORY, {
+        profile: profile,
+      }),
+    );
+    // handles.resetForm();
+    // closeStoryModal();
+  } else {
+    showMessage({
+      message: resp.message,
+      description: ' Story Not Updated',
+      type: 'DANGER',
+    });
+  }
+  // handles.setFieldValue('loading', false);
+};
+
 export const saveStory = async (
+  profile,
   values,
   selectedImages,
   navigation,
@@ -311,6 +359,7 @@ export const saveStory = async (
       userId: values && values.userId ? values.userId : null,
       shareAt: dateFormat,
     };
+    console.log(formData, 'formData is here');
     const resp = await SaveStories(formData);
 
     if (resp.status === 200) {
@@ -319,7 +368,11 @@ export const saveStory = async (
         description: 'Story Saved Successfully',
         type: 'success',
       });
-      navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
+      navigation.dispatch(
+        StackActions.replace(Routes.SHOWSTORY, {
+          profile: profile,
+        }),
+      );
       // handles.resetForm();
       // closeStoryModal();
     } else {

@@ -6,7 +6,6 @@
 /* eslint-disable no-unused-vars */
 import {View, ActivityIndicator, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {scaleSize} from '../../../styles/mixins';
 import CustomHeader from '../../../components/CustomHeader';
 import {useSelector} from 'react-redux';
 import {Dark, Light} from '../../../utils/imagesPath';
@@ -29,6 +28,7 @@ import {
   saveStory,
   onClickLoadMedia,
   getPostAllSlots,
+  updateStory,
 } from './helper';
 import {
   defaultProducts,
@@ -42,7 +42,8 @@ import {getUser} from '../../../config/authSettings';
 
 const CreateStory = props => {
   const {navigation, route, type} = props;
-  console.log(route.params.params.data, 'this is route.params');
+  const storyData = route && route.params && route.params.data;
+  const storyId = route && route.params && route.params.id;
   const currentProfile = route && route.params && route.params.currentProfile;
   const styles = useStyles();
   const {colors} = useTheme();
@@ -72,18 +73,17 @@ const CreateStory = props => {
     ]);
   }, []);
 
-  const saveData = async (values, selectedImages = []) => {
-    const data = await saveStory(
-      values,
-      selectedImages,
-      navigation,
-      selectedValue,
-    );
+  const saveData = async (values, selectedImages = [], profile) => {
+    await saveStory(profile, values, selectedImages, navigation, selectedValue);
+  };
+  const updateData = async (values, selectedImages = [], profile, Id) => {
+    await updateStory(values, selectedImages, profile, Id, navigation);
   };
 
   const handleRadioChange = value => {
     setSelectedValue(value);
   };
+
   return (
     <>
       <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
@@ -94,7 +94,11 @@ const CreateStory = props => {
               initialValues={initialValues}
               validationSchema={StorySchema}
               onSubmit={(values, handles) => {
-                saveData(values);
+                if (storyData) {
+                  updateData(values);
+                } else {
+                  saveData(values);
+                }
               }}>
               {p => {
                 const {touched, errors, values, handleChange, setFieldValue} =
@@ -110,7 +114,9 @@ const CreateStory = props => {
                             <ImageList
                               values={values}
                               setFieldValue={setFieldValue}
-                              save={saveData}
+                              save={storyData ? updateData : saveData}
+                              profile={currentProfile}
+                              Id={storyId}
                             />
                           </>
                         ) : values &&
@@ -125,34 +131,38 @@ const CreateStory = props => {
                           />
                         ) : selectedValue === 'Custom' ? (
                           <>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                marginTop: 20,
-                              }}>
-                              <View style={styles.radioContainer}>
-                                <TouchableOpacity
-                                  onPress={() => handleRadioChange('Custom')}>
-                                  <Radio
-                                    value="Custom"
-                                    selected={selectedValue === 'Custom'}
-                                  />
-                                </TouchableOpacity>
+                            {storyData ? (
+                              <View style={{marginTop: 20}} />
+                            ) : (
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  marginTop: 20,
+                                }}>
+                                <View style={styles.radioContainer}>
+                                  <TouchableOpacity
+                                    onPress={() => handleRadioChange('Custom')}>
+                                    <Radio
+                                      value="Custom"
+                                      selected={selectedValue === 'Custom'}
+                                    />
+                                  </TouchableOpacity>
+                                </View>
+                                <View style={styles.radioContainer}>
+                                  <TouchableOpacity
+                                    onPress={() =>
+                                      handleRadioChange('Auto Scheduler')
+                                    }>
+                                    <Radio
+                                      value="Auto Scheduler"
+                                      selected={
+                                        selectedValue === 'Auto Scheduler'
+                                      }
+                                    />
+                                  </TouchableOpacity>
+                                </View>
                               </View>
-                              <View style={styles.radioContainer}>
-                                <TouchableOpacity
-                                  onPress={() =>
-                                    handleRadioChange('Auto Scheduler')
-                                  }>
-                                  <Radio
-                                    value="Auto Scheduler"
-                                    selected={
-                                      selectedValue === 'Auto Scheduler'
-                                    }
-                                  />
-                                </TouchableOpacity>
-                              </View>
-                            </View>
+                            )}
                             <View style={styles.BoxStyle}>
                               <View
                                 style={{
@@ -171,6 +181,7 @@ const CreateStory = props => {
                                 </Text>
                               </View>
                               <Form
+                                storyData={storyData}
                                 touched={touched}
                                 values={values}
                                 errors={errors}
@@ -261,35 +272,40 @@ const CreateStory = props => {
                           </>
                         ) : (
                           <>
-                            <View
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                marginTop: 20,
-                              }}>
-                              <View style={styles.radioContainer}>
-                                <TouchableOpacity
-                                  onPress={() => handleRadioChange('Custom')}>
-                                  <Radio
-                                    value="Custom"
-                                    selected={selectedValue === 'Custom'}
-                                  />
-                                </TouchableOpacity>
+                            {storyData ? (
+                              <View style={{marginTop: 20}} />
+                            ) : (
+                              <View
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  marginTop: 20,
+                                }}>
+                                <View style={styles.radioContainer}>
+                                  <TouchableOpacity
+                                    onPress={() => handleRadioChange('Custom')}>
+                                    <Radio
+                                      value="Custom"
+                                      selected={selectedValue === 'Custom'}
+                                    />
+                                  </TouchableOpacity>
+                                </View>
+                                <View style={styles.radioContainer}>
+                                  <TouchableOpacity
+                                    onPress={() =>
+                                      handleRadioChange('Auto Scheduler')
+                                    }>
+                                    <Radio
+                                      value="Auto Scheduler"
+                                      selected={
+                                        selectedValue === 'Auto Scheduler'
+                                      }
+                                    />
+                                  </TouchableOpacity>
+                                </View>
                               </View>
-                              <View style={styles.radioContainer}>
-                                <TouchableOpacity
-                                  onPress={() =>
-                                    handleRadioChange('Auto Scheduler')
-                                  }>
-                                  <Radio
-                                    value="Auto Scheduler"
-                                    selected={
-                                      selectedValue === 'Auto Scheduler'
-                                    }
-                                  />
-                                </TouchableOpacity>
-                              </View>
-                            </View>
+                            )}
+
                             <View style={styles.BoxStyle}>
                               <View
                                 style={{

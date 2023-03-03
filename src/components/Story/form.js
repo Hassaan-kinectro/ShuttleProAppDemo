@@ -12,6 +12,7 @@ import DatePickerField from '../DateTimePicker';
 import {selectionTypes} from '../../scenes/SocialMedia/helper';
 const dropDownMaxHeight = 150;
 const Form = ({
+  storyData,
   values,
   setFieldValue,
   products,
@@ -36,11 +37,36 @@ const Form = ({
   };
 
   React.useEffect(() => {
-    if (userId && userId && setFieldValue && setFieldValue) {
-      setFieldValue('userId', userId || '');
+    if (storyData && currentProfile && setFieldValue && setFieldValue) {
+      setFieldValue(
+        Constants._PAGE_ID,
+        (currentProfile && currentProfile.page_id) || '',
+      );
+      setFieldValue(
+        Constants._PAGE_NAME,
+        (currentProfile && currentProfile.name) || '',
+      );
+      setFieldValue(
+        Constants._PAGE_LOGO_INSTA,
+        (currentProfile &&
+          currentProfile.page_icon &&
+          currentProfile.page_icon.url) ||
+          '',
+      );
+      setFieldValue(
+        Constants._ACCESS_TOKEN,
+        (currentProfile && currentProfile.access_token) || '',
+      );
+      setFieldValue(
+        Constants._WORKSPACEID,
+        (currentProfile && currentProfile.workspace_id) || '',
+      );
+      setFieldValue(
+        Constants.STORY_TYPE,
+        (currentProfile && currentProfile.profile_type) || '',
+      );
     }
-  }, [userId]);
-
+  }, [currentProfile, storyData]);
   React.useEffect(() => {
     if (currentProfile && setFieldValue && setFieldValue) {
       setFieldValue(
@@ -72,6 +98,43 @@ const Form = ({
       );
     }
   }, [currentProfile]);
+
+  React.useEffect(() => {
+    if (
+      products &&
+      products.data &&
+      products.data.length > 0 &&
+      storyData &&
+      storyData.productIds &&
+      storyData.productIds.length > 0
+    ) {
+      const productId = storyData.productIds.map(product =>
+        product.productId.toString(),
+      );
+      setFieldValue(
+        Constants.PRODUCT_ID,
+        products.data.filter(i => {
+          return productId.includes(i.id.toString());
+        }),
+      );
+    } else {
+      setFieldValue(Constants.PRODUCT_ID, []);
+    }
+  }, [storyData, products]);
+
+  React.useEffect(() => {
+    if (storyData && storyData.shareAt) {
+      setFieldValue(Constants._DATE, storyData.shareAt);
+    } else {
+      setFieldValue(Constants._DATE, '');
+    }
+  }, [storyData]);
+
+  React.useEffect(() => {
+    if (userId && userId && setFieldValue && setFieldValue) {
+      setFieldValue('userId', userId || '');
+    }
+  }, [userId]);
 
   return (
     <>
@@ -119,7 +182,11 @@ const Form = ({
           <>
             <DropDownPicker
               items={products.data}
-              defaultValue={[]}
+              defaultValue={
+                values && values.productIds && values.productIds.length > 0
+                  ? values.productIds
+                  : []
+              }
               scrollViewProps={{
                 keyboardShouldPersistTaps: 'always',
               }}

@@ -55,12 +55,12 @@ const SocialMediaProfile = ({route, navigation}) => {
             </View>
             {currentProfile && currentProfile.profile_type === 'facebook' && (
               <>
-                <PublishedStories
+                {/* <PublishedStories
                   users={workspace.users}
                   currentProfile={currentProfile}
                   postModals={postModals}
                   setPostModals={setPostModals}
-                />
+                /> */}
                 <Facebook
                   key={currentProfile.page_id}
                   users={workspace.users}
@@ -71,6 +71,7 @@ const SocialMediaProfile = ({route, navigation}) => {
             {currentProfile && currentProfile.profile_type === 'instagram' && (
               <>
                 <PublishedStories
+                  key={currentProfile.page_id}
                   users={workspace.users}
                   currentProfile={currentProfile}
                   postModals={postModals}

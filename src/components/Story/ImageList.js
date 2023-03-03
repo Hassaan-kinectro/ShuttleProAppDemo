@@ -19,10 +19,9 @@ import {FONT_FAMILY} from '../../utils/constants';
 import StoryModal from '../../scenes/SocialMedia/CreateStory/storyModal';
 import {BackArrowIcon} from '../../icons';
 
-const ImageList = ({values, setFieldValue, loading, save}) => {
+const ImageList = ({values, setFieldValue, loading, save, profile, Id}) => {
   const {colors} = useTheme();
   const styles = useStyles();
-  const Styles = GlobalStyle();
   const numColumns = 3;
   const [selectedImages, setSelectedImages] = React.useState([]);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -158,6 +157,8 @@ const ImageList = ({values, setFieldValue, loading, save}) => {
       </>
       {modalVisible && (
         <StoryModal
+          profile={profile}
+          Id={Id}
           loading={loading}
           visible={modalVisible}
           setModalVisible={setModalVisible}

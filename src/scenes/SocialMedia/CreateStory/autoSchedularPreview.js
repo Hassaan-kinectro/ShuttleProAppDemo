@@ -7,13 +7,7 @@ import {useTheme} from '@react-navigation/native';
 import InstaStory from 'react-native-insta-story';
 import {previewHelper} from './helper';
 import {deviceHeight, IS_IOS} from '../../../utils/orientation';
-import {
-  FilterIcon,
-  BackIcon,
-  BackArrowIcon,
-  PublishIcon,
-  CloseIcon,
-} from '../../../icons';
+import {BackArrowIcon, CloseIcon} from '../../../icons';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../../utils/constants';
 

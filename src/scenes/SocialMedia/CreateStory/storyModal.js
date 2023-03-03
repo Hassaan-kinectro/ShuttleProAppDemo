@@ -10,15 +10,10 @@ import React from 'react';
 import Swiper from 'react-native-swiper';
 import FastImage from 'react-native-fast-image';
 import Loader from '../../../components/Loader';
-import {useTheme} from '@react-navigation/native';
 import useStyles from '../styles';
-import {deviceHeight, deviceWidth, IS_IOS} from '../../../utils/orientation';
-import LinearGradient from 'react-native-linear-gradient';
-import {FONT_FAMILY} from '../../../utils/constants';
+import {deviceHeight, deviceWidth} from '../../../utils/orientation';
 import {Mixins, Text, GlobalStyle, Colors} from '../../../styles';
 import CircularImage from '../../../components/CircularImage';
-import {useSelector} from 'react-redux';
-import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import {CloseIcon} from '../../../icons';
 import {PUBLISH} from '../../../utils/imagesPath';
 
@@ -30,11 +25,10 @@ const StoryModal = ({
   values,
   selectedImages,
   FormData,
+  profile,
+  Id,
 }) => {
-  const {colors} = useTheme();
-  const theme = useSelector(state => state.themeChange.theme);
   const Styles = GlobalStyle();
-
   const styles = useStyles();
 
   return (
@@ -85,10 +79,8 @@ const StoryModal = ({
             bottom: deviceHeight / 8.5,
           }}
           onPress={() => {
-            if (!loading) {
-              FormData(values, selectedImages);
-              setModalVisible(false);
-            }
+            FormData(values, selectedImages, profile, Id, setModalVisible);
+            // setModalVisible(false);
           }}>
           {loading ? (
             <ActivityIndicator style={styles.publishicon} />
