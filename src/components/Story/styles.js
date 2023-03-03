@@ -307,6 +307,7 @@ const useStyles = () => {
     },
     CreateprofileIcon: {
       // marginLeft: 10,
+      justifyContent: 'center',
       position: 'relative',
     },
     profileIcon2: {
@@ -337,11 +338,11 @@ const useStyles = () => {
       top: -15,
     },
     active3: {
+      position: 'absolute',
       width: 15,
       height: 15,
       bottom: 0,
-      right: -35,
-      top: -15,
+      right: 5,
     },
     container4: {
       flex: 1,
@@ -366,6 +367,22 @@ const useStyles = () => {
     },
     progressBarSegment: {
       height: '100%',
+    },
+    avatarWrapper: {
+      borderWidth: 2,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      borderColor: '#54788c',
+      borderRadius: 100,
+      height: 48,
+      width: 48,
+      marginHorizontal: 5,
+    },
+    avatar: {
+      height: 48,
+      width: 48,
+      borderRadius: 100,
     },
   });
 };

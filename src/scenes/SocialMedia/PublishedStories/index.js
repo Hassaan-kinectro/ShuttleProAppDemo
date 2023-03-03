@@ -26,7 +26,7 @@ const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
       setLoading(false);
       setLoadingImages(defaultValue);
     };
-  }, []);
+  }, [currentProfile]);
 
   const closeStoryModal = React.useCallback(() => {
     setPostModals(prev => {

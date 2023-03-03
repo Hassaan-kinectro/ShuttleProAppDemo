@@ -118,7 +118,7 @@ const Products = ({navigation}) => {
         const productsData = await FetchAllProducts(workspaceId, 10, page + 1);
         if (productsData.status === 200) {
           setCount(productsData.count);
-          console.log(productsData, 'products data fetch');
+
           changePage(page + 1);
           setAllProducts(prev => {
             return [

@@ -78,6 +78,40 @@ export const DeleteStoryById = async id => {
       };
     });
 };
+export const FetchStoryById = async id => {
+  const responseData = {
+    loading: false,
+    status: 210,
+    message: 'Something went wrong, Please try again.',
+  };
+
+  const token = await getAuthHeader();
+  return instance
+    .get(`/stories/${id}`, token)
+    .then(response => {
+      if (response && response.data && response.data.code === 200) {
+        response = {
+          data: response && response.data && response.data.data,
+          status: 200,
+          message: 'Stories Fetched Successfully.',
+        };
+        return response;
+      } else {
+        return {
+          ...responseData,
+          message: ParseError(response.data),
+        };
+      }
+    })
+    .catch(err => {
+      return {
+        ...responseData,
+        message: ParseError(
+          err.response && err.response.data ? err.response.data : err.message,
+        ),
+      };
+    });
+};
 export const UpdateStoryById = async id => {
   const responseData = {
     loading: false,

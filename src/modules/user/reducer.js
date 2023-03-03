@@ -16,8 +16,9 @@ const UserReducer = (
       };
       break;
     default:
+      const u = !isObject(state.user) ? ParseValue(state.user) : state.user;
       state = {
-        user: !isObject(state.user) ? ParseValue(state.user) : state.user,
+        user: u,
         userId: state.userId,
       };
       break;

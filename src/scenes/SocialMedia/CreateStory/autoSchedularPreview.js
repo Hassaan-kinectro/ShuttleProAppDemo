@@ -1,19 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, Image, Platform} from 'react-native';
+import {View, TouchableOpacity, Platform} from 'react-native';
 import React from 'react';
 import {Text, Mixins} from '../../../styles';
 import useStyles from '../styles';
 import {useTheme} from '@react-navigation/native';
 import InstaStory from 'react-native-insta-story';
+import FastImage from 'react-native-fast-image';
 import {previewHelper} from './helper';
 import {deviceHeight, IS_IOS} from '../../../utils/orientation';
-import {
-  FilterIcon,
-  BackIcon,
-  BackArrowIcon,
-  PublishIcon,
-  CloseIcon,
-} from '../../../icons';
+import {BackArrowIcon, CloseIcon} from '../../../icons';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../../utils/constants';
 
@@ -27,7 +22,7 @@ const AutoSchedularPreview = ({
   const styles = useStyles();
   const {colors} = useTheme();
 
-  const ok = previewHelper(values.slots, currentProfile, userId);
+  const stories = previewHelper(values.slots, currentProfile, userId);
   return (
     <>
       <View style={[styles.filterContainer]}>
@@ -51,7 +46,7 @@ const AutoSchedularPreview = ({
         </Text>
       </View>
       <InstaStory
-        data={ok}
+        data={stories}
         duration={5}
         onStart={item => console.log(item)}
         unPressedBorderColor={'#54788c'}
@@ -81,9 +76,9 @@ const AutoSchedularPreview = ({
             <>
               <View style={styles.avatarContainer}>
                 <TouchableOpacity
-                  onPress={() => handleStoryItemPress(item)}
+                  onPress={() => handleStoryItemPress(item, index)}
                   style={[styles.avatarWrapper]}>
-                  <Image
+                  <FastImage
                     style={styles.avatar}
                     source={{uri: item.user_image}}
                     defaultSource={

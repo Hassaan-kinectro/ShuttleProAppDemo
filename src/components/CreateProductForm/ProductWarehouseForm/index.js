@@ -32,7 +32,6 @@ const ProductWarehouse = props => {
   const [warehouse, setWarehouse] = React.useState(false);
 
   const {warehouses, index, keyboardType} = props;
-  // console.log(props.i, 'warehouses');
 
   return (
     <View style={styles.BoxStyleWareHouse}>

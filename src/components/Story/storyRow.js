@@ -20,7 +20,7 @@ import moment from 'moment';
 import Share from 'react-native-share';
 import {handleConvert} from './helper';
 import CircularImage from '../CircularImage';
-import {UpdateStoryById} from '../../services/Stories';
+import {FetchStoryById, UpdateStoryById} from '../../services/Stories';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
 import Loader from '../Loader';
@@ -29,6 +29,9 @@ import {CloseIcon} from '../../icons';
 import {GlobalStyle, Colors} from '../../styles';
 import F5Icon from 'react-native-vector-icons/FontAwesome5';
 import PopupMenu from '../PopupMenu';
+import {Routes} from '../../utils/constants';
+import {previewHelper2} from './helper';
+import {useSelector} from 'react-redux';
 
 const defaultValue = {id: null, loading: false};
 
@@ -38,6 +41,8 @@ const StoryRow = ({
   loading,
   disabled,
   handleDelete,
+  navigation,
+  currentProfile,
 }) => {
   const styles = useStyles();
   const [imageUrl, setImageUrl] = React.useState([]);
@@ -46,6 +51,10 @@ const StoryRow = ({
   const [modalVisible, setModalVisible] = React.useState(false);
   const [imageLoading, setImageLoading] = React.useState(true);
   const [tapped, setTapped] = React.useState(false);
+
+  const userId = useSelector(
+    state => state && state.user && state.user.user && state.user.user.id,
+  );
 
   const colors = useTheme();
   const Styles = GlobalStyle();
@@ -84,7 +93,6 @@ const StoryRow = ({
     }
   };
   const shareFacebookImage = async (urls, id) => {
-    console.log(urls, id, 'enter');
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);
     await UpdateStoryById(id).then(res => {
@@ -117,19 +125,29 @@ const StoryRow = ({
 
   const onClickPublish = type => {
     if (type === 'instagram') {
-      console.log('ran for insta');
       shareInstagramImage(imageUrl, item.id);
     } else {
-      console.log('ran for fb');
       shareFacebookImage(imageUrl, item.id);
     }
   };
   const onClickDelete = () => {
-    console.log('enter in delete');
     handleDelete(item.id, setIsDeleting);
   };
-  const onClickEdit = () => {
-    console.log('onclick Edit ran');
+  const onClickEdit = async id => {
+    console.log(id);
+    SetIsLoading(true);
+    await FetchStoryById(id).then(res => {
+      if (res.status === 200) {
+        navigation.navigate(Routes.CREATESTORY, {
+          data: res.data,
+          currentProfile: currentProfile,
+          id: id,
+        });
+        SetIsLoading(false);
+      } else {
+        SetIsLoading(false);
+      }
+    });
   };
 
   const data = [
@@ -146,9 +164,12 @@ const StoryRow = ({
     {
       label: 'Edit',
       action: 'edit',
-      onClick: onClickEdit,
+      onClick: () => onClickEdit(item && item.id),
     },
   ];
+
+  const ok = previewHelper2(item, currentProfile, userId);
+  console.log(ok, ' this is ok for story row');
 
   return (
     <>

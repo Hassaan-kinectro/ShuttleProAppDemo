@@ -126,7 +126,11 @@ class DropDownPicker extends React.Component {
         props.defaultValue.length > 0
       ) {
         props.defaultValue.forEach((value, index) => {
-          items.push(props.items.find(item => item.value === value));
+          items.push(
+            props.items.find(
+              item => item && value && item.value === value.value,
+            ),
+          );
         });
       }
 
@@ -396,7 +400,9 @@ class DropDownPicker extends React.Component {
   }
 
   isSelected(item) {
-    return this.state.choice.findIndex(a => a.value === item.value) > -1;
+    return (
+      this.state.choice.findIndex(a => a && item && a.value === item.value) > -1
+    );
   }
 
   getLabel(item, selected = false) {
@@ -619,7 +625,11 @@ class DropDownPicker extends React.Component {
 
                     {this.state.props.multiple &&
                       this.state.choice.findIndex(
-                        i => i.label === item.label && i.value === item.value,
+                        i =>
+                          i &&
+                          item &&
+                          i.label === item.label &&
+                          i.value === item.value,
                       ) > -1 &&
                       this.props.customTickIcon()}
                   </TouchableOpacity>
