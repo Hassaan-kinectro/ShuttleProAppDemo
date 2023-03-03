@@ -8,7 +8,7 @@ import StoryList from '../../../components/Story/storyContainer';
 
 const defaultValue = {id: null, loading: false};
 
-const PublishedStories = ({currentProfile, postModals, setPostModals, key}) => {
+const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
   const workspaceId = useSelector(state => state.workspace.workspaceId);
   const [loading, setLoading] = React.useState(false);
   const [loadingImages, setLoadingImages] = React.useState(defaultValue);
@@ -26,7 +26,7 @@ const PublishedStories = ({currentProfile, postModals, setPostModals, key}) => {
       setLoading(false);
       setLoadingImages(defaultValue);
     };
-  }, []);
+  }, [currentProfile]);
 
   const closeStoryModal = React.useCallback(() => {
     setPostModals(prev => {

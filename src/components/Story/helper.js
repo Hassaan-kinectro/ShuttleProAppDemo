@@ -365,6 +365,38 @@ const getImagesArr = respData => {
 };
 
 export const previewHelper = (currentProfile, publishedStories, userId) => {
+  const defaultObj = [
+    {
+      user_id: 'list',
+      user_image: '',
+      user_name: 'list',
+      date: moment().format('YYYY-MM-DD hh:mm A'),
+      stories: [
+        {
+          story_id: 0,
+          story_image:
+            'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+          swipeText: 'Custom swipe text for this story',
+          onPress: () => console.log('story 1 swiped'),
+        },
+      ],
+    },
+    {
+      user_id: 'create',
+      user_image: '',
+      user_name: 'create',
+      date: moment().format('YYYY-MM-DD hh:mm A'),
+      stories: [
+        {
+          story_id: 0,
+          story_image:
+            'https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg',
+          swipeText: 'Custom swipe text for this story',
+          onPress: () => console.log('story 1 swiped'),
+        },
+      ],
+    },
+  ];
   const ok = publishedStories.map(i => {
     return {
       user_id: userId,
@@ -396,7 +428,7 @@ export const previewHelper = (currentProfile, publishedStories, userId) => {
         }),
     };
   });
-  return ok;
+  return [...defaultObj, ...ok];
 };
 export const previewHelper2 = (
   Stories,
