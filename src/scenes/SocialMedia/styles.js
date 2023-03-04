@@ -298,7 +298,7 @@ const useStyles = () => {
       width: 15,
       height: 15,
       bottom: 0,
-      right: -40,
+      right: -35,
       top: -15,
     },
     topHeader: {
@@ -555,9 +555,9 @@ const useStyles = () => {
       marginVertical: 5,
       flexDirection: 'row',
       width: deviceWidth - 60,
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: 'red',
+      flex: 1,
     },
     avatarWrapper: {
       borderWidth: 2,
@@ -573,6 +573,7 @@ const useStyles = () => {
       height: 48,
       width: 48,
       borderRadius: 100,
+      position: 'relative',
     },
     text1: {
       marginTop: 3,

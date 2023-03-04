@@ -1,5 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import {Text, Mixins} from '../../../styles';
 import useStyles from '../styles';
@@ -11,6 +16,7 @@ import {deviceHeight, IS_IOS} from '../../../utils/orientation';
 import {BackArrowIcon, CloseIcon} from '../../../icons';
 import LinearGradient from 'react-native-linear-gradient';
 import {FONT_FAMILY} from '../../../utils/constants';
+import {useSelector} from 'react-redux';
 
 const AutoSchedularPreview = ({
   userId,
@@ -21,8 +27,25 @@ const AutoSchedularPreview = ({
 }) => {
   const styles = useStyles();
   const {colors} = useTheme();
+  const [apiInProgress, setApiInProgress] = React.useState(false);
 
-  const stories = previewHelper(values.slots, currentProfile, userId);
+  const workspace = useSelector(state => state.workspace.workspace);
+  const workspaceIcon =
+    workspace && workspace.workspace && workspace.workspace.icon
+      ? workspace.workspace.icon.thumb.url
+      : null;
+  const workspaceName =
+    workspace && workspace.workspace && workspace.workspace.name
+      ? workspace.workspace.name
+      : null;
+
+  const stories = previewHelper(
+    values.slots,
+    currentProfile,
+    userId,
+    workspaceName,
+    workspaceIcon,
+  );
   return (
     <>
       <View style={[styles.filterContainer]}>
@@ -62,9 +85,6 @@ const AutoSchedularPreview = ({
           marginTop: 10,
           height: IS_IOS ? deviceHeight - 360 : deviceHeight - 330,
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          flexDirection: 'column',
         }}
         showAvatarText={true}
         horizontal={false}
@@ -88,7 +108,7 @@ const AutoSchedularPreview = ({
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={{marginLeft: 10}}>
+                <TouchableOpacity style={{marginLeft: 20}}>
                   <>
                     <Text
                       size={12}
@@ -130,8 +150,38 @@ const AutoSchedularPreview = ({
         }}>
         <TouchableOpacity
           style={styles.buttonContainer2}
-          onPress={() => save(values)}>
-          <LinearGradient
+          onPress={() => {
+            setApiInProgress(true);
+            save(values, setApiInProgress);
+          }}>
+          {apiInProgress ? (
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 0.9}}
+              colors={['#139A5C', '#3662A8']}
+              style={styles.linearGradient}>
+              <ActivityIndicator
+                type={'ThreeBounce'}
+                size={30}
+                color={colors.textColorLight}
+              />
+            </LinearGradient>
+          ) : (
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 0.9}}
+              colors={['#139A5C', '#3662A8']}
+              style={styles.linearGradient}>
+              <Text
+                size={Mixins.scaleFont(16)}
+                fontFamily={FONT_FAMILY.REGULAR}
+                color={colors.white}
+                style={[styles.buttonText]}>
+                Publish
+              </Text>
+            </LinearGradient>
+          )}
+          {/* <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 0, y: 0.9}}
             colors={['#139A5C', '#3662A8']}
@@ -143,7 +193,7 @@ const AutoSchedularPreview = ({
               style={[styles.buttonText]}>
               Publish
             </Text>
-          </LinearGradient>
+          </LinearGradient> */}
         </TouchableOpacity>
       </View>
     </>

@@ -364,7 +364,13 @@ const getImagesArr = respData => {
   return result;
 };
 
-export const previewHelper = (currentProfile, publishedStories, userId) => {
+export const previewHelper = (
+  currentProfile,
+  publishedStories,
+  userId,
+  workspaceIcon,
+  workspaceName,
+) => {
   const defaultObj = [
     {
       user_id: 'list',
@@ -406,11 +412,11 @@ export const previewHelper = (currentProfile, publishedStories, userId) => {
         currentProfile.page_icon.thumb &&
         currentProfile.page_icon.thumb.url
           ? currentProfile.page_icon.thumb.url
-          : currentProfile.page_icon.url,
+          : workspaceIcon,
       user_name:
         currentProfile && currentProfile.name
           ? currentProfile.name
-          : currentProfile.username,
+          : workspaceName,
       date: moment(i && i.shareAt).format('YYYY-MM-DD hh:mm A'),
       stories:
         i &&
@@ -435,8 +441,8 @@ export const previewHelper2 = (
   currentProfile,
   userId,
   workspaceIcon,
+  workspaceName,
 ) => {
-  console.log(currentProfile, 'THIS IS CURRENTpROFILE');
   const ok = Stories.map(i => {
     return {
       item: i,
@@ -451,7 +457,7 @@ export const previewHelper2 = (
       user_name:
         currentProfile && currentProfile.name
           ? currentProfile.name
-          : currentProfile.username,
+          : workspaceName,
       date: moment(i && i.shareAt).format('YYYY-MM-DD hh:mm A'),
       stories:
         i &&

@@ -4,28 +4,34 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import useStyles from './styles';
-import {View} from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 import Share from 'react-native-share';
 import {handleConvert} from './helper';
 import {FetchStoryById, UpdateStoryById} from '../../services/Stories';
-import {useTheme} from '@react-navigation/native';
-import {GlobalStyle, Colors} from '../../styles';
 import PopupMenu from '../PopupMenu';
 import {Routes} from '../../utils/constants';
-import {useSelector} from 'react-redux';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import F5Icon from 'react-native-vector-icons/FontAwesome5';
+import {useTheme} from '@react-navigation/native';
+
 const defaultValue = {id: null, loading: false};
 
 const StoryRow = ({
-  item,
-  setLoadingImages,
-  handleDelete,
-  navigation,
   currentProfile,
+  navigation,
+  handleDelete,
+  item,
+  loading,
+  setLoadingImages,
+  disabled,
 }) => {
   const styles = useStyles();
   const [imageUrl, setImageUrl] = React.useState([]);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isloading, SetIsLoading] = React.useState(false);
+  const [selectedItemId, setSelectedItemId] = React.useState(null);
+
+  const {colors} = useTheme();
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
@@ -92,22 +98,27 @@ const StoryRow = ({
     }
   };
 
-  const onClickPublish = type => {
+  const onClickPublish = (type, id) => {
+    SetIsLoading(true);
     if (type === 'instagram') {
+      setSelectedItemId(id);
       shareInstagramImage(imageUrl, item.id);
+      SetIsLoading(false);
     } else {
+      setSelectedItemId(id);
       shareFacebookImage(imageUrl, item.id);
+      SetIsLoading(true);
     }
   };
-  const onClickDelete = () => {
-    handleDelete(item.id, setIsDeleting);
+  const onClickDelete = id => {
+    setSelectedItemId(id);
+    handleDelete(id, setIsDeleting);
   };
   const onClickEdit = async id => {
-    console.log(id);
     SetIsLoading(true);
+    setSelectedItemId(id);
     await FetchStoryById(id).then(res => {
       if (res.status === 200) {
-        console.log(res.data, 'in the sresponse');
         navigation.navigate(Routes.CREATESTORY, {
           data: res.data,
           currentProfile: currentProfile,
@@ -124,12 +135,12 @@ const StoryRow = ({
     {
       label: 'Publish',
       action: 'publish',
-      onClick: () => onClickPublish(item && item.type),
+      onClick: () => onClickPublish(item && item.type, item.id),
     },
     {
       label: 'Delete',
       action: 'delete',
-      onClick: onClickDelete,
+      onClick: () => onClickDelete(item && item.id),
     },
     {
       label: 'Edit',
@@ -140,19 +151,47 @@ const StoryRow = ({
 
   return (
     <>
-      <View>
+      <View key={item && item.status}>
         {item &&
         item.id &&
         (item.type === 'instagram' || item.type === 'facebook') &&
         item.status === 'published' ? (
-          ''
+          <F5Icon
+            name="check-double"
+            size={20}
+            color="green"
+            style={{
+              width: 20,
+              height: 20,
+              right: 20,
+            }}
+          />
         ) : item &&
           item.id &&
           (item.type === 'instagram' || item.type === 'facebook') &&
           item.status === 'pending' ? (
-          ''
+          <MCIcon
+            name="progress-check"
+            size={20}
+            color="green"
+            style={{
+              width: 20,
+              height: 20,
+              right: 20,
+            }}
+          />
         ) : (
-          <PopupMenu options={data} />
+          <View style={{right: 20}}>
+            {isDeleting || isloading ? (
+              <ActivityIndicator
+                type={'ThreeBounce'}
+                size={30}
+                color={colors.textColorLight}
+              />
+            ) : (
+              <PopupMenu disabled={selectedItemId === item.id} options={data} />
+            )}
+          </View>
         )}
       </View>
     </>

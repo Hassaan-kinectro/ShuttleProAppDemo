@@ -26,7 +26,6 @@ export const onRefresh = async (
 ) => {
   setRefresh(true);
   await FetchStories(workspaceId, profileType).then(res => {
-    console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);

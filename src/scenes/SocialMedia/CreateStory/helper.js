@@ -286,7 +286,8 @@ const getImagesArr = respData => {
 
 export const updateStory = async (
   values,
-  selectedImages,
+  setApiInProgress,
+  selectedImages = [],
   profile,
   Id,
   navigation,
@@ -308,19 +309,19 @@ export const updateStory = async (
 
   const resp = await UpdateStories(Id, formData);
   if (resp.status === 200) {
+    setApiInProgress(false);
     showMessage({
       message: resp.message,
       description: 'Story Updated Successfully',
       type: 'success',
     });
-    navigation.dispatch(
-      StackActions.replace(Routes.SHOWSTORY, {
-        profile: profile,
-      }),
-    );
+    navigation.navigate(Routes.SHOWSTORY, {
+      profile: profile,
+    });
     // handles.resetForm();
     // closeStoryModal();
   } else {
+    setApiInProgress(false);
     showMessage({
       message: resp.message,
       description: ' Story Not Updated',
@@ -332,13 +333,13 @@ export const updateStory = async (
 
 export const saveStory = async (
   values,
+  setApiInProgress,
   selectedImages,
   profile,
   Id,
   navigation,
   selectedValue,
 ) => {
-  console.log(profile, 'this is profile');
   if (selectedValue === Constants.CUSTOM) {
     let dateFormat = '';
     if (values.date) {
@@ -361,10 +362,10 @@ export const saveStory = async (
       userId: values && values.userId ? values.userId : null,
       shareAt: dateFormat,
     };
-    console.log(formData, 'formData is here');
     const resp = await SaveStories(formData);
 
     if (resp.status === 200) {
+      setApiInProgress(false);
       showMessage({
         message: resp.message,
         description: 'Story Saved Successfully',
@@ -378,6 +379,7 @@ export const saveStory = async (
       // handles.resetForm();
       // closeStoryModal();
     } else {
+      setApiInProgress(false);
       showMessage({
         message: resp.message,
         description: ' Story Not Saved',
@@ -403,15 +405,20 @@ export const saveStory = async (
 
     const resp = await SaveScheduleStories(stories);
     if (resp.status === 200) {
+      setApiInProgress(false);
       showMessage({
         message: resp.message,
         description: 'Story Schedule Saved Successfully',
         type: 'success',
       });
-      navigation.dispatch(StackActions.replace(Routes.SHOWSTORY));
-      // handles.resetForm();
+      navigation.dispatch(
+        StackActions.replace(Routes.SHOWSTORY, {
+          profile: profile,
+        }),
+      );
       // closeStoryModal();
     } else {
+      setApiInProgress(false);
       showMessage({
         message: resp.message,
         description: ' Story Not Scheduled ',
@@ -422,13 +429,14 @@ export const saveStory = async (
   }
 };
 
-export const previewHelper = (values, currentProfile, userId) => {
+export const previewHelper = (
+  values,
+  currentProfile,
+  userId,
+  workspaceName,
+  workspaceIcon,
+) => {
   const ok = values.map(i => {
-    console.log(
-      moment(i && i.date).format('YYYY-MM-DD hh:mm A'),
-      'this is i',
-      i,
-    );
     return {
       user_id: userId,
       user_image:
@@ -437,11 +445,11 @@ export const previewHelper = (values, currentProfile, userId) => {
         currentProfile.page_icon.thumb &&
         currentProfile.page_icon.thumb.url
           ? currentProfile.page_icon.thumb.url
-          : currentProfile.page_icon.url,
+          : workspaceIcon,
       user_name:
         currentProfile && currentProfile.name
           ? currentProfile.name
-          : currentProfile.username,
+          : workspaceName,
       date: moment(i && i.date).format('YYYY-MM-DD hh:mm A'),
       stories:
         i &&

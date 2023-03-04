@@ -73,9 +73,16 @@ const CreateStory = props => {
     ]);
   }, []);
 
-  const saveData = async (values, selectedImages = [], profile, Id) => {
+  const saveData = async (
+    values,
+    setApiInProgress,
+    selectedImages = [],
+    profile,
+    Id,
+  ) => {
     await saveStory(
       values,
+      setApiInProgress,
       selectedImages,
       profile,
       Id,
@@ -83,8 +90,21 @@ const CreateStory = props => {
       selectedValue,
     );
   };
-  const updateData = async (values, selectedImages = [], profile, Id) => {
-    await updateStory(values, selectedImages, profile, Id, navigation);
+  const updateData = async (
+    values,
+    setApiInProgress,
+    selectedImages = [],
+    profile,
+    Id,
+  ) => {
+    await updateStory(
+      values,
+      setApiInProgress,
+      (selectedImages = []),
+      profile,
+      Id,
+      navigation,
+    );
   };
 
   const handleRadioChange = value => {

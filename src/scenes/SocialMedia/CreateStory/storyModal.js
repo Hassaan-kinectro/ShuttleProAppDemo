@@ -16,6 +16,8 @@ import {Mixins, Text, GlobalStyle, Colors} from '../../../styles';
 import CircularImage from '../../../components/CircularImage';
 import {CloseIcon} from '../../../icons';
 import {PUBLISH} from '../../../utils/imagesPath';
+import LinearGradient from 'react-native-linear-gradient';
+import {useTheme} from '@react-navigation/native';
 
 const StoryModal = ({
   data,
@@ -30,6 +32,8 @@ const StoryModal = ({
 }) => {
   const Styles = GlobalStyle();
   const styles = useStyles();
+  const {colors} = useTheme();
+  const [apiInProgress, setApiInProgress] = React.useState(false);
 
   return (
     <View style={{flex: 1}}>
@@ -79,11 +83,27 @@ const StoryModal = ({
             bottom: deviceHeight / 8.5,
           }}
           onPress={() => {
-            FormData(values, selectedImages, profile, Id);
-            setModalVisible(false);
+            setApiInProgress(true);
+            FormData(values, setApiInProgress, selectedImages, profile, Id);
           }}>
-          {loading ? (
-            <ActivityIndicator style={styles.publishicon} />
+          {apiInProgress ? (
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 0.9}}
+              colors={['#139A5C', '#3662A8']}
+              style={{
+                height: 60,
+                width: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 60 / 2,
+              }}>
+              <ActivityIndicator
+                type={'ThreeBounce'}
+                size={30}
+                color={colors.textColorLight}
+              />
+            </LinearGradient>
           ) : (
             <Image
               source={PUBLISH}

@@ -30,7 +30,6 @@ const SocialMediaProfile = ({route, navigation}) => {
   const changeProfile = React.useCallback(profile => {
     setCurrentProfile(profile);
   }, []);
-  console.log(currentProfile && currentProfile.profile_type, 'asdsdadasas');
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
