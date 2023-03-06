@@ -31,6 +31,24 @@ const useStyles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    buttonText: {
+      textAlign: 'center',
+      lineHeight: 19,
+    },
+    linearGradient: {
+      width: '100%',
+      borderRadius: 7,
+      ...Styles.justifyContentCenter,
+      height: 48,
+    },
+    LoginBoxStyle: {
+      height: 'auto',
+      width: IS_IOS ? deviceWidth - 40 : deviceWidth - 40,
+      borderWidth: 0,
+      marginBottom: 15,
+      backgroundColor: colors.boxColor,
+      marginHorizontal: 20,
+    },
   });
 };
 

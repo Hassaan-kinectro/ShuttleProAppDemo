@@ -139,3 +139,21 @@ export const getAuthHeaderForFiles = () =>
       })
       .catch(err => reject(err));
   });
+
+export const getAuthHeaderWithoutContentType = () =>
+  new Promise((resolve, reject) => {
+    AsyncStorage.getItem('token')
+      .then(res => {
+        if (res !== null) {
+          const bearerToken = {
+            headers: {
+              Authorization: 'Bearer ' + res,
+            },
+          };
+          resolve(bearerToken);
+        } else {
+          resolve(null);
+        }
+      })
+      .catch(err => reject(err));
+  });

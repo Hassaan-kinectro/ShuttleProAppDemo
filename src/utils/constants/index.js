@@ -73,3 +73,8 @@ export const _PRICE = 'price';
 export const _COST_PRICE = 'cost_price';
 export const _SALE_PRICE = 'sale_price';
 export const IS_POSITIVE = 'Is Positive?';
+export const _CONTACT_NO = 'contactNo';
+
+export const VALID_NAME_ALPHABET = /^[a-zA-Z -_]+$/i;
+export const CONTACT_REGEX =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;

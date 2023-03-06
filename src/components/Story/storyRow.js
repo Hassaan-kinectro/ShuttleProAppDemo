@@ -35,7 +35,6 @@ const StoryRow = ({
   React.useEffect(() => {
     item && item.images && item.images.length > 0 && setImageUrl(item.images);
   }, []);
-
   const shareInstagramImage = async (urls, id) => {
     setLoadingImages({id: item.id, loading: true});
     SetIsLoading(true);

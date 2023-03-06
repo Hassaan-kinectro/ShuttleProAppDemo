@@ -1,4 +1,4 @@
-import {Keyboard, View} from 'react-native';
+import {Keyboard, Platform, View} from 'react-native';
 import React from 'react';
 import {Styles, Text} from '../../../styles';
 import Wrapper from '../../../components/Wrapper';
@@ -9,13 +9,25 @@ import CustomHeader from '../../../components/CustomHeader';
 import {useTranslation} from 'react-i18next';
 import {Formik} from 'formik';
 import CreateOrderForm from '../../../components/CreateOrderForm';
-import {initialValues} from './helper';
+import {
+  defaultHelpersData,
+  getHelpersData,
+  initialValues,
+  OrderSchemas,
+} from './helper';
 
 const CreateOrders = ({navigation, route}) => {
   const theme = useSelector(state => state.themeChange.theme);
   const styles = useStyles();
   const {t} = useTranslation();
   const [isKeyboardOpen, setIsKeyboardOpen] = React.useState(false);
+  const [helpersData, setHelpersData] = React.useState(defaultHelpersData);
+  // get workspace id for fetch data
+  const workspaceId = useSelector(
+    state => state.workspace.workspace.workspace.id,
+  );
+
+  const numericKeyboard = Platform.OS === 'ios' ? 'numeric' : 'number-pad';
 
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -35,9 +47,16 @@ const CreateOrders = ({navigation, route}) => {
     };
   }, []);
 
+  // fetch orders data
+  React.useEffect(() => {
+    console.log('okokok');
+    getHelpersData(setHelpersData, workspaceId);
+  }, [workspaceId]);
+
   const OnSubmit = async values => {
-    console.log(values, 'values data ');
+    console.log(values, 'values data onsubmit ');
   };
+
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={Styles.flex}>
@@ -48,13 +67,31 @@ const CreateOrders = ({navigation, route}) => {
         />
         <View style={Styles.flex}>
           <Formik
-            // validationSchema={createProductSchema}
             onSubmit={OnSubmit}
+            validationSchema={OrderSchemas}
             initialValues={initialValues}>
-            {props => {
+            {({
+              setFieldTouched,
+              setFieldValue,
+              handleSubmit,
+              touched,
+              errors,
+              reset,
+              values,
+            }) => {
               return (
                 <View style={!isKeyboardOpen ? styles.mB90 : Styles.flex}>
-                  <CreateOrderForm {...props} />
+                  <CreateOrderForm
+                    setFieldTouched={setFieldTouched}
+                    setFieldValue={setFieldValue}
+                    touched={touched}
+                    errors={errors}
+                    reset={reset}
+                    values={values}
+                    handleSubmit={handleSubmit}
+                    helpersData={helpersData}
+                    numericKeyboard={numericKeyboard}
+                  />
                 </View>
               );
             }}
