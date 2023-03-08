@@ -2,11 +2,11 @@ import {FetchStories} from '../../../services/Stories';
 export const getStories = async (
   setLoading,
   setPublishedStories,
-  workspaceId,
+  pageId,
   profileType,
 ) => {
   setLoading(true);
-  await FetchStories(workspaceId, profileType).then(res => {
+  await FetchStories(pageId, '', profileType).then(res => {
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);
@@ -22,10 +22,10 @@ export const onRefresh = async (
   setRefresh,
   profileType,
   setPublishedStories,
-  workspaceId,
+  pageId,
 ) => {
   setRefresh(true);
-  await FetchStories(workspaceId, profileType).then(res => {
+  await FetchStories(pageId, '', profileType).then(res => {
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);

@@ -22,11 +22,9 @@ import OrderCard from './orderCard';
 import {TransformPrice} from '../../utils/Parser';
 import {FONT_FAMILY} from '../../utils/constants';
 
-const OrderListItem = props => {
+const OrderListItem = ({item, order, emailTemplates, recipientGroup}) => {
   let contact =
-    props.item.customer && props.item.customer.contact
-      ? props.item.customer.contact
-      : null;
+    item.customer && item.customer.contact ? item.customer.contact : null;
   const navigation = useNavigation();
   const {t} = useTranslation();
   const [loading, setLoading] = React.useState(false);
@@ -51,20 +49,15 @@ const OrderListItem = props => {
   const ActivitySelectorModelClose = React.useCallback(() => {}, []);
 
   const obj2 = {
-    trackingId:
-      props && props.order && props.order.tracking_id
-        ? props.order.tracking_id
-        : null,
+    trackingId: order && order.tracking_id ? order.tracking_id : null,
     date: '',
-    orderId: props && props.item && props.item.id ? props.item.id : null,
+    orderId: item && item.id ? item.id : null,
     message: 'Call Dialed',
     customerName:
-      props && props.item && props.item.customer && props.item.customer.name
-        ? props.item.customer.name
-        : null,
+      item && item.customer && item.customer.name ? item.customer.name : null,
     contact:
-      props && props.item && props.item.customer && props.item.customer.contact
-        ? props.item.customer.contact
+      item && item.customer && item.customer.contact
+        ? item.customer.contact
         : null,
     notificationTimer: '',
     scheduledTime: '',
@@ -86,7 +79,11 @@ const OrderListItem = props => {
     ShowActivityModal();
     openDialScreen(contact);
   };
-
+  const statusType =
+    (item.last_checkpoint &&
+      item.last_checkpoint.status &&
+      item.last_checkpoint.status.status_type_id) ||
+    1;
   return (
     <>
       <View style={styles.BoxStyle}>
@@ -96,28 +93,44 @@ const OrderListItem = props => {
               activeOpacity={0.8}
               onPress={() => {
                 navigation.navigate(Routes.SHOWORDER, {
-                  order: props.item,
-                  emailTemplates: props.emailTemplates,
-                  recipientGroup: props.recipientGroup,
+                  order: item,
+                  emailTemplates: emailTemplates,
+                  recipientGroup: recipientGroup,
                 });
               }}>
               <Text size={Mixins.scaleFont(12)} color={colors.TextColor}>
-                {t('cn')} #
-                {props.item.tracking_id ? props.item.tracking_id : 'N/A'}
+                {t('cn')} #{item.tracking_id ? item.tracking_id : 'N/A'}
               </Text>
             </TouchableOpacity>
+            <View
+              style={[
+                styles.tagStyle,
+                {
+                  backgroundColor: [4, 6].includes(statusType)
+                    ? colors.errorBackground
+                    : colors.tabColor,
+                },
+              ]}>
+              <Text
+                size={Mixins.scaleFont(10)}
+                color={
+                  [4, 6].includes(statusType)
+                    ? colors.errorColor
+                    : colors.fontPrimary
+                }>
+                {item.last_status_value ? item.last_status_value : 'N/A'}
+              </Text>
+            </View>
           </View>
           <View style={styles.flexMinBox}>
             <Text style={[Styles.mB5, styles.fS10]}>{t('cod.amount')}</Text>
             <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
-              {props.item.cod_amount
-                ? TransformPrice(props.item.cod_amount)
-                : '0'}
+              {item.cod_amount ? TransformPrice(item.cod_amount) : '0'}
               .00
             </Text>
           </View>
         </View>
-        <OrderCard props={props} OpenActivity={OpenActivity} />
+        <OrderCard item={item} OpenActivity={OpenActivity} />
         <View style={styles.hairline} />
         <View style={styles.productContainer}>
           <Text size={10} color={colors.TextColor}>
@@ -149,10 +162,8 @@ const OrderListItem = props => {
         </TouchableOpacity>
         {visibleProduct ? (
           <View style={styles.mT20}>
-            {props.item &&
-            props.item.order_products &&
-            props.item.order_products.length > 0 ? (
-              props.item.order_products.map(o => (
+            {item && item.order_products && item.order_products.length > 0 ? (
+              item.order_products.map(o => (
                 <OrderProductDetails key={o.id} item={o} />
               ))
             ) : (
@@ -179,10 +190,10 @@ const OrderListItem = props => {
       <ActivityModal
         obj={obj2}
         visible={visibleActivity}
-        order={props.item}
-        id={props.item.id}
-        emailTemplates={props.emailTemplates}
-        recipientGroups={props.recipientGroup}
+        order={item}
+        id={item.id}
+        emailTemplates={emailTemplates}
+        recipientGroups={recipientGroup}
         setVisibility={ActivityModelClose}
       />
       <ActivitySelector

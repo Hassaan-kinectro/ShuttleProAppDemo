@@ -56,7 +56,7 @@ const StoryList = ({publishedStories, currentProfile, setPublishedStories}) => {
             duration={20}
             unPressedBorderColor={'#54788c'}
             pressedBorderColor={'transparent'}
-            onClose={item => console.log('close: ', item)}
+            // onClose={item => console.log('close: ', item)}
             customSwipeUpComponent={
               <View>
                 <Text />

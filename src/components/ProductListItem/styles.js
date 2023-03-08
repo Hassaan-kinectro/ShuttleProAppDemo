@@ -87,7 +87,8 @@ const useStyles = () => {
       textTransform: 'capitalize',
       color: colors.TextColor,
       fontSize: 12,
-      width: '50%',
+      // width: '50%',
+      maxWidth: (deviceWidth - 30) / 2,
     },
     shopifyColor: {
       color: '#55932C',
@@ -122,7 +123,8 @@ const useStyles = () => {
       //   marginRight: IS_PAD ? deviceWidth / 5 : 20,
     },
     widthDash: {
-      width: '5%',
+      // width: '5%',
+      marginHorizontal: 5,
     },
     subBoxFontHead: {
       fontSize: 10,
@@ -137,7 +139,7 @@ const useStyles = () => {
       fontWeight: '700',
     },
     widthBTW: {
-      width: IS_IOS ? deviceWidth / 5 : deviceWidth / 4,
+      width: IS_IOS ? deviceWidth / 4 : deviceWidth / 4,
       marginVertical: 3,
     },
   });

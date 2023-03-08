@@ -3,7 +3,8 @@ import {ParseError} from '../../utils/Parser';
 import {getAuthHeader} from '../../config/authSettings';
 
 export const FetchStories = async (
-  workspaceId,
+  profileId,
+  selected = '',
   profileType = '',
   page = 1,
   limit = 500,
@@ -17,7 +18,7 @@ export const FetchStories = async (
   const token = await getAuthHeader();
   return instance
     .get(
-      `/stories/?workspaceId=${workspaceId}&profileType=${profileType}`,
+      `/stories/?profileId=${profileId}&storyId=${selected}&profileType=${profileType}`,
       token,
     )
     .then(response => {

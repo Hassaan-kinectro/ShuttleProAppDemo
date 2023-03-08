@@ -121,7 +121,6 @@ export const getAllProducts = async (setProducts, workspaceId) => {
       return {
         ...prev,
         data: resp.data.map(d => {
-          console.log(d);
           return {
             ...d,
             label: d.name + ` (${capitalize(d.code || '')})`,
@@ -207,7 +206,7 @@ export const fetchNextInstPosts = async (
         };
       });
     } else {
-      console.log('not ran');
+      // console.log('not ran');
     }
   }
 };
@@ -268,7 +267,7 @@ export const fetchNextFBPosts = async (next, setPosts, workspaceId, pageId) => {
         };
       });
     } else {
-      console.log('not ran');
+      // console.log('not ran');
     }
   }
 };
@@ -311,7 +310,6 @@ export const getWorkspace = async (
       };
     });
   } else {
-    console.log(resp.message, 'in case of error');
     setWorkspace(prev => {
       return {...prev, loading: false};
     });
@@ -630,7 +628,6 @@ export const saveStory = async (values, handles, closeStoryModal) => {
       userId: values.userId || '',
       shareAt: dateFormat,
     };
-    console.log(formData);
     const resp = await SaveStories(formData);
     if (resp.status === 200) {
       showMessage({

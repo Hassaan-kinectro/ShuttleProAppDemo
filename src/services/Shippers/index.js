@@ -7,10 +7,8 @@ const GetShippers = async workspaceId => {
   return instance
     .get(`/shipper?workspaceId=${workspaceId}`, token)
     .then(response => {
-      console.log('response sevice', response);
       if (response.status === 200 || response.status === 201) {
         response = response.data;
-        console.log(response.data, 'shipperResp222');
 
         if (response.code === 200) {
           return {

@@ -153,7 +153,6 @@ const EditWorkspaces = async (fdata, id) => {
       }
     })
     .catch(err => {
-      console.log(err);
       console.log(err.response);
       return {
         ...responseData,

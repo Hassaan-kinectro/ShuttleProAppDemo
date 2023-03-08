@@ -45,7 +45,6 @@ const StoryLoading = message => {
     };
     try {
       const ShareResponse = await Share.open(shareOptions);
-      console.log('The response', JSON.stringify(ShareResponse, null, 2));
       if (ShareResponse.message === 'CANCELED') {
         showMessage({
           message: '',

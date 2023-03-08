@@ -86,7 +86,7 @@ const OrderDetail = props => {
             </Text>
           </View>
         </View>
-        <OrderCard props={props} />
+        <OrderCard item={props.item} />
         <View
           style={[
             Styles.flexDirectionColumn,

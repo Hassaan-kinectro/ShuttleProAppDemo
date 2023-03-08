@@ -79,13 +79,13 @@ const OrderScreen = ({navigation, route}) => {
     };
   }, [route.params]);
 
-  const getOrdersList = (p, f) => {
+  const getOrdersList = (p, f, reset = false) => {
     if (!p) {
       p = page;
       f = filter;
     }
     setfilters(f);
-    if (!stop) {
+    if (!stop || reset) {
       setLoading(true);
       GetOrdersByFilter(workspaceId, p, totalFetch, f).then(res => {
         if (res.status === 200 && isArray(res.data) && res.data.length > 0) {
@@ -107,6 +107,13 @@ const OrderScreen = ({navigation, route}) => {
           changeStop(lastRem !== 0);
           setLoading(false);
         } else {
+          setOrders([]);
+          setAllOrders([]);
+          changeLastIndex(0);
+          changePage(1);
+          changeStop(false);
+          setEmailTemplates([]);
+          setRecipientGroup([]);
           setLoading(false);
         }
         setLoading(false);
@@ -314,7 +321,7 @@ const OrderScreen = ({navigation, route}) => {
             //   <></>
             // )
           }
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               addOrder ? setAddOrder(false) : setAddOrder(true);
             }}>
@@ -330,7 +337,7 @@ const OrderScreen = ({navigation, route}) => {
                 color={Colors.WHITE}
               />
             </LinearGradient>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </Wrapper>
     </>

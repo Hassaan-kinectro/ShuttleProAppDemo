@@ -26,14 +26,6 @@ const VariantDetails = props => {
   const {colors} = useTheme();
   const [productVisible, setProductVisibility] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState([]);
-  console.log(
-    selectedProduct && selectedProduct.length > 0,
-    'v value from variant form',
-    selectedProduct.length > 0,
-    typeof selectedProduct,
-    selectedProduct,
-  );
-
   React.useEffect(() => {
     if (
       products.data &&
@@ -133,7 +125,6 @@ const VariantDetails = props => {
         arrowColor={colors.button}
         autoScrollToDefaultValue={false}
         onChangeItem={item => {
-          console.log(item, 'item');
           setSelectedProduct([item]);
           handleChangeProduct(idx, item, setFieldValue, values);
         }}

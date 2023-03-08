@@ -183,7 +183,6 @@ export const getHelpersData = async (setHelpersData, workspaceId) => {
           }))
         : [];
 
-    console.log(productResp, 'productResp');
     setHelpersData(prev => ({
       ...prev,
       shipperOptions: getRespData(shipperResp) || [],

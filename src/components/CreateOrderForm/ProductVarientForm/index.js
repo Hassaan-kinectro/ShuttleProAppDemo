@@ -67,9 +67,7 @@ const ProductVarientForm = props => {
                   setFieldValue(
                     'addProduct',
                     values.addProduct.filter((e, i) => {
-                      console.log(idx, i, 'index check ', idx !== i);
                       if (i !== idx) {
-                        console.log(e, 'e value ');
                         return e;
                       }
                     }),

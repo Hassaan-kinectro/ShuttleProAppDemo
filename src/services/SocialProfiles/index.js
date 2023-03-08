@@ -46,7 +46,6 @@ const SaveStories = async data => {
     });
 };
 const UpdateStories = async (Id, data) => {
-  console.log(Id, data, 'in the service');
   const responseData = {
     loading: false,
     status: 210,
@@ -57,7 +56,6 @@ const UpdateStories = async (Id, data) => {
   return instance
     .put(`/stories/${Id}`, data, token)
     .then(response => {
-      console.log(response, 'this is response===============>');
       if (response.status === 200) {
         response = response.data;
         if (response.code === 200) {

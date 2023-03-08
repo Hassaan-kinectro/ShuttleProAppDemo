@@ -149,6 +149,12 @@ const useStyles = () => {
     pT5: {
       paddingTop: 5,
     },
+    tagStyle: {
+      backgroundColor: colors.tabColor,
+      padding: 5,
+      marginTop: 5,
+      borderRadius: 5,
+    },
   });
 };
 

@@ -9,7 +9,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useState} from 'react';
 import CustomHeader from '../../../components/CustomHeader';
 import {useSelector} from 'react-redux';
 import {Dark, Light, FACEBOOK, INSTAGRAM} from '../../../utils/imagesPath';
@@ -36,6 +36,7 @@ const ShowStory = props => {
   const {navigation, route} = props;
   const Profile = route && route.params && route.params.profile;
   const currentProfile = route && route.params && route.params.currentProfile;
+  const openId = (route && route.params && route.params.openId) || '';
   const styles = useStyles();
   const {colors} = useTheme();
   const name = 'Stories';
@@ -58,6 +59,7 @@ const ShowStory = props => {
   );
   const [refresh, setRefresh] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [selected, setSelected] = React.useState(openId);
   const [loadingImages, setLoadingImages] = React.useState(defaultValue);
   const [publishedStories, setPublishedStories] = React.useState([]);
   const [unPublishedStories, setUnPublishedStories] = React.useState([]);
@@ -67,7 +69,8 @@ const ShowStory = props => {
       setLoading,
       setUnPublishedStories,
       setPublishedStories,
-      workspaceId,
+      currentProfile.page_id,
+      selected,
     );
     return () => {
       setPublishedStories([]);
@@ -75,10 +78,12 @@ const ShowStory = props => {
       setLoading(false);
       setLoadingImages(defaultValue);
     };
-  }, []);
+  }, [selected]);
   React.useEffect(() => {
-    onRefresh();
-  }, []);
+    if (openId) {
+      setSelected(openId);
+    }
+  }, [openId]);
 
   const handleDelete = useCallback(
     async (id, setIsDeleting) => {
@@ -109,7 +114,6 @@ const ShowStory = props => {
     },
     [unPublishedStories, unPublishedStories],
   );
-  console.log(unPublishedStories, unPublishedStories.length, 'sameeeeeeeee');
 
   const sorted = _.sortBy(unPublishedStories, function (dateObj) {
     const date = new Date(dateObj.shareAt);
@@ -127,46 +131,75 @@ const ShowStory = props => {
     })?.reverse(),
   ];
 
-  const ok = previewHelper2(
+  const stories = previewHelper2(
     Stories,
     currentProfile ? currentProfile : Profile,
     userId,
     workspaceIcon,
     workspaceName,
   );
-
   return (
     <Wrapper imageSource={theme === 'DARK' ? Dark : Light}>
       <View style={styles.Wrapper}>
         <CustomHeader name={name} navigation={navigation} />
         {loading ? (
           <View style={[Styles.Centered]}>{loading && <Loader />}</View>
-        ) : !loading && ok && ok.length > 0 ? (
+        ) : !loading && stories && stories.length > 0 ? (
           <ScrollView
             refreshControl={
               <RefreshControl
-                key={ok.length}
+                key={stories.length}
                 refreshing={refresh}
                 onRefresh={() =>
                   onRefresh(
                     setRefresh,
                     setUnPublishedStories,
                     setPublishedStories,
-                    workspaceId,
+                    currentProfile.page_id,
+                    selected,
                   )
                 }
                 colors={[colors.background]}
                 tintColor={colors.themeIcon}
               />
             }>
+            {selected && (
+              <View
+                style={[
+                  Styles.flexCenterEnd,
+                  Styles.alignItemsEnd,
+                  Styles.pV5,
+                  Styles.pR10,
+                ]}>
+                <TouchableOpacity
+                  style={[
+                    Styles.flexDirectionRow,
+                    Styles.alignItemsCenter,
+                    {
+                      backgroundColor: colors.tabColor,
+                      borderRadius: 5,
+                      padding: 6,
+                      paddingLeft: 10,
+                    },
+                  ]}
+                  onPress={() => setSelected('')}>
+                  <Text size={12}>{selected.substr(0, 10)}...</Text>
+                  <CloseIcon
+                    size={18}
+                    color={colors.fontPrimary}
+                    style={Styles.pL10}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
             <View key={Math.random().toString(36).slice(2)}>
               <InstaStory
-                data={ok}
+                data={stories}
                 duration={5}
-                onStart={item => console.log(item)}
+                // onStart={item => console.log(item)}
                 unPressedBorderColor={'#54788c'}
                 pressedBorderColor={'transparent'}
-                onClose={item => console.log('close: ', item)}
+                // onClose={item => console.log('close: ', item)}
                 customSwipeUpComponent={
                   <View>
                     <Text />
@@ -178,7 +211,7 @@ const ShowStory = props => {
                 style={{
                   flex: 1,
                   marginBottom: IS_IOS ? 100 : 150,
-                  marginTop: 20,
+                  marginTop: 0,
                   marginHorizontal: 10,
                 }}
                 showAvatarText={true}
@@ -213,7 +246,9 @@ const ShowStory = props => {
                             <Image source={INSTAGRAM} style={styles.active2} />
                           )}
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flex: 4}}>
+                        <TouchableOpacity
+                          style={{flex: 4}}
+                          onPress={() => handleStoryItemPress(i, index)}>
                           <>
                             <Text
                               size={12}
@@ -254,8 +289,8 @@ const ShowStory = props => {
                       </View>
                       <View
                         style={{
-                          borderColor: colors.boxBorderColor,
-                          borderWidth: 1,
+                          height: 1,
+                          backgroundColor: colors.boxBorderColor,
                           marginHorizontal: 10,
                         }}
                       />

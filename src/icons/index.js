@@ -165,12 +165,21 @@ export const ThreeDotsIcon = props => {
   return <MaterialCommunityIcons name="dots-vertical" {...props} />;
 };
 export const CircleCheckIcon = props => {
-  return <MaterialCommunityIcons name="checkbox-marked-circle" {...props} />;
+  return <MaterialCommunityIcons name="checkbox-blank-circle" {...props} />;
 };
 export const CircleBlankIcon = props => {
   return (
     <MaterialCommunityIcons name="checkbox-blank-circle-outline" {...props} />
   );
+};
+export const CommentIcon = props => {
+  return <MaterialCommunityIcons name="comment-text-outline" {...props} />;
+};
+export const InstagramIcon = props => {
+  return <MaterialCommunityIcons name="instagram" {...props} />;
+};
+export const GmailIcon = props => {
+  return <MaterialCommunityIcons name="gmail" {...props} />;
 };
 export const BackArrowIcon = props => {
   return <MaterialIcons name="arrow-back" {...props} />;

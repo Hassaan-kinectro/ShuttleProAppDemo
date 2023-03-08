@@ -64,14 +64,14 @@ const Src = () => {
   useEffect(() => {
     SplashScreen.hide();
     console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+    // getWorkspace().then(async res => {
+    //   if (res) {
+    //     dispatch(SetWorkspace(res ? res : null));
+    //   }
+    // });
     getUser().then(async res => {
       if (res) {
         dispatch(SetUser(res ? res : null));
-      }
-    });
-    getWorkspace().then(async res => {
-      if (res) {
-        dispatch(SetWorkspace(res ? res : null));
       }
     });
   }, []);

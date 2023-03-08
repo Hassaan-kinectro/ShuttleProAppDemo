@@ -2,7 +2,7 @@ export const PRIMARY = '#2D3038';
 export const PRIMARY_3 = '#4A3A61';
 export const PRIMARY_1 = '#2B7C84';
 export const PRIMARY_SHADE = '#3A2F47';
-export const BACKGROUND = '#23313E';
+export const BACKGROUND = '#22262F';
 export const PRIMARY_LIGHT = '#4B3A60';
 export const BRAND = '#be7a00';
 export const PRIMARY_OPACITY = 'rgba(237,220,140,0.7)';
@@ -15,7 +15,7 @@ export const SECONDARY_3 = '#2D3038';
 export const SECONDARY_4 = '#454545';
 export const SECONDARY_5 = '#494B54';
 export const WHITE = '#ffffff';
-export const WHISPER = '#eee';
+export const WHISPER = '#FAFAFE';
 export const LIGHTWHITE = 'rgba(255, 255, 255, 0.3)';
 export const BLACK = '#000000';
 export const GRAY = '#999999';
@@ -55,6 +55,7 @@ export const LightTheme = {
     boxBorderColor: '#D8ECFF',
     TextHeader: '#333333',
     errorColor: '#ED5565',
+    errorBackground: '#ED556530',
     spinner: '#5664D2',
     gradient1: '#D3D3D3',
     gradient2: '#AFAFAF',
@@ -111,6 +112,7 @@ export const DarkTheme = {
     borderColor: '#9B7DC7',
     button: '#2B7C84',
     errorColor: '#ED5565',
+    errorBackground: '#ED556530',
     spinner: '#9B7DC7',
     gradient1: '#4B3A60',
     gradient2: '#4A3A61',

@@ -17,7 +17,6 @@ const SocialTabs = ({socialProfiles, changeProfile, currentProfile}) => {
       showsHorizontalScrollIndicator={false}>
       {socialProfiles && socialProfiles.length > 0
         ? socialProfiles.slice(0, 8).map((s, i) => {
-            console.log(s);
             const selected =
               s && s.id === (currentProfile && currentProfile.id);
             return (

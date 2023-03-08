@@ -138,7 +138,6 @@ export const getPostAllSlots = async (
     workspaceId,
   );
   if (resp.status === 200 && resp.data && resp.data.length > 0) {
-    console.log(resp.data, 'this is response');
     setFieldValue(Constants.SLOT_LOADING, false);
     setFieldValue(Constants._IS_PREVIEW, true);
     setFieldValue(

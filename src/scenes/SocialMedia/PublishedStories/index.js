@@ -18,7 +18,7 @@ const PublishedStories = ({currentProfile, postModals, setPostModals}) => {
     getStories(
       setLoading,
       setPublishedStories,
-      workspaceId,
+      currentProfile.page_id,
       currentProfile.profile_type,
     );
     return () => {

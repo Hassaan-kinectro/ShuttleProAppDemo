@@ -71,10 +71,10 @@ const AutoSchedularPreview = ({
       <InstaStory
         data={stories}
         duration={5}
-        onStart={item => console.log(item)}
+        // onStart={item => console.log(item)}
         unPressedBorderColor={'#54788c'}
         pressedBorderColor={'transparent'}
-        onClose={item => console.log('close: ', item)}
+        // onClose={item => console.log('close: ', item)}
         customSwipeUpComponent={
           <View>
             <Text />
@@ -91,7 +91,6 @@ const AutoSchedularPreview = ({
         resizeMode="contain"
         avatarTextStyle={{color: '#fff'}}
         customItemComponent={(item, index, handleStoryItemPress) => {
-          console.log(item);
           return (
             <>
               <View style={styles.avatarContainer}>

@@ -9,7 +9,7 @@ const GlobalStyle = theme => {
   return StyleSheet.create({
     ...Styles,
     primaryBackground: {
-      backgroundColor: colors.background,
+      backgroundColor: colors.backgroundModal,
     },
     ThemeIcon: {
       borderRadius: 90,

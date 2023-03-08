@@ -101,7 +101,7 @@ const OrdersFilterModal = props => {
     if (!isNull(endDate) && state !== 'endDate') {
       filter.endDate = endDate;
     }
-    props.getFilter(1, filter);
+    props.getFilter(1, filter, true);
   };
 
   return (

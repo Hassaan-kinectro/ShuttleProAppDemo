@@ -170,7 +170,6 @@ export const handleChangeProduct = async (
   setFieldValue,
   values,
 ) => {
-  console.log(values, 'values helper obj start');
   setFieldValue(`addProduct[${index}]`, {
     ...values.addProduct[index],
     product_id: val,
@@ -182,5 +181,4 @@ export const handleChangeProduct = async (
     discount: 0,
     total_amount: 0,
   });
-  console.log(values, 'values helper obj end');
 };

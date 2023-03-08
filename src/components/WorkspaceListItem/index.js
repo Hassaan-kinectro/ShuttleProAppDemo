@@ -10,7 +10,7 @@ import {DemoUser, Demo1, Demo2, TCS, MNP, TRAX} from '../../utils/imagesPath';
 import {Routes} from '../../utils/constants';
 import SocialProfileShow from './socialProfileShow';
 import CardHeader from './cardHeader';
-import {setWorkspace} from '../../config/authSettings';
+// import {setWorkspace} from '../../config/authSettings';
 const WorkspaceListItem = props => {
   const {item, navigation} = props;
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const WorkspaceListItem = props => {
 
   let result;
   const navigateTo = screen => {
-    setWorkspace(item);
+    // setWorkspace(item);
     dispatch(SetWorkspace(item));
     navigation.navigate(Routes.WORKSPACE, {
       screen: Routes.BOTTOMTAB,
@@ -67,7 +67,7 @@ const WorkspaceListItem = props => {
         <TouchableOpacity
           onPress={() => {
             dispatch(SetWorkspace(item));
-            setWorkspace(item);
+            // setWorkspace(item);
             navigation.navigate(Routes.WORKSPACE, {
               screen: Routes.BOTTOMTAB,
               params: {
@@ -101,7 +101,7 @@ const WorkspaceListItem = props => {
         <TouchableOpacity
           onPress={() => {
             dispatch(SetWorkspace(item));
-            setWorkspace(item);
+            // setWorkspace(item);
             navigation.navigate(Routes.WORKSPACE, {
               screen: Routes.BOTTOMTAB,
               params: {

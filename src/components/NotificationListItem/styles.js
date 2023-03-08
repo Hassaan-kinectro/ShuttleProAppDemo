@@ -10,7 +10,7 @@ const useStyles = () => {
     container: {
       height: 'auto',
       borderWidth: 1,
-      borderRadius: 20,
+      borderRadius: 10,
       borderColor: colors.boxBorderColor,
       marginBottom: 10,
       backgroundColor: colors.boxColor,
@@ -19,17 +19,35 @@ const useStyles = () => {
       shadowOpacity: 0.2,
       shadowRadius: 6,
       elevation: 5,
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
+      justifyContent: 'center',
     },
     box: {
       width: boxWidth / 1.4,
       height: boxWidth / 1.4,
       borderRadius: boxWidth / 2,
-      backgroundColor: colors.fontPrimary,
+      backgroundColor: colors.tabColor,
       color: colors.white,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    wrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    hairLine: {
+      backgroundColor: colors.boxBorderColor,
+      height: 1,
+      width: '95%',
+      // marginTop: 5,
+    },
+    halfContainer: {
+      width: boxWidth * 3,
+      padding: boxWidth / 5,
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
     },
     leftContainer: {
       width: boxWidth,
@@ -41,6 +59,11 @@ const useStyles = () => {
       width: boxWidth * 4,
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
+      paddingVertical: 8,
+    },
+    flexCenterEnd: {
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
     },
     clearIconBox: {
       width: boxWidth / 2,
@@ -55,6 +78,10 @@ const useStyles = () => {
     },
     icon: {
       color: colors.fontPrimary,
+    },
+    typeText: {
+      paddingLeft: 5,
+      textTransform: 'capitalize',
     },
   });
 };

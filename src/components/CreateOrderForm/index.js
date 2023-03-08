@@ -34,7 +34,6 @@ const CreateOrderForm = props => {
     reset,
   } = props;
   const dropDownHandler = () => {
-    console.log('drop down handler');
     Keyboard.dismiss();
     setPublishVisibility(false);
     setShipperVisibility(false);

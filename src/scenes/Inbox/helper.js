@@ -7,7 +7,6 @@ export const getStories = async (
 ) => {
   setLoading(true);
   await FetchStories(workspaceId).then(res => {
-    console.log(res);
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);

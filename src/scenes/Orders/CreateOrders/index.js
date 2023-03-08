@@ -49,12 +49,11 @@ const CreateOrders = ({navigation, route}) => {
 
   // fetch orders data
   React.useEffect(() => {
-    console.log('okokok');
     getHelpersData(setHelpersData, workspaceId);
   }, [workspaceId]);
 
   const OnSubmit = async values => {
-    console.log(values, 'values data onsubmit ');
+    // console.log(values, 'values data onsubmit ');
   };
 
   return (

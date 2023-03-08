@@ -84,15 +84,24 @@ export const GET_INSTAGRAM_ALL_POSTS = gql`
   }
 `;
 export const GET_NOTIFICATION_UPDATES = gql`
-  query getAllNotificationUpdates($workspaceId: String!) {
-    getAllNotificationUpdates(workspaceId: $workspaceId) {
+  query getAllNotificationUpdates($userId: String!, $limit: String!) {
+    getAllNotificationUpdates(userId: $userId, limit: $limit) {
       _id
+      id
       type
       operation
       actionId
       isRead
       workspaceId
       message
+      createdAt
+      workspaceName
+      routes {
+        routeType
+        id
+        query
+        queryData
+      }
     }
   }
 `;

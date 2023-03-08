@@ -9,7 +9,6 @@ const FetchCities = async () => {
     .get('/cities', token)
     .then(response => {
       if (response.status === 200) {
-        console.log(response, 'cities response frontend');
         // response = response.data;
         if (response.status === 200) {
           return {

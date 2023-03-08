@@ -7,7 +7,7 @@ import moment from 'moment';
 import {useTheme} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 
-const OrderCard = ({props, OpenActivity}) => {
+const OrderCard = ({item, OpenActivity}) => {
   const {colors} = useTheme();
   const styles = useStyles();
   const Styles = GlobalStyle();
@@ -20,9 +20,7 @@ const OrderCard = ({props, OpenActivity}) => {
             size={12}
             fontFamily={FONT_FAMILY.SEMI_BOLD}
             color={colors.TextColor}>
-            {props.item.customer && props.item.customer.name
-              ? props.item.customer.name
-              : 'N/A'}{' '}
+            {item.customer && item.customer.name ? item.customer.name : 'N/A'}{' '}
           </Text>
         </View>
         <View style={styles.flexMinBox}>
@@ -41,8 +39,8 @@ const OrderCard = ({props, OpenActivity}) => {
                 fontFamily={FONT_FAMILY.SEMI_BOLD}
                 style={styles.mT5}>
                 {t('ph')} #
-                {props.item.customer && props.item.customer.contact
-                  ? props.item.customer.contact
+                {item.customer && item.customer.contact
+                  ? item.customer.contact
                   : 'N/A'}
               </Text>
             </TouchableOpacity>
@@ -55,8 +53,8 @@ const OrderCard = ({props, OpenActivity}) => {
               fontFamily={FONT_FAMILY.SEMI_BOLD}
               style={styles.mT5}>
               {t('ph')} #
-              {props.item.customer && props.item.customer.contact
-                ? props.item.customer.contact
+              {item.customer && item.customer.contact
+                ? item.customer.contact
                 : 'N/A'}
             </Text>
           </View>
@@ -64,7 +62,7 @@ const OrderCard = ({props, OpenActivity}) => {
 
         <View style={styles.flexMinBox}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD}>
-            {moment(props.item.updated_at).format('DD MMM, YYYY')}
+            {moment(item.updated_at).format('DD MMM, YYYY')}
           </Text>
         </View>
       </View>
@@ -86,8 +84,8 @@ const OrderCard = ({props, OpenActivity}) => {
         </View>
         <View style={[Styles.flexCenter]}>
           <Text size={12} fontFamily={FONT_FAMILY.SEMI_BOLD} style={styles.mT5}>
-            {props.item.customer && props.item.customer.address
-              ? props.item.customer.address
+            {item.customer && item.customer.address
+              ? item.customer.address
               : 'N/A'}{' '}
           </Text>
         </View>

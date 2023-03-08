@@ -3,10 +3,11 @@ export const getStories = async (
   setLoading,
   setUnPublishedStories,
   setPublishedStories,
-  workspaceId,
+  profileId,
+  selected = '',
 ) => {
   setLoading(true);
-  await FetchStories(workspaceId).then(res => {
+  await FetchStories(profileId, selected).then(res => {
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);
@@ -24,10 +25,11 @@ export const onRefresh = async (
   setRefresh,
   setUnPublishedStories,
   setPublishedStories,
-  workspaceId,
+  profileId,
+  selected = '',
 ) => {
   setRefresh(true);
-  await FetchStories(workspaceId).then(res => {
+  await FetchStories(profileId, selected).then(res => {
     if (res.status === 200) {
       if (res && res.published && res.unPublished) {
         setPublishedStories(res.published);

@@ -8,13 +8,16 @@ export const openDialScreen = contact => {
   } else {
     number = `telprompt:${phone}`;
   }
-  Linking.canOpenURL(number)
+  Linking.openURL(number)
     .then(supported => {
       if (!supported) {
-        Alert.alert('Phone number is not available');
+        Linking.openURL(number);
       } else {
         return Linking.openURL(number);
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      Alert.alert('Phone number is not available');
+      console.log(err);
+    });
 };

@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
   alignItemsStart: {
     alignItems: 'flex-start',
   },
+  alignItemsEnd: {
+    alignItems: 'flex-end',
+  },
   justifyContentCenter: {
     justifyContent: 'center',
   },
@@ -123,6 +126,7 @@ const styles = StyleSheet.create({
   w40: {width: '40%'},
   pV5: {paddingVertical: 5},
   pB10: {paddingBottom: 10},
+  pB30: {paddingBottom: 30},
   pB5: {paddingBottom: 5},
   mT10: {marginTop: 10},
   mT15: {marginTop: 15},
@@ -151,6 +155,17 @@ const styles = StyleSheet.create({
   },
   w100: {
     width: '100%',
+  },
+  backDropLoader: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    // zIndex: 10000,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default styles;

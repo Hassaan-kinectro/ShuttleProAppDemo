@@ -102,14 +102,6 @@ const Products = ({navigation}) => {
   };
   const handleLoadMore = () => {
     setLoading2(true);
-    console.log(
-      offset * (page + 1) - count <= offset,
-      'offset * (page + 1) - count <= offset',
-      offset * (page + 1),
-      count,
-      offset,
-      loading2,
-    );
     if (!refetch && offset * (page + 1) - count <= offset) {
       (() => {
         setRefetch(true);

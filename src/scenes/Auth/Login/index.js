@@ -20,7 +20,6 @@ const LoginScreen = props => {
 
   const handleFormSubmit = async (formData, formik) => {
     setLoading(true);
-    console.log(formData);
     await AuthLogin(formData.email, formData.password).then(res => {
       setLoading(false);
       if (res.status === 200) {

@@ -19,7 +19,9 @@ const ProductListItem = ({item}) => {
     <>
       <View style={styles.BoxStyle}>
         <View style={styles.container2}>
-          <Text style={styles.productNameSty}>{item?.name}</Text>
+          <Text lines={1} style={styles.productNameSty}>
+            {item?.name}
+          </Text>
           <Text style={styles.widthDash}>-</Text>
           <Text style={styles.font}>{item?.code}</Text>
           <View style={styles.iconSty}>

@@ -10,7 +10,6 @@ import {CloseIcon} from '../../../icons';
 const StoryPreview = ({values, visible, setModalVisible, currentProfile}) => {
   const styles = useStyles();
   const Styles = GlobalStyle();
-  console.log(values, currentProfile, 'this is values');
   return (
     <View style={{flex: 1}}>
       <Modal

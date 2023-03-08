@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getUser} from '../../config/authSettings';
 import DeviceInfo from 'react-native-device-info';
 import {
-  AddNotification,
-  GetNotificationByDeviceId,
-  UpdateNotification,
-} from '../../services/Notifications';
+  AddDeviceInfo,
+  UpdateDeviceInfo,
+  GetDeviceInfoByDeviceId,
+} from '../../services/DeviceInfo';
 
 export async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -37,13 +37,13 @@ const getFcmToken = async () => {
           '-' +
           (await DeviceInfo.getDeviceId());
         const body = {token: fcmToken, userId: res.id, device: deviceObject};
-        GetNotificationByDeviceId(deviceObject).then(querySnapshot => {
+        GetDeviceInfoByDeviceId(deviceObject).then(querySnapshot => {
           if (
             querySnapshot &&
             querySnapshot.data &&
             querySnapshot.data.length === 0
           ) {
-            AddNotification(body)
+            AddDeviceInfo(body)
               .then(d => {
                 console.log('User added!', d);
               })
@@ -54,7 +54,7 @@ const getFcmToken = async () => {
               querySnapshot.data.length > 0 &&
               querySnapshot.data.forEach(documentSnapshot => {
                 if (documentSnapshot.token !== fcmToken) {
-                  UpdateNotification(body, documentSnapshot._id)
+                  UpdateDeviceInfo(body, documentSnapshot._id)
                     .then(result => {
                       console.log('User Updated!', result);
                     })

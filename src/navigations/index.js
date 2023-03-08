@@ -16,6 +16,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {
   DashboardIcon,
   LogoutIcon,
+  NotificationIcon,
   OrderIcon,
   ProductIcon,
   RocketIcon,
@@ -318,14 +319,7 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.DASHBOARD, {
-            screen: 'DashboardScreen',
-            params: {
-              screen: 'DashboardOrders',
-              callType: 'dummy',
-              params: {},
-            },
-          });
+          navigation.navigate(Routes.DASHBOARD);
         }}
         icon={({color, size}) => (
           <DashboardIcon size={size} color={colors.labelColor} />
@@ -343,8 +337,17 @@ const CustomDrawerContent = props => {
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.PRODUCTS, {
-            screen: 'ProductsScreen',
+          navigation.navigate(Routes.WORKSPACE, {
+            screen: Routes.BOTTOMTAB,
+            params: {
+              screen: Routes.PRODUCTS,
+              params: {
+                screen: Routes.PRODUCTSLIST,
+                params: {
+                  workspaceId: workspaceId,
+                },
+              },
+            },
           });
         }}
         icon={({color, size}) => (
@@ -369,7 +372,7 @@ const CustomDrawerContent = props => {
             params: {
               screen: Routes.ORDERS,
               params: {
-                screen: 'OrdersList',
+                screen: Routes.ORDERSLIST,
                 params: {
                   workspaceId: workspaceId,
                 },
@@ -386,18 +389,33 @@ const CustomDrawerContent = props => {
           borderBottomColor: colors.themeIcon,
         }}
       />
-
       <DrawerItem
-        label="Story"
+        label="Social Profiles"
         activeTintColor={Colors.WHITE}
         activeBackgroundColor={Colors.GRAYLIGHT}
         inactiveTintColor={Colors.GRAY}
         inactiveBackgroundColor={Colors.TRANSPARENT}
         onPress={() => {
-          navigation.navigate(Routes.INBOX);
+          navigation.navigate(Routes.SOCIALPROFILE);
         }}
         icon={({color, size}) => (
-          <StoryIcon size={size} color={colors.labelColor} />
+          <SocialIcon size={size} color={colors.labelColor} />
+        )}
+        labelStyle={{marginLeft: -10, color: colors.TextColor}}
+        style={{
+          borderBottomWidth: 0.5,
+          borderBottomColor: colors.themeIcon,
+        }}
+      />
+      <DrawerItem
+        label="Notifications"
+        activeTintColor={Colors.WHITE}
+        activeBackgroundColor={Colors.GRAYLIGHT}
+        inactiveTintColor={Colors.GRAY}
+        inactiveBackgroundColor={Colors.TRANSPARENT}
+        onPress={() => navigation.navigate(Routes.NOTIFICATIONS)}
+        icon={({color, size}) => (
+          <NotificationIcon size={size} color={colors.labelColor} />
         )}
         labelStyle={{marginLeft: -10, color: colors.TextColor}}
         style={{

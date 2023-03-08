@@ -2,17 +2,17 @@
 import React from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import {StackActions, useTheme} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {GlobalStyle} from '../../styles';
 import {Routes} from '../../utils/constants';
 import messaging from '@react-native-firebase/messaging';
-import {isAuthExist} from '../../config/authSettings';
+import {getWorkspace, isAuthExist} from '../../config/authSettings';
 import {requestUserPermission} from '../../utils/notifications';
+// import {SetWorkspace} from '../../modules/workspace';
 const LoadingScreen = ({navigation, route}) => {
+  // const dispatch = useDispatch();
   const {colors} = useTheme();
   const Styles = GlobalStyle();
-  const workspace = useSelector(state => state.workspace.workspace);
-
   React.useEffect(() => {
     requestUserPermission();
     notificationListener();
@@ -21,11 +21,24 @@ const LoadingScreen = ({navigation, route}) => {
     isAuthExist().then(async res => {
       if (res) {
         setTimeout(() => {
-          if (workspace) {
-            navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
-          } else {
-            navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
-          }
+          console.log(res);
+          // getWorkspace().then(async work => {
+          //   if (work) {
+          //     console.log(work, 'ss');
+          //     dispatch(SetWorkspace(work ? work : null));
+          //     navigation.dispatch(
+          //       StackActions.replace(Routes.WORKSPACE, {
+          //         screen: Routes.BOTTOMTAB,
+          //         params: {
+          //           screen: Routes.DASHBOARD,
+          //         },
+          //       }),
+          //     );
+          //   } else {
+          //     navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
+          //   }
+          // });
+          navigation.dispatch(StackActions.replace(Routes.WORKSPACES));
         }, 1000);
       } else {
         navigation.dispatch(StackActions.replace(Routes.LOGIN));
